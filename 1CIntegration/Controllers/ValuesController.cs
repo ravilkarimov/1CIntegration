@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Script.Serialization;
+using _1CIntegrationDB;
 
 namespace _1CIntegration.Controllers
 {
@@ -12,6 +13,8 @@ namespace _1CIntegration.Controllers
         {
             var o = new List<string>() {"dfgfbgvdf", "adgailfugf"};
             //var json = new JavaScriptSerializer().Serialize(o);
+
+            DBProgram db_program = new DBProgram();
 
             return o;
         }
@@ -34,6 +37,10 @@ namespace _1CIntegration.Controllers
 
         // DELETE api/values/5
         public void Delete(int id)
+        {
+        }
+
+        public void TestDB()
         {
         }
     }

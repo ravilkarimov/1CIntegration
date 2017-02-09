@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_1CIntegration", "1CIntegration\_1CIntegration.csproj", "{3B6B7F57-553D-4D4A-A10A-C4815DC5D3FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1CIntegrationDB", "1CIntegrationDB\1CIntegrationDB.csproj", "{933279C8-2DBA-434A-A2CF-5624FCF803BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1CIntegrationDB", "1CIntegrationDB\1CIntegrationDB.csproj", "{01C82BDF-544A-4F45-A355-921DB214F179}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{3B6B7F57-553D-4D4A-A10A-C4815DC5D3FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B6B7F57-553D-4D4A-A10A-C4815DC5D3FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B6B7F57-553D-4D4A-A10A-C4815DC5D3FB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{933279C8-2DBA-434A-A2CF-5624FCF803BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{933279C8-2DBA-434A-A2CF-5624FCF803BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{933279C8-2DBA-434A-A2CF-5624FCF803BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{933279C8-2DBA-434A-A2CF-5624FCF803BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01C82BDF-544A-4F45-A355-921DB214F179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01C82BDF-544A-4F45-A355-921DB214F179}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01C82BDF-544A-4F45-A355-921DB214F179}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01C82BDF-544A-4F45-A355-921DB214F179}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
