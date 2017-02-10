@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using _1CIntegration;
 
 namespace _1CIntegration
 {
@@ -23,7 +24,9 @@ namespace _1CIntegration
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            
+            var fileWatcher = new FileWatcher();
+            fileWatcher.Run();
+
         }
     }
 }
