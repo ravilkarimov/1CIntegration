@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SQLite;
+using System.IO;
 
 namespace _1CIntegrationDB
 {
@@ -16,14 +17,16 @@ namespace _1CIntegrationDB
         {
             createNewDB();
             connectToDB();
-            createTable();
-            fillTable();
-            printHighscores();
+            createTables();
         }
 
         void createNewDB()
         {
-            SQLiteConnection.CreateFile("db.sqlite");
+            if (!File.Exists("db.sqlite"))
+            {
+                SQLiteConnection.CreateFile("db.sqlite");
+            }
+            return;
         }
 
         void connectToDB()
@@ -31,34 +34,57 @@ namespace _1CIntegrationDB
             m_dbConnection = new SQLiteConnection("Data Source = db.sqlite; Version = 3;");
             m_dbConnection.Open();
         }
-
-        void createTable()
+        void createTables()
         {
-            string sql = "create table highscores (name varchar(20), score int)";
+            string sql = "CREATE TABLE IF NOT EXISTS  highscores (name VARCHAR(20), score INT)";
+            doSQL(sql);
+
+            string sql_groups = "CREATE TABLE groups (" +
+                        "group_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "group_key TEXT, " +
+                        "group TEXT, " +
+                        "is_actual INTEGER) ";
+            
+            string sql_goods = "CREATE TABLE goods (" +
+                        "good_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "good_key TEXT, " +
+                        "good TEXT, " +
+                        "group_id INTEGER, " +
+                        "feature_id INTEGER, " +
+                        "is_actual INTEGER) ";
+
+            string sql_offers = "CREATE TABLE offers (" +
+                        "offer_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "offer_key TEXT, " +
+                        "good_id INTEGER, " +
+                        "feature TEXT, " +
+                        "price INTEGER, " +
+                        "currency TEXT, " +
+                        "amount INTEGER) ";
+
+            string sql_d_features = "CREATE TABLE d_features (" +
+                        "feature_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "good_id INTEGER " +
+                        "feature TEXT) ";
+
+            doSQL(sql_groups);
+            doSQL(sql_goods);
+            doSQL(sql_offers);
+            doSQL(sql_d_features);
+        }
+
+        void doSQL(string sql)
+        {
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             command.ExecuteNonQuery();
         }
 
-        void fillTable()
+        void execSQL(string sql)
         {
-            string sql = "insert into highscores (name, score) values ('Me', 3000)";
-            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
-            command.ExecuteNonQuery();
-            sql = "insert into highscores (name, score) values ('Myself', 6000)";
-            command = new SQLiteCommand(sql, m_dbConnection);
-            command.ExecuteNonQuery();
-            sql = "insert into highscores (name, score) values ('And I', 9001)";
-            command = new SQLiteCommand(sql, m_dbConnection);
-            command.ExecuteNonQuery();
-        }
-
-        void printHighscores()
-        {
-            string sql = "select * from highscores order by score desc";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
             while (reader.Read())
-                Console.WriteLine("Name: " + reader["name"] + "\tScore: " + reader["score"]);
+                Console.WriteLine(reader);
             Console.ReadLine();
         }
     }
