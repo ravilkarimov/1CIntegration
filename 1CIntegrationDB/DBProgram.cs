@@ -36,37 +36,35 @@ namespace _1CIntegrationDB
         }
         void createTables()
         {
-            string sql = "CREATE TABLE IF NOT EXISTS  highscores (name VARCHAR(20), score INT)";
-            doSQL(sql);
-
-            string sql_groups = "CREATE TABLE groups (" +
+            string sql_groups = "CREATE TABLE IF NOT EXISTS groups (" +
                         "group_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "group_key TEXT, " +
-                        "group TEXT, " +
-                        "is_actual INTEGER) ";
-            
-            string sql_goods = "CREATE TABLE goods (" +
-                        "good_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "good_key TEXT, " +
-                        "good TEXT, " +
-                        "group_id INTEGER, " +
-                        "feature_id INTEGER, " +
+                        "group_key TEXT, " + 
+                        "group_name TEXT, " + 
                         "is_actual INTEGER) ";
 
-            string sql_offers = "CREATE TABLE offers (" +
+            string sql_goods = "CREATE TABLE IF NOT EXISTS goods (" +
+                        "good_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "good_key TEXT, " + 
+                        "good TEXT, " + 
+                        "group_id INTEGER, " + 
+                        "feature_id INTEGER, " + 
+                        "is_actual INTEGER) ";
+
+            string sql_offers = "CREATE TABLE IF NOT EXISTS offers (" +
                         "offer_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "offer_key TEXT, " +
-                        "good_id INTEGER, " +
-                        "feature TEXT, " +
-                        "price INTEGER, " +
-                        "currency TEXT, " +
+                        "offer_key TEXT, " + 
+                        "good_id INTEGER, " + 
+                        "feature TEXT, " + 
+                        "price INTEGER, " + 
+                        "currency TEXT, " + 
                         "amount INTEGER) ";
 
-            string sql_d_features = "CREATE TABLE d_features (" +
+            string sql_d_features = "CREATE TABLE IF NOT EXISTS d_features (" +
                         "feature_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "good_id INTEGER " +
-                        "feature TEXT) ";
-
+                        "good_id INTEGER " + 
+                        "feature TEXT " +
+                        "value INTEGER) ";
+            
             doSQL(sql_groups);
             doSQL(sql_goods);
             doSQL(sql_offers);
