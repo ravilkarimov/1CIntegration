@@ -36,51 +36,48 @@ namespace _1CIntegrationDB
         }
         void createTables()
         {
-            string sql = "CREATE TABLE IF NOT EXISTS  highscores (name VARCHAR(20), score INT)";
-            DoSql(sql);
-
-            string sql_groups = "CREATE TABLE groups (" +
+            string sql_groups = "CREATE TABLE IF NOT EXISTS groups (" +
                         "group_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "group_key TEXT, " + 
-                        "group_name TEXT, " + 
+                        "group_key TEXT, " +
+                        "group_name TEXT, " +
                         "is_actual INTEGER) ";
 
             string sql_goods = "CREATE TABLE IF NOT EXISTS goods (" +
                         "good_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "good_key TEXT, " + 
-                        "good TEXT, " + 
-                        "group_id INTEGER, " + 
-                        "feature_id INTEGER, " + 
+                        "good_key TEXT, " +
+                        "good TEXT, " +
+                        "group_id INTEGER, " +
+                        "feature_id INTEGER, " +
                         "is_actual INTEGER) ";
 
             string sql_offers = "CREATE TABLE IF NOT EXISTS offers (" +
                         "offer_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "offer_key TEXT, " + 
-                        "good_id INTEGER, " + 
-                        "feature TEXT, " + 
-                        "price INTEGER, " + 
-                        "currency TEXT, " + 
+                        "offer_key TEXT, " +
+                        "good_id INTEGER, " +
+                        "feature TEXT, " +
+                        "price INTEGER, " +
+                        "currency TEXT, " +
                         "amount INTEGER) ";
 
             string sql_d_features = "CREATE TABLE IF NOT EXISTS d_features (" +
                         "feature_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "good_id INTEGER " + 
+                        "good_id INTEGER " +
                         "feature TEXT " +
                         "value INTEGER) ";
-            
-            DoSql(sql_groups);
-            DoSql(sql_goods);
-            DoSql(sql_offers);
-            DoSql(sql_d_features);
+
+            doSQL(sql_groups);
+            doSQL(sql_goods);
+            doSQL(sql_offers);
+            doSQL(sql_d_features);
         }
 
-        void DoSql(string sql)
+        void doSQL(string sql)
         {
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             command.ExecuteNonQuery();
         }
 
-        void ExecSql(string sql)
+        void execSQL(string sql)
         {
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
