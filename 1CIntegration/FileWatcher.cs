@@ -25,7 +25,7 @@ namespace _1CIntegration
                 string[] args = System.Environment.GetCommandLineArgs(); 
 
                 FileSystemWatcher watcher = new FileSystemWatcher();
-                watcher.Path = "C:\\Users\\Дмитрий\\Downloads\\webdata"; //C:\\Users\\r.karimov\\Downloads\\Temp\\webdata
+                watcher.Path = "C:\\Users\\r.karimov\\Downloads\\Temp\\webdata"; //C:\\Users\\r.karimov\\Downloads\\Temp\\webdata
 
                 watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                    | NotifyFilters.FileName | NotifyFilters.DirectoryName;

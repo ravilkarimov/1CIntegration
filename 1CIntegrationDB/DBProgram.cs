@@ -47,23 +47,23 @@ namespace _1CIntegrationDB
                         "good_key TEXT, " +
                         "good TEXT, " +
                         "group_id INTEGER, " +
-                        "feature_id INTEGER, " +
                         "is_actual INTEGER) ";
 
             string sql_offers = "CREATE TABLE IF NOT EXISTS offers (" +
                         "offer_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "offer_key TEXT, " +
-                        "good_id INTEGER, " +
+                        "good_key TEXT, " +
                         "feature TEXT, " +
                         "price INTEGER, " +
                         "currency TEXT, " +
                         "amount INTEGER) ";
 
-            string sql_d_features = "CREATE TABLE IF NOT EXISTS d_features (" +
+            string sql_d_features = "CREATE TABLE IF NOT EXISTS features (" +
                         "feature_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "good_id INTEGER " +
                         "feature TEXT " +
-                        "value INTEGER) ";
+                        "value INTEGER " +
+                        "feature_key TEXT ) ";
 
             doSQL(sql_groups);
             doSQL(sql_goods);
