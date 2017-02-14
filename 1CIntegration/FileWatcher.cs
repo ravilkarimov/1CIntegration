@@ -1,15 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Permissions;
 using System.Threading;
-using System.Xml;
+using Ninject;
+using Ninject.Modules;
+using _1CIntegrationParserXML;
 
 namespace _1CIntegration
-{ 
+{
     public class FileWatcher
     {
+        private readonly IKernel Kernel;
+
+        public FileWatcher(IKernel kernel)
+        {
+            this.Kernel = kernel;
+        }
+
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public void Run()
         {
@@ -18,7 +25,7 @@ namespace _1CIntegration
                 string[] args = System.Environment.GetCommandLineArgs(); 
 
                 FileSystemWatcher watcher = new FileSystemWatcher();
-                watcher.Path = "C:\\Users\\r.karimov\\Downloads\\Temp\\webdata";
+                watcher.Path = "C:\\Users\\Дмитрий\\Downloads\\webdata"; //C:\\Users\\r.karimov\\Downloads\\Temp\\webdata
 
                 watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                    | NotifyFilters.FileName | NotifyFilters.DirectoryName;
@@ -47,43 +54,10 @@ namespace _1CIntegration
             {
                 Thread.Sleep(1000);
 
-                XmlDocument xmlDocument = new XmlDocument();
-                xmlDocument.Load(e.FullPath);
-
-                if (e.Name == "offers0_1.xml")
+                if (Kernel != null)
                 {
-                    var elements = xmlDocument.GetElementsByTagName("Предложение");
-
-                    List<Sklad> list = new List<Sklad>();
-
-                    foreach (XmlElement element in elements)
-                    {
-                        var sklad = new Sklad();
-
-                        var childNodes = element.ChildNodes.Cast<XmlNode>();
-
-                        var xmlNodes = childNodes as XmlNode[] ?? childNodes.ToArray();
-
-                        sklad.Id = xmlNodes.Where(x => x.Name == "Ид").Select(x => x.ChildNodes).First().Item(0).Value.AsInteger();
-                        sklad.Name = xmlNodes.Where(x => x.Name == "Наименование").Select(x => x.ChildNodes).First().Item(0).Value;
-
-                        var store = new Store
-                        {
-                            StoreId =
-                                xmlNodes.Where(x => x.Name == "Склад")
-                                    .Select(x => x.Attributes["ИдСклада"])
-                                    .First()
-                                    .Value,
-                            CountInStore =
-                                xmlNodes.Where(x => x.Name == "Склад")
-                                    .Select(x => x.Attributes["КоличествоНаСкладе"])
-                                    .First()
-                                    .Value.AsInteger()
-                        };
-
-                        sklad.Store = store;
-                    }
-
+                    ParserXmlFactory factory = Kernel.Get<ParserXmlFactory>();
+                    factory.FindTemplate(e.FullPath, e.Name);
                 }
             }
         }

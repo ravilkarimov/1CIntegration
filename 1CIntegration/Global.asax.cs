@@ -6,7 +6,10 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Ninject;
+using Ninject.Modules;
 using _1CIntegration;
+using _1CIntegrationParserXML;
 
 namespace _1CIntegration
 {
@@ -24,9 +27,40 @@ namespace _1CIntegration
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            var fileWatcher = new FileWatcher();
+            IKernel kernel = new StandardKernel(
+                new HelperModule()
+                //new ServiceModule()
+                );
+
+
+            var fileWatcher = kernel.Get<FileWatcher>();
             fileWatcher.Run();
 
         }
     }
+
+    public class HelperModule : NinjectModule
+    {
+        public override void Load()
+        {
+            if (Kernel != null)
+            {
+                Bind<FileWatcher>().To<FileWatcher>().WithConstructorArgument("Kernel", Kernel);
+                Bind<ParserXmlFactory>().To<ParserXmlFactory>().InSingletonScope().WithConstructorArgument("Kernel", Kernel);
+            }
+            Bind<IBaseParserXml>().To<ParserXmlNameImport>().Named("import");
+        }
+    }
+
+    /*public class ServiceModule : NinjectModule
+       {
+           public override void Load()
+           {
+               var helper = Kernel.Get<IConfigHelper>();
+               Bind<IMyService>()
+                   .To<MyServiceImpl>()
+                   .WithConstructorArgument("myArg", helper.MyProperty);
+           }
+       }*/
+
 }

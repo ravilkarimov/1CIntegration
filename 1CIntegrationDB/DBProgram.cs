@@ -36,7 +36,10 @@ namespace _1CIntegrationDB
         }
         void createTables()
         {
-            string sql_groups = "CREATE TABLE IF NOT EXISTS groups (" +
+            string sql = "CREATE TABLE IF NOT EXISTS  highscores (name VARCHAR(20), score INT)";
+            DoSql(sql);
+
+            string sql_groups = "CREATE TABLE groups (" +
                         "group_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "group_key TEXT, " + 
                         "group_name TEXT, " + 
@@ -65,19 +68,19 @@ namespace _1CIntegrationDB
                         "feature TEXT " +
                         "value INTEGER) ";
             
-            doSQL(sql_groups);
-            doSQL(sql_goods);
-            doSQL(sql_offers);
-            doSQL(sql_d_features);
+            DoSql(sql_groups);
+            DoSql(sql_goods);
+            DoSql(sql_offers);
+            DoSql(sql_d_features);
         }
 
-        void doSQL(string sql)
+        void DoSql(string sql)
         {
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             command.ExecuteNonQuery();
         }
 
-        void execSQL(string sql)
+        void ExecSql(string sql)
         {
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
