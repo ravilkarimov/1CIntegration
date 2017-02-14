@@ -9,6 +9,7 @@ using System.Web.Routing;
 using Ninject;
 using Ninject.Modules;
 using _1CIntegration;
+using _1CIntegrationDB;
 using _1CIntegrationParserXML;
 
 namespace _1CIntegration
@@ -32,6 +33,7 @@ namespace _1CIntegration
                 //new ServiceModule()
                 );
 
+            new DBProgram();
 
             var fileWatcher = kernel.Get<FileWatcher>();
             fileWatcher.Run();
@@ -48,7 +50,7 @@ namespace _1CIntegration
                 Bind<FileWatcher>().To<FileWatcher>().WithConstructorArgument("Kernel", Kernel);
                 Bind<ParserXmlFactory>().To<ParserXmlFactory>().InSingletonScope().WithConstructorArgument("Kernel", Kernel);
             }
-            Bind<IBaseParserXml>().To<ParserXmlNameImport>().Named("import");
+            Bind<IBaseParserXml>().To<ParserXmlNameImport>().InTransientScope().Named("import");
         }
     }
 

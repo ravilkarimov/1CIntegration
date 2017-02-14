@@ -8,6 +8,19 @@ namespace _1CIntegration
 {
     public static class Extensions
     {
+        public static bool IsNull(this object obj)
+        {
+            try
+            {
+                return obj == null;
+            }
+            catch (Exception e)
+            {
+                return true;
+            }
+
+        }
+
         public static int AsInteger(this object obj)
         {
             try

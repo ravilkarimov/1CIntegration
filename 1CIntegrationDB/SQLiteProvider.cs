@@ -1,0 +1,76 @@
+﻿using System;
+using System.Data;
+using System.Data.SQLite;
+using System.IO;
+using System.Reflection;
+using System.Security.Policy;
+
+namespace _1CIntegrationDB
+{
+    public class SQLiteProvider
+    {
+        private static readonly string DatabaseName =  "C:\\Users\\Дмитрий\\db.sqlite";
+
+
+        static SQLiteProvider()
+        {
+            if (!File.Exists(DatabaseName))
+            {
+                SQLiteConnection.CreateFile(DatabaseName);
+            }
+        }
+
+        public static void DoSql(string sql)
+        {
+            try
+            {
+                SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0}; Version=3;", DatabaseName));
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
+            }
+            catch (SQLiteException e)
+            {
+                throw;
+            }
+        }
+
+        public static DataTable OpenSql(string sqlString)
+        {
+            try
+            {
+                SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", DatabaseName));
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(sqlString, connection);
+                SQLiteDataReader reader = command.ExecuteReader();
+                DataTable res = new DataTable();
+                res.Load(reader);
+                connection.Close();
+
+                return res;
+            }
+            catch (SQLiteException e)
+            {
+                throw;
+            }
+        }
+
+        public static int ExecSql(string sqlString)
+        {
+            try
+            {
+                SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", DatabaseName));
+                connection.Open();
+                SQLiteCommand command = new SQLiteCommand(sqlString, connection);
+                var res = command.ExecuteNonQuery();
+                connection.Close();
+
+                return res;
+            }
+            catch (SQLiteException e)
+            {
+                throw;
+            }
+        }
+    }
+}
