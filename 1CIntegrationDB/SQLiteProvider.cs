@@ -1,9 +1,6 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using System.Data.SQLite;
 using System.IO;
-using System.Reflection;
-using System.Security.Policy;
 
 namespace _1CIntegrationDB
 {
@@ -29,9 +26,8 @@ namespace _1CIntegrationDB
                 SQLiteCommand command = new SQLiteCommand(sql, connection);
                 command.ExecuteNonQuery();
             }
-            catch (SQLiteException e)
+            catch (SQLiteException)
             {
-                throw;
             }
         }
 

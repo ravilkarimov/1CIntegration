@@ -22,15 +22,16 @@ namespace _1CIntegration
         {
             try
             {
-                string[] args = System.Environment.GetCommandLineArgs(); 
+                string[] args = System.Environment.GetCommandLineArgs();
 
-                FileSystemWatcher watcher = new FileSystemWatcher();
-                watcher.Path = "C:\\Users\\r.karimov\\Downloads\\Temp\\webdata"; //C:\\Users\\r.karimov\\Downloads\\Temp\\webdata
-
-                watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-                   | NotifyFilters.FileName | NotifyFilters.DirectoryName;
-
-                watcher.Filter = "*.xml";
+                FileSystemWatcher watcher = new FileSystemWatcher
+                {
+                    Path = "C:\\Users\\Дмитрий\\Downloads\\webdata",
+                    NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+                                   | NotifyFilters.FileName | NotifyFilters.DirectoryName,
+                    Filter = "*.xml"
+                };
+                //C:\\Users\\r.karimov\\Downloads\\Temp\\webdata
 
                 watcher.Changed += new FileSystemEventHandler(OnChanged);
                 watcher.Created += new FileSystemEventHandler(OnChanged);
