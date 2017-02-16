@@ -2,6 +2,7 @@
 using System.Data;
 using System.Linq;
 using System.Xml;
+using _1CIntegrationDB;
 
 namespace _1CIntegrationParserXML
 {
@@ -14,21 +15,25 @@ namespace _1CIntegrationParserXML
             try
             {
                 DataTable offersDataTable = new DataTable { TableName = "OffersTable" };
+                offersDataTable.Columns.Add("offer_key", typeof(string));
                 offersDataTable.Columns.Add("good_key", typeof(string));
-                offersDataTable.Columns.Add("good", typeof(string));
-                offersDataTable.Columns.Add("group_key", typeof(string));
+                offersDataTable.Columns.Add("feature", typeof(string));
+                offersDataTable.Columns.Add("price", typeof(string));
+                offersDataTable.Columns.Add("currency", typeof(string));
+                offersDataTable.Columns.Add("amount", typeof(string));
 
                 XmlDocument xmlDocument = new XmlDocument();
                 xmlDocument.Load(fullPath);
                 
                 #region Предложения
                 var elements = xmlDocument.GetElementsByTagName("Предложение");
-                listNodes = elements.Cast<XmlElement>().Cast<XmlNode>().ToList();
+                var listNodes = elements.Cast<XmlElement>().Cast<XmlNode>().ToList();
 
                 foreach (var item in listNodes.Select(x => x.ChildNodes))
                 {
-                    DataRow newElementRow = elementsDataTable.NewRow();
+                    DataRow newElementRow = offersDataTable.NewRow();
                     var goodKey = "";
+                    var offerKey = "";
 
                     //Ид
                     var firstOrDefault = item.Cast<XmlElement>()
@@ -36,60 +41,60 @@ namespace _1CIntegrationParserXML
                         .FirstOrDefault(x => x.Name == "Ид");
                     if (firstOrDefault != null)
                     {
-                        goodKey = firstOrDefault.LastChild.InnerText;
+                        var offer_id =  firstOrDefault.LastChild.InnerText;
+                        offerKey = offer_id.Split('#')[0];
+                        goodKey = offer_id.Split('#')[1];
+                        newElementRow["offer_key"] = offerKey;
                         newElementRow["good_key"] = goodKey;
                     }
                     //===============================================
 
-                    //Наименование
+                    //Предложение
                     firstOrDefault = item.Cast<XmlElement>()
                         .Cast<XmlNode>()
                         .FirstOrDefault(x => x.Name == "Наименование");
                     if (firstOrDefault != null)
                     {
-                        var good = firstOrDefault.LastChild.InnerText;
-                        newElementRow["good"] = good;
+                        var feature = firstOrDefault.LastChild.InnerText;
+                        newElementRow["feature"] = feature;
                     }
                     //===============================================
 
-                    //Группа
+                    //Цена и Валюта
                     firstOrDefault = item.Cast<XmlElement>()
                         .Cast<XmlNode>()
-                        .FirstOrDefault(x => x.Name == "Группы");
+                        .FirstOrDefault(x => x.Name == "Цены");
                     if (firstOrDefault != null)
                     {
-                        var groupKey = firstOrDefault.LastChild.InnerText;
-                        newElementRow["group_key"] = groupKey;
+                        var custom = firstOrDefault.LastChild.ChildNodes
+                            .Cast<XmlElement>().Cast<XmlNode>();
+
+                        var priceDefault = custom.FirstOrDefault(x => x.Name == "ЦенаЗаЕдиницу");
+                        if (priceDefault != null)
+                        {
+                            var price = priceDefault
+                                .LastChild.InnerText;
+                            newElementRow["price"] = price;
+                        }
+
+                        var currencyDefault = custom.FirstOrDefault(x => x.Name == "Валюта");
+                        if (currencyDefault != null)
+                        {
+                            var currency = currencyDefault
+                                .LastChild.InnerText;
+                            newElementRow["currency"] = currency;
+                        }
                     }
                     //===============================================
-
-                    //Фичи
-                    var orDefault = item.Cast<XmlElement>()
+                    
+                    //Количество на складе
+                    firstOrDefault = item.Cast<XmlElement>()
                         .Cast<XmlNode>()
-                        .FirstOrDefault(x => x.Name == "ХарактеристикиТовара");
-                    if (orDefault != null)
+                        .FirstOrDefault(x => x.Name == "Склад");
+                    if (firstOrDefault != null)
                     {
-                        var features = orDefault
-                            .ChildNodes.Cast<XmlElement>().Cast<XmlNode>().ToList();
-
-                        foreach (var feature in features.Select(x => x.ChildNodes))
-                        {
-                            DataRow newFeatureRow = featuresDataTable.NewRow();
-                            newFeatureRow["good_key"] = goodKey;
-
-                            var featureKey = feature.Cast<XmlElement>()
-                                .Cast<XmlNode>()
-                                .FirstOrDefault(x => x.Name == "Ид");
-                            if (featureKey != null) newFeatureRow["feature_key"] = featureKey.LastChild.InnerText;
-
-                            var featureValue = feature.Cast<XmlElement>()
-                                .Cast<XmlNode>()
-                                .FirstOrDefault(x => x.Name == "Значение");
-                            if (featureValue != null) newFeatureRow["value"] = featureValue.LastChild.InnerText;
-
-
-                            featuresDataTable.Rows.Add(newFeatureRow);
-                        }
+                        var amount = firstOrDefault.Attributes["КоличествоНаСкладе"].InnerText;
+                        newElementRow["amount"] = amount;
                     }
                     //===============================================
 
@@ -111,34 +116,18 @@ namespace _1CIntegrationParserXML
             {
                 string sql = "";
 
-                //GroupsTable 
-                foreach (DataRow rowGroup in dataSource.Tables["GroupsTable"].Rows)
+                //OffersTable 
+                foreach (DataRow rowGroup in dataSource.Tables["OffersTable"].Rows)
                 {
-                    int cnt = Convert.ToInt32(SQLiteProvider.OpenSql("select count(*) cnt from groups where group_key = '" + rowGroup["group_key"] + "'").Rows[0]["cnt"]);
+                    int cnt = Convert.ToInt32(SQLiteProvider.OpenSql("select count(*) cnt from offers where offer_key = '" + rowGroup["offer_key"] + "'").Rows[0]["cnt"]);
                     if (cnt == 0)
                     {
-                        sql = "insert into groups (group_key, group_name) values ('" + rowGroup["group_key"] + "','" + rowGroup["group_name"] + "')";
+                        sql = "insert into offers (good_key, offer_key, feature, price, currency, amount) values " +
+                              "('" + rowGroup["good_key"] + "','" + rowGroup["offer_key"] + "','" + rowGroup["feature"] + "'" +
+                              "," + rowGroup["price"] + ",'" + rowGroup["currency"] + "'," + rowGroup["amount"] + ")";
                         SQLiteProvider.ExecSql(sql);
                     }
                 }
-
-                //ElementsTable 
-                foreach (DataRow rowGroup in dataSource.Tables["ElementsTable"].Rows)
-                {
-                    int cnt = Convert.ToInt32(SQLiteProvider.OpenSql("select count(*) cnt from goods where good_key = '" + rowGroup["good_key"] + "'").Rows[0]["cnt"]);
-                    if (cnt == 0)
-                    {
-                        string groupId = SQLiteProvider.OpenSql("select group_id from groups where group_key = '" + rowGroup["group_key"] + "'").Rows[0]["group_id"].ToString();
-
-                        sql = "insert into goods (good_key, good, group_id) " +
-                              "values " +
-                              "('" + rowGroup["good_key"] + "','" + rowGroup["good"] + "', " + groupId + ")";
-                        SQLiteProvider.ExecSql(sql);
-                    }
-                }
-
-                //FeaturesTable
-                //Пока не делаем
             }
             catch (Exception e)
             {

@@ -51,6 +51,7 @@ namespace _1CIntegration
                 Bind<ParserXmlFactory>().To<ParserXmlFactory>().InSingletonScope().WithConstructorArgument("Kernel", Kernel);
             }
             Bind<IBaseParserXml>().To<ParserXmlNameImport>().InTransientScope().Named("import");
+            Bind<IBaseParserXml>().To<ParserXmlNameOffers>().InTransientScope().Named("offers");
         }
     }
 
