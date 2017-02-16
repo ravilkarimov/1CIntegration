@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ParserXmlFactory.cs" />
+    <Compile Include="Parsings\ParsingFileOffers.cs" />
     <Compile Include="Parsings\ParsingFileImport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
