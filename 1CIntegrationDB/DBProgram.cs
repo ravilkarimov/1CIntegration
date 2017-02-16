@@ -25,7 +25,8 @@ namespace _1CIntegrationDB
                                "good_key TEXT, " +
                                "good TEXT, " +
                                "group_id INTEGER, " +
-                               "is_actual INTEGER) ";
+                               "is_actual INTEGER " +
+                               "img_path TEXT) ";
 
             string sql_offers = "CREATE TABLE IF NOT EXISTS offers (" +
                                 "offer_id INTEGER PRIMARY KEY AUTOINCREMENT, " +

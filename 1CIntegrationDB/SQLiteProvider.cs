@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SQLite;
 using System.IO;
 
@@ -6,8 +7,9 @@ namespace _1CIntegrationDB
 {
     public class SQLiteProvider
     {
-        private static readonly string DatabaseName =  "C:\\Users\\Дмитрий\\db.sqlite";
-
+        private static readonly string DatabaseName = "C:\\Users\\r.karimov\\Downloads\\db.sqlite";
+        //C:\\Users\\r.karimov\\Downloads\\db.sqlite
+        //C:\\Users\\Дмитрий\\db.sqlite
 
         static SQLiteProvider()
         {
@@ -39,11 +41,10 @@ namespace _1CIntegrationDB
                 connection.Open();
                 SQLiteCommand command = new SQLiteCommand(sqlString, connection);
                 SQLiteDataReader reader = command.ExecuteReader();
-                DataTable res = new DataTable();
-                res.Load(reader);
+                DataTable dt = new DataTable();
+                dt.Load(reader);
                 connection.Close();
-
-                return res;
+                return dt;
             }
             catch (SQLiteException e)
             {

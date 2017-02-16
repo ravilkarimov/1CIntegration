@@ -26,12 +26,13 @@ namespace _1CIntegration
 
                 FileSystemWatcher watcher = new FileSystemWatcher
                 {
-                    Path = "C:\\Users\\Дмитрий\\Downloads\\webdata",
+                    Path = "C:\\Users\\r.karimov\\Downloads\\Temp\\webdata",
                     NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                                    | NotifyFilters.FileName | NotifyFilters.DirectoryName,
                     Filter = "*.xml"
                 };
                 //C:\\Users\\r.karimov\\Downloads\\Temp\\webdata
+                //C:\\Users\\Дмитрий\\Downloads\\webdata
 
                 watcher.Changed += new FileSystemEventHandler(OnChanged);
                 watcher.Created += new FileSystemEventHandler(OnChanged);
@@ -41,7 +42,7 @@ namespace _1CIntegration
                 // Begin watching.
                 watcher.EnableRaisingEvents = true;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
                 throw;
             }
