@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
-using System.Web.Script.Serialization;
 using _1CIntegrationDB;
 using System.Data;
 
@@ -10,12 +9,14 @@ namespace _1CIntegration.Controllers
     public class ValuesController : ApiController
     {
         // GET api/values
-        public object Get()
+        public Object Get()
         {
-            string sql = "SELECT * FROM goods";
+            string sql = "SELECT * FROM goods g " +
+                         "LEFT OUTER JOIN offers o ON g.good_key = o.offer_key " +
+                         "LEFT OUTER JOIN groups gr ON g.group_id = gr.group_id ";
             DataTable dt = new DataTable();
             dt = SQLiteProvider.OpenSql(sql);
-            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            //System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
             Dictionary<string, object> row;
             foreach (DataRow dr in dt.Rows)
@@ -30,9 +31,10 @@ namespace _1CIntegration.Controllers
 
             //var o = new List<string>() {"dfgfbgvdf", "adgailfugf"};
             //var json = new JavaScriptSerializer().Serialize(o);
-            //return rows;
-            return serializer.Serialize(rows);
+            return rows;
+            //return serializer.Serialize(rows);
         }
+
 
         // GET api/values/5
         public string Get(int id)

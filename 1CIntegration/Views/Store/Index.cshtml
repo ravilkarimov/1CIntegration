@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+
+<script>
+    $.get('/api/values', function (data) {
+        debugger;
+        $('.result').html(data);
+        alert('Загрузка завершена.');
+    });
+</script>
