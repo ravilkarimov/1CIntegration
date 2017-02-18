@@ -22,6 +22,7 @@ namespace _1CIntegrationParserXML
                 elementsDataTable.Columns.Add("good_key", typeof(string));
                 elementsDataTable.Columns.Add("good", typeof(string));
                 elementsDataTable.Columns.Add("group_key", typeof(string));
+                elementsDataTable.Columns.Add("img_path", typeof(string));
 
                 DataTable featuresDataTable = new DataTable { TableName = "FeaturesTable" };
                 featuresDataTable.Columns.Add("good_key", typeof(string));
@@ -121,6 +122,17 @@ namespace _1CIntegrationParserXML
                     }
                     //===============================================
 
+                    //Картинка
+                    firstOrDefault = item.Cast<XmlElement>()
+                        .Cast<XmlNode>()
+                        .FirstOrDefault(x => x.Name == "Картинка");
+                    if (firstOrDefault != null)
+                    {
+                        var img_path = firstOrDefault.LastChild.InnerText;
+                        newElementRow["img_path"] = img_path;
+                    }
+                    //===============================================
+
                     elementsDataTable.Rows.Add(newElementRow);
                 }
                 #endregion
@@ -153,16 +165,16 @@ namespace _1CIntegrationParserXML
                 }
 
                 //ElementsTable 
-                foreach (DataRow rowGroup in dataSource.Tables["ElementsTable"].Rows)
+                foreach (DataRow rowGood in dataSource.Tables["ElementsTable"].Rows)
                 {
-                    int cnt = Convert.ToInt32(SQLiteProvider.OpenSql("select count(*) cnt from goods where good_key = '" + rowGroup["good_key"] + "'").Rows[0]["cnt"]);
+                    int cnt = Convert.ToInt32(SQLiteProvider.OpenSql("select count(*) cnt from goods where good_key = '" + rowGood["good_key"] + "'").Rows[0]["cnt"]);
                     if (cnt == 0)
                     {
-                        string groupId = SQLiteProvider.OpenSql("select group_id from groups where group_key = '" + rowGroup["group_key"] + "'").Rows[0]["group_id"].ToString();
+                        string groupId = SQLiteProvider.OpenSql("select group_id from groups where group_key = '" + rowGood["group_key"] + "'").Rows[0]["group_id"].ToString();
 
-                        sql = "insert into goods (good_key, good, group_id) " +
+                        sql = "insert into goods (good_key, good, group_id, img_path) " +
                               "values " +
-                              "('" + rowGroup["good_key"] + "','" + rowGroup["good"] + "', " + groupId + ")";
+                              "('" + rowGood["good_key"] + "','" + rowGood["good"] + "', " + groupId + ", '" + rowGood["img_path"] + "')";
                         SQLiteProvider.ExecSql(sql);
                     }
                 }

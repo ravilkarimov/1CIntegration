@@ -26,7 +26,7 @@ namespace _1CIntegration
 
                 FileSystemWatcher watcher = new FileSystemWatcher
                 {
-                    Path = "C:\\Users\\r.karimov\\Downloads\\Temp\\webdata",
+                    Path = "C:\\Users\\Дмитрий\\Downloads\\webdata",
                     NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                                    | NotifyFilters.FileName | NotifyFilters.DirectoryName,
                     Filter = "*.xml"
@@ -54,7 +54,7 @@ namespace _1CIntegration
         {
             if (e.ChangeType == WatcherChangeTypes.Created)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
 
                 if (Kernel != null)
                 {

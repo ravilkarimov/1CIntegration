@@ -42,8 +42,8 @@ namespace _1CIntegrationParserXML
                     if (firstOrDefault != null)
                     {
                         var offer_id =  firstOrDefault.LastChild.InnerText;
-                        offerKey = offer_id.Split('#')[0];
-                        goodKey = offer_id.Split('#')[1];
+                        goodKey = offer_id.Split('#')[0];
+                        offerKey = offer_id.Split('#')[1];
                         newElementRow["offer_key"] = offerKey;
                         newElementRow["good_key"] = goodKey;
                     }
