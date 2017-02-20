@@ -1,15 +1,58 @@
-﻿@{
-    ViewBag.Title = "Index";
-}
-
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+    <script>
+        /*$.get('/api/values', function (data) {
+            debugger;
+            $('.result').html(data);
+            var ul = document.createElement('ul');
+            for(var d in data) ul.appendChild(li);   // сначала вставить узлы
+            document.body.appendChild(ul); // затем в документ
+        });*/
+        function getGoods() {
+            debugger;
+            $.ajax({
+                url: '/api/values',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    WriteResponse(data);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+        function WriteResponse(data) {
+            var strResult = "<table><th>ID</th><th>Название</th><th>Автор</th><th>Год издания</th>";
+            $.each(data, function (good_name, good_img) {
+                strResult += "<tr><td>" + book.Id + "</td><td> " + book.Name + "</td><td>" +
+                book.Author + "</td><td>" + book.Year +
+                "</td><td><a id='editItem' data-item='" + book.Id + "' onclick='EditItem(this);' >Редактировать</a></td>" +
+                "<td><a id='delItem' data-item='" + book.Id + "' onclick='DeleteItem(this);' >Удалить</a></td></tr>";
+            });
+            strResult += "</table>";
+            $("#tableBlock").html(strResult);
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-inverse" role="navigation">
+        <a class="navbar-brand" href="#">DJINARO - магазин современной одежды</a>
+    </div>
+    <div class="row panel">
+        <div onload="getGoods()" id="categories" class="col-xs-3">
+            Сюда добавим контент позже
+        </div>
+        <div class="col-xs-8">
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+</body>
+</html>
 <h2>Index</h2>
-
-<script src="~/Scripts/jquery-1.8.2.min.js"></script>
-
-<script>
-    $.get('/api/values', function (data) {
-        debugger;
-        $('.result').html(data);
-        alert('Загрузка завершена.');
-    });
-</script>

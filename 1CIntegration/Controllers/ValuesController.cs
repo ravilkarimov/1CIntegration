@@ -11,9 +11,10 @@ namespace _1CIntegration.Controllers
         // GET api/values
         public Object Get()
         {
-            string sql = "SELECT * FROM goods g " +
+            string sql = "SELECT gr.group_id, gr.group_name, g.good_id, g.good, g.img_path, o.feature, o.price, o.currency, o.amount  FROM goods g " +
                          "LEFT OUTER JOIN offers o ON g.good_key = o.offer_key " +
-                         "LEFT OUTER JOIN groups gr ON g.group_id = gr.group_id ";
+                         "LEFT OUTER JOIN groups gr ON g.group_id = gr.group_id " +
+                         "WHERE g.img_path IS NOT NULL AND g.img_path <> '' ";
             DataTable dt = new DataTable();
             dt = SQLiteProvider.OpenSql(sql);
             //System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();

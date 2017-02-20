@@ -11,9 +11,6 @@ namespace _1CIntegrationDB
 
         void createTables()
         {
-            string sql = "CREATE TABLE IF NOT EXISTS  highscores (name VARCHAR(20), score INT)";
-            SQLiteProvider.DoSql(sql);
-
             string sql_groups = "CREATE TABLE groups (" +
                                 "group_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                                 "group_key TEXT, " +

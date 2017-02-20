@@ -7,7 +7,7 @@ namespace _1CIntegrationDB
 {
     public class SQLiteProvider
     {
-        private static readonly string DatabaseName = "C:\\Users\\Дмитрий\\db.sqlite";
+        private static readonly string DatabaseName = "C:\\Users\\r.karimov\\Downloads\\db.sqlite";
         //C:\\Users\\r.karimov\\Downloads\\db.sqlite
         //C:\\Users\\Дмитрий\\db.sqlite
 
