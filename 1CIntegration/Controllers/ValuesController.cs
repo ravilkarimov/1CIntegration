@@ -17,7 +17,6 @@ namespace _1CIntegration.Controllers
                          "WHERE g.img_path IS NOT NULL AND g.img_path <> '' ";
             DataTable dt = new DataTable();
             dt = SQLiteProvider.OpenSql(sql);
-            //System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
             Dictionary<string, object> row;
             foreach (DataRow dr in dt.Rows)
@@ -30,10 +29,7 @@ namespace _1CIntegration.Controllers
                 rows.Add(row);
             }
 
-            //var o = new List<string>() {"dfgfbgvdf", "adgailfugf"};
-            //var json = new JavaScriptSerializer().Serialize(o);
             return rows;
-            //return serializer.Serialize(rows);
         }
 
 
