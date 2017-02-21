@@ -5,15 +5,24 @@ Djinaro.WriteResponse = function (data) {
     var categories = document.getElementById('categories');
     data.forEach(function (item, i, arr) {
         debugger;
-        var row = document.createElement('div');
-        row.className = 'row';
+        var product = document.createElement('div');
+        product.className = 'shop-product';
 
-        var div = document.createElement('div');
-        div.className = 'col-md-12';
-        div.innerHTML = data[0].good;
+        var wrapper = document.createElement('div');
+        wrapper.className = 'overlay-wrapper';
+        var prod_img = document.createElement('img');
+        prod_img.src = data[i].img_path;
 
-        row.appendChild(div);
-        categories.appendChild(row);
+        var prod_info = document.createElement('div');
+        prod_info.className = 'shop-product-info';
+        var prod_title = document.createElement('h5');
+        prod_title.className = 'product-name';
+        prod_title.innerHTML = data[i].good;
+
+        prod_info.appendChild(prod_title);
+        wrapper.appendChild(prod_img);
+        product.appendChild(wrapper);
+        categories.appendChild(product);
     });
 }
 

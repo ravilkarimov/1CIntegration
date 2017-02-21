@@ -26,7 +26,7 @@ namespace _1CIntegration
 
                 FileSystemWatcher watcher = new FileSystemWatcher
                 {
-                    Path = "C:\\Users\\Дмитрий\\Downloads\\webdata",
+                    Path = "C:\\Users\\r.karimov\\Downloads\\Temp\\webdata",
                     NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                                    | NotifyFilters.FileName | NotifyFilters.DirectoryName,
                     Filter = "*.xml"

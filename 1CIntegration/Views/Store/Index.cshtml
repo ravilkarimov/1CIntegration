@@ -2,27 +2,427 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
-    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/store.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- Meta -->
+    <meta name="description" content="" />
+    <meta name="keywords" content="shop, nike, adidas" />
+    <meta name="author" content="Ravil Karimov">
+    <meta name="robots" content="index, follow" />
+    <meta name="revisit-after" content="3 days" />
+    <title>_____D_J_I_N_A_R_O____</title>
+    
+    <!-- Styles -->
+    <link href="~/Content/bootstrap.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/avendor-font-styles.css" rel="stylesheet">
+    <link href="~/Content/revolutionslider/settings.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="~/Content/themecss/animate.css" rel="stylesheet">
+    <link href="~/Content/themecss/lightbox.css" rel="stylesheet">
+    <link href="~/Content/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="~/Content/owl-carousel/owl.transitions.css" rel="stylesheet">
+    <link href="~/Content/avendor-dark.css" rel="stylesheet">
+    <link href="~/Content/colors/color-default.css" rel="stylesheet" title="style1">
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,200,300,100,500,600,700,800,900' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>
+    <link href="~/favicon.jpg" rel="shortcut icon">
 
-    <title>DJINARO - магазин современной одежды</title>
+    <script src="~/Scripts/store.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 
 </head>
-<body>
-    <div class="navbar navbar-inverse" role="navigation">
-        <a class="navbar-brand" href="#">DJINARO - магазин современной одежды</a>
-    </div>
-    <div class="row panel">
-        <div id="categories" class="col-xs-3">
-            Сюда добавим контент позже
-        </div>
-        <script>Djinaro.getGoods();</script>
-        <div class="col-xs-8">
-        </div>
-    </div>
+<body class ="bg-pattern1" data-spy="scroll" data-target=".navbar">
     
+    <div id="preloader"></div>
+
+    <div class="page-wrapper" id="page-top">
+
+        <!-- Header Container -->
+        <div class="header-wrapper">
+
+            <!-- Header Top Container -->
+            <div class="header-top">
+
+                <!-- Container -->
+                <div class="container">
+
+                    <div class="row">
+
+                        <!-- Left -->
+                        <div class="col-md-6 col-sm-6 columns">
+                            <div class="header-top-left">
+                                <ul class="social-top">
+                                    <li><a href="" class="ToolTip" title="Facebook"><span class="fa fa-facebook"></span></a></li>
+                                    <li><a href="" class="ToolTip" title="Twitter"><span class="fa fa-twitter"></span></a></li>
+                                    <li><a href="" class="ToolTip" title="Google+"><span class="fa fa-google-plus"></span></a></li>
+                                    <li><a href="" class="ToolTip" title="Linkedin"><span class="fa fa-linkedin"></span></a></li>
+                                    <li><a href="" class="ToolTip" title="Pinterest"><span class="fa fa-pinterest"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /Left -->
+                        <!-- Right -->
+                        <div class="col-md-6 col-sm-6 columns">
+                            <div class="header-top-right">
+                                <!-- Right Menu -->
+                                <ul class="top-menu">
+                                    <li><a href="#"><i class="fa fa-shopping-cart"></i>0 предмет(ов) - 0.00 р</a></li>
+                                    <li>
+                                        <div class="dropdown">
+                                            <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-globe"></i>Русский <b class="caret"></b></a>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li class="active"><a href="#">Русский</a></li>
+                                                <li><a href="#">Татарский</a></li>
+                                                <li><a href="#">Английский</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <!-- /Right Menu -->
+                            </div>
+                        </div>
+                        <!-- /right -->
+
+                    </div>
+
+                </div>
+                <!-- /Container -->
+
+            </div>
+            <!-- /Header Top Container -->
+            <!-- Header Main Container -->
+            <div class="header-main">
+
+                <!-- Container -->
+                <div class="container">
+
+                    <!-- Main Navigation & Logo -->
+                    <div class="main-navigation">
+
+                        <div class="row">
+
+                            <!-- Main Navigation -->
+                            <div class="col-md-12 columns">
+
+                                <nav class="navbar navbar-default gfx-mega nav-left" role="navigation">
+
+                                    <!-- Brand and toggle get grouped for better mobile display -->
+                                    <div class="navbar-header">
+                                        <a class="navbar-toggle" data-toggle="collapse" data-target="#gfx-collapse"></a>
+                                        <div class="logo">
+                                            <a href="index.html"><img src="~/Images/theme/logo.png" alt="Logo"/></a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Collect the nav links, forms, and other content for toggling -->
+                                    <div class="collapse navbar-collapse" id="gfx-collapse">
+                                        <ul class="nav navbar-nav gfx-nav">
+                                            <li class="dropdown"><a href="">Главная</a></li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Обувь <b class="caret"></b></a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="">Мужская</a></li>
+                                                    <li><a href="">Женская</a></li>
+                                                    <li><a href="">Универсальная</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Одежда <b class="caret"></b></a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="">Мужская</a></li>
+                                                    <li><a href="">Женская</a></li>
+                                                    <li><a href="">Универсальная</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="dropdown"><a href="">Аксессуары</a></li>
+                                            <li class="dropdown"><a href="">Акции</a></li>
+                                            <li class="dropdown"><a href="">Контакты</a></li>
+                                        </ul>
+                                    </div><!-- /.navbar-collapse -->
+
+                                </nav>
+
+                            </div>
+                            <!-- /Main Navigation -->
+
+                        </div>
+
+                    </div>
+                    <!-- /Main Navigation & Logo -->
+
+                </div>
+                <!-- /Container -->
+
+            </div>
+            <!-- /Header Main Container -->
+
+        </div>
+        <!-- /Header Container -->
+
+        <!-- Main Wrapper Header -->
+        <div class="main-wrapper-header fancy-header dark-header parallax parallax-shop" data-stellar-background-ratio="0.4">
+
+            <div class="bg-overlay bg-overlay-dark bg-color-default"></div>
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-sm-12 columns">
+                        <div class="page-title">
+                            <h2>DJINARO SHOP</h2>
+                        </div>
+                        <div class="breadcrumbs-wrapper">
+                            <ol class="breadcrumb">
+                                <li><a href="#">Главная</a></li>
+                                <li class="active">Магазин</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /Main Wrapper Header -->
+
+        <!-- Main Container -->
+        <div class="main-wrapper">
+
+            <!-- Container -->
+            <div class="container content-with-sidebar">
+                <div class="row">
+
+                    <!-- Content -->
+                    <div class="col-sm-8 col-sm-push-4 col-md-9 col-md-push-3 columns">
+                        <div class="white-space space-big"></div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="shop-filters">
+                                    <form>
+                                        <select class="form-control ordering">
+                                            <option selected="selected">По умолчанию</option>
+                                            <option value="popularity">По популярности</option>
+                                            <option value="rating">По отзывам</option>
+                                            <option value="date">По новизне</option>
+                                            <option value="price">По цене: от низкой к более высокой</option>
+                                            <option value="price-desc">По цене: от высокой к менее низкой</option>
+                                        </select>
+                                        <label class="show-results">Отображено 1–9 из 23 результатов</label>
+                                    </form>
+                                </div>
+                                <div class="white-space space-small"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <!-- Shop Product -->
+                                <div class="shop-product">
+                                    <!-- Overlay Img -->
+                                    <div class="overlay-wrapper">
+                                        <img src="img/demo/shop/product1.jpg" alt="Product 1">
+                                        <img class="img-hover" src="img/demo/shop/product1_hover.jpg" alt="Product 1">
+                                        <div class="rating">
+                                            <span class="star"></span><span class="star star-half"></span><span class="star star-full"></span><span class="star star-full"></span><span class="star star-full"></span>
+                                        </div>
+                                    </div>
+                                    <!-- Overlay Img -->
+                                    <div class="shop-product-info">
+                                        <a href=""><h5 class="product-name">Nike Huarache Black</h5></a>
+                                        <p class="product-category"><a href="">Мужская</a>, <a href="">Обувь</a></p>
+                                        <p class="product-price">2299.90</p>
+                                    </div>
+                                    <div class="product-links">
+                                        <ul>
+                                            <li><a href="#" class="ToolTip" title="Добавить в корзину" data-opie-position="tc:bc"><span class="fa fa-shopping-cart"></span></a></li>
+                                            <li><a href="#" class="ToolTip" title="Просмотреть детали" data-opie-position="tc:bc"><span class="fa fa-list-ul"></span></a></li>
+                                            <li><a href="#" class="ToolTip" title="Добавить в WishList" data-opie-position="tc:bc"><span class="fa fa-heart-o"></span></a></li>
+                                            <li><a href="#" class="ToolTip" title="Сравнить" data-opie-position="tc:bc"><span class="fa fa-columns"></span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- /Shop Product -->
+                                <div class="white-space space-small"></div>
+                            </div>
+                            <div id="categories" class="col-md-4"> 
+                                <!-- Shop Product -->
+                                <div class="shop-product">
+                                    <script>Djinaro.getGoods();</script>
+                                </div>
+                                <!-- /Shop Product -->
+                                <div class="white-space space-small"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <!-- Shop Product -->
+                                <div class="shop-product">
+                                    <!-- Overlay Img -->
+                                    <div class="overlay-wrapper">
+                                        <img src="img/demo/shop/product1.jpg" alt="Product 1">
+                                        <img class="img-hover" src="img/demo/shop/product1_hover.jpg" alt="Product 1">
+                                        <div class="rating">
+                                            <span class="star"></span><span class="star star-half"></span><span class="star star-full"></span><span class="star star-full"></span><span class="star star-full"></span>
+                                        </div>
+                                    </div>
+                                    <!-- Overlay Img -->
+                                    <div class="shop-product-info">
+                                        <a href=""><h5 class="product-name">Nike Huarache Black</h5></a>
+                                        <p class="product-category"><a href="">Мужская</a>, <a href="">Обувь</a></p>
+                                        <p class="product-price">2299.90</p>
+                                    </div>
+                                    <div class="product-links">
+                                        <ul>
+                                            <li><a href="#" class="ToolTip" title="Добавить в корзину" data-opie-position="tc:bc"><span class="fa fa-shopping-cart"></span></a></li>
+                                            <li><a href="#" class="ToolTip" title="Просмотреть детали" data-opie-position="tc:bc"><span class="fa fa-list-ul"></span></a></li>
+                                            <li><a href="#" class="ToolTip" title="Добавить в WishList" data-opie-position="tc:bc"><span class="fa fa-heart-o"></span></a></li>
+                                            <li><a href="#" class="ToolTip" title="Сравнить" data-opie-position="tc:bc"><span class="fa fa-columns"></span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- /Shop Product -->
+                                <div class="white-space space-small"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="text-center">
+                                    <ul class="pagination">
+                                        <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                                        <li class="active"><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Pagination -->
+
+                        <div class="white-space space-medium"></div>
+                    </div>
+                    <!-- /Content -->
+                    <!-- Sidebar -->
+                    <div class="col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 columns sidebar sidebar-left">
+                        <div class="white-space space-big"></div>
+
+                        <div class="sidebar-content">
+
+                            <div class="sidebar-widget">
+                                <h4 class="title-widget fancy-title"><span>Категории</span></h4>
+                                <ul class="shop-product-categories">
+                                    <li class="active"><a href="#">Nike</a><span class="count">(7)</span></li>
+                                    <li><a href="#">Adidas</a><span class="count">(4)</span></li>
+                                    <li><a href="#">Reebok</a><span class="count">(12)</span></li>
+                                    <li><a href="#">Demix</a><span class="count">(15)</span></li>
+                                    <li><a href="#">Super</a><span class="count">(6)</span></li>
+                                    <li><a href="#">Nooper</a><span class="count">(2)</span></li>
+                                    <li><a href="#">Quoter</a><span class="count">(14)</span></li>
+                                    <li><a href="#">Blatter</a><span class="count">(12)</span></li>
+                                </ul>
+                            </div>
+
+                            <div class="sidebar-widget">
+                                <h4 class="title-widget fancy-title"><span>Отфильтровать по размеру</span></h4>
+                                <ul class="list-inline">
+                                    <li><a class="btn btn-sm btn-default btn-alt margin-bottom10" href="">S</a></li>
+                                    <li><a class="btn btn-sm btn-default btn-alt margin-bottom10" href="">M</a></li>
+                                    <li><a class="btn btn-sm btn-default btn-alt margin-bottom10" href="">L</a></li>
+                                    <li><a class="btn btn-sm btn-default btn-alt margin-bottom10" href="">XL</a></li>
+                                    <li><a class="btn btn-sm btn-default btn-alt margin-bottom10" href="">XXL</a></li>
+                                </ul>
+                            </div>
+
+                            <!--div class="sidebar-widget">
+                                <h4 class="title-widget fancy-title"><span>Самые популярные</span></h4>
+                                <ul class="recent-post">
+                                    <li>
+                                        <a href=""><img src="..img/demo/shop/product1.jpg" alt="Product 10">Nike Xair 200</a>
+                                        <div class="rating">
+                                            <span class="star"></span><span class="star star-half"></span><span class="star star-full"></span><span class="star star-full"></span><span class="star star-full"></span>
+                                        </div>
+                                        <p class="product-price">2299.90</p>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="..img/demo/shop/product1.jpg" alt="Product 11">Adidas FamousNight 150</a>
+                                        <div class="rating">
+                                            <span class="star"></span><span class="star star-half"></span><span class="star star-full"></span><span class="star star-full"></span><span class="star star-full"></span>
+                                        </div>
+                                        <p class="product-price">3299.90</p>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="..img/demo/shop/product1.jpg" alt="Product 12">Reebok DoItEasy x5</a>
+                                        <div class="rating">
+                                            <span class="star"></span><span class="star star-half"></span><span class="star star-full"></span><span class="star star-full"></span><span class="star star-full"></span>
+                                        </div>
+                                        <p class="product-price">2599.90</p>
+                                    </li>
+                                    <li>
+                                        <a href=""><img src="..img/demo/shop/product1.jpg" alt="Product 13">Nike Topower Very Strong</a>
+                                        <div class="rating">
+                                            <span class="star"></span><span class="star star-half"></span><span class="star star-full"></span><span class="star star-full"></span><span class="star star-full"></span>
+                                        </div>
+                                        <p class="product-price">2999.90</p>
+                                    </li>
+                                </ul>
+                            </div-->
+
+                        </div>
+
+                        <div class="white-space space-big"></div>
+                    </div>
+                    <!-- /Sidebar -->
+
+                </div>
+            </div>
+            <!-- /Container -->
+
+        </div>
+        <!-- /Main Container -->
+
+    </div>
+
+        <!-- Javascripts
+            ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="~/Scripts/jquery-1.11.1.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>
+        <script src="~/Scripts/themejs/jquery.countdown.js" type="text/javascript"></script>
+        <!-- Preloader -->
+        <script src="~/Scripts/themejs/jquery.queryloader2.min.js" type="text/javascript"></script>
+        <!-- Smooth Scroll -->
+        <script src="~/Scripts/themejs/SmoothScroll.js" type="text/javascript"></script>
+        <!-- Stick On Scroll -->
+        <script src="~/Scripts/themejs/jquery.stickOnScroll.js" type="text/javascript"></script>
+        <!-- Scrolling Smooth to section - requires jQuery Easing plugin -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+        <!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
+        <script src="~/Scripts/revolutionslider/jquery.themepunch.plugins.min.js"></script>
+        <script src="~/Scripts/revolutionslider/jquery.themepunch.revolution.min.js"></script>
+        <!-- LivIcons -->
+        <script src="~/Scripts/livicons/livicons-1.3.min.js" type="text/javascript"></script>
+        <script src="~/Scripts/livicons/raphael-min.js" type="text/javascript"></script>
+        <!-- Portfolio -->
+        <script src="~/Scripts/themejs/jquery.isotope.min.js" type="text/javascript"></script>
+        <script src="~/Scripts/themejs/jquery.colio.min.js" type="text/javascript"></script>
+        <!-- Parallax -->
+        <script src="~/Scripts/themejs/jquery.stellar.min.js" type="text/javascript"></script>
+        <!-- Carousel -->
+        <script src="~/Scripts/owl-carousel/owl.carousel.js" type="text/javascript"></script>
+        <!-- Counters -->
+        <script src="~/Scripts/themejs/jquery.countTo.js" type="text/javascript"></script>
+        <!-- Lightbox -->
+        <script src="~/Scripts/themejs/jquery.magnific-popup.min.js" type="text/javascript"></script>
+        <!-- Tooltips -->
+        <script src="~/Scripts/themejs/jQuery.Opie.Tooltip.min.js" type="text/javascript"></script>
+        <!-- Animation Viewport -->
+        <script src="~/Scripts/themejs/jquery.waypoints.min.js" type="text/javascript"></script>
+        <!-- Pie Chart -->
+        <script src="~/Scripts/themejs/jquery.easypiechart.min.js" type="text/javascript"></script>
+        <!-- Google Maps -->
+        <!--script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASm3CwaK9qtcZEWYa-iQwHaGi3gcosAJc&sensor=false"></!--script>
+        <!-- Load Scripts -->
+        <script src="~/Scripts/themejs/application.js"></script>
 </body>
 </html>
