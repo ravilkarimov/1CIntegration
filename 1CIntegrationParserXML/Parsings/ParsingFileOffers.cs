@@ -123,8 +123,17 @@ namespace _1CIntegrationParserXML
                     if (cnt == 0)
                     {
                         sql = "insert into offers (good_key, offer_key, feature, price, currency, amount) values " +
-                              "('" + rowGroup["good_key"] + "','" + rowGroup["offer_key"] + "','" + rowGroup["feature"] + "'" +
+                              "('" + rowGroup["good_key"] + "',,'" + rowGroup["feature"] +
+                              "'" +
                               "," + rowGroup["price"] + ",'" + rowGroup["currency"] + "'," + rowGroup["amount"] + ")";
+                        SQLiteProvider.ExecSql(sql);
+                    }
+                    else
+                    {
+                        sql = "update offers set (feature, price, currency, amount) = " +
+                              "('" + rowGroup["feature"] + "'," + rowGroup["price"] + ",'" 
+                              + rowGroup["currency"] + "'," + rowGroup["amount"] + ") " +
+                              " where offer_key = '" + rowGroup["offer_key"] + "'";
                         SQLiteProvider.ExecSql(sql);
                     }
                 }
