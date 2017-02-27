@@ -3,8 +3,8 @@ using System.IO;
 using System.Security.Permissions;
 using System.Threading;
 using Ninject;
-using Ninject.Modules;
 using _1CIntegrationParserXML;
+using _1CIntegrationDB;
 
 namespace _1CIntegration
 {
@@ -26,9 +26,15 @@ namespace _1CIntegration
 
                 FileSystemWatcher watcher = new FileSystemWatcher
                 {
-                    Path = "C:\\Users\\Дмитрий\\Downloads\\webdata",
-                    NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
-                                   | NotifyFilters.FileName | NotifyFilters.DirectoryName,
+                    Path = "h:\\root\\home\\djinaroshop-001\\www\\webdata\\",
+                    NotifyFilter = NotifyFilters.Attributes |
+                                   NotifyFilters.CreationTime |
+                                   NotifyFilters.DirectoryName |
+                                   NotifyFilters.FileName |
+                                   NotifyFilters.LastAccess |
+                                   NotifyFilters.LastWrite |
+                                   NotifyFilters.Security |
+                                   NotifyFilters.Size,
                     Filter = "*.xml"
                 };
                 //C:\\Users\\r.karimov\\Downloads\\Temp\\webdata
@@ -38,13 +44,16 @@ namespace _1CIntegration
                 watcher.Created += new FileSystemEventHandler(OnChanged);
                 watcher.Deleted += new FileSystemEventHandler(OnChanged);
                 watcher.Renamed += new RenamedEventHandler(OnRenamed);
+                watcher.Error += new ErrorEventHandler(OnError);
 
                 // Begin watching.
                 watcher.EnableRaisingEvents = true;
+
+                new FileLogger("Log.txt").LogMessage("Watcher создан!");
             }
             catch (Exception e)
             {
-                throw;
+                new FileLogger("Log.txt").LogMessage(e.Message);
             }
         }
 
@@ -52,9 +61,15 @@ namespace _1CIntegration
         // Define the event handlers.
         private void OnChanged(object source, FileSystemEventArgs e)
         {
-            if (e.ChangeType == WatcherChangeTypes.Created)
+            if (e.ChangeType == WatcherChangeTypes.Changed)
             {
                 Thread.Sleep(2000);
+
+                while (new FileInfo(e.FullPath).Attributes == 0)
+                {
+                }
+
+                new FileLogger("Log.txt").LogMessage("Файл '" + e.Name + "' изменился");
 
                 if (Kernel != null)
                 {
@@ -68,6 +83,11 @@ namespace _1CIntegration
         {
             // Specify what is done when a file is renamed.
             Console.WriteLine("File: {0} renamed to {1}", e.OldFullPath, e.FullPath);
+        }
+
+        public void OnError(object sender, ErrorEventArgs e)
+        {
+            throw e.GetException();
         }
     }
 }

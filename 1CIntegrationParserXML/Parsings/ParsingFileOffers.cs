@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading;
 using System.Xml;
 using _1CIntegrationDB;
 
@@ -23,8 +25,17 @@ namespace _1CIntegrationParserXML
                 offersDataTable.Columns.Add("amount", typeof(string));
 
                 XmlDocument xmlDocument = new XmlDocument();
-                xmlDocument.Load(fullPath);
-                
+                try
+                {
+                    Thread.Sleep(5000);
+                    xmlDocument.Load(fullPath);
+                }
+                catch (Exception)
+                {
+                    Thread.Sleep(5000);
+                    xmlDocument.Load(fullPath);
+                }
+
                 #region Предложения
                 var elements = xmlDocument.GetElementsByTagName("Предложение");
                 var listNodes = elements.Cast<XmlElement>().Cast<XmlNode>().ToList();
@@ -42,10 +53,13 @@ namespace _1CIntegrationParserXML
                     if (firstOrDefault != null)
                     {
                         var offer_id =  firstOrDefault.LastChild.InnerText;
-                        goodKey = offer_id.Split('#')[0];
-                        offerKey = offer_id.Split('#')[1];
-                        newElementRow["offer_key"] = offerKey;
-                        newElementRow["good_key"] = goodKey;
+                        if (offer_id.Split('#').Length == 2)
+                        {
+                            goodKey = offer_id.Split('#')[0];
+                            offerKey = offer_id.Split('#')[1];
+                            newElementRow["offer_key"] = offerKey;
+                            newElementRow["good_key"] = goodKey;
+                        }
                     }
                     //===============================================
 
@@ -94,7 +108,7 @@ namespace _1CIntegrationParserXML
                     if (firstOrDefault != null)
                     {
                         var amount = firstOrDefault.Attributes["КоличествоНаСкладе"].InnerText;
-                        newElementRow["amount"] = amount;
+                        newElementRow["amount"] = (amount.Trim().Length == 0 ? "0" : amount.Trim());
                     }
                     //===============================================
 
@@ -107,6 +121,7 @@ namespace _1CIntegrationParserXML
             catch (Exception e)
             {
                 var error = e.Message;
+                new FileLogger("Log.txt").LogMessage("Парсинг: " + error);
             }
         }
 
@@ -116,31 +131,48 @@ namespace _1CIntegrationParserXML
             {
                 string sql = "";
 
+                new FileLogger("Log.txt").LogMessage("Количество предложений: " + dataSource.Tables["OffersTable"].Rows.Count);
+
+                //SQLiteProvider.ExecSql("delete from offers");
+                List<string> listSql = new List<string>();
                 //OffersTable 
                 foreach (DataRow rowGroup in dataSource.Tables["OffersTable"].Rows)
                 {
-                    int cnt = Convert.ToInt32(SQLiteProvider.OpenSql("select count(*) cnt from offers where offer_key = '" + rowGroup["offer_key"] + "'").Rows[0]["cnt"]);
-                    if (cnt == 0)
+                    var cntTable = SQLiteProvider.OpenSql("select 1 cnt from offers where offer_key = '" + rowGroup["offer_key"] + "'");
+                    int cnt = cntTable.Rows.Count != 0 ? Convert.ToInt32(cntTable.Rows[0]["cnt"]) : 0;
+                    if (cnt == 0 || rowGroup["offer_key"].ToString().Trim() == "")
                     {
+                        var amount = rowGroup["amount"].ToString().Trim().Length == 0
+                            ? "0"
+                            : rowGroup["amount"].ToString().Trim();
                         sql = "insert into offers (good_key, offer_key, feature, price, currency, amount) values " +
-                              "('" + rowGroup["good_key"] + "',,'" + rowGroup["feature"] +
+                              "('" + rowGroup["good_key"] + "','" + rowGroup["offer_key"] + "','" + rowGroup["feature"] +
                               "'" +
-                              "," + rowGroup["price"] + ",'" + rowGroup["currency"] + "'," + rowGroup["amount"] + ")";
-                        SQLiteProvider.ExecSql(sql);
+                              "," + rowGroup["price"] + ",'" + rowGroup["currency"] + "'," + amount + ")";
+                        //SQLiteProvider.ExecSql(sql);
                     }
                     else
                     {
+                        var amount = rowGroup["amount"].ToString().Trim().Length == 0
+                            ? "0"
+                            : rowGroup["amount"].ToString().Trim();
                         sql = "update offers set (feature, price, currency, amount) = " +
-                              "('" + rowGroup["feature"] + "'," + rowGroup["price"] + ",'" 
-                              + rowGroup["currency"] + "'," + rowGroup["amount"] + ") " +
+                              "('" + rowGroup["feature"] + "'," + rowGroup["price"] + ",'"
+                              + rowGroup["currency"] + "'," + amount + ") " +
                               " where offer_key = '" + rowGroup["offer_key"] + "'";
-                        SQLiteProvider.ExecSql(sql);
+                        //SQLiteProvider.ExecSql(sql);
                     }
+
+                    listSql.Add(sql);
                 }
+
+                new FileLogger("Log.txt").LogMessage("Количество скриптов: " + listSql.Count);
+                SQLiteProvider.ExecSql(listSql);
             }
             catch (Exception e)
             {
                 var error = e.Message;
+                new FileLogger("Log.txt").LogMessage(error);
             }
         }
     }

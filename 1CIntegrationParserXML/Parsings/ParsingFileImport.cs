@@ -144,6 +144,7 @@ namespace _1CIntegrationParserXML
             catch (Exception e)
             {
                 var error = e.Message;
+                new FileLogger("Log.txt").LogMessage("Парсинг: " + error);
             }
         }
 

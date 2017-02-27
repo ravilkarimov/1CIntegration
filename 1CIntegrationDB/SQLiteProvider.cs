@@ -1,21 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
+using System.Text;
 
 namespace _1CIntegrationDB
 {
     public class SQLiteProvider
     {
-        private static readonly string DatabaseName = "C:\\Users\\Дмитрий\\db.sqlite";
+        private static readonly string DatabaseName = "h:\\root\\home\\djinaroshop-001\\www\\db\\db.sqlite";
         //C:\\Users\\r.karimov\\Downloads\\db.sqlite
         //C:\\Users\\Дмитрий\\db.sqlite
 
+        private static readonly string ConnectionString = string.Format("Data Source={0}; Version=3; UseUTF16Encoding=True;", DatabaseName);
+
         static SQLiteProvider()
         {
-            if (!File.Exists(DatabaseName))
+            try
             {
-                SQLiteConnection.CreateFile(DatabaseName);
+                if (!File.Exists(DatabaseName))
+                {
+                    try
+                    {
+                        SQLiteConnection.CreateFile(DatabaseName);
+                    }
+                    catch (SQLiteException eLite)
+                    {
+                        throw eLite;
+                    }
+                }
+            }
+            catch (Exception error)
+            {
+                throw error;
             }
         }
 
@@ -23,10 +41,14 @@ namespace _1CIntegrationDB
         {
             try
             {
-                SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0}; Version=3;", DatabaseName));
-                connection.Open();
-                SQLiteCommand command = new SQLiteCommand(sql, connection);
-                command.ExecuteNonQuery();
+                using (SQLiteConnection c = new SQLiteConnection(ConnectionString))
+                {
+                    c.Open();
+                    using (SQLiteCommand cmd = new SQLiteCommand(sql, c))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
             }
             catch (SQLiteException)
             {
@@ -37,18 +59,24 @@ namespace _1CIntegrationDB
         {
             try
             {
-                SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", DatabaseName));
-                connection.Open();
-                SQLiteCommand command = new SQLiteCommand(sqlString, connection);
-                SQLiteDataReader reader = command.ExecuteReader();
-                DataTable dt = new DataTable();
-                dt.Load(reader);
-                connection.Close();
-                return dt;
+                using (SQLiteConnection c = new SQLiteConnection(ConnectionString))
+                { 
+                    c.Open();
+                    using (SQLiteCommand cmd = new SQLiteCommand(sqlString, c))
+                    {
+                        using (SQLiteDataReader rdr = cmd.ExecuteReader())
+                        {
+                            var dt = new DataTable();
+                            dt.Load(rdr);
+                            return dt;
+                        }
+                    }
+                }
             }
-            catch (SQLiteException e)
+            catch (Exception e)
             {
-                throw;
+                new FileLogger("Log.txt").LogMessage("Ошибка при OpenSQL (" + sqlString + "): " + e.Message);
+                throw new Exception("Ошибка при OpenSQL (" + sqlString + "): " + e.Message);
             }
         }
 
@@ -56,17 +84,50 @@ namespace _1CIntegrationDB
         {
             try
             {
-                SQLiteConnection connection = new SQLiteConnection(string.Format("Data Source={0};", DatabaseName));
-                connection.Open();
-                SQLiteCommand command = new SQLiteCommand(sqlString, connection);
-                var res = command.ExecuteNonQuery();
-                connection.Close();
-
-                return res;
+                using (SQLiteConnection c = new SQLiteConnection(ConnectionString))
+                {
+                    c.Open();
+                    using (SQLiteCommand cmd = new SQLiteCommand(sqlString, c))
+                    {
+                        return cmd.ExecuteNonQuery();
+                    }
+                }
             }
             catch (SQLiteException e)
             {
-                throw;
+                throw new Exception("Ошибка при ExecSQL ("+sqlString+"): " + e.Message);
+            }
+        }
+
+        public static int ExecSql(List<string> sqlStringBuilder)
+        {
+            try
+            {
+                using (SQLiteConnection c = new SQLiteConnection(ConnectionString))
+                {
+                    c.Open();
+                    foreach (var sql in sqlStringBuilder)
+                    {
+                        using (var cmd = new SQLiteCommand(sql, c))
+                        {
+                            try
+                            {
+                                cmd.ExecuteNonQuery();
+                                new FileLogger("Log.txt").LogMessage(sql);
+                            }
+                            catch (SQLiteException eCmd)
+                            {
+                                throw new Exception("Ошибка при ExecSQL(" + sql + "): " + eCmd.Message);
+                            }
+                        }
+                    }
+                }
+
+                return 1;
+            }
+            catch (SQLiteException e)
+            {
+                throw new Exception("Ошибка при ExecSQL(List): " + e.Message);
             }
         }
     }
