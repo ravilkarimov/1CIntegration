@@ -35,11 +35,11 @@ Description: A Beautiful, Professional and Multipurpose Theme Made by FourGrafx
 /* Preload */
 .QOverlay {background-color: #000000;z-index: 99999;}
 .QLoader {background-color: #CCCCCC;height: 1px;}
-.QAmt {color:#333333;font-family: 'Raleway', sans-serif; font-size:40px;font-weight:300;line-height:50px;height:50px;	width:100px;
+.QAmt {color:#333333;font-family: 'Exo 2', sans-serif; font-size:40px;font-weight:300;line-height:50px;height:50px;	width:100px;
 	margin:-60px 0 0 -50px;}
 #preloader {position:fixed;top:0;left:0; right:0;bottom:0; background-color:#1b1b22; /* change if the mask should have another color then white */ z-index:9999; /* makes sure it stays on top */}
 
-body {background-color: #25242c; color: #c0c0ca;font-family: 'Raleway', sans-serif; text-rendering: optimizelegibility; }
+body {background-color: #25242c; color: #c0c0ca;font-family: 'Exo 2', sans-serif; text-rendering: optimizelegibility; }
 
 a { -webkit-transition: all 0.3s ease-in-out;  -moz-transition: all 0.3s ease-in-out;  -o-transition: all 0.3s ease-in-out;	-ms-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out;}
 a:hover, a:focus { text-decoration:none;}
@@ -222,7 +222,7 @@ section{ }
 .navbar, .navbar-nav{ margin:0; min-height:inherit;}
 .navbar-collapse{ max-height:inherit; padding:0;}
 .navbar-default{ background:none; border:none;}
-.navbar-default .navbar-nav > li > a {color: #ffffff; border-top:3px solid transparent; font-family: 'Raleway', sans-serif; font-size: 12px; font-weight: 500; text-transform:uppercase; text-decoration: none; letter-spacing:1px;}
+.navbar-default .navbar-nav > li > a {color: #ffffff; border-top:3px solid transparent; font-family: 'Exo 2', sans-serif; font-size: 12px; font-weight: 500; text-transform:uppercase; text-decoration: none; letter-spacing:1px;}
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus { background:none; }
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {background-color: transparent;}
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{ border-top:3px solid;}
@@ -314,9 +314,9 @@ section{ }
 /*===============================
 ========== Typography ==========
 ===============================*/
-p{font-family: 'Raleway', sans-serif;}
-h1, h2, h3 { color:#ffffff; font-family: 'Raleway', sans-serif;  font-style: normal; font-weight: 300; text-rendering: optimizelegibility;}
-h4, h5, h6 { color:#ffffff; font-family: 'Raleway', sans-serif;  font-style: normal; font-weight: 600; text-rendering: optimizelegibility;}
+p{font-family: 'Exo 2', sans-serif;}
+h1, h2, h3 { color:#ffffff; font-family: 'Exo 2', sans-serif;  font-style: normal; font-weight: 300; text-rendering: optimizelegibility;}
+h4, h5, h6 { color:#ffffff; font-family: 'Exo 2', sans-serif;  font-style: normal; font-weight: 600; text-rendering: optimizelegibility;}
 h1 {font-size: 58px; margin-top: 0;}
 h2 {font-size: 48px; margin-top: 0;}
 h3 {font-size: 36px; margin-top: 0;}

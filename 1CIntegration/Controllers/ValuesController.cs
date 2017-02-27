@@ -14,12 +14,15 @@ namespace _1CIntegration.Controllers
             try
             {
                 string sql =
-                    "SELECT gr.group_id, gr.group_name, g.good_id, g.good, g.img_path, o.feature, o.price, o.currency, o.amount " +
-                    "FROM goods g " +
-                    "LEFT OUTER JOIN offers o ON g.good_key = o.good_key " +
-                    "LEFT OUTER JOIN groups gr ON g.group_id = gr.group_id " +
-                    "ORDER BY price DESC, feature";
-                //"WHERE g.img_path IS NOT NULL AND g.img_path <> '' ";
+                    " SELECT gr.group_id, gr.group_name, g.good_id, g.good, g.img_path, MAX(o.price) as price, (CASE WHEN o.amount > 0 THEN 'Есть в наличии' ELSE 'Нет в наличии' END) as amount " +
+                    " FROM goods g, groups gr, offers o " +
+                    " WHERE 1 = 1 " +
+                    " AND g.group_id = gr.group_id " +
+                    " AND g.good_key = o.good_key " +
+                    " AND g.group_id = 1 " +
+                    " GROUP BY 1,2,3,4,5 " +
+                    " ORDER BY good_id, feature " +
+                    " LIMIT 18 OFFSET 0 ";
                 var dt = SQLiteProvider.OpenSql(sql);
 
                 return (from DataRow dr in dt.Rows select dt.Columns.Cast<DataColumn>().ToDictionary(col => col.ColumnName, col => dr[col])).ToList();
@@ -32,9 +35,28 @@ namespace _1CIntegration.Controllers
 
 
         // GET api/values/5
-        public string Get(int id)
+        public object Get(int id)
         {
-            return "value";
+            try
+            {
+                string sql =
+                    " SELECT gr.group_id, gr.group_name, g.good_id, g.good, g.img_path, MAX(o.price) as price, (CASE WHEN o.amount > 0 THEN 'Есть в наличии' ELSE 'Нет в наличии' END) as amount " +
+                    " FROM goods g, groups gr, offers o " +
+                    " WHERE 1 = 1 " +
+                    " AND g.group_id = gr.group_id " +
+                    " AND g.good_key = o.good_key " +
+                    " AND g.group_id = 1 " +
+                    " GROUP BY 1,2,3,4,5 " +
+                    " ORDER BY good_id, feature " +
+                    " LIMIT 18 OFFSET 0 ";
+                var dt = SQLiteProvider.OpenSql(sql);
+
+                return (from DataRow dr in dt.Rows select dt.Columns.Cast<DataColumn>().ToDictionary(col => col.ColumnName, col => dr[col])).ToList();
+            }
+            catch (Exception error)
+            {
+                throw error;
+            }
         }
 
         // POST api/values

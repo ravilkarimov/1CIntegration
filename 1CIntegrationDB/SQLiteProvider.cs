@@ -9,9 +9,10 @@ namespace _1CIntegrationDB
 {
     public class SQLiteProvider
     {
-        private static readonly string DatabaseName = "h:\\root\\home\\djinaroshop-001\\www\\db\\db.sqlite";
+        private static readonly string DatabaseName = "C:\\Users\\r.karimov\\Downloads\\db.sqlite";
         //C:\\Users\\r.karimov\\Downloads\\db.sqlite
         //C:\\Users\\Дмитрий\\db.sqlite
+        //h:\\root\\home\\djinaroshop-001\\www\\db\\db.sqlite
 
         private static readonly string ConnectionString = string.Format("Data Source={0}; Version=3; UseUTF16Encoding=True;", DatabaseName);
 

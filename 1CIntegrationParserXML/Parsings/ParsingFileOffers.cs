@@ -60,6 +60,10 @@ namespace _1CIntegrationParserXML
                             newElementRow["offer_key"] = offerKey;
                             newElementRow["good_key"] = goodKey;
                         }
+                        else
+                        {
+                            newElementRow["good_key"] = offer_id;
+                        }
                     }
                     //===============================================
 

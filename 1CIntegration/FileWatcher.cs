@@ -26,7 +26,7 @@ namespace _1CIntegration
 
                 FileSystemWatcher watcher = new FileSystemWatcher
                 {
-                    Path = "h:\\root\\home\\djinaroshop-001\\www\\webdata\\",
+                    Path = "C:\\Users\\r.karimov\\Downloads\\Temp\\webdata",
                     NotifyFilter = NotifyFilters.Attributes |
                                    NotifyFilters.CreationTime |
                                    NotifyFilters.DirectoryName |
@@ -39,6 +39,7 @@ namespace _1CIntegration
                 };
                 //C:\\Users\\r.karimov\\Downloads\\Temp\\webdata
                 //C:\\Users\\Дмитрий\\Downloads\\webdata
+                //h:\\root\\home\\djinaroshop-001\\www\\webdata\\
 
                 watcher.Changed += new FileSystemEventHandler(OnChanged);
                 watcher.Created += new FileSystemEventHandler(OnChanged);
