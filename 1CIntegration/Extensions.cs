@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace _1CIntegration
 {
@@ -21,14 +25,7 @@ namespace _1CIntegration
         {
             try
             {
-                if (obj is Int32)
-                {
-                    return Convert.ToInt32(obj);
-                }
-                else
-                {
-                    return 0;
-                }
+                return Convert.ToInt32(obj.ToString());
             }
             catch (Exception e)
             {
@@ -48,6 +45,22 @@ namespace _1CIntegration
                 return 0;
             }
 
+        }
+
+        public static object ToList(this DataTable dt)
+        {
+            try
+            {
+                return
+                    (from DataRow dr in dt.Rows
+                        select dt.Columns.Cast<DataColumn>().ToDictionary(col => col.ColumnName, col => dr[col]))
+                        .ToList();
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
         }
     }
 }
