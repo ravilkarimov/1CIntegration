@@ -2,7 +2,7 @@
 var Djinaro = {};
 
 Djinaro.WriteResponse = function (data) {
-    var categories = document.getElementById('categories');
+    var categories = document.getElementById('goods');
     debugger;
     var countRow = data.length / 3;
     var itemIndex = 0;
@@ -21,8 +21,8 @@ Djinaro.WriteResponse = function (data) {
                         '   <div class="shop-product">' +
                         '       <!-- Overlay Img -->' +
                         '       <div class="overlay-wrapper">' +
-                        '           <img src="img/demo/shop/product1.jpg" alt="' + data[itemIndex].feature + '">' +
-                        '           <img class="img-hover" src="img/demo/shop/product1_hover.jpg" alt="Product 1">' +
+                        '           <img src="../img/demo/shop/product1.jpg" alt="' + data[itemIndex].feature + '">' +
+                        '           <img class="img-hover" src="../img/demo/shop/product1_hover.jpg" alt="Product 1">' +
                         '       </div>' +
                         '       <!-- Overlay Img -->' +
                         '       <div class="shop-product-info">' +
