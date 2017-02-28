@@ -85,7 +85,7 @@ namespace _1CIntegrationParserXML
                     if (firstOrDefault != null)
                     {
                         var custom = firstOrDefault.LastChild.ChildNodes
-                            .Cast<XmlElement>().Cast<XmlNode>();
+                            .Cast<XmlElement>();
 
                         var priceDefault = custom.FirstOrDefault(x => x.Name == "ЦенаЗаЕдиницу");
                         if (priceDefault != null)
@@ -142,7 +142,7 @@ namespace _1CIntegrationParserXML
                 //OffersTable 
                 foreach (DataRow rowGroup in dataSource.Tables["OffersTable"].Rows)
                 {
-                    var cntTable = SQLiteProvider.OpenSql("select 1 cnt from offers where offer_key = '" + rowGroup["offer_key"] + "'");
+                    var cntTable = SQLiteProvider.OpenSql("select 1 cnt from offers where offer_key = '" + rowGroup["offer_key"] + "' and feature = '" + rowGroup["feature"] + "'");
                     int cnt = cntTable.Rows.Count != 0 ? Convert.ToInt32(cntTable.Rows[0]["cnt"]) : 0;
                     if (cnt == 0 || rowGroup["offer_key"].ToString().Trim() == "")
                     {
@@ -160,10 +160,11 @@ namespace _1CIntegrationParserXML
                         var amount = rowGroup["amount"].ToString().Trim().Length == 0
                             ? "0"
                             : rowGroup["amount"].ToString().Trim();
-                        sql = "update offers set (feature, price, currency, amount) = " +
-                              "('" + rowGroup["feature"] + "'," + rowGroup["price"] + ",'"
-                              + rowGroup["currency"] + "'," + amount + ") " +
-                              " where offer_key = '" + rowGroup["offer_key"] + "'";
+                        sql = "update offers set (price, currency, amount) = " +
+                              "(" + rowGroup["price"] + ",'" + rowGroup["currency"] + "'," + amount + ") " +
+                              " where offer_key = '" + rowGroup["offer_key"] + "' " +
+                              " and good_key = '" + rowGroup["good_key"] + "' "+
+                              " and feature = '" + rowGroup["feature"]  + "' ";
                         //SQLiteProvider.ExecSql(sql);
                     }
 

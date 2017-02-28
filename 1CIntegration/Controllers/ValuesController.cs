@@ -21,7 +21,7 @@ namespace _1CIntegration.Controllers
                     " AND g.good_key = o.good_key " +
                     " AND g.group_id = 1 " +
                     " GROUP BY 1,2,3,4,5 " +
-                    " ORDER BY good_id, feature " +
+                    " ORDER BY price, feature " +
                     " LIMIT 18 OFFSET 0 ";
                 var dt = SQLiteProvider.OpenSql(sql);
 

@@ -43,8 +43,10 @@ namespace _1CIntegrationDB
     /// 
     public class FileLogger : Logger
     {
-        string path = "C:\\Users\\r.karimov\\Downloads\\";
+        string path = "h:\\root\\home\\djinaroshop-001\\www\\logs\\";
         //h:\\root\\home\\djinaroshop-001\\www\\logs\\
+        //C:\\Users\\Дмитрий\\
+        // C:\\Users\\r.karimov\\Downloads\\
 
         public FileLogger(string fileName)
             : base()

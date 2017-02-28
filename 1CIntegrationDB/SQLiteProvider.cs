@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
-using System.Text;
 
 namespace _1CIntegrationDB
 {
     public class SQLiteProvider
     {
-        private static readonly string DatabaseName = "C:\\Users\\r.karimov\\Downloads\\db.sqlite";
+        private static readonly string DatabaseName = "h:\\root\\home\\djinaroshop-001\\www\\db\\db.sqlite";
         //C:\\Users\\r.karimov\\Downloads\\db.sqlite
         //C:\\Users\\Дмитрий\\db.sqlite
         //h:\\root\\home\\djinaroshop-001\\www\\db\\db.sqlite
@@ -100,28 +99,19 @@ namespace _1CIntegrationDB
             }
         }
 
-        public static int ExecSql(List<string> sqlStringBuilder)
+        public static int ExecSql(List<string> listSql)
         {
             try
             {
                 using (SQLiteConnection c = new SQLiteConnection(ConnectionString))
                 {
                     c.Open();
-                    foreach (var sql in sqlStringBuilder)
+                    using (var cmd = new SQLiteCommand(c))
                     {
-                        using (var cmd = new SQLiteCommand(sql, c))
-                        {
-                            try
-                            {
-                                cmd.ExecuteNonQuery();
-                                new FileLogger("Log.txt").LogMessage(sql);
-                            }
-                            catch (SQLiteException eCmd)
-                            {
-                                throw new Exception("Ошибка при ExecSQL(" + sql + "): " + eCmd.Message);
-                            }
-                        }
+                        cmd.CommandText = string.Join("; ", listSql);
+                        cmd.ExecuteNonQuery();
                     }
+                    c.Close();
                 }
 
                 return 1;
