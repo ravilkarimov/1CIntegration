@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
 using _1CIntegrationDB;
@@ -20,6 +21,7 @@ namespace _1CIntegrationParserXML
                 offersDataTable.Columns.Add("offer_key", typeof(string));
                 offersDataTable.Columns.Add("good_key", typeof(string));
                 offersDataTable.Columns.Add("feature", typeof(string));
+                offersDataTable.Columns.Add("size", typeof(string));
                 offersDataTable.Columns.Add("price", typeof(string));
                 offersDataTable.Columns.Add("currency", typeof(string));
                 offersDataTable.Columns.Add("amount", typeof(string));
@@ -67,7 +69,7 @@ namespace _1CIntegrationParserXML
                     }
                     //===============================================
 
-                    //Предложение
+                    //Предложение и размер
                     firstOrDefault = item.Cast<XmlElement>()
                         .Cast<XmlNode>()
                         .FirstOrDefault(x => x.Name == "Наименование");
@@ -75,6 +77,9 @@ namespace _1CIntegrationParserXML
                     {
                         var feature = firstOrDefault.LastChild.InnerText;
                         newElementRow["feature"] = feature;
+
+                        var size = Regex.Match(feature, @"\(([^()]*)\)").Groups[1].Value;
+                        newElementRow["size"] = size;
                     }
                     //===============================================
 
@@ -138,7 +143,7 @@ namespace _1CIntegrationParserXML
                 new FileLogger("Log.txt").LogMessage("Количество предложений: " + dataSource.Tables["OffersTable"].Rows.Count);
 
                 //SQLiteProvider.ExecSql("delete from offers");
-                List<string> listSql = new List<string>();
+                var listSql = new List<string>();
                 //OffersTable 
                 foreach (DataRow rowGroup in dataSource.Tables["OffersTable"].Rows)
                 {
@@ -149,10 +154,10 @@ namespace _1CIntegrationParserXML
                         var amount = rowGroup["amount"].ToString().Trim().Length == 0
                             ? "0"
                             : rowGroup["amount"].ToString().Trim();
-                        sql = "insert into offers (good_key, offer_key, feature, price, currency, amount) values " +
+                        sql = "insert into offers (good_key, offer_key, feature, price, currency, amount, size) values " +
                               "('" + rowGroup["good_key"] + "','" + rowGroup["offer_key"] + "','" + rowGroup["feature"] +
                               "'" +
-                              "," + rowGroup["price"] + ",'" + rowGroup["currency"] + "'," + amount + ")";
+                              "," + rowGroup["price"] + ",'" + rowGroup["currency"] + "'," + amount + ",'" + rowGroup["size"] + "')";
                         //SQLiteProvider.ExecSql(sql);
                     }
                     else
