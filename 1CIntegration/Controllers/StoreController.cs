@@ -23,7 +23,7 @@ namespace _1CIntegration.Controllers
         {
             try
             {
-                var sql = "select group_id, group_name from groups order by group_name";
+                var sql = "SELECT group_name, COUNT(*) as count FROM groups gr, goods g WHERE gr.group_id = g.group_id GROUP BY 1";
 
                 return Json(SQLiteProvider.OpenSql(sql).ToList(), JsonRequestBehavior.AllowGet);
             }
@@ -39,7 +39,7 @@ namespace _1CIntegration.Controllers
         {
             try
             {
-                var sql = "select distinct size from offers where good_key = '" + id + "' order by size ";
+                var sql = "SELECT DISTINCT size FROM offers where good_key = '" + id + "' ORDER BY size ";
 
                 return Json(SQLiteProvider.OpenSql(sql).ToList(), JsonRequestBehavior.AllowGet);
             }
