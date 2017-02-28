@@ -76,17 +76,30 @@ namespace _1CIntegration.Controllers
                     {"4XL", 1100}
                 };
 
+                var dtGroups = SQLiteProvider.OpenSql("select distinct g.group_id, o.size from goods g, offers o where o.good_key = g.good_key");
+                var dictGroups = dtGroups.AsEnumerable()
+                    .Select(x => new
+                    {
+                        group_id = x["group_id"],
+                        size = x["size"].ToString().ToUpper()
+                    })
+                    .GroupBy(x => x.size)
+                    .ToDictionary(x => x.Key, y => y.Select(z => z.group_id).FirstOrDefault());
+
                 var dt = SQLiteProvider.OpenSql("select distinct size from offers where size <> ''");
                 var listSizes = dt.AsEnumerable()
                     .Select(x => new
                     {
-                        size = x["size"],
-                        ordering = dictSizes.ContainsKey(x["size"].ToString().ToUpper())
-                            ? dictSizes[x["size"].ToString().ToUpper()].AsInteger()
-                            : x["size"].AsInteger()
+                        size = x["size"].ToString().ToUpper()
+                    })
+                    .Select(x => new
+                    {
+                        x.size,
+                        ordering = dictSizes.Keys.Any(y => y == x.size) ? dictSizes[x.size] : x.size.AsInteger(),
+                        group_id = dictGroups.Keys.Any(y => y == x.size) ? dictGroups[x.size] : x.size.AsInteger()
                     })
                     .OrderBy(x => x.ordering)
-                    .Select(x => x.size)
+                    .Select(x => new {x.group_id, x.size})
                     .ToList();
 
                 return Json(listSizes, JsonRequestBehavior.AllowGet);
