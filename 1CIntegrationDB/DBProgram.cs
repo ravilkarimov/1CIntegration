@@ -30,6 +30,7 @@ namespace _1CIntegrationDB
                                 "offer_key TEXT, " +
                                 "good_key TEXT, " +
                                 "feature TEXT, " +
+                                "size TEXT, " +
                                 "price INTEGER, " +
                                 "currency TEXT, " +
                                 "amount INTEGER) ";
