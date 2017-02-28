@@ -35,7 +35,7 @@ namespace _1CIntegration.Controllers
         }
 
         // GET: /Store/getsizesgood
-        public object GetSizesGood(string id)
+        public JsonResult GetSizesGood(string id)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace _1CIntegration.Controllers
         }
 
         // GET: /Store/getsizes
-        public object GetSizes()
+        public JsonResult GetSizes()
         {
             try
             {
