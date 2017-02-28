@@ -18,5 +18,17 @@ namespace _1CIntegration.Controllers
             return View();
         }
 
+        // GET: /Store/getgroups
+        public object GetGroups()
+        {
+            return null;
+        }
+
+        // GET: /Store/getsizes
+        public object GetSizes(decimal id)
+        {
+            return null;
+        }
+
     }
 }
