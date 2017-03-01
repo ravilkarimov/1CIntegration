@@ -469,7 +469,9 @@
     <Content Include="Scripts\revolutionslider\jquery.themepunch.plugins.min.js" />
     <Content Include="Scripts\revolutionslider\jquery.themepunch.revolution.js" />
     <Content Include="Scripts\revolutionslider\jquery.themepunch.revolution.min.js" />
-    <Content Include="Scripts\store.js" />
+    <Content Include="Scripts\store.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\themejs\application.js" />
     <Content Include="Scripts\themejs\jquery.colio.js" />
     <Content Include="Scripts\themejs\jquery.colio.min.js" />
@@ -508,7 +510,9 @@
     </Content>
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Store\Index.cshtml" />
+    <Content Include="Views\Store\Index.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\videojs\demo.captions.vtt" />
     <Content Include="Scripts\videojs\font\vjs.eot" />
     <Content Include="Scripts\videojs\font\vjs.ttf" />
