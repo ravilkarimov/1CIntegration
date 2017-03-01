@@ -442,7 +442,6 @@
     <Content Include="img\theme\revolutionslider\timerdot.png" />
     <Content Include="img\theme\revolutionslider\transparent.jpg" />
     <Content Include="img\theme\revolutionslider\white50.png" />
-    <Content Include="import_files\fd\fd5cbd55d21611e68be1d05099362ac5_bbbe8012ed2e11e6b939a08cfd75a56c.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.11.1.min.js" />
