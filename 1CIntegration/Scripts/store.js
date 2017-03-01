@@ -1,6 +1,16 @@
 ﻿
 var Djinaro = {};
 
+Djinaro.WriteResponseSizes = function (data) {
+    debugger;
+    var stringAllSizes = '';
+    for (var i = 0; i < data.length; i++) {
+        var stringSizes  =
+            '<div>' + data[i].size + '</div>';
+        stringAllSizes += stringSizes;
+    }
+}
+
 Djinaro.WriteResponseGroups = function (data) {
     var groups = document.getElementById('groups');
     //debugger;
@@ -45,12 +55,7 @@ Djinaro.WriteResponseGoods = function (data) {
         var addItem = 1;
 
         for (var j = 0; j < addItem; j++) {
-            var sizes = Djinaro.getSizesByGood(data[itemIndex].good_key);
-
-            for (var k = 0; k < sizes.length; k++) {
-                var stringSizes =
-                    '<div>' + sizes[k].size + '</div>';
-            }
+            Djinaro.getSizesByGood(data[itemIndex].good_key);
 
             if (data[itemIndex]) {
                 var stringElement =
@@ -61,7 +66,7 @@ Djinaro.WriteResponseGoods = function (data) {
                         '       <div class="overlay-wrapper">' +
                         '           <img src="../img/demo/shop/product1.jpg" alt="' + data[itemIndex].feature + '">' +
                         '           <img class="img-hover" src="../img/demo/shop/product1_hover.jpg" alt="Product 1">' +
-                        '           <div class="rating">' + stringSizes + '</div>' +
+                        '           <div class="rating">sizes</div>' +
                         '       </div>' +
                         '       <!-- Overlay Img -->' +
                         '       <div class="shop-product-info">' +
@@ -119,7 +124,8 @@ Djinaro.getSizesByGood = function (good_key) {
         dataType: 'json',
         data: { id: good_key },
         success: function (data) {
-            return data;
+            debugger;
+            Djinaro.WriteResponseSizes(data);
         },
         error: function (x, y, z) {
             alert(x + '\n' + y + '\n' + z);
