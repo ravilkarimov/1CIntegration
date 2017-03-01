@@ -3,7 +3,7 @@ var Djinaro = {};
 
 Djinaro.WriteResponseGroups = function (data) {
     var groups = document.getElementById('groups');
-    debugger;
+    //debugger;
 
     var title = document.createElement('h4');
     title.className = 'title-widget fancy-title';
@@ -45,6 +45,13 @@ Djinaro.WriteResponseGoods = function (data) {
         var addItem = 1;
 
         for (var j = 0; j < addItem; j++) {
+            var sizes = Djinaro.getSizesByGood(data[itemIndex].good_key);
+
+            for (var k = 0; k < sizes.length; k++) {
+                var stringSizes =
+                    '<div>' + sizes[k].size + '</div>';
+            }
+
             if (data[itemIndex]) {
                 var stringElement =
                         '<div class="col-md-4">' +
@@ -54,6 +61,7 @@ Djinaro.WriteResponseGoods = function (data) {
                         '       <div class="overlay-wrapper">' +
                         '           <img src="../img/demo/shop/product1.jpg" alt="' + data[itemIndex].feature + '">' +
                         '           <img class="img-hover" src="../img/demo/shop/product1_hover.jpg" alt="Product 1">' +
+                        '           <div class="rating" id="sizes">Djinaro.getSizesByGood()</div>' +
                         '       </div>' +
                         '       <!-- Overlay Img -->' +
                         '       <div class="shop-product-info">' +
@@ -91,14 +99,27 @@ Djinaro.getShoes = function () {
         }
     });
 }
-Djinaro.getALLGroups = function () {
-    debugger;
+Djinaro.getAllGroups = function () {
     $.ajax({
         url: '/Store/getgroups',
         type: 'GET',
         dataType: 'json',
         success: function (data) {
             Djinaro.WriteResponseGroups(data);
+        },
+        error: function (x, y, z) {
+            alert(x + '\n' + y + '\n' + z);
+        }
+    });
+}
+Djinaro.getSizesByGood = function (good_key) {
+    return $.ajax({
+        url: '/Store/getsizesgood',
+        type: 'GET',
+        dataType: 'json',
+        data: { id: good_key },
+        success: function (data) {
+            return data;
         },
         error: function (x, y, z) {
             alert(x + '\n' + y + '\n' + z);
