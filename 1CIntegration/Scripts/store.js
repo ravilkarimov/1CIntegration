@@ -61,7 +61,7 @@ Djinaro.WriteResponseGoods = function (data) {
                         '       <div class="overlay-wrapper">' +
                         '           <img src="../img/demo/shop/product1.jpg" alt="' + data[itemIndex].feature + '">' +
                         '           <img class="img-hover" src="../img/demo/shop/product1_hover.jpg" alt="Product 1">' +
-                        '           <div class="rating" id="sizes">Djinaro.getSizesByGood()</div>' +
+                        '           <div class="rating">' + stringSizes + '</div>' +
                         '       </div>' +
                         '       <!-- Overlay Img -->' +
                         '       <div class="shop-product-info">' +
