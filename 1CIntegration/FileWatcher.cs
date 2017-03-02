@@ -26,7 +26,7 @@ namespace _1CIntegration
 
                 FileSystemWatcher watcher = new FileSystemWatcher
                 {
-                    Path = "C:\\Users\\r.karimov\\Downloads\\Temp\\webdata",
+                    Path = "h:\\root\\home\\djinaroshop-001\\www\\webdata\\",
                     NotifyFilter = NotifyFilters.Attributes |
                                    NotifyFilters.CreationTime |
                                    NotifyFilters.DirectoryName |
@@ -62,7 +62,7 @@ namespace _1CIntegration
         // Define the event handlers.
         private void OnChanged(object source, FileSystemEventArgs e)
         {
-            if (e.ChangeType == WatcherChangeTypes.Created)
+            if (e.ChangeType == WatcherChangeTypes.Changed)
             {
                 Thread.Sleep(2000);
 
