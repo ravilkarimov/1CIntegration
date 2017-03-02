@@ -120,7 +120,7 @@ namespace _1CIntegration.Controllers
             try
             {
                 string sql =
-                    " SELECT gr.group_id, g.good_id, g.good, g.good_key, g.img_path, " +
+                    " SELECT gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, g.img_path, " +
                     "MAX(o.price) as price, " +
                     "(CASE WHEN o.amount > 0 THEN 'Есть в наличии' ELSE 'Нет в наличии' END) as amount " +
                     " FROM goods g, groups gr, offers o " +
