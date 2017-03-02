@@ -1,6 +1,16 @@
 ﻿
 var Djinaro = {};
 
+Djinaro.filterByGoods = function () {
+    var groupActive = $('.shop-product-categories .active');
+    if (groupActive[0].nodeName == 'A') {
+        groupActive = groupActive.parentElement;
+    }
+    if (groupActive[0].nodeName == 'LI') {
+        Djinaro.getShoes(parseInt(groupActive[0].id), 0, 1);
+    }
+}
+
 Djinaro.WriteResponseGroups = function (data) {
     var groups = document.getElementById('groups');
 
@@ -12,12 +22,25 @@ Djinaro.WriteResponseGroups = function (data) {
 
     var list = document.createElement('ul');
     list.className = 'shop-product-categories';
+    $(list).on('click', function (a) {
+        var liClick = a.target;
+        if (liClick.nodeName == 'A') {
+            liClick = liClick.parentElement;
+        }
+        if (liClick.nodeName == 'LI') {
+            var ulClick = a.currentTarget;
+            $('.active', ulClick)[0].className = '';
+            liClick.className = 'active';
+            Djinaro.filterByGoods();
+        }
+    });
 
     for (var i = 0; i < data.length; i++) {
         var row = document.createElement('li');
         if (data[i].group_name == 'ОБУВЬ') {
             row.className = 'active';
         }
+        row.id = data[i].group_id;
         var link = document.createElement('a');
         link.innerHTML = data[i].group_name;
         var count = document.createElement('span');
@@ -56,7 +79,7 @@ Djinaro.WriteResponseSizes = function (data) {
 
 Djinaro.WriteResponseGoods = function (data) {
     var categories = document.getElementById('goods');
-    categories.innerHtml = '';
+    $('#goods').children().remove();
     var countRow = data.length / 3;
     var itemIndex = 0;
 
@@ -103,18 +126,23 @@ Djinaro.WriteResponseGoods = function (data) {
 
         var shopProducts = $('.shop-product');
         for (var s = 0; s < shopProducts.length; s++) {
-            $('#'+shopProducts[s].id).hover(function (a) {
-                  Djinaro.getSizesByGood(a.currentTarget.id.replace('shop-product-',''));
+            $('#' + shopProducts[s].id).hover(function (a) {
+                Djinaro.getSizesByGood(a.currentTarget.id.replace('shop-product-', ''));
             });
         }
     }
 }
 
-Djinaro.getShoes = function () {
+Djinaro.getShoes = function (groups, sizes, page) {
     $.ajax({
-        url: '/api/values',
+        url: '/Store/getshoes',
         type: 'GET',
         dataType: 'json',
+        data: {
+            'groups': groups,
+            'sizes': sizes,
+            'page': page
+        },
         success: function (data) {
             Djinaro.WriteResponseGoods(data);
         },

@@ -23,7 +23,11 @@ namespace _1CIntegration.Controllers
         {
             try
             {
-                var sql = "SELECT group_name, COUNT(*) as count FROM groups gr, goods g WHERE gr.group_id = g.group_id GROUP BY 1";
+                var sql = "SELECT gr.group_id, gr.group_name, COUNT(*) as count " +
+                          "FROM groups gr, goods g " +
+                          "WHERE gr.group_id = g.group_id " +
+                          "GROUP BY 1,2 " +
+                          "ORDER BY group_name";
 
                 return Json(SQLiteProvider.OpenSql(sql).ToList(), JsonRequestBehavior.AllowGet);
             }
@@ -107,6 +111,33 @@ namespace _1CIntegration.Controllers
             catch (Exception eSize)
             {
                 throw;
+            }
+        }
+
+        // GET: /Store/getshoes
+        public JsonResult GetShoes(int groups, int sizes, int page)
+        {
+            try
+            {
+                string sql =
+                    " SELECT gr.group_id, g.good_id, g.good, g.good_key, g.img_path, " +
+                    "MAX(o.price) as price, " +
+                    "(CASE WHEN o.amount > 0 THEN 'Есть в наличии' ELSE 'Нет в наличии' END) as amount " +
+                    " FROM goods g, groups gr, offers o " +
+                    " WHERE 1 = 1 " +
+                    " AND g.group_id = gr.group_id " +
+                    " AND g.good_key = o.good_key " +
+                    " AND g.group_id = " + groups + " " +
+                    " GROUP BY 1,2,3,4,5 " +
+                    " ORDER BY price, feature " +
+                    " LIMIT 18 OFFSET "+ ((page * 18) - 18) +" ";
+                var dt = SQLiteProvider.OpenSql(sql);
+
+                return Json(dt.ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception error)
+            {
+                throw error;
             }
         }
 
