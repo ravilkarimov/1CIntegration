@@ -3,7 +3,6 @@ var Djinaro = {};
 
 Djinaro.WriteResponseGroups = function (data) {
     var groups = document.getElementById('groups');
-    //debugger;
 
     var title = document.createElement('h4');
     title.className = 'title-widget fancy-title';
@@ -26,6 +25,29 @@ Djinaro.WriteResponseGroups = function (data) {
         count.innerHTML = '(' + data[i].count + ')';
         row.appendChild(link);
         row.appendChild(count);
+        list.appendChild(row);
+    }
+    groups.appendChild(title);
+    groups.appendChild(list);
+}
+
+Djinaro.WriteResponseSizes = function (data) {
+    var groups = document.getElementById('sizes');
+
+    var title = document.createElement('h4');
+    title.className = 'title-widget fancy-title';
+    var title_div = document.createElement('span');
+    title_div.innerHTML = 'Отфильтровать по размеру';
+    title.appendChild(title_div);
+
+    var list = document.createElement('ul');
+    list.className = 'list-inline';
+    for (var i = 0; i < data.length; i++) {
+        var row = document.createElement('li');
+        var link = document.createElement('a');
+        link.innerHTML = data[i].size;
+        link.className = 'btn btn-sm btn-default btn-alt margin-bottom10';
+        row.appendChild(link);
         list.appendChild(row);
     }
     groups.appendChild(title);
@@ -101,6 +123,7 @@ Djinaro.getShoes = function () {
         }
     });
 }
+
 Djinaro.getAllGroups = function () {
     $.ajax({
         url: '/Store/getgroups',
@@ -114,6 +137,7 @@ Djinaro.getAllGroups = function () {
         }
     });
 }
+
 Djinaro.getSizesByGood = function (good_key) {
     $.ajax({
         url: '/Store/getsizesgood',
@@ -130,6 +154,20 @@ Djinaro.getSizesByGood = function (good_key) {
             var div = document.createElement('div');
             div.innerText = sizesString;
             divRating.appendChild(div);
+        },
+        error: function (x, y, z) {
+            alert(x + '\n' + y + '\n' + z);
+        }
+    });
+}
+
+Djinaro.getAllSizes = function () {
+    $.ajax({
+        url: '/Store/getsizes',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            Djinaro.WriteResponseSizes(data);
         },
         error: function (x, y, z) {
             alert(x + '\n' + y + '\n' + z);
