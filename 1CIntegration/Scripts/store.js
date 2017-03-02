@@ -1,16 +1,6 @@
 ﻿
 var Djinaro = {};
 
-Djinaro.WriteResponseSizes = function (data) {
-    debugger;
-    var stringAllSizes = '';
-    for (var i = 0; i < data.length; i++) {
-        var stringSizes  =
-            '<div>' + data[i].size + '</div>';
-        stringAllSizes += stringSizes;
-    }
-}
-
 Djinaro.WriteResponseGroups = function (data) {
     var groups = document.getElementById('groups');
     //debugger;
@@ -44,7 +34,7 @@ Djinaro.WriteResponseGroups = function (data) {
 
 Djinaro.WriteResponseGoods = function (data) {
     var categories = document.getElementById('goods');
-    debugger;
+    categories.innerHtml = '';
     var countRow = data.length / 3;
     var itemIndex = 0;
 
@@ -55,18 +45,18 @@ Djinaro.WriteResponseGoods = function (data) {
         var addItem = 1;
 
         for (var j = 0; j < addItem; j++) {
-            Djinaro.getSizesByGood(data[itemIndex].good_key);
+            var goodKey = data[itemIndex].good_key;
 
             if (data[itemIndex]) {
                 var stringElement =
                         '<div class="col-md-4">' +
                         '   <!-- Shop Product -->' +
-                        '   <div class="shop-product">' +
+                        '   <div class="shop-product" id="shop-product-' + goodKey + '">' +
                         '       <!-- Overlay Img -->' +
                         '       <div class="overlay-wrapper">' +
                         '           <img src="../img/demo/shop/product1.jpg" alt="' + data[itemIndex].feature + '">' +
                         '           <img class="img-hover" src="../img/demo/shop/product1_hover.jpg" alt="Product 1">' +
-                        '           <div class="rating">sizes</div>' +
+                        '           <div class="rating" id="rating_' + goodKey + '"></div>' +
                         '       </div>' +
                         '       <!-- Overlay Img -->' +
                         '       <div class="shop-product-info">' +
@@ -77,16 +67,23 @@ Djinaro.WriteResponseGoods = function (data) {
                         '    </div>' +
                         '    <!-- /Shop Product -->' +
                         '    <div class="white-space space-small"></div>' +
-                        '</div>';
+                        '</div> ';
 
                 row.innerHTML += stringElement;
-
+                
                 categories.appendChild(row);
 
                 if(addItem < 3) addItem++;
             }
 
             itemIndex += 1;
+        }
+
+        var shopProducts = $('.shop-product');
+        for (var s = 0; s < shopProducts.length; s++) {
+            $('#'+shopProducts[s].id).hover(function (a) {
+                  Djinaro.getSizesByGood(a.currentTarget.id.replace('shop-product-',''));
+            });
         }
     }
 }
@@ -118,14 +115,21 @@ Djinaro.getAllGroups = function () {
     });
 }
 Djinaro.getSizesByGood = function (good_key) {
-    return $.ajax({
+    $.ajax({
         url: '/Store/getsizesgood',
         type: 'GET',
         dataType: 'json',
         data: { id: good_key },
         success: function (data) {
-            debugger;
-            Djinaro.WriteResponseSizes(data);
+            var divRating = document.getElementById('rating_' + good_key);
+            divRating.innerHTML = '';
+            var sizesString = '';
+            for (var i = 0; i < data.length; i++) {
+                sizesString += ' ' + data[i].size;
+            }
+            var div = document.createElement('div');
+            div.innerText = sizesString;
+            divRating.appendChild(div);
         },
         error: function (x, y, z) {
             alert(x + '\n' + y + '\n' + z);

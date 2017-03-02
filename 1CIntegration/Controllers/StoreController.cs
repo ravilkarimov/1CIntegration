@@ -39,7 +39,7 @@ namespace _1CIntegration.Controllers
         {
             try
             {
-                var sql = "SELECT DISTINCT size FROM offers where good_key = '" + id + "' ORDER BY size ";
+                var sql = "SELECT DISTINCT size FROM offers where good_key = '" + id + "' ORDER BY size DESC ";
 
                 return Json(SQLiteProvider.OpenSql(sql).ToList(), JsonRequestBehavior.AllowGet);
             }
