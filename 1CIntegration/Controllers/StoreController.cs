@@ -26,6 +26,7 @@ namespace _1CIntegration.Controllers
                 var sql = "SELECT gr.group_id, gr.group_name, COUNT(*) as count " +
                           "FROM groups gr, goods g " +
                           "WHERE gr.group_id = g.group_id " +
+                          "AND gr.group_id in (1,2,3)  " +
                           "GROUP BY 1,2 " +
                           "ORDER BY group_name";
 

@@ -105,8 +105,14 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '   <div class="shop-product" id="shop-product-' + goodKey + '">' +
                                 '       <!-- Overlay Img -->' +
                                 '       <div class="overlay-wrapper">' +
-                                '           <img src="../img/demo/shop/product1.jpg" alt="' + data[itemIndex].feature + '">' +
-                                '           <img class="img-hover" src="../img/demo/shop/product1_hover.jpg" alt="Product 1">' +
+                                '           <img src="../img/demo/shop/product1.jpg" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
+                                '           <div class="overlay-wrapper-content"> ' +
+								'				<div class="overlay-details"> ' +
+                                //'                   <img class="img-hover" src="../img/demo/shop/product1_hover.jpg"" alt="Product 1">' +
+								'        			<a href="" data-lightbox="image" onclick="openPhotoSwipe()"><span class="livicon" data-n="plus"  data-color="#ffffff" data-hovercolor="#ffffff" data-op="1" data-onparent="true"></span></a> ' +
+                                '    			</div> ' +
+                                '        		<div class="overlay-bg bg-color-dark"></div> ' +
+                                '    		</div> ' +
                                 '           <div class="rating" id="rating_' + goodKey + '"></div>' +
                                 '       </div>' +
                                 '       <!-- Overlay Img -->' +
@@ -122,6 +128,7 @@ Djinaro.WriteResponseGoods = function (data) {
 
                         row.innerHTML += stringElement;
 
+                        //'           <img class="img-hover" src="../img/demo/shop/product1_hover.jpg  onclick="openPhotoSwipe();"" alt="Product 1">' +
                         categories.appendChild(row);
 
                         if (addItem < 3) addItem++;
