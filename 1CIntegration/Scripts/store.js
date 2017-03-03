@@ -3,11 +3,15 @@ var Djinaro = {};
 
 Djinaro.filterByGoods = function () {
     var groupActive = $('.shop-product-categories .active');
+    var pagingActive = $('#paging .active');
+    var numberPagingActive = 1;
+    if (pagingActive.length == 1) numberPagingActive = parseInt(pagingActive[0].innerText);
     if (groupActive[0].nodeName == 'A') {
         groupActive = groupActive.parentElement;
     }
     if (groupActive[0].nodeName == 'LI') {
-        Djinaro.getShoes(parseInt(groupActive[0].id), 0, 1);
+        Djinaro.getShoes(parseInt(groupActive[0].id), 0, numberPagingActive);
+        Djinaro.getShoesCount(parseInt(groupActive[0].id), 0);
     }
 }
 
@@ -80,57 +84,117 @@ Djinaro.WriteResponseSizes = function (data) {
 Djinaro.WriteResponseGoods = function (data) {
     var categories = document.getElementById('goods');
     $('#goods').children().remove();
-    var countRow = data.length / 3;
-    var itemIndex = 0;
+    if (data.length > 0) {
+        var countRow = data.length / 3;
+        var itemIndex = 0;
 
-    for (var i = 0; i < countRow; i++) {
+        for (var i = 0; i < countRow; i++) {
 
-        var row = document.createElement('div');
-        row.className = 'row';
-        var addItem = 1;
+            var row = document.createElement('div');
+            row.className = 'row';
+            var addItem = 1;
 
-        for (var j = 0; j < addItem; j++) {
-            var goodKey = data[itemIndex].good_key;
+            for (var j = 0; j < addItem; j++) {
+                if (data[itemIndex]) {
+                    var goodKey = data[itemIndex].good_key;
 
-            if (data[itemIndex]) {
-                var stringElement =
-                        '<div class="col-md-4">' +
-                        '   <!-- Shop Product -->' +
-                        '   <div class="shop-product" id="shop-product-' + goodKey + '">' +
-                        '       <!-- Overlay Img -->' +
-                        '       <div class="overlay-wrapper">' +
-                        '           <img src="../img/demo/shop/product1.jpg" alt="' + data[itemIndex].feature + '">' +
-                        '           <img class="img-hover" src="../img/demo/shop/product1_hover.jpg" alt="Product 1">' +
-                        '           <div class="rating" id="rating_' + goodKey + '"></div>' +
-                        '       </div>' +
-                        '       <!-- Overlay Img -->' +
-                        '       <div class="shop-product-info">' +
-                        '           <a href=""><h5 class="product-name">' + data[itemIndex].good + ' </h5></a>' +
-                        '           <p class="product-category"><a href=""> ' + data[itemIndex].group_name + '</a></p> ' +
-                        '           <p class="product-price">' + data[itemIndex].price + ' РУБ </p>' +
-                        '       </div>' +
-                        '    </div>' +
-                        '    <!-- /Shop Product -->' +
-                        '    <div class="white-space space-small"></div>' +
-                        '</div> ';
+                    if (data[itemIndex]) {
+                        var stringElement =
+                            '<div class="col-md-4">' +
+                                '   <!-- Shop Product -->' +
+                                '   <div class="shop-product" id="shop-product-' + goodKey + '">' +
+                                '       <!-- Overlay Img -->' +
+                                '       <div class="overlay-wrapper">' +
+                                '           <img src="../img/demo/shop/product1.jpg" alt="' + data[itemIndex].feature + '">' +
+                                '           <img class="img-hover" src="../img/demo/shop/product1_hover.jpg" alt="Product 1">' +
+                                '           <div class="rating" id="rating_' + goodKey + '"></div>' +
+                                '       </div>' +
+                                '       <!-- Overlay Img -->' +
+                                '       <div class="shop-product-info">' +
+                                '           <a href=""><h5 class="product-name">' + data[itemIndex].good + ' </h5></a>' +
+                                '           <p class="product-category"><a href=""> ' + data[itemIndex].group_name + '</a></p> ' +
+                                '           <p class="product-price">' + data[itemIndex].price + ' РУБ </p>' +
+                                '       </div>' +
+                                '    </div>' +
+                                '    <!-- /Shop Product -->' +
+                                '    <div class="white-space space-small"></div>' +
+                                '</div> ';
 
-                row.innerHTML += stringElement;
-                
-                categories.appendChild(row);
+                        row.innerHTML += stringElement;
 
-                if(addItem < 3) addItem++;
+                        categories.appendChild(row);
+
+                        if (addItem < 3) addItem++;
+                    }
+
+                    itemIndex += 1;
+                }
             }
 
-            itemIndex += 1;
-        }
-
-        var shopProducts = $('.shop-product');
-        for (var s = 0; s < shopProducts.length; s++) {
-            $('#' + shopProducts[s].id).hover(function (a) {
-                Djinaro.getSizesByGood(a.currentTarget.id.replace('shop-product-', ''));
-            });
+            var shopProducts = $('.shop-product');
+            for (var s = 0; s < shopProducts.length; s++) {
+                $('#' + shopProducts[s].id).hover(function(a) {
+                    Djinaro.getSizesByGood(a.currentTarget.id.replace('shop-product-', ''));
+                });
+            }
         }
     }
+}
+
+Djinaro.WriteResponseGoodsPaging = function (data) {
+    var pagingActive = $('#paging .active');
+    var numberPagingActive = 1;
+    if (pagingActive.length == 1) numberPagingActive = parseInt(pagingActive[0].innerText);
+    var paging = document.getElementById('paging');
+    $('#paging').children().remove();
+
+    var ul = document.createElement('ul');
+    ul.className = 'pagination';
+
+    var leftA = document.createElement('li');
+    var linkLeft = document.createElement('a');
+    linkLeft.link = "#";
+    var iLeft = document.createElement('i');
+    iLeft.className = 'fa fa-angle-left';
+    linkLeft.appendChild(iLeft);
+    leftA.appendChild(linkLeft);
+    ul.appendChild(linkLeft);
+
+    for (z = 1; z <= data[0].count; z++) {
+        var li = document.createElement('li');
+        var link = document.createElement('a');
+        link.link = "#";
+        link.innerText = z;
+        li.appendChild(link);
+        ul.appendChild(li);
+        if (z == numberPagingActive) {
+            li.className = 'active';
+        }
+    }
+
+    var rightA = document.createElement('li');
+    var linkRight = document.createElement('a');
+    linkRight.link = "#";
+    var iRight = document.createElement('i');
+    iLeft.className = 'fa fa-angle-right';
+    linkRight.appendChild(iRight);
+    rightA.appendChild(linkRight);
+    ul.appendChild(linkRight);
+
+    $(ul).on('click', function (a) {
+        var liClick = a.target;
+        if (liClick.nodeName == 'A') {
+            liClick = liClick.parentElement;
+        }
+        if (liClick.nodeName == 'LI') {
+            var ulClick = a.currentTarget;
+            $('.active', ulClick)[0].className = '';
+            liClick.className = 'active';
+            Djinaro.filterByGoods();
+        }
+    });
+
+    paging.appendChild(ul);
 }
 
 Djinaro.getShoes = function (groups, sizes, page) {
@@ -145,6 +209,24 @@ Djinaro.getShoes = function (groups, sizes, page) {
         },
         success: function (data) {
             Djinaro.WriteResponseGoods(data);
+        },
+        error: function (x, y, z) {
+            alert(x + '\n' + y + '\n' + z);
+        }
+    });
+}
+
+Djinaro.getShoesCount = function (groups, sizes) {
+    $.ajax({
+        url: '/Store/getshoescount',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            'groups': groups,
+            'sizes': sizes
+        },
+        success: function (data) {
+            Djinaro.WriteResponseGoodsPaging(data);
         },
         error: function (x, y, z) {
             alert(x + '\n' + y + '\n' + z);
@@ -174,14 +256,16 @@ Djinaro.getSizesByGood = function (good_key) {
         data: { id: good_key },
         success: function (data) {
             var divRating = document.getElementById('rating_' + good_key);
-            divRating.innerHTML = '';
-            var sizesString = '';
-            for (var i = 0; i < data.length; i++) {
-                sizesString += ' ' + data[i].size;
+            if (divRating) {
+                divRating.innerHTML = '';
+                var sizesString = '';
+                for (var i = 0; i < data.length; i++) {
+                    sizesString += ' ' + data[i].size;
+                }
+                var div = document.createElement('div');
+                div.innerText = sizesString;
+                divRating.appendChild(div);
             }
-            var div = document.createElement('div');
-            div.innerText = sizesString;
-            divRating.appendChild(div);
         },
         error: function (x, y, z) {
             alert(x + '\n' + y + '\n' + z);

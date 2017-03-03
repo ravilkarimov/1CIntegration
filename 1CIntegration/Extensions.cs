@@ -21,6 +21,32 @@ namespace _1CIntegration
 
         }
 
+        public static double AsDouble(this object obj)
+        {
+            try
+            {
+                return Convert.ToDouble(obj.ToString());
+            }
+            catch (Exception e)
+            {
+                return 0.0;
+            }
+
+        }
+
+        public static double AsDouble(this string str)
+        {
+            try
+            {
+                return Convert.ToDouble(str);
+            }
+            catch (Exception e)
+            {
+                return 0.0;
+            }
+
+        }
+
         public static int AsInteger(this object obj)
         {
             try
