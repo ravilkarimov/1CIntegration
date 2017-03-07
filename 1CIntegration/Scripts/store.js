@@ -4,14 +4,23 @@ var Djinaro = {};
 Djinaro.filterByGoods = function () {
     var groupActive = $('.shop-product-categories .active');
     var pagingActive = $('#paging .active');
+    var sizesActive = $('#sizes .active');
     var numberPagingActive = 1;
     if (pagingActive.length == 1) numberPagingActive = parseInt(pagingActive[0].innerText);
     if (groupActive[0].nodeName == 'A') {
         groupActive = groupActive.parentElement;
     }
     if (groupActive[0].nodeName == 'LI') {
-        Djinaro.getShoes(parseInt(groupActive[0].id), 0, numberPagingActive);
-        Djinaro.getShoesCount(parseInt(groupActive[0].id), 0);
+        var sizes = '';
+        for (z = 0; z < sizesActive.length; z++) {
+            if (sizes.length == 0) {
+                sizes += "'" + sizesActive[z].innerText + "'";
+            } else {
+                sizes += ", '" + sizesActive[z].innerText + "'";
+            }
+        }
+        Djinaro.getShoes(parseInt(groupActive[0].id), sizes, numberPagingActive);
+        Djinaro.getShoesCount(parseInt(groupActive[0].id), sizes);
     }
 }
 
@@ -73,12 +82,29 @@ Djinaro.WriteResponseSizes = function (data) {
         var row = document.createElement('li');
         var link = document.createElement('a');
         link.innerHTML = data[i].size;
+        link.id = 'size-' + data[i].size;
         link.className = 'btn btn-sm btn-default btn-alt margin-bottom10';
         row.appendChild(link);
         list.appendChild(row);
     }
     groups.appendChild(title);
     groups.appendChild(list);
+
+    var sizeArray = $('#sizes');
+    for (var s = 0; s < sizeArray.length; s++) {
+        $('#' + sizeArray[s].id).click(function (a) {
+            if (a && a.target) {
+                var clickSize = $('#' + a.target.id);
+                if (clickSize && clickSize[0].className.indexOf('active') < 0) {
+                    clickSize[0].className = "btn btn-sm btn-default btn-alt margin-bottom10 active";
+                    Djinaro.filterByGoods();
+                } else if (clickSize && clickSize[0].className.indexOf('active') >= 0) {
+                    clickSize[0].className = "btn btn-sm btn-default btn-alt margin-bottom10";
+                    Djinaro.filterByGoods();
+                }
+            }
+        });
+    }
 }
 
 Djinaro.WriteResponseGoods = function (data) {
@@ -119,7 +145,7 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '       <div class="shop-product-info">' +
                                 '           <a href=""><h5 class="product-name">' + data[itemIndex].good + ' </h5></a>' +
                                 '           <p class="product-category"><a href=""> ' + data[itemIndex].group_name + '</a></p> ' +
-                                '           <p class="product-price">' + data[itemIndex].price + ' РУБ </p>' +
+                                '           <p class="product-price">' + data[itemIndex].price + ' ' + data[itemIndex].currency + ' </p>' +
                                 '       </div>' +
                                 '    </div>' +
                                 '    <!-- /Shop Product -->' +
@@ -127,8 +153,6 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '</div> ';
 
                         row.innerHTML += stringElement;
-
-                        //'           <img class="img-hover" src="../img/demo/shop/product1_hover.jpg  onclick="openPhotoSwipe();"" alt="Product 1">' +
                         categories.appendChild(row);
 
                         if (addItem < 3) addItem++;
@@ -218,7 +242,7 @@ Djinaro.getShoes = function (groups, sizes, page) {
             Djinaro.WriteResponseGoods(data);
         },
         error: function (x, y, z) {
-            alert(x + '\n' + y + '\n' + z);
+            console.log(x + '\n' + y + '\n' + z);
         }
     });
 }
@@ -236,7 +260,7 @@ Djinaro.getShoesCount = function (groups, sizes) {
             Djinaro.WriteResponseGoodsPaging(data);
         },
         error: function (x, y, z) {
-            alert(x + '\n' + y + '\n' + z);
+            console.log(x + '\n' + y + '\n' + z);
         }
     });
 }
@@ -250,7 +274,7 @@ Djinaro.getAllGroups = function () {
             Djinaro.WriteResponseGroups(data);
         },
         error: function (x, y, z) {
-            alert(x + '\n' + y + '\n' + z);
+            console.log(x + '\n' + y + '\n' + z);
         }
     });
 }
@@ -275,7 +299,7 @@ Djinaro.getSizesByGood = function (good_key) {
             }
         },
         error: function (x, y, z) {
-            alert(x + '\n' + y + '\n' + z);
+            console.log(x + '\n' + y + '\n' + z);
         }
     });
 }
@@ -289,7 +313,7 @@ Djinaro.getAllSizes = function () {
             Djinaro.WriteResponseSizes(data);
         },
         error: function (x, y, z) {
-            alert(x + '\n' + y + '\n' + z);
+            console.log(x + '\n' + y + '\n' + z);
         }
     });
 }

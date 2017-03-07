@@ -116,19 +116,20 @@ namespace _1CIntegration.Controllers
         }
 
         // GET: /Store/getshoes
-        public JsonResult GetShoes(int groups, int sizes, int page)
+        public JsonResult GetShoes(int groups, string sizes, int page)
         {
             try
             {
                 string sql =
                     " SELECT gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, g.img_path, " +
-                    " MAX(o.price) as price, " +
+                    " MAX(o.price) as price, o.currency, " +
                     " (CASE WHEN o.amount > 0 THEN 'Есть в наличии' ELSE 'Нет в наличии' END) as amount " +
                     " FROM goods g, groups gr, offers o " +
                     " WHERE 1 = 1 " +
                     " AND g.group_id = gr.group_id " +
                     " AND g.good_key = o.good_key " +
                     " AND g.group_id = " + groups + " " +
+                    (sizes != "0" && sizes.Length > 0 ? " AND o.size in ("+sizes+") "  : "") +
                     " GROUP BY 1,2,3,4,5 " +
                     " ORDER BY price, feature " +
                     " LIMIT 18 OFFSET "+ ((page * 18) - 18) +" ";
@@ -143,7 +144,7 @@ namespace _1CIntegration.Controllers
         }
 
         // GET: /Store/getshoescount
-        public JsonResult GetShoesCount(int groups, int sizes)
+        public JsonResult GetShoesCount(int groups, string sizes)
         {
             try
             {
@@ -152,6 +153,7 @@ namespace _1CIntegration.Controllers
                     " FROM goods g, offers o " +
                     " WHERE 1 = 1 " +
                     " AND g.good_key = o.good_key " +
+                    (sizes != "0" && sizes.Length > 0 ? " AND o.size in (" + sizes + ") " : "") +
                     " AND g.group_id = " + groups;
                 var dt = SQLiteProvider.OpenSql(sql);
                 var countPage = Math.Ceiling((double)dt.Rows[0]["count"].ToString().AsInteger() / 18);
