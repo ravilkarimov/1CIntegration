@@ -55,6 +55,7 @@ Djinaro.WriteResponseGroups = function (data) {
         }
         row.id = data[i].group_id;
         var link = document.createElement('a');
+        //link.href = '';
         link.innerHTML = data[i].group_name;
         var count = document.createElement('span');
         count.className = 'count';
@@ -131,13 +132,15 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '   <div class="shop-product" id="shop-product-' + goodKey + '">' +
                                 '       <!-- Overlay Img -->' +
                                 '       <div class="overlay-wrapper">' +
-                                '           <img src="../img/demo/shop/product1.jpg" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
+                                '           <img src="../img/demo/shop/product1.jpg" class="img-zoom" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
                                 '           <div class="overlay-wrapper-content"> ' +
 								'				<div class="overlay-details"> ' +
                                 //'                   <img class="img-hover" src="../img/demo/shop/product1_hover.jpg"" alt="Product 1">' +
-								'        			<a href="" data-lightbox="image" onclick="openPhotoSwipe()"><span class="livicon" data-n="plus"  data-color="#ffffff" data-hovercolor="#ffffff" data-op="1" data-onparent="true"></span></a> ' +
+								'        			<a href="" data-lightbox="image" onclick="openPhotoSwipe()"> ' +
+                                '                       <span class="icon gfx-zoom-in-1" ></span>' +
+                                '                   </a> ' +
                                 '    			</div> ' +
-                                '        		<div class="overlay-bg bg-color-dark"></div> ' +
+                                '        		<!--div class="overlay-bg bg-color-dark"></div--> ' +
                                 '    		</div> ' +
                                 '           <div class="rating" id="rating_' + goodKey + '"></div>' +
                                 '       </div>' +
@@ -189,9 +192,9 @@ Djinaro.WriteResponseGoodsPaging = function (data) {
     var leftA = document.createElement('li');
     var linkLeft = document.createElement('a');
     linkLeft.link = "#";
-    var iLeft = document.createElement('i');
-    iLeft.className = 'fa fa-angle-left';
-    linkLeft.appendChild(iLeft);
+    //var iLeft = document.createElement('i');
+    //iLeft.className = 'fa fa-angle-left';
+    //linkLeft.appendChild(iLeft);
     leftA.appendChild(linkLeft);
     ul.appendChild(linkLeft);
 
@@ -210,9 +213,9 @@ Djinaro.WriteResponseGoodsPaging = function (data) {
     var rightA = document.createElement('li');
     var linkRight = document.createElement('a');
     linkRight.link = "#";
-    var iRight = document.createElement('i');
-    iLeft.className = 'fa fa-angle-right';
-    linkRight.appendChild(iRight);
+    //var iRight = document.createElement('i');
+    //iLeft.className = 'fa fa-angle-right';
+    //linkRight.appendChild(iRight);
     rightA.appendChild(linkRight);
     ul.appendChild(linkRight);
 
