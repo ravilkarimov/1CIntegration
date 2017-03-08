@@ -25,7 +25,7 @@
         hideAnimationDuration: 0
 
     };
-
+    debugger;
     var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
     gallery.init();
 };
