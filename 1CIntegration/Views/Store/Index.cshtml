@@ -15,16 +15,17 @@
     <script src="~/Scripts/store.js"></script>
 
     <!-- Styles -->
-    <link href="~/Content/bootstrap.css" rel="stylesheet">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="~/Content/avendor-font-styles.css" rel="stylesheet">
     <!--<link href="~/Content/revolutionslider/settings.css" rel="stylesheet" type="text/css" media="screen">-->
     <link href="~/Content/themecss/animate.css" rel="stylesheet">
-    <link href="~/Content/themecss/lightbox.css" rel="stylesheet">
+    <link href="~/Content/themecss/lightbox.css" rel="stylesheet">-
     <link href="~/Content/owl-carousel/owl.carousel.css" rel="stylesheet">
     <link href="~/Content/owl-carousel/owl.transitions.css" rel="stylesheet">
+
     <!-- Core CSS for photoswipe file -->
-    <link href="~/Content/photoswipe.css" rel="stylesheet">
+    <!--<link href="~/Content/photoswipe.css" rel="stylesheet">->
     <!-- Skin CSS file (styling of UI - buttons, caption, etc.)
      In the folder of skin CSS file there are also:
      - .png and .svg icons sprite,
@@ -39,10 +40,35 @@
 
 </head>
 <body class ="bg-pattern1" data-spy="scroll" data-target=".navbar">
-    
-    <div id="preloader"></div>
 
-    <div class="page-wrapper" id="page-top">
+<div id="preloader"></div>
+
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div id="slider_product"></div>
+                        </div>
+                        <div class="col-md-5">
+                            Тут можно разместить описание.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button-->
+                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+<div class="page-wrapper" id="page-top">
 
         <!-- Header Container -->
         <div class="header-wrapper">
@@ -314,10 +340,11 @@
     <script src="~/Scripts/themejs/application.js"></script>
         
         <!-- Core JS file -->
-    <script src="~/Scripts/photoswipe.js"></script>
+    <!--<script src="~/Scripts/photoswipe.js"></script>-->
 
         <!-- UI JS file -->
-    <script src="~/Scripts/photoswipe-ui-default.js"></script>
-    <script src="~/Scripts/open_photoswipe.js"></script>
+    <!--<script src="~/Scripts/photoswipe-ui-default.js"></script>-->
+<!--<script src="~/Scripts/open_photoswipe.js"></script>-->
+
 </body>
 </html>

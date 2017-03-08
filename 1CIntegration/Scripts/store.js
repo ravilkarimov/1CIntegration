@@ -135,8 +135,7 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '           <img src="../img/demo/shop/product1.jpg" class="img-zoom" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
                                 '           <div class="overlay-wrapper-content"> ' +
 								'				<div class="overlay-details"> ' +
-                                //'                   <img class="img-hover" src="../img/demo/shop/product1_hover.jpg"" alt="Product 1">' +
-								'        			<a href="" data-lightbox="image" onclick="openPhotoSwipe()"> ' +
+								'        			<a onclick="Djinaro.openModalProduct()"> ' +
                                 '                       <span class="icon gfx-zoom-in-1" ></span>' +
                                 '                   </a> ' +
                                 '    			</div> ' +
@@ -167,16 +166,21 @@ Djinaro.WriteResponseGoods = function (data) {
 
             var shopProducts = $('.shop-product');
             var listener = function (a) {
-                var parentA = $(a.currentTarget).parents('.shop-product');
-                if (parentA.length == 1) {
-                    Djinaro.getSizesByGood(parentA[0].id.replace('shop-product-', ''));
+                var current = $(a.currentTarget);
+                if (current.length == 1) {
+                    Djinaro.getSizesByGood(current[0].id.replace('shop-product-', ''));
                 }
             }
             for (var s = 0; s < shopProducts.length; s++) {
-                $('#'+shopProducts[s].id + ' .img-hover').on('mouseover', listener);
+                $('#'+shopProducts[s].id).on('mouseover', listener);
             }
         }
     }
+}
+
+Djinaro.openModalProduct = function() {
+    debugger;
+    $('#myModal').modal('show');
 }
 
 Djinaro.WriteResponseGoodsPaging = function (data) {
