@@ -12,13 +12,14 @@ namespace _1CIntegration.Controllers
     {
         //
         // GET: /Store/
-
+        [OutputCache(Duration = 30, Location = System.Web.UI.OutputCacheLocation.Server)]
         public ActionResult Index()
         {
             return View();
         }
 
         // GET: /Store/getgroups
+        [HttpGet]
         public JsonResult GetGroups()
         {
             try
@@ -40,6 +41,7 @@ namespace _1CIntegration.Controllers
         }
 
         // GET: /Store/getsizesgood
+        [HttpGet]
         public JsonResult GetSizesGood(string id)
         {
             try
@@ -55,6 +57,7 @@ namespace _1CIntegration.Controllers
         }
 
         // GET: /Store/getsizes
+        [HttpGet]
         public JsonResult GetSizes()
         {
             try
@@ -116,6 +119,7 @@ namespace _1CIntegration.Controllers
         }
 
         // GET: /Store/getshoes
+        [HttpGet]
         public JsonResult GetShoes(int groups, string sizes, int page)
         {
             try
@@ -144,6 +148,7 @@ namespace _1CIntegration.Controllers
         }
 
         // GET: /Store/getshoescount
+        [HttpGet]
         public JsonResult GetShoesCount(int groups, string sizes)
         {
             try

@@ -163,10 +163,14 @@ Djinaro.WriteResponseGoods = function (data) {
             }
 
             var shopProducts = $('.shop-product');
+            var listener = function (a) {
+                var parentA = $(a.currentTarget).parents('.shop-product');
+                if (parentA.length == 1) {
+                    Djinaro.getSizesByGood(parentA[0].id.replace('shop-product-', ''));
+                }
+            }
             for (var s = 0; s < shopProducts.length; s++) {
-                $('#' + shopProducts[s].id).hover(function(a) {
-                    Djinaro.getSizesByGood(a.currentTarget.id.replace('shop-product-', ''));
-                });
+                $('#'+shopProducts[s].id + ' .img-hover').on('mouseover', listener);
             }
         }
     }
