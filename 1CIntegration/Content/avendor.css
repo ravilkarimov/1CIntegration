@@ -926,7 +926,7 @@ ul.gallery.columns-3 li {width: 33.3%;}
 .btn {padding: 18px 28px; font-size: 14px; line-height:1;}
 .btn-lg,.btn-group-lg > .btn {padding: 24px 48px; font-size: 18px;}
 .btn-sm,.btn-group-sm > .btn {padding: 14px 20px; font-size: 14px;}
-.btn-xs,.btn-group-xs > .btn { padding: 8px 16px; font-size: 12px;}
+.btn-xs,.btn-group-xs > .btn { padding: 4px 10px; font-size: 12px;}
 
 /*==========  Creative Links ==========*/
 
@@ -1814,7 +1814,7 @@ a.comment-link:hover { }
 .img-hover{ position:absolute; top:0; left:0; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; /* Safari 1.x */ -khtml-opacity: 0; /* Modern browsers */opacity: 0;}
 .shop-product:hover .img-hover{ position:absolute; top:0; left:0; z-index:2; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; /* Safari 1.x */ -khtml-opacity: 1; /* Modern browsers */opacity: 1;}
 		   
-.rating {direction: rtl;  font-size: 16px;  unicode-bidi: bidi-override; text-align:center; position:absolute; z-index:5; bottom:-32px; height:32px; line-height:2; width:100%; color:#32313b;
+.rating {font-size: 16px;  unicode-bidi: bidi-override; text-align:center; position:absolute; z-index:5; bottom:-32px; height:32px; line-height:2; width:100%; color:#32313b;
 	background:#ffffff; /* fallback for browser that not support rgba */
 	background:rgb(255,255,255); 
 	background: rgba(255,255,255, .8); /* Works on all modern browsers */

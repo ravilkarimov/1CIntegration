@@ -293,7 +293,7 @@ Djinaro.getAllGroups = function () {
 Djinaro.getSizesByGood = function (good_key) {
     $.ajax({
         url: '/Store/getsizesgood',
-        type: 'GET',
+        type: 'GET', 
         dataType: 'json',
         data: { id: good_key },
         success: function (data) {
@@ -302,11 +302,13 @@ Djinaro.getSizesByGood = function (good_key) {
                 divRating.innerHTML = '';
                 var sizesString = '';
                 for (var i = 0; i < data.length; i++) {
-                    sizesString += ' ' + data[i].size;
+                    sizesString += '<td class="cart-table btn-xs" bgcolor="f4f4f4" style="margin: 10px;">' + data[i].size + 'EU</td>';
                 }
-                var div = document.createElement('div');
-                div.innerText = sizesString;
-                divRating.appendChild(div);
+                var table = document.createElement('table');
+                var row = document.createElement('tr');
+                row.innerHTML = sizesString;
+                table.appendChild(row);
+                divRating.appendChild(table);
             }
         },
         error: function (x, y, z) {
