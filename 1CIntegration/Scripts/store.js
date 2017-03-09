@@ -180,7 +180,14 @@ Djinaro.WriteResponseGoods = function (data) {
 
 Djinaro.openModalProduct = function() {
     debugger;
-    $('#a_modal').click();
+    if ($.magnificPopup) {
+        $.magnificPopup.open({
+            items: {
+                src: '#popup_form',
+                type: 'inline'
+            }
+        });
+    };
 }
 
 Djinaro.WriteResponseGoodsPaging = function (data) {
@@ -302,8 +309,6 @@ Djinaro.getSizesByGood = function (good_key) {
                     for (var r = 0; r < countTDinTr; r++) {
                         var sizesString = '';
                         var table = document.createElement('table');
-                        //table.style.tableLayout = 'auto';
-                        //table.style.width = '100%';
                         var row = document.createElement('tr');
                         for (var i = 0; i <=  Math.ceil(data.length / countTDinTr); i++) {
                             if (data.length > currentTd) {
