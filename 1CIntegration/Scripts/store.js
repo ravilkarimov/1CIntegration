@@ -180,7 +180,7 @@ Djinaro.WriteResponseGoods = function (data) {
 
 Djinaro.openModalProduct = function() {
     debugger;
-    $('#myModal').modal('show');
+    $('#a_modal').click();
 }
 
 Djinaro.WriteResponseGoodsPaging = function (data) {
@@ -196,9 +196,6 @@ Djinaro.WriteResponseGoodsPaging = function (data) {
     var leftA = document.createElement('li');
     var linkLeft = document.createElement('a');
     linkLeft.link = "#";
-    //var iLeft = document.createElement('i');
-    //iLeft.className = 'fa fa-angle-left';
-    //linkLeft.appendChild(iLeft);
     leftA.appendChild(linkLeft);
     ul.appendChild(linkLeft);
 
@@ -217,9 +214,6 @@ Djinaro.WriteResponseGoodsPaging = function (data) {
     var rightA = document.createElement('li');
     var linkRight = document.createElement('a');
     linkRight.link = "#";
-    //var iRight = document.createElement('i');
-    //iLeft.className = 'fa fa-angle-right';
-    //linkRight.appendChild(iRight);
     rightA.appendChild(linkRight);
     ul.appendChild(linkRight);
 
@@ -300,15 +294,28 @@ Djinaro.getSizesByGood = function (good_key) {
             var divRating = document.getElementById('rating_' + good_key);
             if (divRating) {
                 divRating.innerHTML = '';
-                var sizesString = '';
-                for (var i = 0; i < data.length; i++) {
-                    sizesString += '<td class="cart-table btn-xs" bgcolor="f4f4f4" style="margin: 10px;">' + data[i].size + 'EU</td>';
+                if (data && data.length > 0) {
+                    data.sort().reverse();
+                    var countTDinTr = Math.ceil(data.length / 5);
+                    if (countTDinTr < 1) countTDinTr = 1;
+                    var currentTd = 0;
+                    for (var r = 0; r < countTDinTr; r++) {
+                        var sizesString = '';
+                        var table = document.createElement('table');
+                        //table.style.tableLayout = 'auto';
+                        //table.style.width = '100%';
+                        var row = document.createElement('tr');
+                        for (var i = 0; i <=  Math.ceil(data.length / countTDinTr); i++) {
+                            if (data.length > currentTd) {
+                                sizesString += '<td class="cart-table btn-xs" bgcolor="f4f4f4" style="margin: 0px;">' + data[currentTd].size + 'EU</td>';
+                                currentTd++;
+                            }
+                        }
+                        row.innerHTML = sizesString;
+                        table.appendChild(row);
+                        divRating.appendChild(table);
+                    }
                 }
-                var table = document.createElement('table');
-                var row = document.createElement('tr');
-                row.innerHTML = sizesString;
-                table.appendChild(row);
-                divRating.appendChild(table);
             }
         },
         error: function (x, y, z) {
