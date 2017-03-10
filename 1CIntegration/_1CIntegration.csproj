@@ -226,6 +226,7 @@
     <Content Include="Content\owl-carousel\owl.theme.css" />
     <Content Include="Content\owl-carousel\owl.transitions.css" />
     <Content Include="Content\photoswipe.css" />
+    <Content Include="Content\popupinfo.css" />
     <Content Include="Content\revolutionslider\settings-ie8.css" />
     <Content Include="Content\revolutionslider\settings.css" />
     <Content Include="Content\themecss\animate.css" />
@@ -297,12 +298,15 @@
     <Content Include="Content\font\revicons.eot" />
     <Content Include="Content\font\revicons.ttf" />
     <Content Include="Content\font\revicons.woff" />
+    <Content Include="img\theme\close.png" />
+    <Content Include="img\theme\reload.gif" />
     <Content Include="img\theme\revolutionslider\arrows.psd" />
     <Content Include="img\theme\revolutionslider\bullets.psd" />
     <Content Include="img\theme\revolutionslider\small_arrows.psd" />
     <Content Include="fonts\avendor-icons.eot" />
     <Content Include="fonts\avendor-icons.ttf" />
     <Content Include="fonts\avendor-icons.woff" />
+    <Content Include="img\theme\social-vk.svg" />
     <Content Include="less\animated.less" />
     <Content Include="less\bordered-pulled.less" />
     <Content Include="less\core.less" />

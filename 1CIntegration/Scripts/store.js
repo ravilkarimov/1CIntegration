@@ -2,9 +2,9 @@
 var Djinaro = {};
 
 Djinaro.filterByGoods = function () {
-    var groupActive = $('.shop-product-categories .active');
-    var pagingActive = $('#paging .active');
-    var sizesActive = $('#sizes .active');
+    var groupActive = jQuery('.shop-product-categories .active');
+    var pagingActive = jQuery('#paging .active');
+    var sizesActive = jQuery('#sizes .active');
     var numberPagingActive = 1;
     if (pagingActive.length == 1) numberPagingActive = parseInt(pagingActive[0].innerText);
     if (groupActive[0].nodeName == 'A') {
@@ -35,14 +35,14 @@ Djinaro.WriteResponseGroups = function (data) {
 
     var list = document.createElement('ul');
     list.className = 'shop-product-categories';
-    $(list).on('click', function (a) {
+    jQuery(list).on('click', function (a) {
         var liClick = a.target;
         if (liClick.nodeName == 'A') {
             liClick = liClick.parentElement;
         }
         if (liClick.nodeName == 'LI') {
             var ulClick = a.currentTarget;
-            $('.active', ulClick)[0].className = '';
+            jQuery('.active', ulClick)[0].className = '';
             liClick.className = 'active';
             Djinaro.filterByGoods();
         }
@@ -91,11 +91,11 @@ Djinaro.WriteResponseSizes = function (data) {
     groups.appendChild(title);
     groups.appendChild(list);
 
-    var sizeArray = $('#sizes');
+    var sizeArray = jQuery('#sizes');
     for (var s = 0; s < sizeArray.length; s++) {
-        $('#' + sizeArray[s].id).click(function (a) {
+        jQuery('#' + sizeArray[s].id).click(function (a) {
             if (a && a.target) {
-                var clickSize = $('#' + a.target.id);
+                var clickSize = jQuery('#' + a.target.id);
                 if (clickSize && clickSize[0].className.indexOf('active') < 0) {
                     clickSize[0].className = "btn btn-sm btn-default btn-alt margin-bottom10 active";
                     Djinaro.filterByGoods();
@@ -110,7 +110,7 @@ Djinaro.WriteResponseSizes = function (data) {
 
 Djinaro.WriteResponseGoods = function (data) {
     var categories = document.getElementById('goods');
-    $('#goods').children().remove();
+    jQuery('#goods').children().remove();
     if (data.length > 0) {
         var countRow = data.length / 3;
         var itemIndex = 0;
@@ -164,38 +164,40 @@ Djinaro.WriteResponseGoods = function (data) {
                 }
             }
 
-            var shopProducts = $('.shop-product');
+            var shopProducts = jQuery('.shop-product');
             var listener = function (a) {
-                var current = $(a.currentTarget);
+                var current = jQuery(a.currentTarget);
                 if (current.length == 1) {
                     Djinaro.getSizesByGood(current[0].id.replace('shop-product-', ''));
                 }
             }
             for (var s = 0; s < shopProducts.length; s++) {
-                $('#'+shopProducts[s].id).on('mouseover', listener);
+                jQuery('#'+shopProducts[s].id).on('mouseover', listener);
             }
         }
     }
 }
 
 Djinaro.openModalProduct = function() {
-    debugger;
-    if ($.magnificPopup) {
-        $.magnificPopup.open({
-            items: {
-                src: '#popup_form',
-                type: 'inline'
-            }
-        });
+    if (jQuery.magnificPopup) {
+        var popupInfo = jQuery('.pswp');
+        if (popupInfo) {
+            jQuery.magnificPopup.open({
+                items: {
+                    src: popupInfo,
+                    type: 'inline'
+                }
+            });
+        }
     };
 }
 
 Djinaro.WriteResponseGoodsPaging = function (data) {
-    var pagingActive = $('#paging .active');
+    var pagingActive = jQuery('#paging .active');
     var numberPagingActive = 1;
     if (pagingActive.length == 1) numberPagingActive = parseInt(pagingActive[0].innerText);
     var paging = document.getElementById('paging');
-    $('#paging').children().remove();
+    jQuery('#paging').children().remove();
 
     var ul = document.createElement('ul');
     ul.className = 'pagination';
@@ -224,14 +226,14 @@ Djinaro.WriteResponseGoodsPaging = function (data) {
     rightA.appendChild(linkRight);
     ul.appendChild(linkRight);
 
-    $(ul).on('click', function (a) {
+    jQuery(ul).on('click', function (a) {
         var liClick = a.target;
         if (liClick.nodeName == 'A') {
             liClick = liClick.parentElement;
         }
         if (liClick.nodeName == 'LI') {
             var ulClick = a.currentTarget;
-            $('.active', ulClick)[0].className = '';
+            jQuery('.active', ulClick)[0].className = '';
             liClick.className = 'active';
             Djinaro.filterByGoods();
         }
@@ -241,7 +243,7 @@ Djinaro.WriteResponseGoodsPaging = function (data) {
 }
 
 Djinaro.getShoes = function (groups, sizes, page) {
-    $.ajax({
+    jQuery.ajax({
         url: '/Store/getshoes',
         type: 'GET',
         dataType: 'json',
@@ -260,7 +262,7 @@ Djinaro.getShoes = function (groups, sizes, page) {
 }
 
 Djinaro.getShoesCount = function (groups, sizes) {
-    $.ajax({
+    jQuery.ajax({
         url: '/Store/getshoescount',
         type: 'GET',
         dataType: 'json',
@@ -278,7 +280,7 @@ Djinaro.getShoesCount = function (groups, sizes) {
 }
 
 Djinaro.getAllGroups = function () {
-    $.ajax({
+    jQuery.ajax({
         url: '/Store/getgroups',
         type: 'GET',
         dataType: 'json',
@@ -292,7 +294,7 @@ Djinaro.getAllGroups = function () {
 }
 
 Djinaro.getSizesByGood = function (good_key) {
-    $.ajax({
+    jQuery.ajax({
         url: '/Store/getsizesgood',
         type: 'GET', 
         dataType: 'json',
@@ -330,7 +332,7 @@ Djinaro.getSizesByGood = function (good_key) {
 }
 
 Djinaro.getAllSizes = function () {
-    $.ajax({
+    jQuery.ajax({
         url: '/Store/getsizes',
         type: 'GET',
         dataType: 'json',

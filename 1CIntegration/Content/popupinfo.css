@@ -1,0 +1,203 @@
+﻿#popupinfo {
+    position: fixed;
+    width: 600px;
+    top: 50%;
+    left: 50%;
+    margin-top: -230px;
+    margin-left: -300px;
+    background-color: #FFF;
+    display: none;
+    z-index: 1100;
+    -webkit-transition: margin-left 250ms, width 250ms;
+    transition: margin-left 250ms, width 250ms
+}
+
+#popupinfo .closeold {
+    display: block;
+    width: 34px;
+    height: 34px;
+    position: absolute;
+    right: -45px;
+    background: url("/img/theme/close.png") no-repeat scroll 0 0 transparent;
+    background-size: 34px 34px;
+    cursor: pointer
+}
+
+#popupinfo .close {
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    position: absolute;
+    right: 25px;
+    cursor: pointer;
+    top: 15px;
+    z-index: 100;
+    background-color: #FFF
+}
+
+#popupinfo .close:before,
+#popupinfo .close:after {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 1px;
+    background-color: #000;
+    position: absolute;
+    top: 14px;
+    left: 9px;
+    transform: rotate(45deg)
+}
+
+#popupinfo .close:after {
+    transform: rotate(-45deg)
+}
+
+#popupinfo .close:hover {
+    background-color: #eee
+}
+
+#popupinfo h2 {
+    font-size: 20px;
+    text-transform: none;
+    color: #000;
+    letter-spacing: 0;
+    text-align: left;
+    padding: 10px 0
+}
+
+#popupinfo table {
+    width: 100%;
+    color: #000;
+    border: 1px solid #f5f5f5
+}
+
+#popupinfo table td,
+#popupinfo table th {
+    font-size: 15px !important;
+    text-align: center;
+    padding: 10px;
+    font-weight: normal;
+    cursor: default
+}
+
+#popupinfo table td:not(:last-child),
+#popupinfo table th:not(:last-child) {
+    border-right: 1px solid #f5f5f5
+}
+
+#popupinfo table td.active,
+#popupinfo table th.active {
+    background: #CCC
+}
+
+#popupinfo table tr:not(:last-child) {
+    border-bottom: 1px solid #f5f5f5
+}
+
+#popupinfo table tr:hover {
+    background: #CCC
+}
+
+#popupinfo table td:not(:first-child):hover {
+    background: #888
+}
+
+#popupinfo table:not(:hover) tr:nth-child(odd) {
+    background: #f5f5f5
+}
+
+#popupinfo table .hov {
+    background: #CCC
+}
+
+#popupinfo table:not(.rev) tr:first-child {
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0
+}
+
+#popupinfo table:not(.rev) tr:first-child tr,
+#popupinfo table:not(.rev) tr:first-child td,
+#popupinfo table:not(.rev) tr:first-child th {
+    color: #9a9a9a;
+    font-weight: bold
+}
+
+#popupinfo table.rev tr>*:first-child {
+    color: #000;
+    font-weight: bold;
+    border-right: 1px solid #e0e0e0
+}
+
+#popupinfo .slidechart {
+    display: none;
+    float: right;
+    margin-top: -29px;
+    color: #c7c7c7;
+    font-size: 15px;
+    line-height: 15px
+}
+
+#popupinfo table:not(.rev) tr:first-child {
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0
+}
+
+#popupinfo table:not(.rev) tr:first-child th,
+#popupinfo table:not(.rev) tr:first-child td {
+    font-weight: bold;
+    font-size: 12px
+}
+
+#popupinfo table.rev td,
+#popupinfo table.rev th {
+    line-height: 18px;
+    font-size: 14px
+}
+
+#popupinfo .product-sizes-table {
+    text-align: left;
+    overflow-x: scroll;
+    width: 100%;
+    max-width: 1000px
+}
+
+#popupinfo .product-sizes-table-unavialable>div {
+    padding: 35px 35px 20px 35px;
+    line-height: 22px
+}
+
+#popupinfo .product-sizes-table-unavialable>div:last-child {
+    background-color: #ebebeb;
+    padding: 30px 35px
+}
+
+#popupinfo .product-sizes-table-unavialable>div:last-child p {
+    padding: 0
+}
+
+#popupinfo .mistake {
+    padding: 25px
+}
+
+#popupinfo .mistake p {
+    color: #000;
+    margin: 0;
+    padding: 0;
+    line-height: 21px
+}
+
+#popupinfo .mistake p:before {
+    display: inline-block;
+    content: '\00ab...'
+}
+
+#popupinfo .mistake p:after {
+    display: inline-block;
+    content: '...\00bb'
+}
+
+#popupinfo .mistake input {
+    width: 100%;
+    margin: 10px 0
+}
