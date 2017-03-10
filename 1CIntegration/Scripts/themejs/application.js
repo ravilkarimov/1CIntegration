@@ -452,8 +452,8 @@ triggerOnce: true });
 gfx(document).ready(function () {
 
 if (gfx('#google-map-footer').length>0) {
-	var e=new google.maps.LatLng(37.331789, -122.029620),
-		o={zoom:17,center:new google.maps.LatLng(37.331789, -122.029620),
+	var e=new google.maps.LatLng(55.8327707, 49.0773945),
+		o={zoom:17,center:new google.maps.LatLng(55.8327707, 49.0773945),
 		mapTypeId:google.maps.MapTypeId.ROADMAP,
 		mapTypeControl:false,
 		scrollwheel:false,
@@ -461,17 +461,17 @@ if (gfx('#google-map-footer').length>0) {
 		zoomControlOptions: {style: google.maps.ZoomControlStyle.SMALL},
 		draggable:!0,
 		navigationControl:!1,
-		styles: [	{featureType:"administrative",elementType:"all",stylers:[{visibility:"on"},{saturation:-100},{lightness:20}]},	{featureType:"road",elementType:"all",stylers:[{visibility:"on"},{saturation:-100},{lightness:40}]},	{featureType:"water",elementType:"all",stylers:[{visibility:"on"},{saturation:-10},{lightness:30}]},	{featureType:"landscape.man_made",elementType:"all",stylers:[{visibility:"simplified"},{saturation:-60},{lightness:10}]},	{featureType:"landscape.natural",elementType:"all",stylers:[{visibility:"simplified"},{saturation:-60},{lightness:60}]},	{featureType:"poi",elementType:"all",stylers:[{visibility:"off"},{saturation:-100},{lightness:60}]},	{featureType:"transit",elementType:"all",stylers:[{visibility:"off"},{saturation:-100},{lightness:60}]}]	
+		//styles: [	{featureType:"administrative",elementType:"all",stylers:[{visibility:"on"},{saturation:-100},{lightness:20}]},	{featureType:"road",elementType:"all",stylers:[{visibility:"on"},{saturation:-100},{lightness:40}]},	{featureType:"water",elementType:"all",stylers:[{visibility:"on"},{saturation:-10},{lightness:30}]},	{featureType:"landscape.man_made",elementType:"all",stylers:[{visibility:"simplified"},{saturation:-60},{lightness:10}]},	{featureType:"landscape.natural",elementType:"all",stylers:[{visibility:"simplified"},{saturation:-60},{lightness:60}]},	{featureType:"poi",elementType:"all",stylers:[{visibility:"off"},{saturation:-100},{lightness:60}]},	{featureType:"transit",elementType:"all",stylers:[{visibility:"off"},{saturation:-100},{lightness:60}]}]	
 	},
 		n=new google.maps.Map(document.getElementById("google-map-footer"),o);
 		google.maps.event.addDomListener(window,"resize",function(){var e=n.getCenter();
 		google.maps.event.trigger(n,"resize"),n.setCenter(e)});
 		
-		var g='<div class="map-marker"><h4 class="color-dark xbold">AVENDOR</h4><p>United States of America</p><p>New York. 123 Fifth Avenue</p></div>',a=new google.maps.InfoWindow({content:g})
-		,t=new google.maps.MarkerImage("img/theme/google-marker.png",new google.maps.Size(157,70),
+		var g = '<div class="map-marker"><h4 class="color-dark">DJINARO</h4><p>Republic of Tatarstan</p><p>Kazan, Vosstaniya 49</p></div>', a = new google.maps.InfoWindow({ content: g })
+		,t=new google.maps.MarkerImage("../img/theme/google-marker.png",new google.maps.Size(157,70),
 		new google.maps.Point(0,0),new google.maps.Point(75,50)),
-		i=new google.maps.LatLng(37.331789, -122.029620),
-		p=new google.maps.Marker({position:i,map:n,icon:t,zIndex:3});
+		i=new google.maps.LatLng(55.8327707, 49.0773945),
+		p=new google.maps.Marker({position:i,map:n,zIndex:3});
 		google.maps.event.addListener(p,"click",function(){a.open(n,p)}),
 		gfx(".gmap-button").click(function(){gfx("#google-map-footer").slideToggle(300,function(){google.maps.event.trigger(n,"resize"),n.setCenter(e)}),
 		gfx(this).toggleClass("show-map")});
@@ -480,8 +480,8 @@ if (gfx('#google-map-footer').length>0) {
 
 if (gfx('#google-map').length>0) {
 
-	var e=new google.maps.LatLng(37.331789, -122.029620),
-		o={zoom:17,center:new google.maps.LatLng(37.331789, -122.029620),
+	var e=new google.maps.LatLng(55.8327707, 49.0773945),
+		o={zoom:17,center:new google.maps.LatLng(55.8327707, 49.0773945),
 		mapTypeId:google.maps.MapTypeId.ROADMAP,
 		mapTypeControl:false,
 		scrollwheel:false,
@@ -489,17 +489,19 @@ if (gfx('#google-map').length>0) {
 		zoomControlOptions: {style: google.maps.ZoomControlStyle.SMALL},
 		draggable:!0,
 		navigationControl:!1,
-		styles: [	{featureType:"administrative",elementType:"all",stylers:[{visibility:"on"},{saturation:-100},{lightness:20}]},	{featureType:"road",elementType:"all",stylers:[{visibility:"on"},{saturation:-100},{lightness:40}]},	{featureType:"water",elementType:"all",stylers:[{visibility:"on"},{saturation:-10},{lightness:30}]},	{featureType:"landscape.man_made",elementType:"all",stylers:[{visibility:"simplified"},{saturation:-60},{lightness:10}]},	{featureType:"landscape.natural",elementType:"all",stylers:[{visibility:"simplified"},{saturation:-60},{lightness:60}]},	{featureType:"poi",elementType:"all",stylers:[{visibility:"off"},{saturation:-100},{lightness:60}]},	{featureType:"transit",elementType:"all",stylers:[{visibility:"off"},{saturation:-100},{lightness:60}]}]	
+		//styles: [	{featureType:"administrative",elementType:"all",stylers:[{visibility:"on"},{saturation:-100},{lightness:20}]},	{featureType:"road",elementType:"all",stylers:[{visibility:"on"},{saturation:-100},{lightness:40}]},	{featureType:"water",elementType:"all",stylers:[{visibility:"on"},{saturation:-10},{lightness:30}]},	{featureType:"landscape.man_made",elementType:"all",stylers:[{visibility:"simplified"},{saturation:-60},{lightness:10}]},	{featureType:"landscape.natural",elementType:"all",stylers:[{visibility:"simplified"},{saturation:-60},{lightness:60}]},	{featureType:"poi",elementType:"all",stylers:[{visibility:"off"},{saturation:-100},{lightness:60}]},	{featureType:"transit",elementType:"all",stylers:[{visibility:"off"},{saturation:-100},{lightness:60}]}]	
 	},
 		n=new google.maps.Map(document.getElementById("google-map"),o);
 		google.maps.event.addDomListener(window,"resize",function(){var e=n.getCenter();
 		google.maps.event.trigger(n,"resize"),n.setCenter(e)});
 		
-		var g='<div class="map-marker"><h4 class="color-dark xbold">AVENDOR</h4><p>United States of America</p><p>New York. 123 Fifth Avenue</p></div>',a=new google.maps.InfoWindow({content:g})
-		,t=new google.maps.MarkerImage("img/theme/google-marker.png",new google.maps.Size(157,70),
+		debugger;
+        var g = '<div class="map-marker"><h4 class="color-dark">DJINARO</h4><p>Republic of Tatarstan</p><p>Kazan, Vosstaniya 49</p></div>',
+            a = new google.maps.InfoWindow({ content: g }),
+            t = new google.maps.MarkerImage("../img/theme/google-marker.png", new google.maps.Size(157, 70),
 		new google.maps.Point(0,0),new google.maps.Point(75,50)),
-		i=new google.maps.LatLng(37.331789, -122.029620),
-		p=new google.maps.Marker({position:i,map:n,icon:t,zIndex:3});
+		i=new google.maps.LatLng(55.8327707, 49.0773945),
+		p=new google.maps.Marker({position:i,map:n,zIndex:3});
 		google.maps.event.addListener(p,"click",function(){a.open(n,p)}),
 		gfx(".gmap-button").click(function(){gfx("#google-map").slideToggle(300,function(){google.maps.event.trigger(n,"resize"),n.setCenter(e)}),
 		gfx(this).toggleClass("show-map")});
