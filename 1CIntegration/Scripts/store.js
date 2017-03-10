@@ -1,10 +1,23 @@
 ﻿
 var Djinaro = {};
 
+Djinaro.sortingProduct = function() {
+    var groupBtnSort = jQuery('#group_btn_sort');
+    if (groupBtnSort) {
+        groupBtnSort.on('click', function(b) {
+            var btnClick = b.target;
+            jQuery('#group_btn_sort .active')[0].className = 'btn btn-primary';
+            btnClick.className = 'btn btn-primary active';
+            Djinaro.filterByGoods();
+        });
+    }
+}
+
 Djinaro.filterByGoods = function () {
     var groupActive = jQuery('.shop-product-categories .active');
     var pagingActive = jQuery('#paging .active');
     var sizesActive = jQuery('#sizes .active');
+    var sortActive = jQuery('#group_btn_sort .active');
     var numberPagingActive = 1;
     if (pagingActive.length == 1) numberPagingActive = parseInt(pagingActive[0].innerText);
     if (groupActive[0].nodeName == 'A') {
@@ -19,7 +32,7 @@ Djinaro.filterByGoods = function () {
                 sizes += ", '" + sizesActive[z].innerText + "'";
             }
         }
-        Djinaro.getShoes(parseInt(groupActive[0].id), sizes, numberPagingActive);
+        Djinaro.getShoes(parseInt(groupActive[0].id), sizes, numberPagingActive, sortActive[0].id);
         Djinaro.getShoesCount(parseInt(groupActive[0].id), sizes);
     }
 }
@@ -242,7 +255,7 @@ Djinaro.WriteResponseGoodsPaging = function (data) {
     paging.appendChild(ul);
 }
 
-Djinaro.getShoes = function (groups, sizes, page) {
+Djinaro.getShoes = function (groups, sizes, page, sorting) {
     jQuery.ajax({
         url: '/Store/getshoes',
         type: 'GET',
@@ -250,7 +263,8 @@ Djinaro.getShoes = function (groups, sizes, page) {
         data: {
             'groups': groups,
             'sizes': sizes,
-            'page': page
+            'page': page,
+            'sorting': sorting
         },
         success: function (data) {
             Djinaro.WriteResponseGoods(data);

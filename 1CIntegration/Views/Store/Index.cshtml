@@ -138,17 +138,19 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="shop-filters">
-                                    <form>
-                                        <select class="form-control ordering">
-                                            <option selected="selected">По умолчанию</option>
-                                            <option value="price">По цене: от низкой к более высокой</option>
-                                            <option value="price-desc">По цене: от высокой к менее низкой</option>
-                                        </select>
-                                        <label class="show-results">Отображено 1–18 из n результатов</label>
-                                    </form>
+                                    Сортировка
+                                    <div id="group_btn_sort" class="btn-group margin-bottom10">
+                                        <button type="button" id="1_asc" class="btn btn-primary active">По умолчанию</button>
+                                        <button type="button" id="2_asc" class=" btn btn-primary">Возрастанию цены</button>
+                                        <button type="button" id="3_desc" class=" btn btn-primary">Убыванию цены</button>
+                                    </div>
+                                    <label class="show-results">Отображено 1–18 из n результатов</label>
                                 </div>
                                 <div class="white-space space-small"></div>
                             </div>
+                            <script>
+                                Djinaro.sortingProduct();
+                            </script>
                         </div>
                         <!-- Root element of PhotoSwipe. Must have class pswp. -->
                         <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
@@ -216,7 +218,7 @@
                         </div>
                         <div class="container" id="goods">
                             <!--Место для товаров-->
-                            <script>Djinaro.getShoes(1, 0, 1);</script>
+                            <script>Djinaro.getShoes(1, 0, 1, 0);</script>
                         </div>
                         <!-- Pagination -->
                         <div class="row">

@@ -120,10 +120,25 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getshoes
         [HttpGet]
-        public JsonResult GetShoes(int groups, string sizes, int page)
+        public JsonResult GetShoes(int groups, string sizes, int page, string sorting)
         {
             try
             {
+                var sortingValue = "";
+                switch (sorting)
+                {
+                    case "1_asc":
+                    case "2_asc":
+                        sortingValue = "ASC";
+                        break;
+                    case "3_desc":
+                        sortingValue = "DESC";
+                        break;
+                    default:
+                        sortingValue = "ASC";
+                        break;
+                }
+
                 string sql =
                     " SELECT gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, g.img_path, " +
                     " MAX(o.price) as price, o.currency, o.feature, " +
@@ -135,7 +150,7 @@ namespace _1CIntegration.Controllers
                     " AND g.group_id = " + groups + " " +
                     (sizes != "0" && sizes.Length > 0 ? " AND o.size in ("+sizes+") "  : "") +
                     " GROUP BY 1,2,3,4,5 " +
-                    " ORDER BY price, feature " +
+                    " ORDER BY price " + sortingValue + ", feature " +
                     " LIMIT 18 OFFSET "+ ((page * 18) - 18) +" ";
                 var dt = SQLiteProvider.OpenSql(sql);
 
