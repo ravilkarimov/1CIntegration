@@ -165,6 +165,17 @@ namespace _1CIntegrationParserXML
                     }
                 }
 
+                //Справочник брендов
+                var dBrands = SQLiteProvider.OpenSql("select brand_id, brand from d_brands")
+                    .AsEnumerable()
+                    .Select(x => new
+                    {
+                        brandId = x["brand_id"].ToString(),
+                        brand = x["brand"].ToString()
+                    })
+                    .GroupBy(x => x.brandId)
+                    .ToDictionary(x => x.Key, y => y.Select(z => z.brand).FirstOrDefault());
+                
                 //ElementsTable 
                 foreach (DataRow rowGood in dataSource.Tables["ElementsTable"].Rows)
                 {
@@ -173,9 +184,10 @@ namespace _1CIntegrationParserXML
                     {
                         string groupId = SQLiteProvider.OpenSql("select group_id from groups where group_key = '" + rowGood["group_key"] + "'").Rows[0]["group_id"].ToString();
 
-                        sql = "insert into goods (good_key, good, group_id, img_path) " +
+                        sql = "insert into goods (good_key, good, group_id, img_path, brand_id) " +
                               "values " +
-                              "('" + rowGood["good_key"] + "','" + rowGood["good"] + "', " + groupId + ", '" + rowGood["img_path"] + "')";
+                              "('" + rowGood["good_key"] + "','" + rowGood["good"] + "', " + groupId + ", '" + rowGood["img_path"] + "'," +
+                              dBrands.Where(x => rowGood["good"].ToString().IndexOf(x.Value) > -1).Select(x => x.Key).DefaultIfEmpty("11").First()  + ")";
                         SQLiteProvider.ExecSql(sql);
                     }
                 }
@@ -186,6 +198,7 @@ namespace _1CIntegrationParserXML
             catch (Exception e)
             {
                 var error = e.Message;
+                new FileLogger("Log.txt").LogMessage("Парсинг: " + error);
             }
         }
     }
