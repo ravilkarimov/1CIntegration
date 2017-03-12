@@ -81,6 +81,47 @@ Djinaro.WriteResponseGroups = function (data) {
     groups.appendChild(list);
 }
 
+Djinaro.WriteResponseBrands = function (data) {
+    var brands = document.getElementById('brands');
+
+    var title = document.createElement('h4');
+    title.className = 'title-widget fancy-title';
+    var title_div = document.createElement('span');
+    title_div.innerHTML = 'Бренды';
+    title.appendChild(title_div);
+
+    var list = document.createElement('ul');
+    list.className = 'shop-product-categories';
+    jQuery(list).on('click', function (a) {
+        var liClick = a.target;
+        if (liClick.nodeName == 'A') {
+            liClick = liClick.parentElement;
+        }
+        if (liClick.nodeName == 'LI') {
+            var ulClick = a.currentTarget;
+            jQuery('.active', ulClick)[0].className = '';
+            liClick.className = 'active';
+            Djinaro.filterByGoods();
+        }
+    });
+
+    for (var i = 0; i < data.length; i++) {
+        var row = document.createElement('li');
+        row.id = data[i].brand_id;
+        var link = document.createElement('a');
+        //link.href = '';
+        link.innerHTML = data[i].brand;
+        var count = document.createElement('span');
+        count.className = 'count';
+        count.innerHTML = '(' + data[i].count + ')';
+        row.appendChild(link);
+        row.appendChild(count);
+        list.appendChild(row);
+    }
+    brands.appendChild(title);
+    brands.appendChild(list);
+}
+
 Djinaro.WriteResponseSizes = function (data) {
     var groups = document.getElementById('sizes');
 
@@ -145,7 +186,7 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '   <div class="shop-product" id="shop-product-' + goodKey + '">' +
                                 '       <!-- Overlay Img -->' +
                                 '       <div class="overlay-wrapper">' +
-                                '           <img src="../img/demo/shop/product1.jpg" class="img-zoom" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
+                                '           <img src="../'+ data[itemIndex].img_path +'" class="img-zoom" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
                                 '           <div class="overlay-wrapper-content"> ' +
 								'				<div class="overlay-details"> ' +
 								'        			<a onclick="Djinaro.openModalProduct()"> ' +
@@ -300,6 +341,20 @@ Djinaro.getAllGroups = function () {
         dataType: 'json',
         success: function (data) {
             Djinaro.WriteResponseGroups(data);
+        },
+        error: function (x, y, z) {
+            console.log(x + '\n' + y + '\n' + z);
+        }
+    });
+}
+
+Djinaro.getAllBrands = function () {
+    jQuery.ajax({
+        url: '/Store/getbrands',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            Djinaro.WriteResponseBrands(data);
         },
         error: function (x, y, z) {
             console.log(x + '\n' + y + '\n' + z);

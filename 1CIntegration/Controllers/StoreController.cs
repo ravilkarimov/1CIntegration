@@ -40,6 +40,28 @@ namespace _1CIntegration.Controllers
             
         }
 
+        // GET: /Store/getbrands
+        [HttpGet]
+        public JsonResult GetBrands()
+        {
+            try
+            {
+                var sql = "SELECT b.brand_id, b.brand, COUNT(*) as count " +
+                          "FROM d_brands b, goods g " +
+                          "WHERE b.brand_id = g.brand_id " +
+                          "AND g.group_id in (1,2,3)  " +
+                          "GROUP BY 1,2 " +
+                          "ORDER BY brand";
+
+                return Json(SQLiteProvider.OpenSql(sql).ToList(), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception eBrands)
+            {
+                throw;
+            }
+
+        }
+
         // GET: /Store/getsizesgood
         [HttpGet]
         public JsonResult GetSizesGood(string id)

@@ -70,7 +70,7 @@ namespace _1CIntegrationDB
                 {
                     string fill_brands = "INSERT INTO d_brands VALUES(1,'Adidas',1);      " +
                                          "INSERT INTO d_brands VALUES(2,'Nike',1);        " +
-                                         "INSERT INTO d_brands VALUES(3,'New Balance',1); " +
+                                         "INSERT INTO d_brands VALUES(3,'NB',1); " +
                                          "INSERT INTO d_brands VALUES(4,'Saucony',1);     " +
                                          "INSERT INTO d_brands VALUES(5,'Asics',1);       " +
                                          "INSERT INTO d_brands VALUES(6,'Reebok',1);      " +
