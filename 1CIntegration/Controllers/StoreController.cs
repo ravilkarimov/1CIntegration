@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,6 +18,27 @@ namespace _1CIntegration.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+
+        public void GetImgProduct(string path)
+        {
+            try
+            {
+                Response.ContentType = "image/jpg";
+                Response.Clear();
+                Response.BufferOutput = true;
+
+                MemoryStream m = new MemoryStream();
+                Image i = Image.FromFile(@"h:/root/home/djinaroshop-001/www/site1/webdata/" + path);
+                i.Save(m, System.Drawing.Imaging.ImageFormat.Png);
+
+                Response.BinaryWrite(m.ToArray());
+            }
+            catch (Exception eGroups)
+            {
+                throw;
+            }
         }
 
         // GET: /Store/getgroups
@@ -142,7 +165,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getshoes
         [HttpGet]
-        public JsonResult GetShoes(int groups, string sizes, int page, string sorting)
+        public JsonResult GetShoes(int groups, string sizes, int page, string sorting, string brands)
         {
             try
             {
@@ -171,6 +194,7 @@ namespace _1CIntegration.Controllers
                     " AND g.good_key = o.good_key " +
                     " AND g.group_id = " + groups + " " +
                     (sizes != "0" && sizes.Length > 0 ? " AND o.size in ("+sizes+") "  : "") +
+                    (brands != "0" && brands.Length > 0 ? " AND g.brand_id in (" + brands + ") " : "") +
                     " GROUP BY 1,2,3,4,5 " +
                     " ORDER BY price " + sortingValue + ", feature " +
                     " LIMIT 18 OFFSET "+ ((page * 18) - 18) +" ";
@@ -186,7 +210,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getshoescount
         [HttpGet]
-        public JsonResult GetShoesCount(int groups, string sizes)
+        public JsonResult GetShoesCount(int groups, string sizes, string brands)
         {
             try
             {
@@ -196,6 +220,7 @@ namespace _1CIntegration.Controllers
                     " WHERE 1 = 1 " +
                     " AND g.good_key = o.good_key " +
                     (sizes != "0" && sizes.Length > 0 ? " AND o.size in (" + sizes + ") " : "") +
+                    (brands != "0" && brands.Length > 0 ? " AND g.brand_id in (" + brands + ") " : "") +
                     " AND g.group_id = " + groups;
                 var dt = SQLiteProvider.OpenSql(sql);
                 var countPage = Math.Ceiling((double)dt.Rows[0]["count"].ToString().AsInteger() / 18);
