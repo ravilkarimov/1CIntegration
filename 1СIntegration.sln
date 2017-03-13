@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_1CIntegration", "1CIntegration\_1CIntegration.csproj", "{3B6B7F57-553D-4D4A-A10A-C4815DC5D3FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1CIntegrationDB", "1CIntegrationDB\1CIntegrationDB.csproj", "{01C82BDF-544A-4F45-A355-921DB214F179}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1CIntegrationParserXML", "1CIntegrationParserXML\1CIntegrationParserXML.csproj", "{122B72D7-8816-4E9E-9A96-7182D14A4EFA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B6B7F57-553D-4D4A-A10A-C4815DC5D3FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B6B7F57-553D-4D4A-A10A-C4815DC5D3FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B6B7F57-553D-4D4A-A10A-C4815DC5D3FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B6B7F57-553D-4D4A-A10A-C4815DC5D3FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01C82BDF-544A-4F45-A355-921DB214F179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01C82BDF-544A-4F45-A355-921DB214F179}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01C82BDF-544A-4F45-A355-921DB214F179}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01C82BDF-544A-4F45-A355-921DB214F179}.Release|Any CPU.Build.0 = Release|Any CPU
+		{122B72D7-8816-4E9E-9A96-7182D14A4EFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{122B72D7-8816-4E9E-9A96-7182D14A4EFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{122B72D7-8816-4E9E-9A96-7182D14A4EFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{122B72D7-8816-4E9E-9A96-7182D14A4EFA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
