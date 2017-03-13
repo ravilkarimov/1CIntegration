@@ -209,6 +209,7 @@ namespace _1CIntegration.Controllers
                     " AND g.group_id = gr.group_id " +
                     " AND g.good_key = o.good_key " +
                     " AND g.group_id = " + groups + " " +
+                    " AND g.img_path != '' " +
                     (sizes != "0" && sizes.Length > 0 ? " AND o.size in ("+sizes+") "  : "") +
                     (brands != "0" && brands.Length > 0 ? " AND g.brand_id in (" + brands + ") " : "") +
                     " GROUP BY 1,2,3,4,5 " +
@@ -237,6 +238,7 @@ namespace _1CIntegration.Controllers
                     " AND g.good_key = o.good_key " +
                     (sizes != "0" && sizes.Length > 0 ? " AND o.size in (" + sizes + ") " : "") +
                     (brands != "0" && brands.Length > 0 ? " AND g.brand_id in (" + brands + ") " : "") +
+                    " AND g.img_path != '' " +
                     " AND g.group_id = " + groups;
                 var dt = SQLiteProvider.OpenSql(sql);
                 var countPage = Math.Ceiling((double)dt.Rows[0]["count"].ToString().AsInteger() / 18);
