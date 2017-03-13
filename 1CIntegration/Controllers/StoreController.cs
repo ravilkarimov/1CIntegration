@@ -208,7 +208,6 @@ namespace _1CIntegration.Controllers
                     " WHERE 1 = 1 " +
                     " AND g.group_id = gr.group_id " +
                     " AND g.good_key = o.good_key " +
-                    " AND g.img_path != '' " +
                     " AND g.group_id = " + groups + " " +
                     (sizes != "0" && sizes.Length > 0 ? " AND o.size in ("+sizes+") "  : "") +
                     (brands != "0" && brands.Length > 0 ? " AND g.brand_id in (" + brands + ") " : "") +
