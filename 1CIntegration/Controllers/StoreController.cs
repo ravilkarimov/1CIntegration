@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using _1CIntegrationDB;
 
@@ -20,22 +21,37 @@ namespace _1CIntegration.Controllers
             return View();
         }
 
-
-        public void GetImgProduct(string path)
+        // GET: /Store/GetImgProduct?good_key=&width=&height=
+        [HttpGet]
+        public ActionResult GetImgProduct(string good_key, int? width, int? height)
         {
             try
             {
-                Response.ContentType = "image/jpg";
-                Response.Clear();
-                Response.BufferOutput = true;
+                if (good_key.IsNullOrEmpty()) return null;
 
-                MemoryStream m = new MemoryStream();
-                Image i = Image.FromFile(@"h:/root/home/djinaroshop-001/www/site1/webdata/" + path);
-                i.Save(m, System.Drawing.Imaging.ImageFormat.Png);
+                var dataImgPath = SQLiteProvider.OpenSql("select img_path from goods where good_key = '" + good_key + "'");
 
-                Response.BinaryWrite(m.ToArray());
+                if (dataImgPath != null && dataImgPath.Rows.Count == 1 && !dataImgPath.Rows[0]["img_path"].IsNullOrEmpty())
+                {
+                    var image = Image.FromFile("h:/root/home/djinaroshop-001/www/webdata/" + dataImgPath.Rows[0]["img_path"]);
+                    if (width != null && height != null)
+                    {
+                        return
+                            new FileStreamResult(
+                                image.ResizeBitmapUpto(width ?? 500, height ?? 500, InterpolationMode.HighQualityBicubic)
+                                    .ToStream(ImageFormat.Jpeg), "image/jpeg");
+                    }
+                    else
+                    {
+                        return new FileStreamResult(image.ToStream(ImageFormat.Jpeg), "image/jpeg");
+                    }
+                }
+                else
+                {
+                    return null;
+                }
             }
-            catch (Exception eGroups)
+            catch (Exception e)
             {
                 throw;
             }

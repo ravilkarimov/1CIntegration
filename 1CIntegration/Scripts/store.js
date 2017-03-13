@@ -203,7 +203,7 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '   <div class="shop-product" id="shop-product-' + goodKey + '">' +
                                 '       <!-- Overlay Img -->' +
                                 '       <div class="overlay-wrapper">' +
-                                '           <img src="../' + data[itemIndex].img_path + '" class="img-zoom" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
+                                '           <img src="../store/GetImgProduct?good_key=' + goodKey + '&width=300&height=300" class="img-zoom" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
                                 '           <div class="overlay-wrapper-content"> ' +
 								'				<div class="overlay-details"> ' +
 								'        			<a onclick="Djinaro.openModalProduct()"> ' +
