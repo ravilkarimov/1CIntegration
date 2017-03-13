@@ -169,6 +169,7 @@ namespace _1CIntegration.Controllers
                     " WHERE 1 = 1 " +
                     " AND g.group_id = gr.group_id " +
                     " AND g.good_key = o.good_key " +
+                    " AND g.img_path != '' " +
                     " AND g.group_id = " + groups + " " +
                     (sizes != "0" && sizes.Length > 0 ? " AND o.size in ("+sizes+") "  : "") +
                     " GROUP BY 1,2,3,4,5 " +
