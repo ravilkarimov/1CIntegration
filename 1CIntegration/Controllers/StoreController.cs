@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using _1CIntegrationDB;
 
@@ -16,6 +19,42 @@ namespace _1CIntegration.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        // GET: /Store/GetImgProduct?good_key=&width=&height=
+        [HttpGet]
+        public ActionResult GetImgProduct(string good_key, int? width, int? height)
+        {
+            try
+            {
+                if (good_key.IsNullOrEmpty()) return null;
+
+                var dataImgPath = SQLiteProvider.OpenSql("select img_path from goods where good_key = '" + good_key + "'");
+
+                if (dataImgPath != null && dataImgPath.Rows.Count == 1 && !dataImgPath.Rows[0]["img_path"].IsNullOrEmpty())
+                {
+                    var image = Image.FromFile("h:/root/home/djinaroshop-001/www/webdata/" + dataImgPath.Rows[0]["img_path"]);
+                    if (width != null && height != null)
+                    {
+                        return
+                            new FileStreamResult(
+                                image.ResizeBitmapUpto(width ?? 500, height ?? 500, InterpolationMode.HighQualityBicubic)
+                                    .ToStream(ImageFormat.Jpeg), "image/jpeg");
+                    }
+                    else
+                    {
+                        return new FileStreamResult(image.ToStream(ImageFormat.Jpeg), "image/jpeg");
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         // GET: /Store/getgroups
@@ -142,7 +181,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getshoes
         [HttpGet]
-        public JsonResult GetShoes(int groups, string sizes, int page, string sorting)
+        public JsonResult GetShoes(int groups, string sizes, int page, string sorting, string brands)
         {
             try
             {
@@ -172,6 +211,7 @@ namespace _1CIntegration.Controllers
                     " AND g.img_path != '' " +
                     " AND g.group_id = " + groups + " " +
                     (sizes != "0" && sizes.Length > 0 ? " AND o.size in ("+sizes+") "  : "") +
+                    (brands != "0" && brands.Length > 0 ? " AND g.brand_id in (" + brands + ") " : "") +
                     " GROUP BY 1,2,3,4,5 " +
                     " ORDER BY price " + sortingValue + ", feature " +
                     " LIMIT 18 OFFSET "+ ((page * 18) - 18) +" ";
@@ -187,7 +227,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getshoescount
         [HttpGet]
-        public JsonResult GetShoesCount(int groups, string sizes)
+        public JsonResult GetShoesCount(int groups, string sizes, string brands)
         {
             try
             {
@@ -197,6 +237,7 @@ namespace _1CIntegration.Controllers
                     " WHERE 1 = 1 " +
                     " AND g.good_key = o.good_key " +
                     (sizes != "0" && sizes.Length > 0 ? " AND o.size in (" + sizes + ") " : "") +
+                    (brands != "0" && brands.Length > 0 ? " AND g.brand_id in (" + brands + ") " : "") +
                     " AND g.group_id = " + groups;
                 var dt = SQLiteProvider.OpenSql(sql);
                 var countPage = Math.Ceiling((double)dt.Rows[0]["count"].ToString().AsInteger() / 18);
