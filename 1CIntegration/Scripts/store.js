@@ -423,7 +423,7 @@ Djinaro.getSizesByGood = function (good_key) {
                             var row = document.createElement('tr');
                             for (var i = 0; i <= Math.ceil(data.length / countTDinTr); i++) {
                                 if (data.length > currentTd) {
-                                    sizesString += '<td class="cart-table btn-xs" bgcolor="f4f4f4" style="margin: 0px;">' + data[currentTd].size + 'EU</td>';
+                                    sizesString += '<td class="cart-table btn-xs" bgcolor="f4f4f4" style="margin: 0px;">' + data[currentTd].size + ' EU</td>';
                                     currentTd++;
                                 }
                             }
