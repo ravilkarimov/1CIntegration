@@ -64,12 +64,9 @@ namespace _1CIntegrationDB
                     c.Open();
                     using (SQLiteCommand cmd = new SQLiteCommand(sqlString, c))
                     {
-                        using (SQLiteDataReader rdr = cmd.ExecuteReader())
-                        {
-                            var dt = new DataTable();
-                            dt.Load(rdr);
-                            return dt;
-                        }
+                        var dt = new DataTable();
+                        dt.Load(cmd.ExecuteReader());
+                        return dt;
                     }
                 }
             }

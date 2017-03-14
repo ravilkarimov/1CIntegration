@@ -11,6 +11,16 @@ Djinaro.sortingProduct = function() {
             Djinaro.filterByGoods();
         });
     }
+
+    var groupBtnPaging = jQuery('#group_btn_paging');
+    if (groupBtnPaging) {
+        groupBtnPaging.on('click', function (b) {
+            var btnClick = b.target;
+            jQuery('#group_btn_paging .active')[0].className = 'btn btn-primary btn-xs btn-alt btn-circle';
+            btnClick.className = 'btn btn-primary btn-xs btn-alt btn-circle active';
+            Djinaro.filterByGoods();
+        });
+    }
 }
 
 Djinaro.filterByGoods = function () {
@@ -19,8 +29,11 @@ Djinaro.filterByGoods = function () {
     var sizesActive = jQuery('#sizes .active');
     var sortActive = jQuery('#group_btn_sort .active');
     var brandsActive = jQuery('#brands .active');
+    var countActive = jQuery('#group_btn_paging .active');
     var numberPagingActive = 1;
+    var countElActive = 30;
     if (pagingActive.length == 1) numberPagingActive = parseInt(pagingActive[0].innerText);
+    if (countActive.length == 1) countElActive = parseInt(countActive[0].innerText);
     if (groupActive[0].nodeName == 'A') {
         groupActive = groupActive.parentElement;
     }
@@ -41,8 +54,8 @@ Djinaro.filterByGoods = function () {
                 brands += ", '" + brandsActive[b].id + "'";
             }
         }
-        Djinaro.getShoes(parseInt(groupActive[0].id), sizes, numberPagingActive, sortActive[0].id, brands);
-        Djinaro.getShoesCount(parseInt(groupActive[0].id), sizes, brands);
+        Djinaro.getShoes(parseInt(groupActive[0].id), sizes, numberPagingActive, countElActive, sortActive[0].id, brands);
+        Djinaro.getShoesCount(parseInt(groupActive[0].id), sizes, countElActive, brands);
     }
 }
 
@@ -203,7 +216,7 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '   <div class="shop-product" id="shop-product-' + goodKey + '">' +
                                 '       <!-- Overlay Img -->' +
                                 '       <div class="overlay-wrapper">' +
-                                '           <img src="../store/GetImgProduct?good_key=' + goodKey + '&width=300&height=300" class="img-zoom" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
+                                '           <img src="../store/GetImgProduct?good_key=' + goodKey + '&width=400&height=400" class="img-zoom" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
                                 '           <div class="overlay-wrapper-content"> ' +
 								'				<div class="overlay-details"> ' +
 								'        			<a onclick="Djinaro.openModalProduct()"> ' +
@@ -224,7 +237,6 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '    <!-- /Shop Product -->' +
                                 '    <div class="white-space space-small"></div>' +
                                 '</div> ';
-
                         row.innerHTML += stringElement;
                         categories.appendChild(row);
 
@@ -313,15 +325,17 @@ Djinaro.WriteResponseGoodsPaging = function (data) {
     paging.appendChild(ul);
 }
 
-Djinaro.getShoes = function (groups, sizes, page, sorting, brands) {
+Djinaro.getShoes = function (groups, sizes, page, count, sorting, brands) {
     jQuery.ajax({
         url: '/Store/getshoes',
         type: 'GET',
+        async: true,
         dataType: 'json',
         data: {
             'groups': groups,
             'sizes': sizes,
             'page': page,
+            'count': count,
             'sorting': sorting,
             'brands': brands
         },
@@ -334,14 +348,16 @@ Djinaro.getShoes = function (groups, sizes, page, sorting, brands) {
     });
 }
 
-Djinaro.getShoesCount = function (groups, sizes, brands) {
+Djinaro.getShoesCount = function (groups, sizes, count, brands) {
     jQuery.ajax({
         url: '/Store/getshoescount',
         type: 'GET',
+        async: true,
         dataType: 'json',
         data: {
             'groups': groups,
             'sizes': sizes,
+            'count': count,
             'brands': brands
         },
         success: function (data) {
@@ -357,6 +373,7 @@ Djinaro.getAllGroups = function () {
     jQuery.ajax({
         url: '/Store/getgroups',
         type: 'GET',
+        async: true,
         dataType: 'json',
         success: function (data) {
             Djinaro.WriteResponseGroups(data);
@@ -371,6 +388,7 @@ Djinaro.getAllBrands = function () {
     jQuery.ajax({
         url: '/Store/getbrands',
         type: 'GET',
+        async: true,
         dataType: 'json',
         success: function (data) {
             Djinaro.WriteResponseBrands(data);
@@ -382,47 +400,52 @@ Djinaro.getAllBrands = function () {
 }
 
 Djinaro.getSizesByGood = function (good_key) {
-    jQuery.ajax({
-        url: '/Store/getsizesgood',
-        type: 'GET', 
-        dataType: 'json',
-        data: { id: good_key },
-        success: function (data) {
-            var divRating = document.getElementById('rating_' + good_key);
-            if (divRating) {
-                divRating.innerHTML = '';
-                if (data && data.length > 0) {
-                    data.sort().reverse();
-                    var countTDinTr = Math.ceil(data.length / 5);
-                    if (countTDinTr < 1) countTDinTr = 1;
-                    var currentTd = 0;
-                    for (var r = 0; r < countTDinTr; r++) {
-                        var sizesString = '';
-                        var table = document.createElement('table');
-                        var row = document.createElement('tr');
-                        for (var i = 0; i <=  Math.ceil(data.length / countTDinTr); i++) {
-                            if (data.length > currentTd) {
-                                sizesString += '<td class="cart-table btn-xs" bgcolor="f4f4f4" style="margin: 0px;">' + data[currentTd].size + 'EU</td>';
-                                currentTd++;
+    var divRating = document.getElementById('rating_' + good_key);
+    if (divRating && divRating.innerHTML == '') {
+        jQuery.ajax({
+            url: '/Store/getsizesgood',
+            type: 'GET',
+            async: true,
+            dataType: 'json',
+            data: { id: good_key },
+            success: function(data) {
+                var divRating = document.getElementById('rating_' + good_key);
+                if (divRating) {
+                    divRating.innerHTML = '';
+                    if (data && data.length > 0) {
+                        data.sort().reverse();
+                        var countTDinTr = Math.ceil(data.length / 5);
+                        if (countTDinTr < 1) countTDinTr = 1;
+                        var currentTd = 0;
+                        for (var r = 0; r < countTDinTr; r++) {
+                            var sizesString = '';
+                            var table = document.createElement('table');
+                            var row = document.createElement('tr');
+                            for (var i = 0; i <= Math.ceil(data.length / countTDinTr); i++) {
+                                if (data.length > currentTd) {
+                                    sizesString += '<td class="cart-table btn-xs" bgcolor="f4f4f4" style="margin: 0px;">' + data[currentTd].size + 'EU</td>';
+                                    currentTd++;
+                                }
                             }
+                            row.innerHTML = sizesString;
+                            table.appendChild(row);
+                            divRating.appendChild(table);
                         }
-                        row.innerHTML = sizesString;
-                        table.appendChild(row);
-                        divRating.appendChild(table);
                     }
                 }
+            },
+            error: function(x, y, z) {
+                console.log(x + '\n' + y + '\n' + z);
             }
-        },
-        error: function (x, y, z) {
-            console.log(x + '\n' + y + '\n' + z);
-        }
-    });
+        });
+    }
 }
 
 Djinaro.getAllSizes = function () {
     jQuery.ajax({
         url: '/Store/getsizes',
         type: 'GET',
+        async: true,
         dataType: 'json',
         success: function (data) {
             Djinaro.WriteResponseSizes(data);

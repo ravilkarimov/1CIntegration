@@ -144,7 +144,12 @@
                                         <button type="button" id="2_asc" class=" btn btn-primary">Возрастанию цены</button>
                                         <button type="button" id="3_desc" class=" btn btn-primary">Убыванию цены</button>
                                     </div>
-                                    <label class="show-results">Отображено 1–18 из n результатов</label>
+                                    <div id="group_btn_paging" class="margin-bottom10" style="float: right;">
+                                        Показать:
+                                        <button type="button" id="30" class="btn btn-primary btn-xs btn-alt btn-circle active">30</button>
+                                        <button type="button" id="60" class=" btn btn-primary btn-xs btn-alt btn-circle">60</button>
+                                        <button type="button" id="120" class=" btn btn-primary btn-xs btn-alt btn-circle">120</button>
+                                    </div>
                                 </div>
                                 <div class="white-space space-small"></div>
                             </div>
@@ -154,14 +159,14 @@
                         </div>
                         <div class="container" id="goods">
                             <!--Место для товаров-->
-                            <script>Djinaro.getShoes(1, 0, 1, 0, 0);</script>
+                            <script>Djinaro.getShoes(1, 0, 1, 30, 0, 0);</script>
                         </div>
                         <!-- Pagination -->
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="text-center" id="paging">
                                     <!--Место для пэйджинга-->
-                                    <script>Djinaro.getShoesCount(1, 0, 0);</script>
+                                    <script>Djinaro.getShoesCount(1, 0, 30, 0);</script>
                                 </div>
                             </div>
                         </div>

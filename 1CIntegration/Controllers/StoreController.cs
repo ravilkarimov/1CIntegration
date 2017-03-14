@@ -4,14 +4,14 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using _1CIntegrationDB;
 
 namespace _1CIntegration.Controllers
 {
-    public class StoreController : Controller
+    public class StoreController : AsyncController
     {
         //
         // GET: /Store/
@@ -23,18 +23,18 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/GetImgProduct?good_key=&width=&height=
         [HttpGet]
-        public ActionResult GetImgProduct(string good_key, int? width, int? height)
+        public async Task<ActionResult> GetImgProduct(string good_key, int? width, int? height)
         {
             try
             {
                 if (good_key.IsNullOrEmpty()) return null;
 
-                var dataImgPath = SQLiteProvider.OpenSql("select img_path from goods where good_key = '" + good_key + "'");
+                var imgPath = SQLiteProvider.OpenSql("select img_path from goods where good_key = '" + good_key + "'")
+                    .AsEnumerable()
+                    .Select(x => x["img_path"].ToString()).FirstOrDefault();
 
-                if (dataImgPath != null && dataImgPath.Rows.Count == 1 && !dataImgPath.Rows[0]["img_path"].IsNullOrEmpty())
-                {
-                    var image = Image.FromFile("C:/Users/r.karimov/Downloads/Temp/webdata/" + dataImgPath.Rows[0]["img_path"]);
-                    //C:/Users/r.karimov/Downloads/Temp/webdata/
+                if (imgPath.IsNullOrEmpty()) return null;
+                var image = Image.FromFile("h:/root/home/djinaroshop-001/www/webdata/" + imgPath);
                     if (width != null && height != null)
                     {
                         return
@@ -42,16 +42,8 @@ namespace _1CIntegration.Controllers
                                 image.ResizeBitmapUpto(width ?? 500, height ?? 500, InterpolationMode.HighQualityBicubic)
                                     .ToStream(ImageFormat.Jpeg), "image/jpeg");
                     }
-                    else
-                    {
                         return new FileStreamResult(image.ToStream(ImageFormat.Jpeg), "image/jpeg");
                     }
-                }
-                else
-                {
-                    return null;
-                }
-            }
             catch (Exception e)
             {
                 throw;
@@ -60,7 +52,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getgroups
         [HttpGet]
-        public JsonResult GetGroups()
+        public async Task<JsonResult> GetGroups()
         {
             try
             {
@@ -82,7 +74,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getbrands
         [HttpGet]
-        public JsonResult GetBrands()
+        public async Task<JsonResult> GetBrands()
         {
             try
             {
@@ -104,7 +96,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getsizesgood
         [HttpGet]
-        public JsonResult GetSizesGood(string id)
+        public async Task<JsonResult> GetSizesGood(string id)
         {
             try
             {
@@ -120,7 +112,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getsizes
         [HttpGet]
-        public JsonResult GetSizes()
+        public async Task<JsonResult> GetSizes()
         {
             try
             {
@@ -182,7 +174,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getshoes
         [HttpGet]
-        public JsonResult GetShoes(int groups, string sizes, int page, string sorting, string brands)
+        public async Task<JsonResult> GetShoes(int groups, string sizes, int page, int count, string sorting, string brands)
         {
             try
             {
@@ -215,7 +207,7 @@ namespace _1CIntegration.Controllers
                     (brands != "0" && brands.Length > 0 ? " AND g.brand_id in (" + brands + ") " : "") +
                     " GROUP BY 1,2,3,4,5 " +
                     " ORDER BY price " + sortingValue + ", feature " +
-                    " LIMIT 18 OFFSET "+ ((page * 18) - 18) +" ";
+                    " LIMIT " + count + " OFFSET " + ((page * count) - count) + " ";
                 var dt = SQLiteProvider.OpenSql(sql);
 
                 return Json(dt.ToList(), JsonRequestBehavior.AllowGet);
@@ -228,7 +220,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getshoescount
         [HttpGet]
-        public JsonResult GetShoesCount(int groups, string sizes, string brands)
+        public async Task<JsonResult> GetShoesCount(int groups, string sizes, int count, string brands)
         {
             try
             {
@@ -242,7 +234,7 @@ namespace _1CIntegration.Controllers
                     " AND g.img_path != '' " +
                     " AND g.group_id = " + groups;
                 var dt = SQLiteProvider.OpenSql(sql);
-                var countPage = Math.Ceiling((double)dt.Rows[0]["count"].ToString().AsInteger() / 18);
+                var countPage = Math.Ceiling((double)dt.Rows[0]["count"].ToString().AsInteger() / count);
                 dt.Rows[0]["count"] = countPage;
                 return Json(dt.ToList(), JsonRequestBehavior.AllowGet);
             }
