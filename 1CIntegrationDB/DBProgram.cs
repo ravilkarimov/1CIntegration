@@ -1,6 +1,4 @@
-﻿using System.Data.SQLite;
-
-namespace _1CIntegrationDB
+﻿namespace _1CIntegrationDB
 {
     public class DBProgram
     {

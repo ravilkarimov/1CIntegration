@@ -33,6 +33,9 @@ Description: A Beautiful, Professional and Multipurpose Theme Made by FourGrafx
 	[20]	Responsive Media Queries
 	*/
 
+.gfx-zoom-in-1 {
+    cursor: pointer;
+}
 
 /* Preload */
 .QOverlay {background-color: #000000;z-index: 99999;}
@@ -732,7 +735,7 @@ ul.gallery.columns-3 li {width: 33.3%;}
 .img-transparency:hover {-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; /* Safari 1.x */ -khtml-opacity: 1; /* Modern browsers */opacity: 1; backface-visibility: hidden;  /* W3C */ -webkit-backface-visibility: hidden; /* Safari & Chrome */ -moz-backface-visibility: hidden; /* Firefox */ -ms-backface-visibility: hidden; /* Internet Explorer */ -o-backface-visibility: hidden; /* Opera */}
 .overlay-wrapper:hover .img-transparency, .overlay-wrapper:focus .img-transparency {-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; /* Safari 1.x */ -khtml-opacity: 1; /* Modern browsers */opacity: 1; backface-visibility: hidden;  /* W3C */ -webkit-backface-visibility: hidden; /* Safari & Chrome */ -moz-backface-visibility: hidden; /* Firefox */ -ms-backface-visibility: hidden; /* Internet Explorer */ -o-backface-visibility: hidden; /* Opera */}
 /* zoom */
-.overlay-wrapper .img-zoom { width:100%; height:auto;}
+.overlay-wrapper .img-zoom { width:100%; height:auto; cursor: pointer;}
 .overlay-wrapper:hover .img-zoom, .overlay-wrapper:focus .img-zoom {-webkit-transform:scale(1.4); -moz-transform:scale(1.4); -o-transform: scale(1.4); -ms-transform: scale(1.4); transform: scale(1.4);}
 
 @media (max-width: 1024px) {
@@ -927,6 +930,10 @@ ul.gallery.columns-3 li {width: 33.3%;}
 .btn-lg,.btn-group-lg > .btn {padding: 24px 48px; font-size: 18px;}
 .btn-sm,.btn-group-sm > .btn {padding: 14px 20px; font-size: 14px;}
 .btn-xs,.btn-group-xs > .btn { padding: 4px 10px; font-size: 12px;}
+
+.btn-circle {
+    border-radius: 50%;
+}
 
 /*==========  Creative Links ==========*/
 
@@ -1711,6 +1718,7 @@ iframe{ border:none;}
 .sidebar-widget { margin-bottom:40px;}
 .sidebar-widget .title-widget { font-weight:300; text-transform:none;}
 .sidebar-widget .title-widget.fancy-title span:after {margin: 20px 0 -3px;}
+.sidebar-widget > li { cursor: pointer;}
 
 /* nav sidebar */
 .nav{}
@@ -1818,6 +1826,7 @@ a.comment-link:hover { }
 	background:#ffffff; /* fallback for browser that not support rgba */
 	background:rgb(255,255,255); 
 	background: rgba(255,255,255, .8); /* Works on all modern browsers */
+    cursor: default;
 	-webkit-transition: all 0.3s ease-in-out;  -moz-transition: all 0.3s ease-in-out;  -o-transition: all 0.3s ease-in-out;	-ms-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out;}
 .shop-product:hover .rating { bottom:0;}
 .rating span.star {display: inline-block; font-family: FontAwesome;  font-style: normal;  font-weight: normal;}
@@ -1835,7 +1844,7 @@ a.comment-link:hover { }
 
 /* shop lists */
 .shop-product-categories { list-style:none; padding:0; margin:0;}
-.shop-product-categories li { padding:15px 10px; border-top:1px solid #ececec; text-transform:uppercase;-webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out;  transition: all 0.3s ease-in-out;	-webkit-transform: translate3d(0,0,0);}
+.shop-product-categories li {cursor: pointer; padding:15px 10px; border-top:1px solid #ececec; text-transform:uppercase;-webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out;  transition: all 0.3s ease-in-out;	-webkit-transform: translate3d(0,0,0);}
 .shop-product-categories li:hover,.shop-product-categories li:focus { background:#f8f8f8;}
 .shop-product-categories li.active { background:#f8f8f8;}
 .shop-product-categories li:first-child {border-top:none;}

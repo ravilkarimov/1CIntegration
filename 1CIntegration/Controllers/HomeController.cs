@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace _1CIntegration.Controllers
 {
-    public class MainController : Controller
+    public class HomeController : Controller
     {
         //
         // GET: /Main/
