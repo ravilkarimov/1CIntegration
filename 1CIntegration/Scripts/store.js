@@ -206,7 +206,7 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '           <img src="../store/GetImgProduct?good_key=' + goodKey + '&width=300&height=300" class="img-zoom" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
                                 '           <div class="overlay-wrapper-content"> ' +
 								'				<div class="overlay-details"> ' +
-								'        			<a onclick="Djinaro.openModalProduct()"> ' +
+								'        			<a href="../store/GetImgProduct?good_key=' + goodKey + '" class="color-white" data-lightbox="image"> ' +
                                 '                       <span class="icon gfx-zoom-in-1" ></span>' +
                                 '                   </a> ' +
                                 '    			</div> ' +

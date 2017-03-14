@@ -33,7 +33,8 @@ namespace _1CIntegration.Controllers
 
                 if (dataImgPath != null && dataImgPath.Rows.Count == 1 && !dataImgPath.Rows[0]["img_path"].IsNullOrEmpty())
                 {
-                    var image = Image.FromFile("h:/root/home/djinaroshop-001/www/webdata/" + dataImgPath.Rows[0]["img_path"]);
+                    var image = Image.FromFile("C:/Users/r.karimov/Downloads/Temp/webdata/" + dataImgPath.Rows[0]["img_path"]);
+                    //C:/Users/r.karimov/Downloads/Temp/webdata/
                     if (width != null && height != null)
                     {
                         return
