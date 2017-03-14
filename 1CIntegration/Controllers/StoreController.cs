@@ -34,7 +34,9 @@ namespace _1CIntegration.Controllers
                     .Select(x => x["img_path"].ToString()).FirstOrDefault();
 
                 if (imgPath.IsNullOrEmpty()) return null;
-                var image = Image.FromFile("h:/root/home/djinaroshop-001/www/webdata/" + imgPath);
+                var image = Image.FromFile("C:/Users/r.karimov/Downloads/Temp/webdata/" + imgPath);
+                //C:/Users/r.karimov/Downloads/Temp/webdata/
+                //h:/root/home/djinaroshop-001/www/webdata/
                     if (width != null && height != null)
                     {
                         return
