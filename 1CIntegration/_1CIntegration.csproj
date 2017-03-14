@@ -164,6 +164,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Extensions.cs" />
@@ -298,6 +299,8 @@
     <Content Include="Content\font\revicons.eot" />
     <Content Include="Content\font\revicons.ttf" />
     <Content Include="Content\font\revicons.woff" />
+    <Content Include="img\demo\brand\brand1-shop.png" />
+    <Content Include="img\demo\slider\air_1920x800.jpg" />
     <Content Include="img\theme\close.png" />
     <Content Include="img\theme\reload.gif" />
     <Content Include="img\theme\revolutionslider\arrows.psd" />
@@ -485,6 +488,7 @@
     <Content Include="scss\_screen-reader.scss" />
     <Content Include="scss\_stacked.scss" />
     <Content Include="scss\_variables.scss" />
+    <Content Include="Views\Main\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
