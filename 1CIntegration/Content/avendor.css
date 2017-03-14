@@ -1332,7 +1332,7 @@ border-radius: 4px;}
 
 
 /*========== Forms ==========*/
-.form-control { height:50px; padding:10px 20px; background-color:transparent; border: 1px solid #ececec; color:#778899; -webkit-box-shadow: none; box-shadow: none;}
+.form-control { height:50px; padding:10px 20px; /*background-color:transparent;*/ border: 1px solid #ececec; color:#778899; -webkit-box-shadow: none; box-shadow: none;}
 .form-control:focus {-webkit-box-shadow: none; box-shadow: none;}
 .form-group [class*="col-sm-"], .form-group [class*="col-md-"], .form-group [class*="col-lg-"] { margin-bottom:15px;}
 .form-group [class*="col-sm-"]:last-child, .form-group [class*="col-md-"]:last-child, .form-group [class*="col-lg-"]:last-child { margin-bottom:0;}
