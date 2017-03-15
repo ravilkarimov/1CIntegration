@@ -48,7 +48,7 @@ Djinaro.filterByGoods = function () {
         }
         var brands = '';
         for (b = 0; b < brandsActive.length; b++) {
-            if (sizes.length == 0) {
+            if (brands.length == 0) {
                 brands += "'" + brandsActive[b].id + "'";
             } else {
                 brands += ", '" + brandsActive[b].id + "'";
@@ -216,10 +216,10 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '   <div class="shop-product" id="shop-product-' + goodKey + '">' +
                                 '       <!-- Overlay Img -->' +
                                 '       <div class="overlay-wrapper">' +
-                                '           <img src="../store/GetImgProduct?good_key=' + goodKey + '&width=400&height=400" class="img-zoom" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
+                                '           <img src="" class="img-zoom" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
                                 '           <div class="overlay-wrapper-content"> ' +
-								'				<div class="overlay-details"> ' +
-								'        			<a href="../store/GetImgProduct?good_key=' + goodKey + '" class="color-white" data-lightbox="image""> ' +
+                                '				<div class="overlay-details"> ' +
+                                '        			<a href="../store/GetImgProduct?good_id=' + data[itemIndex].good_id + '" class="color-white" data-lightbox="image""> ' +
                                 '                       <span class="icon gfx-zoom-in-1" ></span>' +
                                 '                   </a> ' +
                                 '    			</div> ' +
@@ -241,6 +241,16 @@ Djinaro.WriteResponseGoods = function (data) {
                         categories.appendChild(row);
 
                         if (addItem < 3) addItem++;
+
+                        var downloadingImage = new Image();
+                        downloadingImage.onload = function () {
+                            var img = jQuery('#shop-product-' + this.id + ' .img-zoom');
+                            if (img && img[0]) {
+                                img[0].src = this.src;
+                            }
+                        }
+                        downloadingImage.id = goodKey;
+                        downloadingImage.src = "../store/GetImgProduct?good_id=" + data[itemIndex].good_id + "&width=400&height=400";
                     }
 
                     itemIndex += 1;

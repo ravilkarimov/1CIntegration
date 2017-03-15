@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -97,7 +98,7 @@ namespace _1CIntegration
 
         public static Stream ToStream(this Image image, ImageFormat format)
         {
-            var stream = new System.IO.MemoryStream();
+            var stream = new MemoryStream();
             image.Save(stream, format);
             stream.Position = 0;
             return stream;
@@ -105,21 +106,19 @@ namespace _1CIntegration
 
         public static Stream ToStream(this Bitmap image, ImageFormat format)
         {
-            var stream = new System.IO.MemoryStream();
+            var stream = new MemoryStream();
             image.Save(stream, format);
             stream.Position = 0;
             return stream;
         }
 
-        public static Bitmap ResizeBitmapUpto(this Image b, int nWidth, int nHeight, System.Drawing.Drawing2D.InterpolationMode interpolationMode)
+        public static Bitmap ResizeBitmapUpto(this Image b, int nWidth, int nHeight, InterpolationMode interpolationMode)
         {
-            int oldWidth = b.Width;
-            int oldHeight = b.Height;
-            var box = PlaceInside(oldWidth, oldHeight, nWidth, nHeight);
-            int actualNewWidth = (int)Math.Max(Math.Round(box.Width), 1);
-            int actualNewHeight = (int)Math.Max(Math.Round(box.Height), 1);
+            var box = PlaceInside(b.Width, b.Height, nWidth, nHeight);
+            var actualNewWidth = (int)Math.Ceiling(box.Width);
+            var actualNewHeight = (int)Math.Ceiling(box.Height);
             var result = new Bitmap(actualNewWidth, actualNewHeight);
-            using (var g = Graphics.FromImage((System.Drawing.Image)result))
+            using (var g = Graphics.FromImage(result))
             {
                 g.InterpolationMode = interpolationMode;
                 g.DrawImage(b, 0, 0, actualNewWidth, actualNewHeight);
@@ -131,18 +130,15 @@ namespace _1CIntegration
         {
             if (oldWidth <= 0 || oldHeight <= 0 || newWidth <= 0 || newHeight <= 0)
                 return new RectangleF(oldWidth, oldHeight, newWidth, newHeight);
-            float widthFactor = (float)newWidth / (float)oldWidth;
-            float heightFactor = (float)newHeight / (float)oldHeight;
+            var widthFactor = newWidth / (float)oldWidth;
+            var heightFactor = newHeight / (float)oldHeight;
             if (widthFactor < heightFactor)
             {
-                float scaledHeight = widthFactor * oldHeight;
+                var scaledHeight = widthFactor * oldHeight;
                 return new RectangleF(0, (newHeight - scaledHeight) / 2.0f, newWidth, scaledHeight);
             }
-            else
-            {
-                float scaledWidth = heightFactor * oldWidth;
-                return new RectangleF((newWidth - scaledWidth) / 2.0f, 0, scaledWidth, newHeight);
-            }
+            var scaledWidth = heightFactor * oldWidth;
+            return new RectangleF((newWidth - scaledWidth) / 2.0f, 0, scaledWidth, newHeight);
         }
     }
 }

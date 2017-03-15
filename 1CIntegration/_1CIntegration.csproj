@@ -215,24 +215,30 @@
     <Content Include="Content\assets\white50.png" />
     <Content Include="Content\avendor-font-styles.css" />
     <Content Include="Content\avendor.css" />
+    <Content Include="Content\avendor_store.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\colors\color-blue.css" />
     <Content Include="Content\colors\color-default.css" />
+    <Content Include="Content\colors\color-default_store.css" />
     <Content Include="Content\default-skin\default-skin.css" />
     <Content Include="Content\default-skin\default-skin.png" />
+    <Content Include="Content\default-skin\default-skin_store.css" />
     <Content Include="Content\default-skin\download.svg" />
     <Content Include="Content\default-skin\preloader.gif" />
     <Content Include="Content\font\revicons.svg" />
     <Content Include="Content\owl-carousel\owl.carousel.css" />
     <Content Include="Content\owl-carousel\owl.theme.css" />
+    <Content Include="Content\owl-carousel\owl.transitions_store.css" />
     <Content Include="Content\owl-carousel\owl.transitions.css" />
     <Content Include="Content\photoswipe.css" />
     <Content Include="Content\popupinfo.css" />
     <Content Include="Content\revolutionslider\settings-ie8.css" />
     <Content Include="Content\revolutionslider\settings.css" />
     <Content Include="Content\themecss\animate.css" />
+    <Content Include="Content\themecss\animate_store.css" />
     <Content Include="Content\themecss\lightbox.css" />
+    <Content Include="Content\themecss\lightbox_store.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -325,6 +331,7 @@
     <Content Include="less\screen-reader.less" />
     <Content Include="less\stacked.less" />
     <Content Include="less\variables.less" />
+    <Content Include="Content\owl-carousel\owl.carousel_store.css" />
     <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
@@ -420,6 +427,7 @@
     <Content Include="Scripts\livicons\raphael.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\open_photoswipe.js" />
+    <Content Include="Scripts\owl-carousel\owl.carousel_store.js" />
     <Content Include="Scripts\owl-carousel\owl.carousel.js" />
     <Content Include="Scripts\owl-carousel\owl.carousel.min.js" />
     <Content Include="Scripts\photoswipe-ui-default.min.js" />
@@ -430,12 +438,16 @@
     <Content Include="Scripts\store.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\themejs\application_store.js" />
     <Content Include="Scripts\themejs\application.js" />
     <Content Include="Scripts\themejs\jquery.colio.js" />
     <Content Include="Scripts\themejs\jquery.colio.min.js" />
+    <Content Include="Scripts\themejs\jquery.countdown_store.js" />
     <Content Include="Scripts\themejs\jquery.countdown.js" />
+    <Content Include="Scripts\themejs\jquery.countTo_store.js" />
     <Content Include="Scripts\themejs\jquery.countTo.js" />
     <Content Include="Scripts\themejs\jquery.easypiechart.js" />
+    <Content Include="Scripts\themejs\jquery.easypiechart.min_store.js" />
     <Content Include="Scripts\themejs\jquery.easypiechart.min.js" />
     <Content Include="Scripts\themejs\jquery.isotope.min.js" />
     <Content Include="Scripts\themejs\jquery.magnific-popup.js" />
@@ -446,11 +458,13 @@
     <Content Include="Scripts\themejs\jquery.queryloader2.min.js" />
     <Content Include="Scripts\themejs\jquery.stellar.js" />
     <Content Include="Scripts\themejs\jquery.stellar.min.js" />
+    <Content Include="Scripts\themejs\jquery.stickOnScroll_store.js" />
     <Content Include="Scripts\themejs\jquery.stickOnScroll.js" />
     <Content Include="Scripts\themejs\jquery.touchSwipe.min.js" />
     <Content Include="Scripts\themejs\jquery.validate.min.js" />
     <Content Include="Scripts\themejs\jquery.waypoints.js" />
     <Content Include="Scripts\themejs\jquery.waypoints.min.js" />
+    <Content Include="Scripts\themejs\SmoothScroll_store.js" />
     <Content Include="Scripts\themejs\SmoothScroll.js" />
     <Content Include="Scripts\videojs\font\vjs.svg" />
     <Content Include="Scripts\videojs\video-js.css" />

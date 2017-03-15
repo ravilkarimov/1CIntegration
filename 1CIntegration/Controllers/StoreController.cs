@@ -15,37 +15,41 @@ namespace _1CIntegration.Controllers
     {
         //
         // GET: /Store/
-        [OutputCache(Duration = 30, Location = System.Web.UI.OutputCacheLocation.Server)]
+        [OutputCache(Duration = 600, Location = System.Web.UI.OutputCacheLocation.Client)]
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: /Store/GetImgProduct?good_key=&width=&height=
+        // GET: /Store/GetImgProduct?good_id=&width=&height=
         [HttpGet]
-        public async Task<ActionResult> GetImgProduct(string good_key, int? width, int? height)
+        [OutputCache(Duration = 600, Location = System.Web.UI.OutputCacheLocation.Client)]
+        public async Task<ActionResult> GetImgProduct(string good_id, int? width, int? height)
         {
             try
             {
-                if (good_key.IsNullOrEmpty()) return null;
+                if (good_id.IsNullOrEmpty()) return null;
 
-                var imgPath = SQLiteProvider.OpenSql("select img_path from goods where good_key = '" + good_key + "'")
-                    .AsEnumerable()
-                    .Select(x => x["img_path"].ToString()).FirstOrDefault();
+                var imgPath = SQLiteProvider.OpenSql("select img_path from goods where good_id = " + good_id).Rows[0]["img_path"].ToString();
 
                 if (imgPath.IsNullOrEmpty()) return null;
-                var image = Image.FromFile("C:/Users/r.karimov/Downloads/Temp/webdata/" + imgPath);
-                //C:/Users/r.karimov/Downloads/Temp/webdata/
-                //h:/root/home/djinaroshop-001/www/webdata/
-                    if (width != null && height != null)
+                using (var fs = System.IO.File.OpenRead("h:/root/home/djinaroshop-001/www/webdata/" + imgPath))
+                {
+                    using (var image = Image.FromStream(fs, false, false))
                     {
-                        return
-                            new FileStreamResult(
-                                image.ResizeBitmapUpto(width ?? 500, height ?? 500, InterpolationMode.HighQualityBicubic)
-                                    .ToStream(ImageFormat.Jpeg), "image/jpeg");
-                    }
+                        //C:/Users/r.karimov/Downloads/Temp/webdata/
+                        //h:/root/home/djinaroshop-001/www/webdata/
+                        if (width != null && height != null)
+                        {
+                            return
+                                new FileStreamResult(
+                                    image.ResizeBitmapUpto(width ?? 500, height ?? 500, InterpolationMode.Bilinear)
+                                        .ToStream(ImageFormat.Jpeg), "image/jpeg");
+                        }
                         return new FileStreamResult(image.ToStream(ImageFormat.Jpeg), "image/jpeg");
                     }
+                }
+            }
             catch (Exception e)
             {
                 throw;
@@ -54,6 +58,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getgroups
         [HttpGet]
+        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
         public async Task<JsonResult> GetGroups()
         {
             try
@@ -76,6 +81,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getbrands
         [HttpGet]
+        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
         public async Task<JsonResult> GetBrands()
         {
             try
@@ -98,6 +104,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getsizesgood
         [HttpGet]
+        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.Client)]
         public async Task<JsonResult> GetSizesGood(string id)
         {
             try
@@ -114,6 +121,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getsizes
         [HttpGet]
+        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
         public async Task<JsonResult> GetSizes()
         {
             try
@@ -176,6 +184,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getshoes
         [HttpGet]
+        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
         public async Task<JsonResult> GetShoes(int groups, string sizes, int page, int count, string sorting, string brands)
         {
             try
@@ -196,7 +205,7 @@ namespace _1CIntegration.Controllers
                 }
 
                 string sql =
-                    " SELECT gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, g.img_path, " +
+                    " SELECT gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, " +
                     " MAX(o.price) as price, o.currency, o.feature, " +
                     " (CASE WHEN o.amount > 0 THEN 'Есть в наличии' ELSE 'Нет в наличии' END) as amount " +
                     " FROM goods g, groups gr, offers o " +
@@ -223,6 +232,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getshoescount
         [HttpGet]
+        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
         public async Task<JsonResult> GetShoesCount(int groups, string sizes, int count, string brands)
         {
             try

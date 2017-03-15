@@ -8,12 +8,12 @@ namespace _1CIntegrationDB
 {
     public class SQLiteProvider
     {
-        private static readonly string DatabaseName = "C:\\Users\\r.karimov\\Downloads\\db.sqlite";
+        private static readonly string DatabaseName = "h:\\root\\home\\djinaroshop-001\\www\\db\\db.sqlite";
         //C:\\Users\\r.karimov\\Downloads\\db.sqlite
         //C:\\Users\\Дмитрий\\db.sqlite
         //h:\\root\\home\\djinaroshop-001\\www\\db\\db.sqlite
 
-        private static readonly string ConnectionString = string.Format("Data Source={0}; Version=3; UseUTF16Encoding=True;", DatabaseName);
+        private static readonly string ConnectionString = string.Format("Data Source={0}; Version=3; Compress=True; UseUTF16Encoding=True; Pooling=True; Max Pool Size=1000;", DatabaseName);
 
         static SQLiteProvider()
         {
@@ -54,14 +54,14 @@ namespace _1CIntegrationDB
             {
             }
         }
-
+        
         public static DataTable OpenSql(string sqlString)
         {
             try
             {
                 using (SQLiteConnection c = new SQLiteConnection(ConnectionString))
                 { 
-                    c.Open();
+                    c.OpenAsync();
                     using (SQLiteCommand cmd = new SQLiteCommand(sqlString, c))
                     {
                         var dt = new DataTable();
@@ -83,7 +83,7 @@ namespace _1CIntegrationDB
             {
                 using (SQLiteConnection c = new SQLiteConnection(ConnectionString))
                 {
-                    c.Open();
+                    c.OpenAsync();
                     using (SQLiteCommand cmd = new SQLiteCommand(sqlString, c))
                     {
                         return cmd.ExecuteNonQuery();
@@ -102,7 +102,7 @@ namespace _1CIntegrationDB
             {
                 using (SQLiteConnection c = new SQLiteConnection(ConnectionString))
                 {
-                    c.Open();
+                    c.OpenAsync();
                     using (var cmd = new SQLiteCommand(c))
                     {
                         cmd.CommandText = string.Join("; ", listSql);
