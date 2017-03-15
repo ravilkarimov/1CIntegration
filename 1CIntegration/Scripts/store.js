@@ -62,7 +62,7 @@ Djinaro.filterByGoods = function () {
 Djinaro.WriteResponseGroups = function (data) {
     var groups = document.getElementById('groups');
 
-    var title = document.createElement('h4');
+    var title = document.createElement('h3');
     title.className = 'title-widget fancy-title';
     var title_div = document.createElement('span');
     title_div.innerHTML = 'Категории';

@@ -227,7 +227,7 @@ section{ }
 .navbar, .navbar-nav{ margin:0; min-height:inherit;}
 .navbar-collapse{ max-height:inherit; padding:0;}
 .navbar-default{ background:none; border:none;}
-.navbar-default .navbar-nav > li > a {color: #ADADAD; border-top:3px solid transparent; font-family: 'Oswald', sans-serif; font-size: 15px; font-weight: 600; text-transform:uppercase; text-decoration: none; letter-spacing:1px;}
+.navbar-default .navbar-nav > li > a {color: #ADADAD; border-top:3px solid transparent; font-family: 'Oswald', sans-serif; font-size: 20px; font-weight: 600; text-transform:uppercase; text-decoration: none; letter-spacing:1px;}
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus { background:none;}
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {background-color: transparent;}
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{ border-top:3px solid;}
@@ -926,7 +926,7 @@ ul.gallery.columns-3 li {width: 33.3%;}
 .btn-white.btn-alt:hover, .btn-white.btn-alt:focus, .btn-white.btn-alt:active, .btn-white.btn-alt.active, .open .dropdown-toggle.btn-white.btn-alt {color: #778899; background-color: #ffffff; border:2px solid; border-color:#ffffff;}
 
 /*button sizes*/
-.btn {padding: 18px 28px; font-size: 14px; line-height:1;}
+.btn {padding: 18px 28px; font-size: 17px; line-height:1;}
 .btn-lg,.btn-group-lg > .btn {padding: 24px 48px; font-size: 18px;}
 .btn-sm,.btn-group-sm > .btn {padding: 14px 20px; font-size: 14px;}
 .btn-xs,.btn-group-xs > .btn { padding: 4px 10px; font-size: 12px;}
