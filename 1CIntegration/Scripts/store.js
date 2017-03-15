@@ -196,7 +196,7 @@ Djinaro.WriteResponseGoods = function (data) {
     var categories = document.getElementById('goods');
     jQuery('#goods').children().remove();
     if (data.length > 0) {
-        var countRow = data.length / 3;
+        var countRow = data.length / 4;
         var itemIndex = 0;
 
         for (var i = 0; i < countRow; i++) {
@@ -211,7 +211,7 @@ Djinaro.WriteResponseGoods = function (data) {
 
                     if (data[itemIndex]) {
                         var stringElement =
-                            '<div class="col-md-4">' +
+                            '<div class="col-md-3">' +
                                 '   <!-- Shop Product -->' +
                                 '   <div class="shop-product" id="shop-product-' + goodKey + '">' +
                                 '       <!-- Overlay Img -->' +
@@ -240,7 +240,7 @@ Djinaro.WriteResponseGoods = function (data) {
                         row.innerHTML += stringElement;
                         categories.appendChild(row);
 
-                        if (addItem < 3) addItem++;
+                        if (addItem < 4) addItem++;
 
                         var downloadingImage = new Image();
                         downloadingImage.onload = function () {

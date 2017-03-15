@@ -984,7 +984,7 @@ a.comment-link:hover{}
 .shop-product-categories li:first-child{border-top:none;}
 .shop-product-categories li span.count{float:right;}
 .shop-filters{}
-.shop-filters .form-control{width:auto;display:inline-block;}
+.shop-filters .form-control{/*width:auto;*/display:inline-block;}
 .shop-filters label{font-weight:300;}
 .show-results{float:right;line-height:3;}
 @media (max-width:540px){.show-results{float:none;margin:20px 0 0;display:block;}

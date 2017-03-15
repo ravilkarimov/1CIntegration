@@ -144,13 +144,67 @@
                 </div>
                 <div class="row">
                    <!-- Content -->
-                    <div class="col-sm-8 col-sm-push-4 col-md-9 col-md-push-3 columns">
+                    <div class="col-sm-12">
                         
+                        <!-- Горизантальный бар -->
                         <div class="row">
+                            <div class="col-sm-3">
+                                <div class="shop-filters">
+                                    <form>
+                                        <select class="form-control ordering">
+                                            <option selected="selected">Категории</option>
+                                            <option value="accessories">Аксессуары</option>
+                                            <option value="shoes">Обувь</option>
+                                            <option value="dress">Одежда</option>
+                                        </select>
+                                    </form>
+                                </div>
+                                <div class="white-space space-small"></div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="shop-filters">
+                                    <form>
+                                        <select class="form-control ordering">
+                                            <option selected="selected">Бренд</option>
+                                            <option value="test">test</option>
+                                        </select>
+                                    </form>
+                                </div>
+                                <div class="white-space space-small"></div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="shop-filters">
+                                    <form>
+                                        <select class="form-control ordering">
+                                            <option selected="selected">Размер</option>
+                                            <option value="test">test</option>
+                                        </select>
+                                    </form>
+                                </div>
+                                <div class="white-space space-small"></div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="shop-filters">
+                                    <form>
+                                        <select class="form-control ordering">
+                                            <option selected="selected">Цена</option>
+                                            <option value="test">test</option>
+                                        </select>
+                                    </form>
+                                </div>
+                                <div class="white-space space-small"></div>
+                            </div>
+                        </div>
+                        <!-- Горизантальный бар -->
+
+                        <!-- Старые кнопки фильтров -->
+                        <!--div class="row">
                             <div class="col-sm-12">
                                 <div class="shop-filters">
                                     <div id="group_btn_sort" class="btn-group margin-bottom10 style=" padding-left:15px;">
-                                        <!--button type="button" id="1_asc" class="btn btn-primary active">По умолчанию</button-->
+                                        <button type="button" id="1_asc" class="btn btn-primary active">По умолчанию</button>
                                         <button type="button" id="2_asc" class=" btn btn-primary active" ">
                                             По возрастанию цены
                                         </button>
@@ -170,11 +224,15 @@
                             <script>
                                 Djinaro.sortingProduct();
                             </script>
-                        </div>
+                        </div-->
+                        <!-- Старые кнопки фильтров -->
+
+                        <!-- Товары -->
                         <div class="container" id="goods">
-                            <!--Место для товаров-->
                             <script>Djinaro.getShoes(1, 0, 1, 30, 0, 0);</script>
                         </div>
+                        <!-- Товары -->
+
                         <!-- Pagination -->
                         <div class="row">
                             <div class="col-sm-12">
@@ -189,28 +247,25 @@
                         <div class="white-space space-medium"></div>
                     </div>
                     <!-- /Content -->
-                    <!-- Sidebar -->
-                    <div class="col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 columns sidebar sidebar-left">
+                    <!-- Старый сайдбар -->
+                    <!--div class="col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 columns sidebar sidebar-left">
 
                         <div class="sidebar-content">
                             <div class="sidebar-widget" id="groups">
-                                <!--Группы товаров-->
                                 <script>Djinaro.getAllGroups();</script>
                             </div>
                             <div class="sidebar-widget" id="brands">
-                                <!--Бренды товаров-->
                                 <script>Djinaro.getAllBrands();</script>
                             </div>
                             <div class="sidebar-widget" id="sizes">
-                                <!--Размеры товаров-->
                                 <script>Djinaro.getAllSizes();</script>
                             </div>
 
                         </div>
 
                         <div class="white-space space-big"></div>
-                    </div>
-                    <!-- /Sidebar -->
+                    </div-->
+                    <!-- /Старый сайдбар  -->
 
                 </div>
             </div>
