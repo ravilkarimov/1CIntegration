@@ -29,8 +29,10 @@ namespace _1CIntegrationDB
                                "good TEXT, " +
                                "group_id INTEGER, " +
                                "brand_id INTEGER, " +
-                               "is_actual INTEGER, " +
-                               "img_path TEXT) ";
+                               "created_on TEXT, " +
+                               "changed_on TEXT, " +
+                               "img_path TEXT, " +
+                               "is_actual INTEGER) ";
 
             const string sql_offers = "CREATE TABLE IF NOT EXISTS offers (" +
                                 "offer_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
