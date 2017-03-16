@@ -446,6 +446,10 @@
     <Content Include="Scripts\livicons\raphael-min.js" />
     <Content Include="Scripts\livicons\raphael.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\nouislider\nouislider.css" />
+    <Content Include="Scripts\nouislider\nouislider.js" />
+    <Content Include="Scripts\nouislider\nouislider.min.css" />
+    <Content Include="Scripts\nouislider\nouislider.min.js" />
     <Content Include="Scripts\open_photoswipe.js" />
     <Content Include="Scripts\owl-carousel\owl.carousel_store.js" />
     <Content Include="Scripts\owl-carousel\owl.carousel.js" />
