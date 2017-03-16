@@ -26,6 +26,7 @@
     <link href="https://fonts.googleapis.com/css?family=Play:400,200,300,100,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link href="~/favicon.jpg" rel="shortcut icon">
+    <link href="~/Scripts/chosen/chosen.css" rel="stylesheet" />
 
     <!--<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -104,7 +105,8 @@
                                             <li class="dropdown"><a href="">Акции</a></li>
                                             <li class="dropdown"><a href="/contact">Контакты</a></li>
                                         </ul>
-                                    </div><!-- /.navbar-collapse -->
+                                    </div>
+                                    <!-- /.navbar-collapse -->
 
                                 </nav>
 
@@ -130,6 +132,7 @@
 
             <!-- Container -->
             <div class="container content-with-sidebar">
+                
                 <div class="row">
                     <!-- Поиск -->
                     <div class="panel panel-default">
@@ -142,55 +145,81 @@
                     </div>
                     <!-- Поиск -->
                 </div>
+
+                <!--div class="row">
+                    <nav class="navbar navbar-default gfx-mega nav-centered" role="navigation">
+                        <div class="collapse navbar-collapse" id="gfx-collapse">
+                            <ul class="nav navbar-nav gfx-nav">
+                                <li class="dropdown active">
+                                    <a href="/" class="dropdown-toggle" data-toggle="dropdown">Категории<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li class="active"><a href="#">Обувь</a></li>
+                                        <li><a href="#">Одежда</a></li>
+                                        <li><a href="#">Аксессуары</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown"><a href="/store">Бренд</a></li>
+                                <li class="dropdown"><a href="">Размер</a></li>
+                                <li class="dropdown"><a href="">Сезон</a></li>
+                                <li class="dropdown"><a href="">Цена</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div-->    
+
                 <div class="row">
                    <!-- Content -->
                     <div class="col-sm-12">
                         
-                        <!-- Горизантальный бар -->
+                        <!--Горизонтальный бар -->
                         <div class="row">
                             <div class="col-sm-3">
-                                <div class="shop-filters">
+                                <h4 class="fancy-title margin-bottom10"><span>Бренд</span></h4>
+                                <div class="shop-filters side-by-side clearfix">
                                     <form>
-                                        <select class="form-control ordering">
-                                            <option selected="selected">Категории</option>
-                                            <option value="accessories">Аксессуары</option>
-                                            <option value="shoes">Обувь</option>
-                                            <option value="dress">Одежда</option>
+                                        <select data-placeholder="Выберите бренд..." class="form-control ordering chosen-select" multiple tabindex="4">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
                                         </select>
                                     </form>
                                 </div>
                                 <div class="white-space space-small"></div>
                             </div>
                             <div class="col-sm-3">
-                                <div class="shop-filters">
+                                <h4 class="fancy-title margin-bottom10"><span>Размер</span></h4>
+                                <div class="shop-filters side-by-side clearfix">
                                     <form>
-                                        <select class="form-control ordering">
-                                            <option selected="selected">Бренд</option>
-                                            <option value="test">test</option>
+                                        <select data-placeholder="Выберите размер..." class="form-control ordering chosen-select" multiple tabindex="4">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
                                         </select>
                                     </form>
                                 </div>
                                 <div class="white-space space-small"></div>
                             </div>
-
                             <div class="col-sm-3">
-                                <div class="shop-filters">
+                                <h4 class="fancy-title margin-bottom10"><span>Сезон</span></h4>
+                                <div class="shop-filters side-by-side clearfix">
                                     <form>
-                                        <select class="form-control ordering">
-                                            <option selected="selected">Размер</option>
-                                            <option value="test">test</option>
+                                        <select data-placeholder="Выберите сезон..." class="form-control ordering chosen-select" multiple tabindex="4">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
                                         </select>
                                     </form>
                                 </div>
                                 <div class="white-space space-small"></div>
                             </div>
-
                             <div class="col-sm-3">
-                                <div class="shop-filters">
+                                <h4 class="fancy-title margin-bottom10"><span>Цена</span></h4>
+                                <div class="shop-filters side-by-side clearfix">
                                     <form>
-                                        <select class="form-control ordering">
-                                            <option selected="selected">Цена</option>
-                                            <option value="test">test</option>
+                                        <select data-placeholder="Выберите цену..." class="form-control ordering chosen-select" multiple tabindex="4">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
                                         </select>
                                     </form>
                                 </div>
@@ -268,6 +297,7 @@
                     <!-- /Старый сайдбар  -->
 
                 </div>
+
             </div>
             <!-- /Container -->
 
@@ -390,6 +420,21 @@
     <script src="~/Scripts/themejs/jquery.easypiechart.min_store.js" type="text/javascript"></script>
     <!-- Google Maps -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBny2ZQDRtvp935j3dwD5BZM9NGEpzFp0A&amp"></script>
+    <!-- Choosen -->
+    <script src="~/Scripts/chosen/chosen.jquery.js"></script>
+    <script src="~/Scripts/chosen/chosen.proto.js"></script>
+    <script type="text/javascript">
+        var config = {
+            '.chosen-select': {},
+            '.chosen-select-deselect': { allow_single_deselect: true },
+            '.chosen-select-no-single': { disable_search_threshold: 10 },
+            '.chosen-select-no-results': { no_results_text: 'Oops, nothing found!' },
+            '.chosen-select-width': { width: "95%" }
+        }
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+    </script>
         
     <script src="~/Scripts/themejs/application_store.js"></script>
 
