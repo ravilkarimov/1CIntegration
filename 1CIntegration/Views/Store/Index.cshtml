@@ -28,6 +28,8 @@
     <link href="~/favicon.jpg" rel="shortcut icon">
     <link href="~/Scripts/chosen/chosen.min.css" rel="stylesheet" />
     <link href="~/Scripts/nouislider/nouislider.min.css" rel="stylesheet" />
+    <!-- NoUISlider -->
+    <script src="~/Scripts/nouislider/nouislider.min.js"></script>
     <!--<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="~/Scripts/themejs/jquery.magnific-popup.min.js"></script>
@@ -178,9 +180,9 @@
                                 <div class="shop-filters side-by-side clearfix">
                                     <form>
                                         <select data-placeholder="Выберите бренд..." class="form-control ordering chosen-select" multiple tabindex="4">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
+                                            <option value="1">Adidas</option>
+                                            <option value="2">Nike</option>
+                                            <option value="3">NB</option>
                                         </select>
                                     </form>
                                 </div>
@@ -191,9 +193,9 @@
                                 <div class="shop-filters side-by-side clearfix">
                                     <form>
                                         <select data-placeholder="Выберите размер..." class="form-control ordering chosen-select" multiple tabindex="4">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
+                                            <option value="1">42</option>
+                                            <option value="2">43</option>
+                                            <option value="3">44</option>
                                         </select>
                                     </form>
                                 </div>
@@ -204,8 +206,8 @@
                                 <div class="shop-filters side-by-side clearfix">
                                     <form>
                                         <select data-placeholder="Выберите сезон..." class="form-control ordering chosen-select" multiple tabindex="4">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
+                                            <option value="1">Лето</option>
+                                            <option value="2">Весна</option>
                                             <option value="3">3</option>
                                         </select>
                                     </form>
@@ -214,38 +216,41 @@
                             </div>
                             <div class="col-sm-3">
                                 <h4 class="fancy-title margin-bottom10"><span>Цена</span></h4>
-                                <div id="nonlinear"></div>
-                                <span class="example-val" id="lower-value"></span>
-                                <span class="example-val" id="upper-value"></span>
-                                <script>
-                                    var nonLinearSlider = document.getElementById('nonlinear');
+                                <div class="example">
+                                    <div class="white-space space-xsmall"></div>
+                                    <div id="nonlinear" class="noUi-target noUi-ltr noUi-horizontal"></div>
+                                    <div class="white-space space-xsmall"></div>
+                                    <span class="example-val text-left" id="lower-value"></span>
+                                    <span class="example-val text-right" id="upper-value"></span>
 
-                                    noUiSlider.create(nonLinearSlider, {
-                                        connect: true,
-                                        behaviour: 'tap',
-                                        start: [500, 4000],
-                                        range: {
-                                            // Starting at 500, step the value by 500,
-                                            // until 4000 is reached. From there, step by 1000.
-                                            'min': [0],
-                                            '10%': [500, 500],
-                                            '50%': [4000, 1000],
-                                            'max': [10000]
-                                        }
-                                    });
-                                </script>
-                                <script>
-                                    var nodes = [
-                                        document.getElementById('lower-value'), // 0
-                                        document.getElementById('upper-value')  // 1
-                                    ];
+                                    <script>
+                                        var nonLinearSlider = document.getElementById('nonlinear');
 
-                                    // Display the slider value and how far the handle moved
-                                    // from the left edge of the slider.
-                                    nonLinearSlider.noUiSlider.on('update', function (values, handle, unencoded, isTap, positions) {
-                                        nodes[handle].innerHTML = values[handle] + ', ' + positions[handle].toFixed(2) + '%';
-                                    });
-                                </script>
+                                        noUiSlider.create(nonLinearSlider, {
+                                            connect: true,
+                                            behaviour: 'tap',
+                                            start: [500, 4000],
+                                            range: {
+                                                // Starting at 500, step the value by 500,
+                                                // until 4000 is reached. From there, step by 1000.
+                                                'min': [0],
+                                                'max': [10000]
+                                            }
+                                        });
+                                    </script>
+                                    <script>
+                                        var nodes = [
+                                            document.getElementById('lower-value'), // 0
+                                            document.getElementById('upper-value')  // 1
+                                        ];
+
+                                        // Display the slider value and how far the handle moved
+                                        // from the left edge of the slider.
+                                        nonLinearSlider.noUiSlider.on('update', function (values, handle, unencoded, isTap, positions) {
+                                            nodes[handle].innerHTML = values[handle];
+                                        });
+                                    </script>
+                                </div>
                                 <div class="white-space space-small"></div>
                             </div>
                         </div>
@@ -443,8 +448,7 @@
     <script src="~/Scripts/themejs/jquery.easypiechart.min_store.js" type="text/javascript"></script>
     <!-- Google Maps -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBny2ZQDRtvp935j3dwD5BZM9NGEpzFp0A&amp"></script>
-    <!-- NoUISlider -->
-    <script src="~/Scripts/nouislider/nouislider.min.js"></script>
+    
 
     <!-- Choosen -->
     <script src="~/Scripts/chosen/chosen.jquery.min.js"></script>
