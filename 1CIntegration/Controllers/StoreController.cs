@@ -34,7 +34,7 @@ namespace _1CIntegration.Controllers
                 var imgPath = SQLiteProvider.OpenSql("select img_path from goods where good_id = " + good_id).Rows[0]["img_path"].ToString();
  
                 if (imgPath.IsNullOrEmpty()) return null;
-                using (var fs = System.IO.File.OpenRead("h:/root/home/djinaroshop-001/www/webdata/" + imgPath.Replace(".jpg", "_min.jpg")))
+                using (var fs = System.IO.File.OpenRead("C:/Users/r.karimov/Downloads/Temp/webdata/" + imgPath.Replace(".jpg", "_min.jpg")))
                 {
                     using (var image = Image.FromStream(fs, true))
                     {
@@ -58,7 +58,7 @@ namespace _1CIntegration.Controllers
                 var imgPath = SQLiteProvider.OpenSql("select img_path from goods where good_id = " + good_id).Rows[0]["img_path"].ToString();
 
                 if (imgPath.IsNullOrEmpty()) return null;
-                using (var fs = System.IO.File.OpenRead("h:/root/home/djinaroshop-001/www/webdata/" + imgPath))
+                using (var fs = System.IO.File.OpenRead("C:/Users/r.karimov/Downloads/Temp/webdata/" + imgPath))
                 {
                     using (var image = Image.FromStream(fs, true))
                     {
@@ -199,11 +199,11 @@ namespace _1CIntegration.Controllers
         // GET: /Store/getshoes
         [HttpGet]
         [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
-        public JsonResult GetShoes(int groups, string sizes, string sorting, string brands)
+        public JsonResult GetShoes(int groups, string sizes, string brands)
         {
             try
             {
-                var sortingValue = "";
+                /*var sortingValue = "";
                 switch (sorting)
                 {
                     case "1_asc":
@@ -216,7 +216,7 @@ namespace _1CIntegration.Controllers
                     default:
                         sortingValue = "ASC";
                         break;
-                }
+                }*/
 
                 string sql =
                     " SELECT gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, " +
@@ -229,10 +229,10 @@ namespace _1CIntegration.Controllers
                     " AND g.group_id = " + groups + " " +
                     " AND g.img_path != '' " +
                     " AND o.amount > 0 " +
-                    (sizes != "0" && sizes.Length > 0 ? " AND o.size in (" + sizes + ") " : "") +
-                    (brands != "0" && brands.Length > 0 ? " AND g.brand_id in (" + brands + ") " : "") +
+                    (sizes != null && sizes != "0" && sizes.Length > 0 ? " AND o.size in (" + sizes + ") " : "") +
+                    (brands != null && brands != "0" && brands.Length > 0 ? " AND g.brand_id in (" + brands + ") " : "") +
                     " GROUP BY 1,2,3,4,5 " +
-                    " ORDER BY price " + sortingValue + ", feature ";
+                    " ORDER BY price ASC, feature ";
                 var dt = SQLiteProvider.OpenSql(sql);
 
                 return Json(dt.ToList(), JsonRequestBehavior.AllowGet);
@@ -255,8 +255,8 @@ namespace _1CIntegration.Controllers
                     " FROM goods g, offers o " +
                     " WHERE 1 = 1 " +
                     " AND g.good_key = o.good_key " +
-                    (sizes != "0" && sizes.Length > 0 ? " AND o.size in (" + sizes + ") " : "") +
-                    (brands != "0" && brands.Length > 0 ? " AND g.brand_id in (" + brands + ") " : "") +
+                    (sizes != null && sizes != "0" && sizes.Length > 0 ? " AND o.size in (" + sizes + ") " : "") +
+                    (brands != null && brands != "0" && brands.Length > 0 ? " AND g.brand_id in (" + brands + ") " : "") +
                     " AND g.img_path != '' " +
                     " AND g.group_id = " + groups;
                 var dt = SQLiteProvider.OpenSql(sql);
