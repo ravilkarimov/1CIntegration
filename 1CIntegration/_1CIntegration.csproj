@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -337,7 +338,6 @@
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\Publish.pubxml" />
     <Content Include="Scripts\chosen\bower.json" />
-    <Content Include="Scripts\chosen\debug.log" />
     <Content Include="Scripts\chosen\package.json" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="img\demo\parallax\parallax-shop.jpg" />

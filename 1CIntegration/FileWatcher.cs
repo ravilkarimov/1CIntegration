@@ -5,6 +5,10 @@ using System.Threading;
 using Ninject;
 using _1CIntegrationParserXML;
 using _1CIntegrationDB;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
+using System.Text.RegularExpressions;
 
 namespace _1CIntegration
 {
@@ -35,7 +39,8 @@ namespace _1CIntegration
                                    NotifyFilters.LastWrite |
                                    NotifyFilters.Security |
                                    NotifyFilters.Size,
-                    Filter = "*.xml"
+                    Filter = "*.*",
+                    IncludeSubdirectories = true
                 };
                 //C:\\Users\\r.karimov\\Downloads\\Temp\\webdata
                 //C:\\Users\\Дмитрий\\Downloads\\webdata
@@ -62,27 +67,47 @@ namespace _1CIntegration
         // Define the event handlers.
         private void OnChanged(object source, FileSystemEventArgs e)
         {
-            if (e.ChangeType == WatcherChangeTypes.Changed)
+            try
             {
-                Thread.Sleep(2000);
-
-                while (new FileInfo(e.FullPath).Attributes == 0)
+                if (e.ChangeType == WatcherChangeTypes.Changed && Regex.IsMatch(e.FullPath, @"\.xml", RegexOptions.IgnoreCase))
                 {
+                    Thread.Sleep(2000);
+
+                    while (new FileInfo(e.FullPath).Attributes == 0)
+                    {
+                    }
+
+                    new FileLogger("Log.txt").LogMessage("Файл '" + e.Name + "' изменился");
+
+                    if (Kernel != null)
+                    {
+                        ParserXmlFactory factory = Kernel.Get<ParserXmlFactory>();
+                        factory.FindTemplate(e.FullPath, e.Name);
+                    }
                 }
-
-                new FileLogger("Log.txt").LogMessage("Файл '" + e.Name + "' изменился");
-
-                if (Kernel != null)
+                else if (Regex.IsMatch(e.FullPath, @"\.jpg", RegexOptions.IgnoreCase) && e.FullPath.IndexOf("_min.jpg") < 0)
                 {
-                    ParserXmlFactory factory = Kernel.Get<ParserXmlFactory>();
-                    factory.FindTemplate(e.FullPath, e.Name);
+                    while (new FileInfo(e.FullPath).Attributes == 0)
+                    {
+                    }
+
+                    using (var fs = System.IO.File.OpenRead(e.FullPath))
+                    {
+                        using (var image = Image.FromStream(fs, true, true))
+                        {
+                            image.ResizeBitmapUpto(350, 350, InterpolationMode.HighQualityBicubic).ToFileSave(e.FullPath, e.Name);
+                        }
+                    }
                 }
+            }
+            catch (Exception e22)
+            {
+                new FileLogger("Log.txt").LogMessage(e22.Message);
             }
         }
 
         private void OnRenamed(object source, RenamedEventArgs e)
         {
-            // Specify what is done when a file is renamed.
             Console.WriteLine("File: {0} renamed to {1}", e.OldFullPath, e.FullPath);
         }
 
