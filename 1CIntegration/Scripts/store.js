@@ -25,27 +25,13 @@ Djinaro.sortingProduct = function() {
 
 Djinaro.filterByGoods = function () {
     var groupActive = jQuery('.shop-product-categories .active');
-    var pagingActive = jQuery('#paging .active');
-    var sizesActive = jQuery('#sizes .active');
     var sortActive = jQuery('#group_btn_sort .active');
     var brandsActive = jQuery('#brands .active');
-    var countActive = jQuery('#group_btn_paging .active');
-    var numberPagingActive = 1;
-    var countElActive = 30;
-    if (pagingActive.length == 1) numberPagingActive = parseInt(pagingActive[0].innerText);
-    if (countActive.length == 1) countElActive = parseInt(countActive[0].innerText);
+    
     if (groupActive[0].nodeName == 'A') {
         groupActive = groupActive.parentElement;
     }
     if (groupActive[0].nodeName == 'LI') {
-        var sizes = '';
-        for (z = 0; z < sizesActive.length; z++) {
-            if (sizes.length == 0) {
-                sizes += "'" + sizesActive[z].innerText + "'";
-            } else {
-                sizes += ", '" + sizesActive[z].innerText + "'";
-            }
-        }
         var brands = '';
         for (b = 0; b < brandsActive.length; b++) {
             if (brands.length == 0) {
@@ -54,8 +40,8 @@ Djinaro.filterByGoods = function () {
                 brands += ", '" + brandsActive[b].id + "'";
             }
         }
-        Djinaro.getShoes(parseInt(groupActive[0].id), sizes, numberPagingActive, countElActive, sortActive[0].id, brands);
-        Djinaro.getShoesCount(parseInt(groupActive[0].id), sizes, countElActive, brands);
+        Djinaro.getShoes(parseInt(groupActive[0].id), sizes, sortActive[0].id, brands);
+        Djinaro.getShoesCount(parseInt(groupActive[0].id), sizes, brands);
     }
 }
 
@@ -216,7 +202,7 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '   <div class="shop-product" id="shop-product-' + goodKey + '">' +
                                 '       <!-- Overlay Img -->' +
                                 '       <div class="overlay-wrapper">' +
-                                '           <img src="" class="img-zoom" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
+                                '           <img src="../img/demo/shop/product1.jpg" realsrc="../store/GetImgProductMin?good_id=' + data[itemIndex].good_id + '" class="img-zoom" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
                                 '           <div class="overlay-wrapper-content"> ' +
                                 '				<div class="overlay-details"> ' +
                                 '        			<a href="../store/GetImgProduct?good_id=' + data[itemIndex].good_id + '" class="color-white" data-lightbox="image""> ' +
@@ -239,18 +225,8 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '</div> ';
                         row.innerHTML += stringElement;
                         categories.appendChild(row);
-
-                        if (addItem < 6) addItem++;
-
-                        var downloadingImage = new Image();
-                        downloadingImage.onload = function () {
-                            var img = jQuery('#shop-product-' + this.id + ' .img-zoom');
-                            if (img && img[0]) {
-                                img[0].src = this.src;
-                            }
-                        }
-                        downloadingImage.id = goodKey;
-                        downloadingImage.src = "../store/GetImgProduct?good_id=" + data[itemIndex].good_id + "&width=400&height=400";
+                        
+                        if (addItem < 4) addItem++;
                     }
 
                     itemIndex += 1;
@@ -335,7 +311,7 @@ Djinaro.WriteResponseGoodsPaging = function (data) {
     paging.appendChild(ul);
 }
 
-Djinaro.getShoes = function (groups, sizes, page, count, sorting, brands) {
+Djinaro.getShoes = function (groups, sizes, sorting, brands) {
     jQuery.ajax({
         url: '/Store/getshoes',
         type: 'GET',
@@ -344,8 +320,6 @@ Djinaro.getShoes = function (groups, sizes, page, count, sorting, brands) {
         data: {
             'groups': groups,
             'sizes': sizes,
-            'page': page,
-            'count': count,
             'sorting': sorting,
             'brands': brands
         },
@@ -367,11 +341,10 @@ Djinaro.getShoesCount = function (groups, sizes, count, brands) {
         data: {
             'groups': groups,
             'sizes': sizes,
-            'count': count,
             'brands': brands
         },
         success: function (data) {
-            Djinaro.WriteResponseGoodsPaging(data);
+            //Djinaro.WriteResponseGoodsPaging(data);
         },
         error: function (x, y, z) {
             console.log(x + '\n' + y + '\n' + z);
@@ -465,3 +438,32 @@ Djinaro.getAllSizes = function () {
         }
     });
 }
+
+Djinaro.isVisible = function (elem) {
+
+    var coords = elem.getBoundingClientRect();
+    var windowHeight = document.documentElement.clientHeight;
+    
+    var topVisible = coords.top > 0 && coords.top < windowHeight;
+    var bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+
+    return topVisible || bottomVisible;
+}
+
+Djinaro.showVisible = function () {
+    var imgs = document.getElementsByTagName('img');
+    for (var i = 0; i < imgs.length; i++) {
+
+        var img = imgs[i];
+
+        var realsrc = img.getAttribute('realsrc');
+        if (!realsrc) continue;
+
+        if (Djinaro.isVisible(img)) {
+            img.src = realsrc;
+            img.setAttribute('realsrc', '');
+        }
+    }
+
+}
+

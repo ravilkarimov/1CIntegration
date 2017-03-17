@@ -33,6 +33,7 @@
     <!--<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="~/Scripts/themejs/jquery.magnific-popup.min.js"></script>
+    <script src="~/Scripts/nouislider/nouislider.min.js"></script>
     <script src="~/Scripts/store.js"></script>
 
 </head>
@@ -286,7 +287,7 @@
 
                         <!-- Товары -->
                         <div class="container" id="goods">
-                            <script>Djinaro.getShoes(1, 0, 1, 30, 0, 0);</script>
+                            <script>Djinaro.getShoes(1, 0, 0, 0);</script>
                         </div>
                         <!-- Товары -->
 
@@ -295,7 +296,7 @@
                             <div class="col-sm-12">
                                 <div class="text-center" id="paging">
                                     <!--Место для пэйджинга-->
-                                    <script>Djinaro.getShoesCount(1, 0, 30, 0);</script>
+                                    <script>Djinaro.getShoesCount(1, 0, 0);</script>
                                 </div>
                             </div>
                         </div>
@@ -448,7 +449,6 @@
     <script src="~/Scripts/themejs/jquery.easypiechart.min_store.js" type="text/javascript"></script>
     <!-- Google Maps -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBny2ZQDRtvp935j3dwD5BZM9NGEpzFp0A&amp"></script>
-    
 
     <!-- Choosen -->
     <script src="~/Scripts/chosen/chosen.jquery.min.js"></script>
@@ -468,5 +468,9 @@
         
     <script src="~/Scripts/themejs/application_store.js"></script>
 
+    <script>
+        window.onscroll = Djinaro.showVisible;
+        Djinaro.showVisible();
+    </script>
 </body>
 </html>

@@ -140,5 +140,17 @@ namespace _1CIntegration
             var scaledWidth = heightFactor * oldWidth;
             return new RectangleF((newWidth - scaledWidth) / 2.0f, 0, scaledWidth, newHeight);
         }
+
+        public static void ToFileSave(this Bitmap b, string fullPath, string name)
+        {
+            try
+            {
+                b.Save(fullPath.Replace(".jpg","_min.jpg"), ImageFormat.Jpeg);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
     }
 }
