@@ -34,7 +34,7 @@ namespace _1CIntegration.Controllers
                 var imgPath = SQLiteProvider.OpenSql("select img_path from goods where good_id = " + good_id).Rows[0]["img_path"].ToString();
  
                 if (imgPath.IsNullOrEmpty()) return null;
-                using (var fs = System.IO.File.OpenRead("C:/Users/r.karimov/Downloads/Temp/webdata/" + imgPath.Replace(".jpg", "_min.jpg")))
+                using (var fs = System.IO.File.OpenRead("h:/root/home/djinaroshop-001/www/webdata/" + imgPath.Replace(".jpg", "_min.jpg")))
                 {
                     using (var image = Image.FromStream(fs, true))
                     {
@@ -46,10 +46,13 @@ namespace _1CIntegration.Controllers
             });
         }
 
+        private const string query_get_img_path = "select img_path from goods where good_id = ";
+        private System.Data.SQLite.SQLiteConnection con;
+
         // GET: /Store/GetImgProduct?good_id=&width=&height=
         [HttpGet]
         [OutputCache(Duration = 600, Location = System.Web.UI.OutputCacheLocation.Client)]
-        public async Task<ActionResult> GetImgProduct(string good_id)
+        public async Task<ActionResult> GetImgProduct(Int64 good_id)
         {
             return await Task<FileStreamResult>.Factory.StartNew(() =>
             {
@@ -58,7 +61,7 @@ namespace _1CIntegration.Controllers
                 var imgPath = SQLiteProvider.OpenSql("select img_path from goods where good_id = " + good_id).Rows[0]["img_path"].ToString();
 
                 if (imgPath.IsNullOrEmpty()) return null;
-                using (var fs = System.IO.File.OpenRead("C:/Users/r.karimov/Downloads/Temp/webdata/" + imgPath))
+                using (var fs = System.IO.File.OpenRead("h:/root/home/djinaroshop-001/www/webdata/" + imgPath))
                 {
                     using (var image = Image.FromStream(fs, true))
                     {
@@ -203,21 +206,6 @@ namespace _1CIntegration.Controllers
         {
             try
             {
-                /*var sortingValue = "";
-                switch (sorting)
-                {
-                    case "1_asc":
-                    case "2_asc":
-                        sortingValue = "ASC";
-                        break;
-                    case "3_desc":
-                        sortingValue = "DESC";
-                        break;
-                    default:
-                        sortingValue = "ASC";
-                        break;
-                }*/
-
                 string sql =
                     " SELECT gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, " +
                     " MAX(o.price) as price, o.currency, o.feature, " +
@@ -265,6 +253,42 @@ namespace _1CIntegration.Controllers
             catch (Exception error)
             {
                 throw error;
+            }
+        }
+
+        // GET: /Store/search
+        [HttpGet]
+        public JsonResult Search(string term)
+        {
+            try
+            {
+                string filter = " 1 = 1 ";
+
+                foreach(string filter_word in term.Split(' '))
+                {
+                    filter += string.Format(" OR upper(good) LIKE '{0}%' OR upper(good) LIKE '%{0}%' OR upper(good) LIKE '%{0}' ", filter_word.ToUpper());
+                }
+
+                var sql = "SELECT DISTINCT good FROM goods WHERE "+filter+" ORDER BY good ASC ";
+
+                var resultQuery = SQLiteProvider.OpenSql(sql);
+
+                List<string> listWord = new List<string>();
+
+                foreach(DataRow result in resultQuery.Rows)
+                {
+                    foreach (string word in term.Split(' '))
+                    {
+                        var slovo = result["good"].ToString().Split(' ').Where(x => x.ToUpper().Contains(word.ToUpper())).Select(x => x).FirstOrDefault();
+                        if (!slovo.IsNullOrEmpty()) listWord.Add(slovo);
+                    }
+                }
+                
+                return Json(listWord.Distinct().OrderBy(x => x).Take(10), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception eSearch)
+            {
+                throw;
             }
         }
 

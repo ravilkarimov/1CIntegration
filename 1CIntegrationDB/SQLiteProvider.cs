@@ -54,7 +54,38 @@ namespace _1CIntegrationDB
             {
             }
         }
-        
+
+        public static SQLiteConnection GetConnection()
+        {
+            try
+            {
+                return new SQLiteConnection(ConnectionString);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        public static DataTable OpenSql(string sqlString, SQLiteConnection con)
+        {
+            try
+            {
+                con.OpenAsync();
+                using (SQLiteCommand cmd = new SQLiteCommand(sqlString, con))
+                {
+                    var dt = new DataTable();
+                    dt.Load(cmd.ExecuteReader());
+                    return dt;
+                }
+            }
+            catch (Exception e)
+            {
+                new FileLogger("Log.txt").LogMessage("Ошибка при OpenSQL (" + sqlString + "): " + e.Message);
+                throw new Exception("Ошибка при OpenSQL (" + sqlString + "): " + e.Message);
+            }
+        }
+
         public static DataTable OpenSql(string sqlString)
         {
             try

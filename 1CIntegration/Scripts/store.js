@@ -92,89 +92,22 @@ Djinaro.WriteResponseGroups = function (data) {
 Djinaro.WriteResponseBrands = function (data) {
     var brands = document.getElementById('brands');
 
-    var title = document.createElement('h4');
-    title.className = 'title-widget fancy-title';
-    var title_div = document.createElement('span');
-    title_div.innerHTML = 'Бренды';
-    title.appendChild(title_div);
-
-    var list = document.createElement('ul');
-    list.className = 'shop-product-categories';
-    jQuery(list).on('click', function (a) {
-        var liClick = a.target;
-        if (liClick.nodeName == 'A') {
-            liClick = liClick.parentElement;
-        }
-        if (liClick.nodeName == 'LI') {
-            var ulClick = a.currentTarget;
-            var activeBtn = jQuery('.active', ulClick);
-            if (activeBtn.length > 0) {
-                activeBtn[0].className = '';
-            }
-            if (activeBtn.length > 0 && liClick.id != activeBtn[0].id) {
-                liClick.className = 'active';
-            } else if (activeBtn.length == 0) {
-                liClick.className = 'active';
-            }
-            
-            Djinaro.filterByGoods();
-        }
-    });
-
     for (var i = 0; i < data.length; i++) {
-        var row = document.createElement('li');
-        row.id = data[i].brand_id;
-        var link = document.createElement('a');
-        //link.href = '';
-        link.innerHTML = data[i].brand;
-        var count = document.createElement('span');
-        count.className = 'count';
-        count.innerHTML = '(' + data[i].count + ')';
-        row.appendChild(link);
-        row.appendChild(count);
-        list.appendChild(row);
+        var option = document.createElement('option');
+        option.innerHTML = data[i].brand;
+        option.value = data[i].brand_id;
+        brands.appendChild(option);
     }
-    brands.appendChild(title);
-    brands.appendChild(list);
 }
 
 Djinaro.WriteResponseSizes = function (data) {
-    var groups = document.getElementById('sizes');
-
-    var title = document.createElement('h4');
-    title.className = 'title-widget fancy-title';
-    var title_div = document.createElement('span');
-    title_div.innerHTML = 'Отфильтровать по размеру';
-    title.appendChild(title_div);
-
-    var list = document.createElement('ul');
-    list.className = 'list-inline';
+    var sizes = document.getElementById('sizes');
+    
     for (var i = 0; i < data.length; i++) {
-        var row = document.createElement('li');
-        var link = document.createElement('a');
-        link.innerHTML = data[i].size;
-        link.id = 'size-' + data[i].size;
-        link.className = 'btn btn-sm btn-default btn-alt margin-bottom10';
-        row.appendChild(link);
-        list.appendChild(row);
-    }
-    groups.appendChild(title);
-    groups.appendChild(list);
-
-    var sizeArray = jQuery('#sizes');
-    for (var s = 0; s < sizeArray.length; s++) {
-        jQuery('#' + sizeArray[s].id).click(function (a) {
-            if (a && a.target) {
-                var clickSize = jQuery('#' + a.target.id);
-                if (clickSize && clickSize[0].className.indexOf('active') < 0) {
-                    clickSize[0].className = "btn btn-sm btn-default btn-alt margin-bottom10 active";
-                    Djinaro.filterByGoods();
-                } else if (clickSize && clickSize[0].className.indexOf('active') >= 0) {
-                    clickSize[0].className = "btn btn-sm btn-default btn-alt margin-bottom10";
-                    Djinaro.filterByGoods();
-                }
-            }
-        });
+        var option = document.createElement('option');
+        option.innerHTML = data[i].size;
+        option.value = data[i].size;
+        sizes.appendChild(option);
     }
 }
 
@@ -226,7 +159,7 @@ Djinaro.WriteResponseGoods = function (data) {
                         row.innerHTML += stringElement;
                         categories.appendChild(row);
                         
-                        if (addItem < 4) addItem++;
+                        if (addItem < 6) addItem++;
                     }
 
                     itemIndex += 1;
@@ -385,6 +318,7 @@ Djinaro.getAllBrands = function () {
 Djinaro.getSizesByGood = function (good_key) {
     var divRating = document.getElementById('rating_' + good_key);
     if (divRating && divRating.innerHTML == '') {
+        divRating.innerHTML == ' '
         jQuery.ajax({
             url: '/Store/getsizesgood',
             type: 'GET',
