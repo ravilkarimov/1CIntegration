@@ -95,7 +95,7 @@ namespace _1CIntegration
                     {
                         using (var image = Image.FromStream(fs, true, true))
                         {
-                            image.ResizeBitmapUpto(200, 200, InterpolationMode.HighQualityBicubic).ToFileSave(e.FullPath, e.Name);
+                            image.ResizeBitmapUpto(350, 350, InterpolationMode.HighQualityBicubic).ToFileSave(e.FullPath, e.Name);
                         }
                     }
                 }
