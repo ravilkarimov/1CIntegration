@@ -6,9 +6,9 @@ using Ninject;
 using _1CIntegrationParserXML;
 using _1CIntegrationDB;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace _1CIntegration
 {
@@ -31,16 +31,12 @@ namespace _1CIntegration
                 FileSystemWatcher watcher = new FileSystemWatcher
                 {
                     Path = "h:\\root\\home\\djinaroshop-001\\www\\webdata\\",
-                    NotifyFilter = NotifyFilters.Attributes |
-                                   NotifyFilters.CreationTime |
-                                   NotifyFilters.DirectoryName |
-                                   NotifyFilters.FileName |
-                                   NotifyFilters.LastAccess |
+                    NotifyFilter = NotifyFilters.CreationTime |
                                    NotifyFilters.LastWrite |
-                                   NotifyFilters.Security |
                                    NotifyFilters.Size,
                     Filter = "*.*",
-                    IncludeSubdirectories = true
+                    IncludeSubdirectories = true,
+                    InternalBufferSize = 64
                 };
                 //C:\\Users\\r.karimov\\Downloads\\Temp\\webdata
                 //C:\\Users\\Дмитрий\\Downloads\\webdata
@@ -48,9 +44,9 @@ namespace _1CIntegration
 
                 watcher.Changed += new FileSystemEventHandler(OnChanged);
                 watcher.Created += new FileSystemEventHandler(OnChanged);
-                watcher.Deleted += new FileSystemEventHandler(OnChanged);
-                watcher.Renamed += new RenamedEventHandler(OnRenamed);
-                watcher.Error += new ErrorEventHandler(OnError);
+                //watcher.Deleted += new FileSystemEventHandler(OnChanged);
+                //watcher.Renamed += new RenamedEventHandler(OnRenamed);
+                //watcher.Error += new ErrorEventHandler(OnError);
 
                 // Begin watching.
                 watcher.EnableRaisingEvents = true;
@@ -85,19 +81,22 @@ namespace _1CIntegration
                         factory.FindTemplate(e.FullPath, e.Name);
                     }
                 }
-                else if (Regex.IsMatch(e.FullPath, @"\.jpg", RegexOptions.IgnoreCase) && e.FullPath.IndexOf("_min.jpg") < 0)
+                else if (e.ChangeType == WatcherChangeTypes.Created && Regex.IsMatch(e.FullPath, @"\.jpg", RegexOptions.IgnoreCase) && e.FullPath.IndexOf("_min.jpg") < 0)
                 {
                     while (new FileInfo(e.FullPath).Attributes == 0)
                     {
                     }
 
-                    using (var fs = System.IO.File.OpenRead(e.FullPath))
+                    Task.Factory.StartNew(() =>
                     {
-                        using (var image = Image.FromStream(fs, true, true))
+                        using (var fs = System.IO.File.OpenRead(e.FullPath))
                         {
-                            image.ResizeBitmapUpto(350, 350, InterpolationMode.HighQualityBicubic).ToFileSave(e.FullPath, e.Name);
+                            using (var image = Image.FromStream(fs, true, true))
+                            {
+                                image.ResizeBitmapUpto(350, 350, InterpolationMode.HighQualityBicubic).ToFileSave(e.FullPath, e.Name);
+                            }
                         }
-                    }
+                    });
                 }
             }
             catch (Exception e22)
