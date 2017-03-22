@@ -177,46 +177,55 @@
                     <div class="col-sm-12">
                         
                         <!--Горизонтальный бар -->
+                        <div class="white-space space-small"></div>
                         <div class="row">
                             <div class="col-sm-3">
-                                <h4 class="fancy-title margin-bottom10"><span>Бренд</span></h4>
-                                <div class="shop-filters side-by-side clearfix">
-                                    <form>
-                                        <select id="brands" data-placeholder="Выберите бренд..." class="form-control ordering chosen-select" multiple tabindex="4">
-                                        </select>
-                                    </form>
-                                    <script>Djinaro.getAllBrands();</script>
-                                </div>
-                                <div class="white-space space-small"></div>
+                                <select class="selectpicker" title="БРЕНД" multiple data-live-search="true">
+                                    <option>Adidas</option>
+                                    <option>Nike</option>
+                                    <option>NB</option>
+                                    <option>Saucony</option>
+                                    <option>Asics</option>
+                                    <option>Reebok</option>
+                                    <option>Puma</option>
+                                    <option>Vans</option>
+                                    <option>Convers</option>
+                                    <option>Jordan</option>
+                                    <option>Другое</option>
+                                </select>
                             </div>
                             <div class="col-sm-3">
-                                <h4 class="fancy-title margin-bottom10"><span>Размер</span></h4>
-                                <div class="shop-filters side-by-side clearfix">
-                                    <form>
-                                        <select id="sizes" data-placeholder="Выберите размер..." class="form-control ordering chosen-select" multiple tabindex="4">
-                                        </select>
-                                    </form>
-                                    <script>Djinaro.getAllSizes();</script>
-                                </div>
-                                <div class="white-space space-small"></div>
+                                <select class="selectpicker" title="РАЗМЕР" multiple data-live-search="true">
+                                    <option>28</option>
+                                    <option>29</option>
+                                    <option>30</option>
+                                    <option>31</option>
+                                    <option>32</option>
+                                    <option>33</option>
+                                    <option>34</option>
+                                    <option>35</option>
+                                    <option>36</option>
+                                    <option>37</option>
+                                    <option>38</option>
+                                    <option>39</option>
+                                    <option>40</option>
+                                    <option>41</option>
+                                    <option>42</option>
+                                    <option>43</option>
+                                    <option>44</option>
+                                    <option>45</option>
+                                </select>
                             </div>
                             <div class="col-sm-3">
-                                <h4 class="fancy-title margin-bottom10"><span>Сезон</span></h4>
-                                <div class="shop-filters side-by-side clearfix">
-                                    <form>
-                                        <select data-placeholder="Выберите сезон..." class="form-control ordering chosen-select" multiple tabindex="4">
-                                            <option value="1">Лето</option>
-                                            <option value="2">Весна</option>
-                                            <option value="3">3</option>
-                                        </select>
-                                    </form>
-                                </div>
-                                <div class="white-space space-small"></div>
+                                <select class="selectpicker" title="СЕЗОН" multiple data-live-search="true">
+                                    <option>Зима</option>
+                                    <option>Лето</option>
+                                    <option>Осень</option>
+                                    <option>Весна</option>
+                                </select>
                             </div>
                             <div class="col-sm-3">
-                                <h4 class="fancy-title margin-bottom10"><span>Цена</span></h4>
                                 <div class="example">
-                                    <div class="white-space space-xsmall"></div>
                                     <div id="nonlinear" class="noUi-target noUi-ltr noUi-horizontal"></div>
                                     <div class="white-space space-xsmall"></div>
                                     <span class="example-val text-left" id="lower-value"></span>
@@ -293,8 +302,6 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="text-center" id="paging">
-                                    <!--Место для пэйджинга-->
-                                    <script>Djinaro.getShoesCount(1, 0, 0);</script>
                                 </div>
                             </div>
                         </div>
