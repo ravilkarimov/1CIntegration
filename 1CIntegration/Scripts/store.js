@@ -24,9 +24,12 @@ Djinaro.sortingProduct = function() {
 }
 
 Djinaro.filterByGoods = function () {
-    var groupActive = jQuery('.shop-product-categories .active');
+    debugger;
+    var groupActive = jQuery('#menu_nav .active');
     var sortActive = jQuery('#group_btn_sort .active');
-    var brandsActive = jQuery('#brands .active');
+    var brandsActive = jQuery('#brands_chosen .search-choice');
+    var sizesActive = jQuery('#sizes_chosen .search-choice');
+    var inputSearch = jQuery('#searchinput')
     
     if (groupActive[0].nodeName == 'A') {
         groupActive = groupActive.parentElement;
@@ -35,12 +38,20 @@ Djinaro.filterByGoods = function () {
         var brands = '';
         for (b = 0; b < brandsActive.length; b++) {
             if (brands.length == 0) {
-                brands += "'" + brandsActive[b].id + "'";
+                brands += "'" + brandsActive[b].value + "'";
             } else {
-                brands += ", '" + brandsActive[b].id + "'";
+                brands += ", '" + brandsActive[b].value + "'";
             }
         }
-        Djinaro.getShoes(parseInt(groupActive[0].id), sizes, sortActive[0].id, brands);
+        var sizes = '';
+        for (b = 0; b < sizesActive.length; b++) {
+            if (sizes.length == 0) {
+                sizes += "'" + sizesActive[b].value + "'";
+            } else {
+                sizes += ", '" + sizesActive[b].value + "'";
+            }
+        }
+        Djinaro.getShoes(parseInt(groupActive[0].id), sizes, brands, inputSearch[0].value);
         Djinaro.getShoesCount(parseInt(groupActive[0].id), sizes, brands);
     }
 }
@@ -244,7 +255,7 @@ Djinaro.WriteResponseGoodsPaging = function (data) {
     paging.appendChild(ul);
 }
 
-Djinaro.getShoes = function (groups, sizes, sorting, brands) {
+Djinaro.getShoes = function (groups, sizes, brands, search) {
     jQuery.ajax({
         url: '/Store/getshoes',
         type: 'GET',
@@ -253,8 +264,8 @@ Djinaro.getShoes = function (groups, sizes, sorting, brands) {
         data: {
             'groups': groups,
             'sizes': sizes,
-            'sorting': sorting,
-            'brands': brands
+            'brands': brands,
+            'search': search
         },
         success: function (data) {
             Djinaro.WriteResponseGoods(data);

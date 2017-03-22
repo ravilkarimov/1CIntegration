@@ -2,36 +2,61 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using _1CIntegrationDB;
-using System.IO;
 
 namespace _1CIntegration.Controllers
 {
     public class StoreController : AsyncController
     {
+        class StateFilter
+        {
+            public List<string> Sizes { get; set; }
+            public List<int> Brands { get; set; }
+            public List<string> Filter { get; set; }
+            public int Group { get; set; }
+        }
+
+        private void SetStateFilter(StateFilter state)
+        {
+            Session["StateFilter"] = state;
+        }
+
+        private StateFilter GetStateFilter()
+        {
+            return (StateFilter)Session["StateFilter"];
+        }
+
         //
         // GET: /Store/
         [OutputCache(Duration = 600, Location = System.Web.UI.OutputCacheLocation.Client)]
         public ActionResult Index()
         {
+            var stateFilter = new StateFilter()
+            {
+                Sizes = new List<string>(),
+                Brands = new List<int>(),
+                Filter = new List<string>(),
+                Group = 0
+            };
+            SetStateFilter(stateFilter);
+            
             return View();
         }
 
-        // GET: /Store/GetImgProduct?good_id=&width=&height=
+        // GET: /Store/GetImgProductMin?good_id
         [HttpGet]
         [OutputCache(Duration = 600, Location = System.Web.UI.OutputCacheLocation.Client)]
-        public async Task<ActionResult> GetImgProductMin(string good_id)
+        public async Task<ActionResult> GetImgProductMin(Int64 good_id)
         {
             return await Task<FileStreamResult>.Factory.StartNew(() =>
             {
                 if (good_id.IsNullOrEmpty()) return null;
 
-                var imgPath = SQLiteProvider.OpenSql("select img_path from goods where good_id = " + good_id).Rows[0]["img_path"].ToString();
+                var imgPath = EntitiesMethods.GetGood(good_id).img_path;
  
                 if (imgPath.IsNullOrEmpty()) return null;
                 using (var fs = System.IO.File.OpenRead("h:/root/home/djinaroshop-001/www/webdata/" + imgPath.Replace(".jpg", "_min.jpg")))
@@ -47,9 +72,8 @@ namespace _1CIntegration.Controllers
         }
 
         private const string query_get_img_path = "select img_path from goods where good_id = ";
-        private System.Data.SQLite.SQLiteConnection con;
 
-        // GET: /Store/GetImgProduct?good_id=&width=&height=
+        // GET: /Store/GetImgProduct?good_id=
         [HttpGet]
         [OutputCache(Duration = 600, Location = System.Web.UI.OutputCacheLocation.Client)]
         public async Task<ActionResult> GetImgProduct(Int64 good_id)
@@ -58,7 +82,7 @@ namespace _1CIntegration.Controllers
             {
                 if (good_id.IsNullOrEmpty()) return null;
 
-                var imgPath = SQLiteProvider.OpenSql("select img_path from goods where good_id = " + good_id).Rows[0]["img_path"].ToString();
+                var imgPath = EntitiesMethods.GetGood(good_id).img_path;
 
                 if (imgPath.IsNullOrEmpty()) return null;
                 using (var fs = System.IO.File.OpenRead("h:/root/home/djinaroshop-001/www/webdata/" + imgPath))
@@ -75,7 +99,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getgroups
         [HttpGet]
-        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
+        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.Server)]
         public JsonResult GetGroups()
         {
             try
@@ -98,7 +122,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getbrands
         [HttpGet]
-        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
+        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.Server)]
         public JsonResult GetBrands()
         {
             try
@@ -138,7 +162,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getsizes
         [HttpGet]
-        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
+        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.Server)]
         public JsonResult GetSizes()
         {
             try
@@ -202,10 +226,19 @@ namespace _1CIntegration.Controllers
         // GET: /Store/getshoes
         [HttpGet]
         [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
-        public JsonResult GetShoes(int groups, string sizes, string brands)
+        public JsonResult GetShoes()
         {
             try
             {
+
+                var stateFilter = GetStateFilter();
+                
+                var filter = "";
+                foreach (string filter_word in stateFilter.Filter)
+                {
+                    filter += string.Format(" and (upper(good) LIKE '{0}%' OR upper(good) LIKE '%{0}%' OR upper(good) LIKE '%{0}') ", filter_word.ToUpper());
+                }
+
                 string sql =
                     " SELECT gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, " +
                     " MAX(o.price) as price, o.currency, o.feature, " +
@@ -214,40 +247,16 @@ namespace _1CIntegration.Controllers
                     " WHERE 1 = 1 " +
                     " AND g.group_id = gr.group_id " +
                     " AND g.good_key = o.good_key " +
-                    " AND g.group_id = " + groups + " " +
+                    " AND g.group_id = " + stateFilter.Group + " " +
                     " AND g.img_path != '' " +
                     " AND o.amount > 0 " +
-                    (sizes != null && sizes != "0" && sizes.Length > 0 ? " AND o.size in (" + sizes + ") " : "") +
-                    (brands != null && brands != "0" && brands.Length > 0 ? " AND g.brand_id in (" + brands + ") " : "") +
+                    filter +
+                    (stateFilter.Sizes.Count > 0 ? " AND o.size in (" + string.Join(",", stateFilter.Sizes) + ") " : "") +
+                    (stateFilter.Brands.Count > 0 ? " AND g.brand_id in (" + string.Join(",", stateFilter.Brands) + ") " : "") +
                     " GROUP BY 1,2,3,4,5 " +
                     " ORDER BY price ASC, feature ";
                 var dt = SQLiteProvider.OpenSql(sql);
 
-                return Json(dt.ToList(), JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception error)
-            {
-                throw error;
-            }
-        }
-
-        // GET: /Store/getshoescount
-        [HttpGet]
-        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
-        public JsonResult GetShoesCount(int groups, string sizes, string brands)
-        {
-            try
-            {
-                string sql =
-                    " SELECT count(distinct g.good_id) count " +
-                    " FROM goods g, offers o " +
-                    " WHERE 1 = 1 " +
-                    " AND g.good_key = o.good_key " +
-                    (sizes != null && sizes != "0" && sizes.Length > 0 ? " AND o.size in (" + sizes + ") " : "") +
-                    (brands != null && brands != "0" && brands.Length > 0 ? " AND g.brand_id in (" + brands + ") " : "") +
-                    " AND g.img_path != '' " +
-                    " AND g.group_id = " + groups;
-                var dt = SQLiteProvider.OpenSql(sql);
                 return Json(dt.ToList(), JsonRequestBehavior.AllowGet);
             }
             catch (Exception error)
@@ -264,7 +273,7 @@ namespace _1CIntegration.Controllers
             {
                 string filter = " 1 = 1 ";
 
-                foreach(string filter_word in term.Split(' '))
+                foreach(string filter_word in term.Split(new Char[] { ',', ' ' }))
                 {
                     filter += string.Format(" OR upper(good) LIKE '{0}%' OR upper(good) LIKE '%{0}%' OR upper(good) LIKE '%{0}' ", filter_word.ToUpper());
                 }
@@ -277,7 +286,7 @@ namespace _1CIntegration.Controllers
 
                 foreach(DataRow result in resultQuery.Rows)
                 {
-                    foreach (string word in term.Split(' '))
+                    foreach (string word in term.Split(new Char[] { ',', ' ' }))
                     {
                         var slovo = result["good"].ToString().Split(' ').Where(x => x.ToUpper().Contains(word.ToUpper())).Select(x => x).FirstOrDefault();
                         if (!slovo.IsNullOrEmpty()) listWord.Add(slovo);

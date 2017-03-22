@@ -102,9 +102,9 @@
 
                                     <!-- Collect the nav links, forms, and other content for toggling -->
                                     <div class="collapse navbar-collapse" id="gfx-collapse">
-                                        <ul class="nav navbar-nav gfx-nav">
+                                        <ul id="menu_nav" class="nav navbar-nav gfx-nav">
                                             <li class="dropdown"><a href="/">Главная</a></li>
-                                            <li class="dropdown gfx-mega-fw active"><a href="/store">Обувь</a></li>
+                                            <li class="dropdown gfx-mega-fw active" id="1"><a href="/store">Обувь</a></li>
                                             <li class="dropdown"><a href="">Одежда</a></li>
                                             <li class="dropdown"><a href="">Аксессуары</a></li>
                                             <li class="dropdown"><a href="">Акции</a></li>
@@ -143,7 +143,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="input-group">
-                                <span class="input-group-btn"><button class="btn btn-primary" type="button" onclick="Djinaro.searchByName();"><i class="fa fa-search"></i></button></span>
+                                <span class="input-group-btn"><button class="btn btn-primary" type="button" onclick="Djinaro.filterByGoods();"><i class="fa fa-search"></i></button></span>
                                 <input id="searchinput" class="form-control" type="text">
                             </div>
                         </div>
@@ -285,7 +285,7 @@
 
                         <!-- Товары -->
                         <div class="container" id="goods">
-                            <script>Djinaro.getShoes(1, 0, 0, 0);</script>
+                            <script>Djinaro.getShoes(1, 0, 0, 0, 0);</script>
                         </div>
                         <!-- Товары -->
 
@@ -472,7 +472,8 @@
 
         jQuery(function () {
             var cache = {},
-                lastXhr;
+                lastXhr,
+                list_search = [];
             var search = jQuery("#searchinput").autocomplete({
                 minLength: 1,
                 maxHeight: 400, // Максимальная высота списка подсказок, в пикселях
@@ -491,13 +492,14 @@
                             response(data);
                         }
                     });
+                },
+                select: function (event, ui) {
+                    var label = ui.item.label;
+                    var value = ui.item.value;
+                    //store in session
+                    document.valueSelectedForAutocomplete = list_search.toString() + value
                 }
             });
-
-            search.onSelect = function (data, value) {
-                consolelog(data);
-                consolelog(value);
-            }
         });
 
     </script>
