@@ -217,6 +217,7 @@
     <Content Include="Content\avendor-font-styles.css" />
     <Content Include="Content\avendor.css" />
     <Content Include="Content\avendor_store.css" />
+    <Content Include="Content\bootstrap-select.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\colors\color-blue.css" />
@@ -337,6 +338,7 @@
     <None Include="Properties\PublishProfiles\Default Settings %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\Publish.pubxml" />
+    <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="Scripts\chosen\bower.json" />
     <Content Include="Scripts\chosen\package.json" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
@@ -450,12 +452,9 @@
     <Content Include="Scripts\nouislider\nouislider.js" />
     <Content Include="Scripts\nouislider\nouislider.min.css" />
     <Content Include="Scripts\nouislider\nouislider.min.js" />
-    <Content Include="Scripts\open_photoswipe.js" />
     <Content Include="Scripts\owl-carousel\owl.carousel_store.js" />
     <Content Include="Scripts\owl-carousel\owl.carousel.js" />
     <Content Include="Scripts\owl-carousel\owl.carousel.min.js" />
-    <Content Include="Scripts\photoswipe-ui-default.min.js" />
-    <Content Include="Scripts\photoswipe.min.js" />
     <Content Include="Scripts\revolutionslider\jquery.themepunch.plugins.min.js" />
     <Content Include="Scripts\revolutionslider\jquery.themepunch.revolution.js" />
     <Content Include="Scripts\revolutionslider\jquery.themepunch.revolution.min.js" />
