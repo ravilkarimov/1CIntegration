@@ -800,7 +800,7 @@ hr.hr-double{padding:4px;border:none;border-top:1px solid #ececec;border-bottom:
 .nav-tabs.tabs-alt > li.active > a:focus{border:1px solid #ececec;border-bottom:1px solid #fff;background:#ffffff;}
 .tabs-alt.tab-content > .active{border:none;border-top:1px solid #ececec;}
 .accordion .panel{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;border:none;background:none;}
-.accordion.panel-group{margin:20px 0;}
+.accordion.panel-group{/*margin:20px 0;*/}
 .accordion .panel .panel-heading{border:1px solid #ececec;padding:0;background:none;}
 .accordion .panel-title{font-weight:500;font-size:inherit;}
 .accordion .panel-title a{display:block;padding:15px;}

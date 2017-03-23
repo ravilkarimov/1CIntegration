@@ -45,7 +45,7 @@ namespace _1CIntegration.Controllers
 
                 return Json(stateFilter, JsonRequestBehavior.AllowGet);
             }
-            catch(Exception eSet)
+            catch (Exception eSet)
             {
                 throw;
             }
@@ -64,7 +64,7 @@ namespace _1CIntegration.Controllers
                 Group = 0
             };
             SetStateFilter(stateFilter);
-            
+
             return View();
         }
 
@@ -78,9 +78,9 @@ namespace _1CIntegration.Controllers
                 if (good_id.IsNullOrEmpty()) return null;
 
                 var imgPath = EntitiesMethods.GetGood(good_id).img_path;
- 
+
                 if (imgPath.IsNullOrEmpty()) return null;
-                using (var fs = System.IO.File.OpenRead("h:/root/home/djinaroshop-001/www/webdata/" + imgPath.Replace(".jpg", "_min.jpg")))
+                using (var fs = System.IO.File.OpenRead(path_web_data + imgPath.Replace(".jpg", "_min.jpg")))
                 {
                     using (var image = Image.FromStream(fs, true))
                     {
@@ -254,7 +254,7 @@ namespace _1CIntegration.Controllers
             {
 
                 var stateFilter = GetStateFilter() ?? new StateFilter();
-                
+
                 var filter = "";
                 foreach (string filter_word in stateFilter.Filter)
                 {
@@ -298,18 +298,18 @@ namespace _1CIntegration.Controllers
             {
                 string filter = " 1 = 1 ";
 
-                foreach(string filter_word in term.Split(new Char[] { ',', ' ' }))
+                foreach (string filter_word in term.Split(new Char[] { ',', ' ' }))
                 {
                     filter += string.Format(" OR upper(good) LIKE '{0}%' OR upper(good) LIKE '%{0}%' OR upper(good) LIKE '%{0}' ", filter_word.ToUpper());
                 }
 
-                var sql = "SELECT DISTINCT good FROM goods WHERE "+filter+" ORDER BY good ASC ";
+                var sql = "SELECT DISTINCT good FROM goods WHERE " + filter + " ORDER BY good ASC ";
 
                 var resultQuery = SQLiteProvider.OpenSql(sql);
 
                 List<string> listWord = new List<string>();
 
-                foreach(DataRow result in resultQuery.Rows)
+                foreach (DataRow result in resultQuery.Rows)
                 {
                     foreach (string word in term.Split(new Char[] { ',', ' ' }))
                     {
@@ -317,7 +317,7 @@ namespace _1CIntegration.Controllers
                         if (!slovo.IsNullOrEmpty()) listWord.Add(slovo);
                     }
                 }
-                
+
                 return Json(listWord.Distinct().OrderBy(x => x).Take(10), JsonRequestBehavior.AllowGet);
             }
             catch (Exception eSearch)
