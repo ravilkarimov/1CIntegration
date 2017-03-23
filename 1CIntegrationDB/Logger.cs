@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 
 namespace _1CIntegrationDB
@@ -42,7 +43,7 @@ namespace _1CIntegrationDB
     /// 
     public class FileLogger : Logger
     {
-        string path = "h:\\root\\home\\djinaroshop-001\\www\\logs\\";
+        string path = ConfigurationManager.AppSettings["Logger"];
         //h:\\root\\home\\djinaroshop-001\\www\\logs\\
         //C:\\Users\\Дмитрий\\
         //C:\\Users\\r.karimov\\Downloads\\

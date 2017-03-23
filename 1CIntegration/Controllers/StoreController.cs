@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using _1CIntegrationDB;
+using System.Configuration;
 
 namespace _1CIntegration.Controllers
 {
@@ -28,6 +29,24 @@ namespace _1CIntegration.Controllers
         private StateFilter GetStateFilter()
         {
             return (StateFilter)Session["StateFilter"];
+        }
+
+        public ActionResult SetFilter(int groups, string sizes, string brands, string search)
+        {
+            try
+            {
+                StateFilter stateFilter = new StateFilter();
+                stateFilter.Group = groups;
+                stateFilter.Sizes = sizes.Split(',').ToList();
+                stateFilter.Brands = brands.Split(',').Select(x => x.AsInteger()).ToList();
+                stateFilter.Filter = search.Split(new Char[] { ',', ' ' }).ToList();
+
+                return null;
+            }
+            catch(Exception eSet)
+            {
+                throw;
+            }
         }
 
         //
@@ -72,6 +91,7 @@ namespace _1CIntegration.Controllers
         }
 
         private const string query_get_img_path = "select img_path from goods where good_id = ";
+        private string path_web_data = ConfigurationManager.AppSettings["FileWatcher"];
 
         // GET: /Store/GetImgProduct?good_id=
         [HttpGet]
@@ -85,7 +105,7 @@ namespace _1CIntegration.Controllers
                 var imgPath = EntitiesMethods.GetGood(good_id).img_path;
 
                 if (imgPath.IsNullOrEmpty()) return null;
-                using (var fs = System.IO.File.OpenRead("h:/root/home/djinaroshop-001/www/webdata/" + imgPath))
+                using (var fs = System.IO.File.OpenRead(path_web_data + imgPath))
                 {
                     using (var image = Image.FromStream(fs, true))
                     {

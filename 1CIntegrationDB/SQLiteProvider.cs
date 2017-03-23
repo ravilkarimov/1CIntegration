@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
@@ -8,7 +9,7 @@ namespace _1CIntegrationDB
 {
     public class SQLiteProvider
     {
-        private static readonly string DatabaseName = "h:\\root\\home\\djinaroshop-001\\www\\db\\db.sqlite";
+        private static readonly string DatabaseName = ConfigurationManager.AppSettings["DbPath"];
         //C:\\Users\\r.karimov\\Downloads\\db.sqlite
         //C:\\Users\\Дмитрий\\db.sqlite
         //h:\\root\\home\\djinaroshop-001\\www\\db\\db.sqlite

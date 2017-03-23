@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace _1CIntegration
 {
@@ -30,7 +31,7 @@ namespace _1CIntegration
 
                 FileSystemWatcher watcher = new FileSystemWatcher
                 {
-                    Path = "h:\\root\\home\\djinaroshop-001\\www\\webdata\\",
+                    Path = ConfigurationManager.AppSettings["FileWatcher"],
                     NotifyFilter = NotifyFilters.CreationTime |
                                    NotifyFilters.LastWrite |
                                    NotifyFilters.Size,
