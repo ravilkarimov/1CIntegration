@@ -416,6 +416,7 @@ Djinaro.showVisible = function () {
 
         if (Djinaro.isVisible(img)) {
             img.src = realsrc;
+            img.async = true;
             img.setAttribute('realsrc', '');
         }
     }
