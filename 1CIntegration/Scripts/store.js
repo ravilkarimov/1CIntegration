@@ -51,7 +51,6 @@ Djinaro.filterByGoods = function () {
             }
         }
 
-
         jQuery.ajax({
             url: '/Store/setfilter',
             type: 'GET',
