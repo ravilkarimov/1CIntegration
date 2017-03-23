@@ -58,7 +58,7 @@ Djinaro.filterByGoods = function () {
             async: true,
             dataType: 'json',
             data: {
-                'groups': groupActive[0].id,
+                'groups': parseInt(groupActive[0].id),
                 'sizes': sizes,
                 'brands': brands,
                 'search': inputSearch[0].value
@@ -163,7 +163,7 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '   <div class="shop-product" id="shop-product-' + goodKey + '">' +
                                 '       <!-- Overlay Img -->' +
                                 '       <div class="overlay-wrapper">' +
-                                '           <img src="../img/theme/AjaxLoader.gif" realsrc="../store/GetImgProductMin?good_id=' + data[itemIndex].good_id + '" class="img-zoom owl-item" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
+                                '           <img src="../img/theme/hole-2038430_640.png" realsrc="../store/GetImgProductMin?good_id=' + data[itemIndex].good_id + '" class="img-zoom owl-item" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
                                 '           <div class="overlay-wrapper-content"> ' +
                                 '				<div class="overlay-details"> ' +
                                 '        			<a href="../store/GetImgProduct?good_id=' + data[itemIndex].good_id + '" class="color-white" data-lightbox="image""> ' +

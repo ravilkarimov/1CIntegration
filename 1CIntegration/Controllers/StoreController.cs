@@ -41,7 +41,9 @@ namespace _1CIntegration.Controllers
                 stateFilter.Brands = brands.Split(',').Select(x => x.AsInteger()).ToList();
                 stateFilter.Filter = search.Split(new Char[] { ',', ' ' }).ToList();
 
-                return null;
+                SetStateFilter(stateFilter);
+
+                return Json(stateFilter, JsonRequestBehavior.AllowGet);
             }
             catch(Exception eSet)
             {
@@ -251,12 +253,15 @@ namespace _1CIntegration.Controllers
             try
             {
 
-                var stateFilter = GetStateFilter();
+                var stateFilter = GetStateFilter() ?? new StateFilter();
                 
                 var filter = "";
                 foreach (string filter_word in stateFilter.Filter)
                 {
-                    filter += string.Format(" and (upper(good) LIKE '{0}%' OR upper(good) LIKE '%{0}%' OR upper(good) LIKE '%{0}') ", filter_word.ToUpper());
+                    if (!filter_word.IsNullOrEmpty())
+                    {
+                        filter += string.Format(" and (upper(good) LIKE '{0}%' OR upper(good) LIKE '%{0}%' OR upper(good) LIKE '%{0}') ", filter_word.ToUpper());
+                    }
                 }
 
                 string sql =
@@ -267,12 +272,12 @@ namespace _1CIntegration.Controllers
                     " WHERE 1 = 1 " +
                     " AND g.group_id = gr.group_id " +
                     " AND g.good_key = o.good_key " +
-                    " AND g.group_id = " + stateFilter.Group + " " +
+                    " AND g.group_id = " + (stateFilter.Group > 0 ? stateFilter.Group : 1) + " " +
                     " AND g.img_path != '' " +
                     " AND o.amount > 0 " +
                     filter +
-                    (stateFilter.Sizes.Count > 0 ? " AND o.size in (" + string.Join(",", stateFilter.Sizes) + ") " : "") +
-                    (stateFilter.Brands.Count > 0 ? " AND g.brand_id in (" + string.Join(",", stateFilter.Brands) + ") " : "") +
+                    (stateFilter.Sizes.Count > 0 && stateFilter.Sizes.Any(x => !x.IsNullOrEmpty()) ? " AND o.size in (" + string.Join(",", stateFilter.Sizes.Where(x => !x.IsNullOrEmpty())) + ") " : "") +
+                    (stateFilter.Brands.Count > 0 && stateFilter.Brands.Any(x => x > 0) ? " AND g.brand_id in (" + string.Join(",", stateFilter.Brands.Where(x => x > 0)) + ") " : "") +
                     " GROUP BY 1,2,3,4,5 " +
                     " ORDER BY price ASC, feature ";
                 var dt = SQLiteProvider.OpenSql(sql);

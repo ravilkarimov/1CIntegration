@@ -309,6 +309,7 @@
     <Content Include="Content\font\revicons.woff" />
     <Content Include="img\demo\brand\brand1-shop.png" />
     <Content Include="img\demo\slider\air_1920x800.jpg" />
+    <Content Include="img\theme\hole-2038430_640.png" />
     <Content Include="img\theme\close.png" />
     <Content Include="img\theme\reload.gif" />
     <Content Include="img\theme\revolutionslider\arrows.psd" />
