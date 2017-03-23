@@ -228,6 +228,7 @@
     <Content Include="Content\default-skin\download.svg" />
     <Content Include="Content\default-skin\preloader.gif" />
     <Content Include="Content\font\revicons.svg" />
+    <Content Include="Content\multi-column-select.css" />
     <Content Include="Content\owl-carousel\owl.carousel.css" />
     <Content Include="Content\owl-carousel\owl.theme.css" />
     <Content Include="Content\owl-carousel\owl.transitions_store.css" />
@@ -448,6 +449,7 @@
     <Content Include="Scripts\livicons\raphael-min.js" />
     <Content Include="Scripts\livicons\raphael.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\multi-column-select.js" />
     <Content Include="Scripts\nouislider\nouislider.css" />
     <Content Include="Scripts\nouislider\nouislider.js" />
     <Content Include="Scripts\nouislider\nouislider.min.css" />
