@@ -34,17 +34,17 @@
     <!--script src="https://code.jquery.com/jquery-3.1.1.min.js"></script-->
     <!--script async src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
-    <script async src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
-    <script async src="~/Scripts/themejs/jquery.magnific-popup.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.24.min.js"></script>
+    <!--script async src="~/Scripts/themejs/jquery.magnific-popup.min.js"></script-->
     <script async src="~/Scripts/nouislider/nouislider.min.js"></script>
     <script src="~/Scripts/store.js"></script>
-    <script async src="~/Scripts/bootstrap-select.min.js"></script>
+    <script src="~/Scripts/bootstrap-select.js"></script>
     <script src="~/Scripts/multi-column-select.js"></script>
 
     <script>
         jQuery(function ($) {
             $('#selectcontrol').MultiColumnSelect({
-                multiple: false,              // Single or Multiple Select- Default Single
+                multiple: true,              // Single or Multiple Select- Default Single
                 useOptionText: true,               // Use text from option. Use false if you plan to use images
                 hideselect: true,               // Hide Original Select Control
                 openmenuClass: 'mcs-open',         // Toggle Open Button Class
@@ -60,7 +60,82 @@
             });
         });
     </script>
-
+    <script>
+        jQuery(function ($) {
+            $('#selectcontrolbrand').MultiColumnSelect({
+                multiple: true,              // Single or Multiple Select- Default Single
+                useOptionText: true,               // Use text from option. Use false if you plan to use images
+                hideselect: true,               // Hide Original Select Control
+                openmenuClass: 'mcs-open',         // Toggle Open Button Class
+                openmenuText: 'БРЕНД', // Text for button
+                openclass: 'open',             // Class added to Toggle button on open
+                containerClass: 'mcs-container',    // Class of parent container
+                itemClass: 'mcs-item',         // Class of menu items
+                idprefix: null,                        // Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
+                duration: 200,                         //Toggle Height duration
+                onOpen: function () { },
+                onClose: function () { },
+                onItemSelect: function () { }
+            });
+        });
+    </script>
+    <script>
+        jQuery(function ($) {
+            $('#selectcontrolsize').MultiColumnSelect({
+                multiple: true,              // Single or Multiple Select- Default Single
+                useOptionText: true,               // Use text from option. Use false if you plan to use images
+                hideselect: true,               // Hide Original Select Control
+                openmenuClass: 'mcs-open',         // Toggle Open Button Class
+                openmenuText: 'РАЗМЕР', // Text for button
+                openclass: 'open',             // Class added to Toggle button on open
+                containerClass: 'mcs-container',    // Class of parent container
+                itemClass: 'mcs-item',         // Class of menu items
+                idprefix: null,                        // Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
+                duration: 200,                         //Toggle Height duration
+                onOpen: function () { },
+                onClose: function () { },
+                onItemSelect: function () { }
+            });
+        });
+    </script>
+    <script>
+        jQuery(function ($) {
+            $('#selectcontrolseason').MultiColumnSelect({
+                multiple: true,              // Single or Multiple Select- Default Single
+                useOptionText: true,               // Use text from option. Use false if you plan to use images
+                hideselect: true,               // Hide Original Select Control
+                openmenuClass: 'mcs-open',         // Toggle Open Button Class
+                openmenuText: 'СЕЗОН', // Text for button
+                openclass: 'open',             // Class added to Toggle button on open
+                containerClass: 'mcs-container',    // Class of parent container
+                itemClass: 'mcs-item',         // Class of menu items
+                idprefix: null,                        // Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
+                duration: 200,                         //Toggle Height duration
+                onOpen: function () { },
+                onClose: function () { },
+                onItemSelect: function () { }
+            });
+        });
+    </script>
+    <script>
+        jQuery(function ($) {
+            $('#selectcontrolprice').MultiColumnSelect({
+                multiple: true,              // Single or Multiple Select- Default Single
+                useOptionText: true,               // Use text from option. Use false if you plan to use images
+                hideselect: true,               // Hide Original Select Control
+                openmenuClass: 'mcs-open',         // Toggle Open Button Class
+                openmenuText: 'ЦЕНА', // Text for button
+                openclass: 'open',             // Class added to Toggle button on open
+                containerClass: 'mcs-container',    // Class of parent container
+                itemClass: 'mcs-item',         // Class of menu items
+                idprefix: null,                        // Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
+                duration: 200,                         //Toggle Height duration
+                onOpen: function () { },
+                onClose: function () { },
+                onItemSelect: function () { }
+            });
+        });
+    </script>
 </head>
 <body class ="bg-pattern1" data-spy="scroll" data-target=".navbar">
 
@@ -173,72 +248,54 @@
                     </div>
                     <!-- Поиск -->
                 </div>
-
-                <!--div class="row">
-                    <nav class="navbar navbar-default gfx-mega nav-centered" role="navigation">
-                        <div class="collapse navbar-collapse" id="gfx-collapse">
-                            <ul class="nav navbar-nav gfx-nav">
-                                <li class="dropdown active">
-                                    <a href="/" class="dropdown-toggle" data-toggle="dropdown">Категории<b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li class="active"><a href="#">Обувь</a></li>
-                                        <li><a href="#">Одежда</a></li>
-                                        <li><a href="#">Аксессуары</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown"><a href="/store">Бренд</a></li>
-                                <li class="dropdown"><a href="">Размер</a></li>
-                                <li class="dropdown"><a href="">Сезон</a></li>
-                                <li class="dropdown"><a href="">Цена</a></li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div-->
                 <div class="row">
                    <!-- Content -->
                     <div class="col-sm-12">
                         
                         <!--Горизонтальный бар -->
-                        <div class="white-space space-xsmall"></div>
                         <div class="row">
                             <div class="col-sm-3">
-                                <select class="selectpicker" title="БРЕНД" multiple data-live-search="true">
-                                    <option>Adidas</option>
-                                    <option>Nike</option>
-                                    <option>NB</option>
-                                    <option>Saucony</option>
-                                    <option>Asics</option>
-                                    <option>Reebok</option>
-                                    <option>Puma</option>
-                                    <option>Vans</option>
-                                    <option>Convers</option>
-                                    <option>Jordan</option>
-                                    <option>Другое</option>
-                                </select>
-                            </div>
+                                <div id="selectcontrolbrand">
+                                    <select name="brand">
+                                        <option>Adidas</option>
+                                        <option>Nike</option>
+                                        <option>NB</option>
+                                        <option>Saucony</option>
+                                        <option>Asics</option>
+                                        <option>Reebok</option>
+                                        <option>Puma</option>
+                                        <option>Vans</option>
+                                        <option>Convers</option>
+                                        <option>Jordan</option>
+                                        <option>Другое</option>
+                                    </select>
+                                </div></div>
                             <div class="col-sm-3">
-                                <div id="selectcontrol">
-                                    <select name="car">
-                                        <option value="Audi">35</option>
-                                        <option value="Bugatti">36</option>
-                                        <option value="Chrysler">37</option>
-                                        <option value="Daihatsu">38</option>
-                                        <option value="Ford">39</option>
-                                        <option value="GM">40</option>
-                                        <option value="Honda">41</option>
-                                        <option value="Infiniti">42</option>
-                                        <option value="Jeep">43</option>
-                                        <option value="Kia">44</option>
+                                <div id="selectcontrolsize">
+                                    <select name="size">
+                                        <option>35</option>
+                                        <option>36</option>
+                                        <option>37</option>
+                                        <option>38</option>
+                                        <option>39</option>
+                                        <option>40</option>
+                                        <option>41</option>
+                                        <option>42</option>
+                                        <option>43</option>
+                                        <option>44</option>
+                                        <option>45</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-sm-3">
-                                <select class="selectpicker" title="СЕЗОН" multiple>
-                                    <option>Зима</option>
-                                    <option>Лето</option>
-                                    <option>Осень</option>
-                                    <option>Весна</option>
-                                </select>
+                                <div id="selectcontrolseason">
+                                    <select name="season">
+                                        <option>Лето</option>
+                                        <option>Осень</option>
+                                        <option>Весна</option>
+                                        <option>Зима</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="accordion accordion-alt panel-group">
@@ -259,41 +316,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
-                                <div class="example">
-                                </div>
-                                <div class="white-space space-small"></div>
-                            </div>
                         </div>
+                        <div class="white-space space-xsmall"></div>
                         <!-- Горизантальный бар -->
-
-                        <!-- Старые кнопки фильтров -->
-                        <!--div class="row">
-                            <div class="col-sm-12">
-                                <div class="shop-filters">
-                                    <div id="group_btn_sort" class="btn-group margin-bottom10 style=" padding-left:15px;">
-                                        <button type="button" id="1_asc" class="btn btn-primary active">По умолчанию</button>
-                                        <button type="button" id="2_asc" class=" btn btn-primary active" ">
-                                            По возрастанию цены
-                                        </button>
-                                        <button type="button" id="3_desc" class=" btn btn-primary">
-                                            По убыванию цены
-                                        </button>
-                                    </div>
-                                    <div id="group_btn_paging" class="margin-bottom10" style="float: right;">
-                                        Показать:
-                                        <button type="button" id="30" class="btn btn-primary btn-xs btn-alt btn-circle active">30</button>
-                                        <button type="button" id="60" class=" btn btn-primary btn-xs btn-alt btn-circle">60</button>
-                                        <button type="button" id="120" class=" btn btn-primary btn-xs btn-alt btn-circle">120</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="white-space space-xsmall"></div>
-                            <script>
-                                Djinaro.sortingProduct();
-                            </script>
-                        </div-->
-                        <!-- Старые кнопки фильтров -->
 
                         <!-- Товары -->
                         <div class="container" id="goods">
@@ -313,25 +338,6 @@
                         <div class="white-space space-medium"></div>
                     </div>
                     <!-- /Content -->
-                    <!-- Старый сайдбар -->
-                    <!--div class="col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 columns sidebar sidebar-left">
-
-                        <div class="sidebar-content">
-                            <div class="sidebar-widget" id="groups">
-                                <script>Djinaro.getAllGroups();</script>
-                            </div>
-                            <div class="sidebar-widget" id="brands">
-                                <script>Djinaro.getAllBrands();</script>
-                            </div>
-                            <div class="sidebar-widget" id="sizes">
-                                <script>Djinaro.getAllSizes();</script>
-                            </div>
-
-                        </div>
-
-                        <div class="white-space space-big"></div>
-                    </div-->
-                    <!-- /Старый сайдбар  -->
 
                 </div>
 
