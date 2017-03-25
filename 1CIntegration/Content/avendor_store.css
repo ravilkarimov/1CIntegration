@@ -739,7 +739,7 @@ hr.hr-double{padding:4px;border:none;border-top:1px solid #ececec;border-bottom:
 .map-marker{padding:20px;}
 .map-marker p{margin:0}
 .panel{background:none;}
-.panel-default{border-color:#ececec;}
+.panel-default{border-color:transparent;}
 .panel-light{border-color:#f8f8f8;}
 .nav-tabs{border-bottom:none;}
 .nav-tabs > li{float:left;margin-bottom:0px;}
@@ -799,9 +799,9 @@ hr.hr-double{padding:4px;border:none;border-top:1px solid #ececec;border-bottom:
 .nav-tabs.tabs-alt > li.active > a:hover{border:1px solid #ececec;border-bottom:1px solid #fff;background:#ffffff;}
 .nav-tabs.tabs-alt > li.active > a:focus{border:1px solid #ececec;border-bottom:1px solid #fff;background:#ffffff;}
 .tabs-alt.tab-content > .active{border:none;border-top:1px solid #ececec;}
-.accordion .panel{-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;border:none;background:none;}
+.accordion .panel{/*-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;border:none;background:none;*/}
 .accordion.panel-group{/*margin:20px 0;*/}
-.accordion .panel .panel-heading{border:1px solid #ececec;padding:0;background:none;}
+.accordion .panel .panel-heading{/*border:1px solid #ececec;padding:0;*/background:none;}
 .accordion .panel-title{font-weight:500;font-size:inherit;}
 .accordion .panel-title a{display:block;padding:15px;}
 .accordion .panel-title a .fa{margin-right:10px;}
@@ -813,9 +813,9 @@ hr.hr-double{padding:4px;border:none;border-top:1px solid #ececec;border-bottom:
 .accordion .accordion-toggle{}
 .accordion .accordion-toggle.collapsed{color:#848494;}
 .accordion .accordion-toggle.collapsed:hover{}
-.accordion.accordion-alt .panel-heading{border:none;background:#f8f8f8;}
-.accordion.accordion-alt .accordion-toggle{color:#fff;}
-.accordion.accordion-alt .accordion-toggle.collapsed{background:#f8f8f8;color:#848494;}
+.accordion.accordion-alt .panel-heading{/*border:none;*/background:#f8f8f8;}
+.accordion.accordion-alt .accordion-toggle{color:#111;}
+.accordion.accordion-alt .accordion-toggle.collapsed{background:#293b47;color:#fff;}
 .accordion.accordion-alt .accordion-toggle.collapsed:hover{color:#fff;}
 .pricing-table{border:1px solid #ececec;text-align:center;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;margin-bottom:20px;}
 .pricing-table .pricing-table-head{background:#f8f8f8;padding-bottom:20px;border-bottom:1px solid #ececec;}

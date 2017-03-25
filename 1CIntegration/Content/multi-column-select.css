@@ -8,7 +8,7 @@ html,body{
 .mcs-container{
     	width:100%;
 	overflow:hidden;
-        background:#222;
+        background:none;
         box-sizing: border-box;
         display:none;
         position: relative;
