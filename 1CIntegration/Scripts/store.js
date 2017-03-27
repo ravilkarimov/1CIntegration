@@ -142,7 +142,7 @@ Djinaro.WriteResponseGoods = function (data) {
     var categories = document.getElementById('goods');
     jQuery('#goods').children().remove();
     if (data.length > 0) {
-        var countRow = data.length / 4;
+        var countRow = data.length / 6;
         var itemIndex = 0;
 
         for (var i = 0; i < countRow; i++) {
@@ -162,7 +162,7 @@ Djinaro.WriteResponseGoods = function (data) {
                     }
                     if (data[itemIndex]) {
                         var stringElement =
-                            '<div class="col-xs-3">' +
+                            '<div class="col-xs-2">' +
                                 '   <!-- Shop Product -->' +
                                 '   <div class="shop-product" id="shop-product-' + goodKey + '">' +
                                 '       <!-- Overlay Img -->' +
@@ -190,7 +190,7 @@ Djinaro.WriteResponseGoods = function (data) {
                         row.innerHTML += stringElement;
                         categories.appendChild(row);
                         
-                        if (addItem < 4) addItem++;
+                        if (addItem < 6) addItem++;
                     }
 
                     itemIndex += 1;
@@ -206,6 +206,19 @@ Djinaro.WriteResponseGoods = function (data) {
             }
             for (var s = 0; s < shopProducts.length; s++) {
                 jQuery('#'+shopProducts[s].id).on('mouseover', listener);
+            }
+
+            var imgs = document.getElementsByTagName('img');
+            for (var i = 0; i < imgs.length; i++) {
+
+                var img = imgs[i];
+
+                var realsrc = img.getAttribute('realsrc');
+                if (!realsrc) continue;
+
+                img.src = realsrc;
+                img.async = true;
+                img.setAttribute('realsrc', '');
             }
         }
     }
@@ -431,6 +444,5 @@ Djinaro.showVisible = function () {
             img.setAttribute('realsrc', '');
         }
     }
-
 }
 
