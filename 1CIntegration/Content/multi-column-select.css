@@ -45,7 +45,7 @@ html,body{
     color:#111;
 }
 .mcs-open.open:hover{
-    background:#00ada9;
+    background:#9C9C9C;
     color:#FFF;
 }
 
@@ -62,16 +62,18 @@ input[type=submit]{
     height: 50px;
     line-height: 50px;
     text-align: center;
-    background: #00ada9;
+    background: #4E4E4E;
     color: #FFF;
     clear:both;
 
     
 }
 
-.mcs-item:hover,
+.mcs-item:hover {
+background:#fff;
+}
 .mcs-open:hover{
-background:#00ada9;
+background:#4E4E4E;
 cursor:pointer;
 }
 input[type=submit]:hover{

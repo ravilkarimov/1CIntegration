@@ -811,10 +811,10 @@ hr.hr-double{padding:4px;border:none;border-top:1px solid #ececec;border-bottom:
 .accordion .accordion-toggle.collapsed-icon-left.collapsed-icon:after{float:left;margin-right:10px;}
 .accordion .accordion-toggle.collapsed-icon-left.collapsed.collapsed-icon:after{float:left;margin-right:10px;}
 .accordion .accordion-toggle{}
+.accordion-toggle {background-color:#fff;}
 .accordion .accordion-toggle.collapsed{color:#848494;}
 .accordion .accordion-toggle.collapsed:hover{}
 .accordion.accordion-alt .panel-heading{/*border:none;*/background:#f8f8f8;}
-.accordion.accordion-alt .accordion-toggle{color:#111;}
 .accordion.accordion-alt .accordion-toggle.collapsed{background:#293b47;color:#fff;}
 .accordion.accordion-alt .accordion-toggle.collapsed:hover{color:#fff;}
 .pricing-table{border:1px solid #ececec;text-align:center;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;margin-bottom:20px;}

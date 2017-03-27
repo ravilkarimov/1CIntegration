@@ -180,7 +180,7 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '       <!-- Overlay Img -->' +
                                 '       <div class="shop-product-info">' +
                                 '           <a><h5 class="product-name">' + data[itemIndex].good + ' </h5></a>' +
-                                '           <p class="product-price margin-top-10">' + data[itemIndex].price + ' ' + data[itemIndex].currency + ' </p>' +
+                                '           <p class="product-price margin-top-10">' + data[itemIndex].price + ' ₽ </p>' +
                                 '           <div class="rating" id="rating_' + goodKey + '"></div>' +
                                 '       </div>' +
                                 '    </div>' +
