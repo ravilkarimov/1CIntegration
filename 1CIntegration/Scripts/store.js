@@ -142,7 +142,7 @@ Djinaro.WriteResponseGoods = function (data) {
     var categories = document.getElementById('goods');
     jQuery('#goods').children().remove();
     if (data.length > 0) {
-        var countRow = data.length / 6;
+        var countRow = data.length / 4;
         var itemIndex = 0;
 
         for (var i = 0; i < countRow; i++) {
@@ -162,7 +162,7 @@ Djinaro.WriteResponseGoods = function (data) {
                     }
                     if (data[itemIndex]) {
                         var stringElement =
-                            '<div class="col-xs-2">' +
+                            '<div class="col-xs-3">' +
                                 '   <!-- Shop Product -->' +
                                 '   <div class="shop-product" id="shop-product-' + goodKey + '">' +
                                 '       <!-- Overlay Img -->' +
@@ -179,9 +179,8 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '       </div>' +
                                 '       <!-- Overlay Img -->' +
                                 '       <div class="shop-product-info">' +
-                                '           <a href=""><h5 class="product-name">' + data[itemIndex].good + ' </h5></a>' +
-                                '           <p class="product-category"><a href=""> ' + data[itemIndex].group_name + '</a></p> ' +
-                                '           <p class="product-price">' + data[itemIndex].price + ' ' + data[itemIndex].currency + ' </p>' +
+                                '           <a><h5 class="product-name">' + data[itemIndex].good + ' </h5></a>' +
+                                '           <p class="product-price margin-top-10">' + data[itemIndex].price + ' ' + data[itemIndex].currency + ' </p>' +
                                 '           <div class="rating" id="rating_' + goodKey + '"></div>' +
                                 '       </div>' +
                                 '    </div>' +
@@ -191,7 +190,7 @@ Djinaro.WriteResponseGoods = function (data) {
                         row.innerHTML += stringElement;
                         categories.appendChild(row);
                         
-                        if (addItem < 6) addItem++;
+                        if (addItem < 4) addItem++;
                     }
 
                     itemIndex += 1;
@@ -355,24 +354,27 @@ Djinaro.getSizesByGood = function (good_key) {
                 var divRating = document.getElementById('rating_' + good_key);
                 if (divRating) {
                     divRating.innerHTML = '';
+                    divRating.style = 'border-top: 3px solid #ececec;';
+                    var title = document.createElement('span');
+                    title.innerHTML = 'Размеры в наличии:  '
+                    divRating.appendChild(title);
                     if (data && data.length > 0) {
                         data.sort().reverse();
-                        var countTDinTr = Math.ceil(data.length / 5);
+                        var countTDinTr = Math.ceil(data.length / 10);
                         if (countTDinTr < 1) countTDinTr = 1;
                         var currentTd = 0;
                         for (var r = 0; r < countTDinTr; r++) {
                             var sizesString = '';
-                            var table = document.createElement('table');
-                            var row = document.createElement('tr');
+                            var row = document.createElement('p');
+                            row.className = 'margin-bottom0';
                             for (var i = 0; i <= Math.ceil(data.length / countTDinTr); i++) {
                                 if (data.length > currentTd) {
-                                    sizesString += '<td class="cart-table btn-xs" bgcolor="f4f4f4" style="margin: 0px;">' + data[currentTd].size + ' EU</td>';
+                                    sizesString += '' + data[currentTd].size + ' | ';
                                     currentTd++;
                                 }
                             }
                             row.innerHTML = sizesString;
-                            table.appendChild(row);
-                            divRating.appendChild(table);
+                            divRating.appendChild(row);
                         }
                     }
                 }
