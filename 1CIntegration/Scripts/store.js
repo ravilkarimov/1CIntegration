@@ -154,7 +154,12 @@ Djinaro.WriteResponseGoods = function (data) {
             for (var j = 0; j < addItem; j++) {
                 if (data[itemIndex]) {
                     var goodKey = data[itemIndex].good_key;
-
+                    var src = "../img/theme/hole-2038430_640.png";
+                    var realsrc = "../store/GetImgProductMin?good_id=" + data[itemIndex].good_id;
+                    if (j <= 24) {
+                        src = realsrc;
+                        realsrc = "";
+                    }
                     if (data[itemIndex]) {
                         var stringElement =
                             '<div class="col-xs-2">' +
@@ -162,7 +167,7 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '   <div class="shop-product" id="shop-product-' + goodKey + '">' +
                                 '       <!-- Overlay Img -->' +
                                 '       <div class="overlay-wrapper">' +
-                                '           <img src="../img/theme/hole-2038430_640.png" realsrc="../store/GetImgProductMin?good_id=' + data[itemIndex].good_id + '" class="img-zoom owl-item" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
+                                '           <img src="' + src + '" realsrc="' + realsrc + '" class="img-zoom owl-item" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
                                 '           <div class="overlay-wrapper-content"> ' +
                                 '				<div class="overlay-details"> ' +
                                 '        			<a href="../store/GetImgProduct?good_id=' + data[itemIndex].good_id + '" class="color-white" data-lightbox="image""> ' +
@@ -171,13 +176,13 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '    			</div> ' +
                                 '        		<!--div class="overlay-bg bg-color-dark"></div--> ' +
                                 '    		</div> ' +
-                                '           <div class="rating" id="rating_' + goodKey + '"></div>' +
                                 '       </div>' +
                                 '       <!-- Overlay Img -->' +
                                 '       <div class="shop-product-info">' +
                                 '           <a href=""><h5 class="product-name">' + data[itemIndex].good + ' </h5></a>' +
                                 '           <p class="product-category"><a href=""> ' + data[itemIndex].group_name + '</a></p> ' +
                                 '           <p class="product-price">' + data[itemIndex].price + ' ' + data[itemIndex].currency + ' </p>' +
+                                '           <div class="rating" id="rating_' + goodKey + '"></div>' +
                                 '       </div>' +
                                 '    </div>' +
                                 '    <!-- /Shop Product -->' +
