@@ -156,7 +156,7 @@ Djinaro.WriteResponseGoods = function (data) {
                     var goodKey = data[itemIndex].good_key;
                     var src = "../img/theme/hole-2038430_640.png";
                     var realsrc = "../store/GetImgProductMin?good_id=" + data[itemIndex].good_id;
-                    if (j <= 24) {
+                    if (i <= 3) {
                         src = realsrc;
                         realsrc = "";
                     }
@@ -340,24 +340,26 @@ Djinaro.getAllBrands = function () {
     });
 }
 
+var isQverySize = 0;
+
 Djinaro.getSizesByGood = function (good_key) {
     var divRating = document.getElementById('rating_' + good_key);
-    if (divRating && divRating.innerHTML == '') {
-        divRating.innerHTML == ' '
+    if (divRating && divRating.innerHTML == '' && isQverySize == 0) {
+        isQverySize = 1;
+        divRating.innerHTML = '';
+        divRating.style = 'border-top: 3px solid #ececec;';
+        var title = document.createElement('span');
+        title.innerHTML = 'Размеры в наличии:  ';
+        divRating.appendChild(title);
         jQuery.ajax({
             url: '/Store/getsizesgood',
             type: 'GET',
             async: true,
             dataType: 'json',
             data: { id: good_key },
-            success: function(data) {
+            success: function (data) {
                 var divRating = document.getElementById('rating_' + good_key);
                 if (divRating) {
-                    divRating.innerHTML = '';
-                    divRating.style = 'border-top: 3px solid #ececec;';
-                    var title = document.createElement('span');
-                    title.innerHTML = 'Размеры в наличии:  '
-                    divRating.appendChild(title);
                     if (data && data.length > 0) {
                         data.sort().reverse();
                         var countTDinTr = Math.ceil(data.length / 10);
@@ -367,7 +369,7 @@ Djinaro.getSizesByGood = function (good_key) {
                             var sizesString = '';
                             var row = document.createElement('p');
                             row.className = 'margin-bottom0';
-                            for (var i = 0; i <= Math.ceil(data.length / countTDinTr); i++) {
+                            for (var i = 0; i <= Math.ceil(data.length / countTDinTr) ; i++) {
                                 if (data.length > currentTd) {
                                     sizesString += '' + data[currentTd].size + ' | ';
                                     currentTd++;
@@ -375,11 +377,13 @@ Djinaro.getSizesByGood = function (good_key) {
                             }
                             row.innerHTML = sizesString;
                             divRating.appendChild(row);
+                            divRating.style.background = 'none';
                         }
                     }
                 }
+                isQverySize = 0;
             },
-            error: function(x, y, z) {
+            error: function (x, y, z) {
                 console.log(x + '\n' + y + '\n' + z);
             }
         });

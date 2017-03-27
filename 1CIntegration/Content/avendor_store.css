@@ -952,7 +952,7 @@ a.comment-link:hover{}
 .counter-block{color:#FFF;border:1px solid #ececec;text-align:center;font-size:64px;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;}
 .counter-block span{display:block;font-size:16px;border-top:1px solid #ececec;padding:10px 0;margin-top:10px;text-transform:uppercase;}
 .shop-product{padding-bottom:10px;-webkit-transition:all 0.3s ease-in-out;-moz-transition:all 0.3s ease-in-out;-o-transition:all 0.3s ease-in-out;-ms-transition:all 0.3s ease-in-out;transition:all 0.3s ease-in-out;}
-.shop-product:hover{background:#fbfbfb;box-shadow: 0 0 10px rgba(0,0,0,0.5);}
+.shop-product:hover{background:#fbfbfb;box-shadow: 0 0 10px rgba(0,0,0,0.5);z-index: 50;position: absolute;}
 .shop-product .shop-product-info{display:block;text-align:center;padding:20px 0 10px;border-bottom:4px solid #ececec;margin:0 5px 10px;}
 .shop-product .shop-product-info .product-name{margin-bottom:2px;}
 .shop-product .shop-product-info .product-category{margin-bottom:10px;font-size:13px;}
@@ -967,27 +967,23 @@ a.comment-link:hover{}
 .img-hover{position:absolute;top:0;left:0;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";-khtml-opacity:0;opacity:0;}
 .shop-product:hover .img-hover{position:absolute;top:0;left:0;z-index:2;-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";-khtml-opacity:1;opacity:1;}
 .rating{font-size: 14px;
-        unicode-bidi: bidi-override;
-    /* text-align: center; */
+    unicode-bidi: bidi-override;
     table-layout: auto;
-    /* position: absolute; */
-    /* z-index: 5; */
-    /* bottom: 5px; */
-    /* height: auto; */
     line-height: 2;
     width: 100%;
     margin-top: 5px;
     color: #32313b;
-    /* background: #ffffff; */
-    /* background: rgb(255,255,255); */
-    /* background: rgba(255,255,255, .8); */
     cursor: default;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     -ms-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;}
-.shop-product:hover .rating{bottom:0;}
+    transition: all 0.3s ease-in-out;
+    display: none;
+    background: url(../img/theme/AjaxLoader.gif) 50% no-repeat;
+}
+
+.shop-product:hover .rating{bottom:0;display: block;}
 .rating span.star{display:inline-block;font-family:FontAwesome;font-style:normal;font-weight:normal;}
 .rating span.star:hover{cursor:pointer;}
 .rating span.star:before{content:"\f006";padding-right:5px;}
