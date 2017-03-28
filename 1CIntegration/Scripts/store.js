@@ -446,3 +446,18 @@ Djinaro.showVisible = function () {
     }
 }
 
+var elementTarget;
+
+Djinaro.ClassOpen = function(e) {
+    var selector = jQuery(e.currentTarget);
+    var aMscOpen = jQuery('.mcs-open', selector);
+    if (!elementTarget || elementTarget[0] !== selector[0] || selector.find(e.relatedTarget).length == 0) {
+        if (aMscOpen && e.type == "mouseover") {
+            aMscOpen.click();
+        } else if (aMscOpen && e.type == "mouseout") {
+            aMscOpen.click();
+        }
+        elementTarget = selector;
+    }
+}
+

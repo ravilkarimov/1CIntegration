@@ -256,8 +256,8 @@
                         <div class="container">
 
                             <div class="row">
-                                <div class="col-xs-3">
-                                    <div id="selectcontrolbrand">
+                                <div class="col-xs-3"> 
+                                    <div id="selectcontrolbrand"> 
                                         <select name="brand">
                                             <option>Adidas</option>
                                             <option>Nike</option>
@@ -505,9 +505,6 @@
         });
     </script>
     <script>
-        //window.onscroll = Djinaro.showVisible;
-        //Djinaro.showVisible();
-
         jQuery(function () {
             var cache = {},
                 lastXhr,
@@ -535,9 +532,14 @@
                     var label = ui.item.label;
                     var value = ui.item.value;
                     //store in session
-                    document.valueSelectedForAutocomplete = list_search.toString() + value
+                    document.valueSelectedForAutocomplete = list_search.toString() + value;
                 }
             });
+
+            jQuery("#selectcontrolbrand, #selectcontrolsize, #selectcontrolseason, #selectcontrolprice")
+                .on('mouseover mouseout', function(e) {
+                    Djinaro.ClassOpen(e);
+                });
         });
 
     </script>
