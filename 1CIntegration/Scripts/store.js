@@ -164,7 +164,7 @@ Djinaro.WriteResponseGoods = function (data) {
                         var stringElement =
                             '<div class="col-xs-2">' +
                                 '   <!-- Shop Product -->' +
-                                '   <div class="shop-product" id="shop-product-' + goodKey + '">' +
+                                '   <div class="shop-product animation fadeInUp delay4 animation-active" id="shop-product-' + goodKey + '">' +
                                 '       <!-- Overlay Img -->' +
                                 '       <div class="overlay-wrapper">' +
                                 '           <img src="' + src + '" realsrc="' + realsrc + '" class="img-zoom owl-item" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
