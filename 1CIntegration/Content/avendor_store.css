@@ -540,7 +540,7 @@ ul.gallery.columns-3 li{width:33.3%;}
 .btn-white.btn-alt:hover, .btn-white.btn-alt:focus, .btn-white.btn-alt:active, .btn-white.btn-alt.active, .open .dropdown-toggle.btn-white.btn-alt{color:#778899;background-color:#ffffff;border:2px solid;border-color:#ffffff;}
 .btn{padding:18px 28px;font-size:18px;line-height:1;}
 .btn-lg,.btn-group-lg > .btn{padding:24px 48px;font-size:18px;}
-.btn-sm,.btn-group-sm > .btn{padding:14px 20px;font-size:14px;}
+.btn-sm,.btn-group-sm > .btn{padding:15px 20px;font-size:14px;line-height:0.5;}
 .btn-xs,.btn-group-xs > .btn{padding:4px 10px;font-size:12px;}
 .btn-circle{border-radius:50%;}
 .cl-effect-1 a::before,
