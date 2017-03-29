@@ -803,7 +803,7 @@ hr.hr-double{padding:4px;border:none;border-top:1px solid #ececec;border-bottom:
 .accordion.panel-group{/*margin:20px 0;*/}
 .accordion .panel .panel-heading{/*border:1px solid #ececec;padding:0;*/background:none;}
 .accordion .panel-title{font-weight:500;font-size:inherit;}
-.accordion .panel-title a{display:block;padding:15px;}
+.accordion .panel-title a{display:block;padding:15px 15px 15px 35px;}
 .accordion .panel-title a .fa{margin-right:10px;}
 .accordion .panel-body{border:none !important;}
 .accordion .accordion-toggle.collapsed-icon:after{content:"\f147";font-family:FontAwesome;font-style:normal;font-weight:normal;text-decoration:inherit;float:right;}
