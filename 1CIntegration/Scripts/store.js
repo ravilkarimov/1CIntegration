@@ -383,8 +383,13 @@ Djinaro.getSizesByGood = function (good_key) {
                             var row = document.createElement('p');
                             row.className = 'margin-bottom0';
                             for (var i = 0; i <= Math.ceil(data.length / countTDinTr) ; i++) {
-                                if (data.length > currentTd) {
+                                var tmp = data.length - 1;
+                                if (tmp > currentTd) {
                                     sizesString += '' + data[currentTd].size + ' | ';
+                                    currentTd++;
+                                }
+                                if (tmp == currentTd) {
+                                    sizesString += '' + data[currentTd].size + '';
                                     currentTd++;
                                 }
                             }
