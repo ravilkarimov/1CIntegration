@@ -6348,7 +6348,7 @@ $.widget("ui.menu", {
 	_create: function() {
 		var self = this;
 		this.element
-			.addClass("ui-menu ui-widget ui-widget-content ui-corner-all")
+			.addClass("ui-menu ui-widget ui-widget-content ui-corner-all list-default divider-list list-unstyled")
 			.attr({
 				role: "listbox",
 				"aria-activedescendant": "ui-active-menuitem"

@@ -447,7 +447,7 @@ ul.gallery.columns-3 li{width:33.3%;}
 .o-tooltip-close span{display:block;width:4px;height:4px;line-height:4px;font-size:10px;position:absolute;left:50%;top:50%;margin:-4px 0 0 -2px;color:#FFF;font-weight:bold;}
 .o-tooltip.mr .o-tooltip-close,
 .o-tooltip.tr .o-tooltip-close{left:0px;margin:0;-webkit-border-top-left-radius:3px;-webkit-border-bottom-right-radius:1px;-moz-border-radius-topleft:3px;-moz-border-radius-bottomright:1px;border-top-left-radius:3px;border-bottom-right-radius:1px;}
-.list-default{}
+.list-default{background:#fff}
 .list-default li{padding:4px 0;line-height:2;}
 .list-default.fa-ul li .fa{line-height:2.2;}
 .list-default.fa-ul li .icon{line-height:2.2;}
