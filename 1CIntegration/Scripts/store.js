@@ -163,9 +163,7 @@ Djinaro.WriteResponseGoods = function (data) {
                     if (data[itemIndex]) {
                         var stringElement =
                             '<div class="col-xs-2">' +
-                                '   <!-- Shop Product -->' +
                                 '   <div class="shop-product animation fadeInUp delay4 animation-active" id="shop-product-' + goodKey + '">' +
-                                '       <!-- Overlay Img -->' +
                                 '       <div class="overlay-wrapper">' +
                                 '           <img src="' + src + '" realsrc="' + realsrc + '" class="img-zoom owl-item" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
                                 '           <div class="overlay-wrapper-content"> ' +
@@ -174,17 +172,14 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '                       <span class="icon gfx-zoom-in-1" ></span>' +
                                 '                   </a> ' +
                                 '    			</div> ' +
-                                '        		<!--div class="overlay-bg bg-color-dark"></div--> ' +
                                 '    		</div> ' +
                                 '       </div>' +
-                                '       <!-- Overlay Img -->' +
                                 '       <div class="shop-product-info">' +
                                 '           <a><h5 class="product-name">' + data[itemIndex].good + ' </h5></a>' +
                                 '           <p class="product-price margin-top-10">' + data[itemIndex].price + ' ₽ </p>' +
                                 '           <div class="rating" id="rating_' + goodKey + '"></div>' +
                                 '       </div>' +
                                 '    </div>' +
-                                '    <!-- /Shop Product -->' +
                                 '    <div class="white-space space-small"></div>' +
                                 '</div> ';
                         row.innerHTML += stringElement;
