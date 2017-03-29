@@ -26,7 +26,7 @@
     <link href="https://fonts.googleapis.com/css?family=Play:400,200,300,100,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <link href="~/favicon.jpg" rel="shortcut icon">
-    <link href="~/Scripts/nouislider/nouislider.min.css" rel="stylesheet" />
+    <link href="~/Scripts/nouislider/nouislider.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-select.min.css" rel="stylesheet" />
     <link href="~/Content/multi-column-select.css" rel="stylesheet" />
 
@@ -290,9 +290,8 @@
                                         <div id="selectcontrolseason">
                                             <select name="season">
                                                 <option>Лето</option>
-                                                <option>Осень</option>
-                                                <option>Весна</option>
                                                 <option>Зима</option>
+                                                <option>Демисезон</option>
                                             </select>
                                         </div>
                                     </div>
@@ -308,8 +307,11 @@
                                                     <div class="panel-body">
                                                         <div id="html5" class="noUi-target noUi-ltr noUi-horizontal noUi-background"></div>
                                                         <div class="white-space space-xsmall"></div>
-                                                        <input type="number" min="0" max="10000" step="500" id="input-number1">
-                                                        <input type="number" min="0" max="10000" step="500" id="input-number2">
+                                                        <div class="row">
+                                                            <input class="form-control" type="number" min="0" max="10000" step="500" id="input-number1">
+                                                            <span style="line-height: 35px; font-weight: bold; color: #000; width:10%">—</span>
+                                                            <input class="form-control" type="number" min="0" max="10000" step="500" id="input-number2">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -318,7 +320,6 @@
                                 </div>
                             </div>
                             <!-- Горизантальный бар -->
-
                             <div class="white-space space-xsmall"></div>
 
                             <!-- Товары -->

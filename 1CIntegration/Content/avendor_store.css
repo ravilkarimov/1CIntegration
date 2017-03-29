@@ -673,7 +673,7 @@ ul.gallery.columns-3 li{width:33.3%;}
 .progress-pie .pie-content .percent{font-size:40px;display:block;padding-top:5px;line-height:1.4;}
 .progress-pie .pie-content .percent.icon-only{line-height:1.5;font-size:48px;}
 .progress-pie .pie-content .percent.counter{line-height:1.2;}
-.form-control{height:50px;padding:10px 20px;border:1px solid #ececec;color:#778899;-webkit-box-shadow:none;box-shadow:none;}
+.form-control{height:50px;padding:10px 20px;border:1px solid #ececec;/*color:#778899;-webkit-box-shadow:none;box-shadow:none;*/}
 .form-control:focus{-webkit-box-shadow:none;box-shadow:none;}
 .form-group [class*="col-sm-"], .form-group [class*="col-md-"], .form-group [class*="col-lg-"]{margin-bottom:15px;}
 .form-group [class*="col-sm-"]:last-child, .form-group [class*="col-md-"]:last-child, .form-group [class*="col-lg-"]:last-child{margin-bottom:0;}
