@@ -25,10 +25,9 @@ Djinaro.sortingProduct = function() {
 
 Djinaro.filterByGoods = function () {
     var groupActive = jQuery('#menu_nav .active');
-    var sortActive = jQuery('#group_btn_sort .active');
-    var brandsActive = jQuery('#brands_chosen .search-choice');
-    var sizesActive = jQuery('#sizes_chosen .search-choice');
-    var inputSearch = jQuery('#searchinput')
+    var brandsActive = jQuery('#selectcontrolbrand .active');
+    var sizesActive = jQuery('#selectcontrolsize .active');
+    var inputSearch = jQuery('#searchinput');
     
     if (groupActive[0].nodeName == 'A') {
         groupActive = groupActive.parentElement;
@@ -37,38 +36,21 @@ Djinaro.filterByGoods = function () {
         var brands = '';
         for (b = 0; b < brandsActive.length; b++) {
             if (brands.length == 0) {
-                brands += "'" + brandsActive[b].value + "'";
+                brands += "'" + jQuery(brandsActive[b]).attr("data") + "'";
             } else {
-                brands += ", '" + brandsActive[b].value + "'";
+                brands += ", '" + jQuery(brandsActive[b]).attr("data") + "'";
             }
         }
         var sizes = '';
         for (b = 0; b < sizesActive.length; b++) {
             if (sizes.length == 0) {
-                sizes += "'" + sizesActive[b].value + "'";
+                sizes += "'" + jQuery(sizesActive[b]).attr("data") + "'";
             } else {
-                sizes += ", '" + sizesActive[b].value + "'";
+                sizes += ", '" + jQuery(sizesActive[b]).attr("data") + "'";
             }
         }
 
-        jQuery.ajax({
-            url: '/Store/setfilter',
-            type: 'GET',
-            async: true,
-            dataType: 'json',
-            data: {
-                'groups': parseInt(groupActive[0].id),
-                'sizes': sizes,
-                'brands': brands,
-                'search': inputSearch[0].value
-            },
-            success: function (data) {
-                Djinaro.getShoes();
-            },
-            error: function (x, y, z) {
-                console.log(x + '\n' + y + '\n' + z);
-            }
-        });
+        Djinaro.getShoes(parseInt(groupActive[0].id), sizes, brands, inputSearch[0].value);
     }
 }
 
@@ -129,7 +111,7 @@ Djinaro.WriteResponseBrands = function (data) {
     for (var i = 0; i < data.length; i++) {
         var option = document.createElement('option');
         option.innerHTML = data[i].brand;
-        option.setAttribute("brand_id", data[i].brand_id);
+        option.setAttribute("value", data[i].brand_id);
         select.appendChild(option);
     }
     jQuery('#selectcontrolbrand').MultiColumnSelect({
@@ -145,7 +127,7 @@ Djinaro.WriteResponseBrands = function (data) {
         duration: 200,                         //Toggle Height duration
         onOpen: function () { },
         onClose: function () { },
-        onItemSelect: function () { }
+        onItemSelect: function () { Djinaro.filterByGoods(); }
     });
 }
 
@@ -162,7 +144,7 @@ Djinaro.WriteResponseSizes = function (data) {
     for (var i = 0; i < data.length; i++) {
         var option = document.createElement('option');
         option.innerHTML = data[i].size;
-        option.setAttribute("size_id", data[i].size);
+        option.setAttribute("value", data[i].size);
         select.appendChild(option);
     }
     jQuery('#selectcontrolsize').MultiColumnSelect({
@@ -178,7 +160,7 @@ Djinaro.WriteResponseSizes = function (data) {
         duration: 200,                         //Toggle Height duration
         onOpen: function () { },
         onClose: function () { },
-        onItemSelect: function () { }
+        onItemSelect: function () { Djinaro.filterByGoods(); }
     });
 }
 
@@ -228,37 +210,37 @@ Djinaro.WriteResponseGoods = function (data) {
                                 '</div> ';
                         row.innerHTML += stringElement;
                         categories.appendChild(row);
-                        
+
                         if (addItem < 6) addItem++;
                     }
 
                     itemIndex += 1;
                 }
             }
+        }
 
-            var shopProducts = jQuery('.shop-product');
-            var listener = function (a) {
-                var current = jQuery(a.currentTarget);
-                if (current.length == 1) {
-                    Djinaro.getSizesByGood(current[0].id.replace('shop-product-', ''));
-                }
+        var shopProducts = jQuery('.shop-product');
+        var listener = function(a) {
+            var current = jQuery(a.currentTarget);
+            if (current.length == 1) {
+                Djinaro.getSizesByGood(current[0].id.replace('shop-product-', ''));
             }
-            for (var s = 0; s < shopProducts.length; s++) {
-                jQuery('#'+shopProducts[s].id).on('mouseover', listener);
-            }
+        }
+        for (var s = 0; s < shopProducts.length; s++) {
+            jQuery('#' + shopProducts[s].id).on('mouseover', listener);
+        }
 
-            var imgs = document.getElementsByTagName('img');
-            for (var i = 0; i < imgs.length; i++) {
+        var imgs = document.getElementsByTagName('img');
+        for (var i = 0; i < imgs.length; i++) {
 
-                var img = imgs[i];
+            var img = imgs[i];
 
-                var realsrc = img.getAttribute('realsrc');
-                if (!realsrc) continue;
+            var realsrc = img.getAttribute('realsrc');
+            if (!realsrc) continue;
 
-                img.src = realsrc;
-                img.async = true;
-                img.setAttribute('realsrc', '');
-            }
+            img.src = realsrc;
+            img.async = true;
+            img.setAttribute('realsrc', '');
         }
     }
 }
@@ -327,11 +309,17 @@ Djinaro.WriteResponseGoodsPaging = function (data) {
     paging.appendChild(ul);
 }
 
-Djinaro.getShoes = function () {
+Djinaro.getShoes = function (groups, sizes, brands, search) {
     jQuery.ajax({
         url: '/Store/getshoes',
         type: 'GET',
         async: true,
+        data: {
+            'groups': groups,
+            'sizes': sizes,
+            'brands': brands,
+            'search': search
+        },
         dataType: 'json',
         success: function (data) {
             Djinaro.WriteResponseGoods(data);
@@ -447,16 +435,16 @@ Djinaro.getSizesByGood = function (good_key) {
     }
 }
 
-Djinaro.getAllSizes = function () {
+Djinaro.getAllSizes = function() {
     jQuery.ajax({
         url: '/Store/getsizes',
         type: 'GET',
         async: true,
         dataType: 'json',
-        success: function (data) {
+        success: function(data) {
             Djinaro.WriteResponseSizes(data);
         },
-        error: function (x, y, z) {
+        error: function(x, y, z) {
             console.log(x + '\n' + y + '\n' + z);
         }
     });

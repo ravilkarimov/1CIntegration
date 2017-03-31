@@ -8,63 +8,16 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using _1CIntegrationDB;
 using System.Configuration;
+using System.Text.RegularExpressions;
 
 namespace _1CIntegration.Controllers
 {
     public class StoreController : AsyncController
     {
-        class StateFilter
-        {
-            public List<string> Sizes { get; set; }
-            public List<int> Brands { get; set; }
-            public List<string> Filter { get; set; }
-            public int Group { get; set; }
-        }
-
-        private void SetStateFilter(StateFilter state)
-        {
-            Session["StateFilter"] = state;
-        }
-
-        private StateFilter GetStateFilter()
-        {
-            return (StateFilter)Session["StateFilter"];
-        }
-
-        public ActionResult SetFilter(int groups, string sizes, string brands, string search)
-        {
-            try
-            {
-                StateFilter stateFilter = new StateFilter();
-                stateFilter.Group = groups;
-                stateFilter.Sizes = sizes.Split(',').ToList();
-                stateFilter.Brands = brands.Split(',').Select(x => x.AsInteger()).ToList();
-                stateFilter.Filter = search.Split(new Char[] { ',', ' ' }).ToList();
-
-                SetStateFilter(stateFilter);
-
-                return Json(stateFilter, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception eSet)
-            {
-                throw;
-            }
-        }
-
-        //
         // GET: /Store/
         [OutputCache(Duration = 600, Location = System.Web.UI.OutputCacheLocation.Client)]
         public ActionResult Index()
         {
-            var stateFilter = new StateFilter()
-            {
-                Sizes = new List<string>(),
-                Brands = new List<int>(),
-                Filter = new List<string>(),
-                Group = 0
-            };
-            SetStateFilter(stateFilter);
-
             return View();
         }
 
@@ -248,15 +201,15 @@ namespace _1CIntegration.Controllers
         // GET: /Store/getshoes
         [HttpGet]
         [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
-        public JsonResult GetShoes()
+        public JsonResult GetShoes(int groups, string sizes, string brands, string search)
         {
             try
             {
-
-                var stateFilter = GetStateFilter() ?? new StateFilter();
+                var Sizes = sizes.Split(',').ToList();
+                var Brands = brands.Split(',').Select(x => Regex.Match(x, @"\d+").AsInteger()).ToList();
 
                 var filter = "";
-                foreach (string filter_word in stateFilter.Filter)
+                foreach (string filter_word in search.Split(new Char[] { ',', ' ' }).ToList())
                 {
                     if (!filter_word.IsNullOrEmpty())
                     {
@@ -272,12 +225,12 @@ namespace _1CIntegration.Controllers
                     " WHERE 1 = 1 " +
                     " AND g.group_id = gr.group_id " +
                     " AND g.good_key = o.good_key " +
-                    " AND g.group_id = " + (stateFilter.Group > 0 ? stateFilter.Group : 1) + " " +
+                    " AND g.group_id = " + (groups > 0 ? groups : 1) + " " +
                     " AND g.img_path != '' " +
                     " AND o.amount > 0 " +
                     filter +
-                    (stateFilter.Sizes.Count > 0 && stateFilter.Sizes.Any(x => !x.IsNullOrEmpty()) ? " AND o.size in (" + string.Join(",", stateFilter.Sizes.Where(x => !x.IsNullOrEmpty())) + ") " : "") +
-                    (stateFilter.Brands.Count > 0 && stateFilter.Brands.Any(x => x > 0) ? " AND g.brand_id in (" + string.Join(",", stateFilter.Brands.Where(x => x > 0)) + ") " : "") +
+                    (Sizes.Count > 0 && Sizes.Any(x => !x.IsNullOrEmpty()) ? " AND o.size in (" + string.Join(",", Sizes.Where(x => !x.IsNullOrEmpty())) + ") " : "") +
+                    (Brands.Count > 0 && Brands.Any(x => x > 0) ? " AND g.brand_id in (" + string.Join(",", Brands) + ") " : "") +
                     " GROUP BY 1,2,3,4,5 " +
                     " ORDER BY price ASC, feature ";
                 var dt = SQLiteProvider.OpenSql(sql);
@@ -296,12 +249,7 @@ namespace _1CIntegration.Controllers
         {
             try
             {
-                string filter = " 1 = 1 ";
-
-                foreach (string filter_word in term.Split(new Char[] { ',', ' ' }))
-                {
-                    filter += string.Format(" OR upper(good) LIKE '{0}%' OR upper(good) LIKE '%{0}%' OR upper(good) LIKE '%{0}' ", filter_word.ToUpper());
-                }
+                string filter = term.Split(new Char[] {',', ' '}).Aggregate(" 1 = 1 ", (current, filter_word) => current + string.Format(" OR upper(good) LIKE '{0}%' OR upper(good) LIKE '%{0}%' OR upper(good) LIKE '%{0}' ", filter_word.ToUpper()));
 
                 var sql = "SELECT DISTINCT good FROM goods WHERE " + filter + " ORDER BY good ASC ";
 
@@ -311,11 +259,7 @@ namespace _1CIntegration.Controllers
 
                 foreach (DataRow result in resultQuery.Rows)
                 {
-                    foreach (string word in term.Split(new Char[] { ',', ' ' }))
-                    {
-                        var slovo = result["good"].ToString().Split(' ').Where(x => x.ToUpper().Contains(word.ToUpper())).Select(x => x).FirstOrDefault();
-                        if (!slovo.IsNullOrEmpty()) listWord.Add(slovo);
-                    }
+                    listWord.AddRange(term.Split(new Char[] {',', ' '}).Select(word => result["good"].ToString().Split(' ').Where(x => x.ToUpper().Contains(word.ToUpper())).Select(x => x).FirstOrDefault()).Where(slovo => !slovo.IsNullOrEmpty()));
                 }
 
                 return Json(listWord.Distinct().OrderBy(x => x).Take(10), JsonRequestBehavior.AllowGet);
