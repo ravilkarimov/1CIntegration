@@ -451,11 +451,20 @@ var elementTarget;
 Djinaro.ClassOpen = function(e) {
     var selector = jQuery(e.currentTarget);
     var aMscOpen = jQuery('.mcs-open', selector);
+    var aAccordionOpen = jQuery('.accordion-toggle', selector);
     if (!elementTarget || elementTarget[0] !== selector[0] || selector.find(e.relatedTarget).length == 0) {
-        if (aMscOpen && e.type == "mouseover" && aMscOpen[0].className == 'mcs-open mcs') {
-            aMscOpen.click();
-        } else if (aMscOpen && e.type == "mouseout" && aMscOpen[0].className == 'mcs-open mcs open') {
-            aMscOpen.click();
+        if (aMscOpen && e.type == "mouseover") {
+            if (aMscOpen[0] && aMscOpen[0].className == 'mcs-open mcs') {
+                aMscOpen.click();
+            } else if (aAccordionOpen[0] && aAccordionOpen[0].className == 'accordion-toggle collapsed') {
+                aAccordionOpen.click();
+            }
+        } else if (aMscOpen && e.type == "mouseout") {
+            if (aMscOpen[0] && aMscOpen[0].className == 'mcs-open mcs open') {
+                aMscOpen.click();
+            } else if (aAccordionOpen[0] && aAccordionOpen[0].className == 'accordion-toggle') {
+                aAccordionOpen.click();
+            }
         }
         elementTarget = selector;
     }
