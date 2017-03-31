@@ -117,25 +117,69 @@ Djinaro.WriteResponseGroups = function (data) {
 }
 
 Djinaro.WriteResponseBrands = function (data) {
-    var brands = document.getElementById('brands');
-
+    var brands = document.getElementById('selectcontrolbrand');
+    var select = null;
+    if (jQuery('select', brands).length !== 0) {
+        select = jQuery('select', brands)[0];
+    } else {
+        select = document.createElement('select');
+        select.setAttribute("name", "brand");
+        brands.appendChild(select);
+    }
     for (var i = 0; i < data.length; i++) {
         var option = document.createElement('option');
         option.innerHTML = data[i].brand;
-        option.value = data[i].brand_id;
-        brands.appendChild(option);
+        option.setAttribute("brand_id", data[i].brand_id);
+        select.appendChild(option);
     }
+    jQuery('#selectcontrolbrand').MultiColumnSelect({
+        multiple: true,              // Single or Multiple Select- Default Single
+        useOptionText: true,               // Use text from option. Use false if you plan to use images
+        hideselect: true,               // Hide Original Select Control
+        openmenuClass: 'mcs-open',         // Toggle Open Button Class
+        openmenuText: 'БРЕНД', // Text for button
+        openclass: 'open',             // Class added to Toggle button on open
+        containerClass: 'mcs-container',    // Class of parent container
+        itemClass: 'mcs-item',         // Class of menu items
+        idprefix: null,                        // Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
+        duration: 200,                         //Toggle Height duration
+        onOpen: function () { },
+        onClose: function () { },
+        onItemSelect: function () { }
+    });
 }
 
 Djinaro.WriteResponseSizes = function (data) {
-    var sizes = document.getElementById('sizes');
-    
+    var sizes = document.getElementById('selectcontrolsize');
+    var select = null;
+    if (jQuery('select', sizes).length !== 0) {
+        select = jQuery('select', sizes)[0];
+    } else {
+        select = document.createElement('select');
+        select.setAttribute("name", "size");
+        sizes.appendChild(select);
+    }
     for (var i = 0; i < data.length; i++) {
         var option = document.createElement('option');
         option.innerHTML = data[i].size;
-        option.value = data[i].size;
-        sizes.appendChild(option);
+        option.setAttribute("size_id", data[i].size);
+        select.appendChild(option);
     }
+    jQuery('#selectcontrolsize').MultiColumnSelect({
+        multiple: true,              // Single or Multiple Select- Default Single
+        useOptionText: true,               // Use text from option. Use false if you plan to use images
+        hideselect: true,               // Hide Original Select Control
+        openmenuClass: 'mcs-open',         // Toggle Open Button Class
+        openmenuText: 'РАЗМЕР', // Text for button
+        openclass: 'open',             // Class added to Toggle button on open
+        containerClass: 'mcs-container',    // Class of parent container
+        itemClass: 'mcs-item',         // Class of menu items
+        idprefix: null,                        // Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
+        duration: 200,                         //Toggle Height duration
+        onOpen: function () { },
+        onClose: function () { },
+        onItemSelect: function () { }
+    });
 }
 
 Djinaro.WriteResponseGoods = function (data) {

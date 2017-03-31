@@ -5,15 +5,19 @@ html,body{
 }
 
 /*The container that holds the dropdown items*/
-.mcs-container{
-    	width:100%;
-	overflow:hidden;
-        background:none;
-        box-sizing: border-box;
-        display:none;
-        position: relative;
-        padding:10px;
-        clear:both;
+.mcs-container {
+    width: 100%;
+    overflow: hidden;
+    background: none;
+    box-sizing: border-box;
+    display: none;
+    position: relative;
+    padding: 10px;
+    clear: both;
+    position: absolute;
+    z-index: 50;
+    top: 50px;
+    left: 0px;
 }
 
 /*The menu items (options)*/

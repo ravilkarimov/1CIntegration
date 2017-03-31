@@ -41,82 +41,7 @@
     <script src="~/Scripts/bootstrap-select.js"></script>
     <script src="~/Scripts/multi-column-select.js"></script>
 
-    <script>
-        jQuery(function ($) {
-            $('#selectcontrolbrand').MultiColumnSelect({
-                multiple: true,              // Single or Multiple Select- Default Single
-                useOptionText: true,               // Use text from option. Use false if you plan to use images
-                hideselect: true,               // Hide Original Select Control
-                openmenuClass: 'mcs-open',         // Toggle Open Button Class
-                openmenuText: 'БРЕНД', // Text for button
-                openclass: 'open',             // Class added to Toggle button on open
-                containerClass: 'mcs-container',    // Class of parent container
-                itemClass: 'mcs-item',         // Class of menu items
-                idprefix: null,                        // Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
-                duration: 200,                         //Toggle Height duration
-                onOpen: function () { },
-                onClose: function () { },
-                onItemSelect: function () { }
-            });
-        });
-    </script>
-    <script>
-        jQuery(function ($) {
-            $('#selectcontrolsize').MultiColumnSelect({
-                multiple: true,              // Single or Multiple Select- Default Single
-                useOptionText: true,               // Use text from option. Use false if you plan to use images
-                hideselect: true,               // Hide Original Select Control
-                openmenuClass: 'mcs-open',         // Toggle Open Button Class
-                openmenuText: 'РАЗМЕР', // Text for button
-                openclass: 'open',             // Class added to Toggle button on open
-                containerClass: 'mcs-container',    // Class of parent container
-                itemClass: 'mcs-item',         // Class of menu items
-                idprefix: null,                        // Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
-                duration: 200,                         //Toggle Height duration
-                onOpen: function () { },
-                onClose: function () { },
-                onItemSelect: function () { }
-            });
-        });
-    </script>
-    <script>
-        jQuery(function ($) {
-            $('#selectcontrolseason').MultiColumnSelect({
-                multiple: true,              // Single or Multiple Select- Default Single
-                useOptionText: true,               // Use text from option. Use false if you plan to use images
-                hideselect: true,               // Hide Original Select Control
-                openmenuClass: 'mcs-open',         // Toggle Open Button Class
-                openmenuText: 'СЕЗОН', // Text for button
-                openclass: 'open',             // Class added to Toggle button on open
-                containerClass: 'mcs-container',    // Class of parent container
-                itemClass: 'mcs-item',         // Class of menu items
-                idprefix: null,                        // Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
-                duration: 200,                         //Toggle Height duration
-                onOpen: function () { },
-                onClose: function () { },
-                onItemSelect: function () { }
-            });
-        });
-    </script>
-    <script>
-        jQuery(function ($) {
-            $('#selectcontrolprice').MultiColumnSelect({
-                multiple: true,              // Single or Multiple Select- Default Single
-                useOptionText: true,               // Use text from option. Use false if you plan to use images
-                hideselect: true,               // Hide Original Select Control
-                openmenuClass: 'mcs-open',         // Toggle Open Button Class
-                openmenuText: 'ЦЕНА', // Text for button
-                openclass: 'open',             // Class added to Toggle button on open
-                containerClass: 'mcs-container',    // Class of parent container
-                itemClass: 'mcs-item',         // Class of menu items
-                idprefix: null,                        // Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
-                duration: 200,                         //Toggle Height duration
-                onOpen: function () { },
-                onClose: function () { },
-                onItemSelect: function () { }
-            });
-        });
-    </script>
+    
 </head>
 <body class ="bg-pattern1" data-spy="scroll" data-target=".navbar">
 
@@ -236,34 +161,12 @@
                                     <div class="col-xs-3">
                                         <div id="selectcontrolbrand">
                                             <select name="brand">
-                                                <option>Adidas</option>
-                                                <option>Nike</option>
-                                                <option>NB</option>
-                                                <option>Saucony</option>
-                                                <option>Asics</option>
-                                                <option>Reebok</option>
-                                                <option>Puma</option>
-                                                <option>Vans</option>
-                                                <option>Convers</option>
-                                                <option>Jordan</option>
-                                                <option>Другое</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-xs-3">
                                         <div id="selectcontrolsize">
                                             <select name="size">
-                                                <option>35</option>
-                                                <option>36</option>
-                                                <option>37</option>
-                                                <option>38</option>
-                                                <option>39</option>
-                                                <option>40</option>
-                                                <option>41</option>
-                                                <option>42</option>
-                                                <option>43</option>
-                                                <option>44</option>
-                                                <option>45</option>
                                             </select>
                                         </div>
                                     </div>
@@ -481,44 +384,87 @@
             html5Slider.noUiSlider.set([this.value, null]);
         });
     </script>
-    <script>
-        jQuery(function () {
-            var cache = {},
-                lastXhr,
-                list_search = [];
-            var search = jQuery("#searchinput").autocomplete({
-                minLength: 1,
-                maxHeight: 400, // Максимальная высота списка подсказок, в пикселях
-                width: 300, // Ширина списка
-                zIndex: 9999, // z-index списка
-                deferRequestBy: 0,
-                source: function (request, response) {
-                    var term = request.term;
-                    if (term in cache) {
-                        response(cache[term]);
-                        return;
-                    }
-                    lastXhr = jQuery.getJSON("store/search", request, function (data, status, xhr) {
-                        cache[term] = data;
-                        if (xhr === lastXhr) {
-                            response(data);
-                        }
-                    });
-                },
-                select: function (event, ui) {
-                    var label = ui.item.label;
-                    var value = ui.item.value;
-                    //store in session
-                    document.valueSelectedForAutocomplete = list_search.toString() + value;
+<script>
+    jQuery(function() {
+        var cache = {},
+            lastXhr,
+            list_search = [];
+        var search = jQuery("#searchinput").autocomplete({
+            minLength: 1,
+            maxHeight: 400, // Максимальная высота списка подсказок, в пикселях
+            width: 300, // Ширина списка
+            zIndex: 9999, // z-index списка
+            deferRequestBy: 0,
+            source: function(request, response) {
+                var term = request.term;
+                if (term in cache) {
+                    response(cache[term]);
+                    return;
                 }
-            });
-
-            jQuery("#selectcontrolbrand, #selectcontrolsize, #selectcontrolseason, #selectcontrolprice, .panel-group")
-                .on('mouseover mouseout', function(e) {
-                    Djinaro.ClassOpen(e);
+                lastXhr = jQuery.getJSON("store/search", request, function(data, status, xhr) {
+                    cache[term] = data;
+                    if (xhr === lastXhr) {
+                        response(data);
+                    }
                 });
+            },
+            select: function(event, ui) {
+                var label = ui.item.label;
+                var value = ui.item.value;
+                //store in session
+                document.valueSelectedForAutocomplete = list_search.toString() + value;
+            }
         });
 
+        jQuery("#selectcontrolbrand, #selectcontrolsize, #selectcontrolseason, #selectcontrolprice, .panel-group")
+            .on('mouseover mouseout', function(e) {
+                Djinaro.ClassOpen(e);
+            });
+
+        jQuery(function() {
+            Djinaro.getAllBrands();
+            Djinaro.getAllSizes();
+        });
+    });
+
+</script>
+    <script>
+        jQuery(function ($) {
+            $('#selectcontrolseason').MultiColumnSelect({
+                multiple: true,              // Single or Multiple Select- Default Single
+                useOptionText: true,               // Use text from option. Use false if you plan to use images
+                hideselect: true,               // Hide Original Select Control
+                openmenuClass: 'mcs-open',         // Toggle Open Button Class
+                openmenuText: 'СЕЗОН', // Text for button
+                openclass: 'open',             // Class added to Toggle button on open
+                containerClass: 'mcs-container',    // Class of parent container
+                itemClass: 'mcs-item',         // Class of menu items
+                idprefix: null,                        // Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
+                duration: 200,                         //Toggle Height duration
+                onOpen: function () { },
+                onClose: function () { },
+                onItemSelect: function () { }
+            });
+        });
+    </script>
+    <script>
+        jQuery(function ($) {
+            $('#selectcontrolprice').MultiColumnSelect({
+                multiple: true,              // Single or Multiple Select- Default Single
+                useOptionText: true,               // Use text from option. Use false if you plan to use images
+                hideselect: true,               // Hide Original Select Control
+                openmenuClass: 'mcs-open',         // Toggle Open Button Class
+                openmenuText: 'ЦЕНА', // Text for button
+                openclass: 'open',             // Class added to Toggle button on open
+                containerClass: 'mcs-container',    // Class of parent container
+                itemClass: 'mcs-item',         // Class of menu items
+                idprefix: null,                        // Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
+                duration: 200,                         //Toggle Height duration
+                onOpen: function () { },
+                onClose: function () { },
+                onItemSelect: function () { }
+            });
+        });
     </script>
 </body>
 </html>
