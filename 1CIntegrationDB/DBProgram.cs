@@ -13,18 +13,18 @@ namespace _1CIntegrationDB
         void createTables()
         {
             const string sql_brands = "CREATE TABLE d_brands (" +
-                                      "brand_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                                      "brand_id INT IDENTITY(1,1) NOT NULL, " +
                                       "brand TEXT, " +
                                       "is_actual INTEGER) ";
 
             const string sql_groups = "CREATE TABLE groups (" +
-                                "group_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                                "group_id INT IDENTITY(1,1) NOT NULL, " +
                                 "group_key TEXT, " +
                                 "group_name TEXT, " +
                                 "is_actual INTEGER) ";
 
-            const string sql_goods = "CREATE TABLE IF NOT EXISTS goods (" +
-                               "good_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            const string sql_goods = "CREATE TABLE goods (" +
+                               "good_id INT IDENTITY(1,1) NOT NULL, " +
                                "good_key TEXT, " +
                                "good TEXT, " +
                                "group_id INTEGER, " +
@@ -34,8 +34,8 @@ namespace _1CIntegrationDB
                                "img_path TEXT, " +
                                "is_actual INTEGER) ";
 
-            const string sql_offers = "CREATE TABLE IF NOT EXISTS offers (" +
-                                "offer_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            const string sql_offers = "CREATE TABLE offers (" +
+                                "offer_id INT IDENTITY(1,1) NOT NULL, " +
                                 "offer_key TEXT, " +
                                 "good_key TEXT, " +
                                 "feature TEXT, " +
@@ -44,9 +44,9 @@ namespace _1CIntegrationDB
                                 "currency TEXT, " +
                                 "amount INTEGER) ";
 
-            const string sql_d_features = "CREATE TABLE IF NOT EXISTS features (" +
-                                    "feature_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                                    "good_id INTEGER " +
+            const string sql_d_features = "CREATE TABLE features (" +
+                                    "feature_id INT IDENTITY(1,1) NOT NULL, " +
+                                    "good_id INTEGER, " +
                                     "feature TEXT " +
                                     "value INTEGER " +
                                     "feature_key TEXT ) ";
@@ -69,19 +69,19 @@ namespace _1CIntegrationDB
             {
                 if (dt.Rows.Count == 0)
                 {
-                    var fillBrands = "INSERT INTO d_brands VALUES(1,'Adidas',1);      " +
-                                         "INSERT INTO d_brands VALUES(2,'Nike',1);        " +
-                                         "INSERT INTO d_brands VALUES(3,'NB',1); " +
-                                         "INSERT INTO d_brands VALUES(4,'Saucony',1);     " +
-                                         "INSERT INTO d_brands VALUES(5,'Asics',1);       " +
-                                         "INSERT INTO d_brands VALUES(6,'Reebok',1);      " +
-                                         "INSERT INTO d_brands VALUES(7,'Puma',1);        " +
-                                         "INSERT INTO d_brands VALUES(8,'Vans',1);        " +
-                                         "INSERT INTO d_brands VALUES(9,'Convers',1);     " +
-                                         "INSERT INTO d_brands VALUES(10,'Jordan',1);     " +
-                                         "INSERT INTO d_brands VALUES(11,'Другое',1);     ";
+                    var fillBrands = "INSERT INTO d_brands VALUES('Adidas',1);" +
+                                         "INSERT INTO d_brands VALUES('Nike',1);" +
+                                         "INSERT INTO d_brands VALUES('NB',1); " +
+                                         "INSERT INTO d_brands VALUES('Saucony',1);" +
+                                         "INSERT INTO d_brands VALUES('Asics',1);" +
+                                         "INSERT INTO d_brands VALUES('Reebok',1);" +
+                                         "INSERT INTO d_brands VALUES('Puma',1);" +
+                                         "INSERT INTO d_brands VALUES('Vans',1);" +
+                                         "INSERT INTO d_brands VALUES('Convers',1);" +
+                                         "INSERT INTO d_brands VALUES('Jordan',1);" +
+                                         "INSERT INTO d_brands VALUES('Другое',1);";
 
-                    SQLiteProvider.DoSql(fillBrands);
+                    SQLiteProvider.ExecSql(fillBrands);
                 }
             }
         }

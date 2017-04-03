@@ -1,153 +1,209 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
-using System.Data.SQLite;
-using System.IO;
+using System.Data.SqlClient;
+using System.Threading;
+using System.Web.Configuration;
 
 namespace _1CIntegrationDB
 {
     public class SQLiteProvider
     {
-        private static readonly string DatabaseName = ConfigurationManager.AppSettings["DbPath"];
-        //C:\\Users\\r.karimov\\Downloads\\db.sqlite
-        //C:\\Users\\Дмитрий\\db.sqlite
-        //h:\\root\\home\\djinaroshop-001\\www\\db\\db.sqlite
+        private static Object thisLock = new Object();
 
-        private static readonly string ConnectionString = string.Format("Data Source={0}; Version=3; Compress=True; UseUTF16Encoding=True; Pooling=True; Max Pool Size=1000;", DatabaseName);
-
-        static SQLiteProvider()
+        private static string GetConnectionString(string name)
         {
-            try
-            {
-                if (!File.Exists(DatabaseName))
-                {
-                    try
-                    {
-                        SQLiteConnection.CreateFile(DatabaseName);
-                    }
-                    catch (SQLiteException eLite)
-                    {
-                        throw eLite;
-                    }
-                }
-            }
-            catch (Exception error)
-            {
-                throw error;
-            }
-        }
-
-        public static void DoSql(string sql)
-        {
-            try
-            {
-                using (SQLiteConnection c = new SQLiteConnection(ConnectionString))
-                {
-                    c.Open();
-                    using (SQLiteCommand cmd = new SQLiteCommand(sql, c))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (SQLiteException)
-            {
-            }
-        }
-
-        public static SQLiteConnection GetConnection()
-        {
-            try
-            {
-                return new SQLiteConnection(ConnectionString);
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-        }
-
-        public static DataTable OpenSql(string sqlString, SQLiteConnection con)
-        {
-            try
-            {
-                con.OpenAsync();
-                using (SQLiteCommand cmd = new SQLiteCommand(sqlString, con))
-                {
-                    var dt = new DataTable();
-                    dt.Load(cmd.ExecuteReader());
-                    return dt;
-                }
-            }
-            catch (Exception e)
-            {
-                new FileLogger("Log.txt").LogMessage("Ошибка при OpenSQL (" + sqlString + "): " + e.Message);
-                throw new Exception("Ошибка при OpenSQL (" + sqlString + "): " + e.Message);
-            }
+            return WebConfigurationManager.ConnectionStrings[name].ConnectionString;
         }
 
         public static DataTable OpenSql(string sqlString)
         {
             try
             {
-                using (SQLiteConnection c = new SQLiteConnection(ConnectionString))
-                { 
-                    c.OpenAsync();
-                    using (SQLiteCommand cmd = new SQLiteCommand(sqlString, c))
+                var inv = new DataTable();
+                using (SqlConnection connect = new SqlConnection(GetConnectionString("DefaultConnection")))
+                {
+                    connect.Open();
+                    using (SqlCommand cmd = new SqlCommand(sqlString, connect))
                     {
-                        var dt = new DataTable();
-                        dt.Load(cmd.ExecuteReader());
-                        return dt;
+                        cmd.CommandTimeout = 300;
+                        using (var transaction = connect.BeginTransaction(IsolationLevel.ReadUncommitted))
+                        {
+                            try
+                            {
+                                lock (thisLock)
+                                {
+                                    cmd.Transaction = transaction;
+                                    SqlDataReader dr = cmd.ExecuteReader();
+                                    inv.Load(dr);
+                                    dr.Close();
+                                    transaction.Commit();
+                                }
+                            }
+                            catch (SqlException e)
+                            {
+                                transaction.Rollback();
+                                throw e;
+                            }
+                            catch (Exception e1)
+                            {
+                                transaction.Rollback();
+                                throw e1;
+                            }
+                        }
+                        connect.Close();
                     }
+                    return inv;
+                }
+            }
+            catch (SqlException e)
+            {
+                Thread.Sleep(500);
+                return OpenSql(sqlString);
+            }
+            catch (Exception et2)
+            {
+                new FileLogger("Log.txt").LogMessage(et2.Message);
+                return null;
+            }
+        }
+
+        public static decimal InsertSqlScopeID(string sqlString)
+        {
+            try
+            {
+                decimal identity = 0;
+                using (SqlConnection connect = new SqlConnection(GetConnectionString("DefaultConnection")))
+                {
+                    connect.Open();
+                    sqlString += " SELECT SCOPE_IDENTITY()";
+                    using (var cmd = new SqlCommand(sqlString, connect))
+                    {
+                        using (var transaction = connect.BeginTransaction(IsolationLevel.RepeatableRead))
+                        {
+                            try
+                            {
+                                lock (thisLock)
+                                {
+                                    cmd.Transaction = transaction;
+                                    identity = (decimal)cmd.ExecuteScalar();
+                                    transaction.Commit();
+                                }
+                            }
+                            catch (SqlException eT)
+                            {
+                                transaction.Rollback();
+                                throw eT;
+                            }
+                            catch (Exception eT1)
+                            {
+                                transaction.Rollback();
+                                throw;
+                            }
+                        }
+                        connect.Close();
+                    }
+                    return identity;
+                }
+            }
+            catch (SqlException e)
+            {
+
+                if (e.Number == -2 || e.Number == 40)
+                {
+                    return InsertSqlScopeID(sqlString);
+                }
+                else if (e.Number == 1205)
+                {
+                    Thread.Sleep(10000);
+                    return InsertSqlScopeID(sqlString);
+                }
+                return InsertSqlScopeID(sqlString);
+            }
+            catch (Exception e1)
+            {
+                new FileLogger("Log.txt").LogMessage(e1.Message);
+                return 0;
+            }
+        }
+
+
+        public static void ExecSql(string sqlString)
+        {
+            try
+            {
+                using (SqlConnection connect = new SqlConnection(GetConnectionString("DefaultConnection")))
+                {
+                    connect.Open();
+                    using (var cmd = new SqlCommand(sqlString, connect))
+                    {
+                        lock (thisLock)
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    connect.Close();
+                }
+            }
+            catch (SqlException e)
+            {
+                if (e.Number == -2 || e.Number == 40)
+                {
+                    ExecSql(sqlString);
+                }
+                else if (e.Number == 1205)
+                {
+                    Thread.Sleep(10000);
+                    ExecSql(sqlString);
+                }
+                throw;
+            }
+            catch (Exception e1)
+            {
+                new FileLogger("Log.txt").LogMessage(e1.Message);
+            }
+        }
+
+        public static void ExecSql(List<string> listSql)
+        {
+            try
+            {
+                using (SqlConnection connect = new SqlConnection(GetConnectionString("DefaultConnection")))
+                {
+                    connect.Open();
+                    using (var cmd = new SqlCommand(string.Join("; ", listSql), connect))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                    connect.Close();
                 }
             }
             catch (Exception e)
             {
-                new FileLogger("Log.txt").LogMessage("Ошибка при OpenSQL (" + sqlString + "): " + e.Message);
-                throw new Exception("Ошибка при OpenSQL (" + sqlString + "): " + e.Message);
+                new FileLogger("Log.txt").LogMessage(e.Message);
             }
         }
 
-        public static int ExecSql(string sqlString)
+        public static void DoSql(string sqlString)
         {
             try
             {
-                using (SQLiteConnection c = new SQLiteConnection(ConnectionString))
+                using (SqlConnection connect = new SqlConnection(GetConnectionString("DefaultConnection")))
                 {
-                    c.OpenAsync();
-                    using (SQLiteCommand cmd = new SQLiteCommand(sqlString, c))
+                    connect.Open();
+                    using (var cmd = new SqlCommand(sqlString, connect))
                     {
-                        return cmd.ExecuteNonQuery();
+                        lock (thisLock)
+                        {
+                            cmd.ExecuteNonQuery();
+                        }
                     }
+                    connect.Close();
                 }
             }
-            catch (SQLiteException e)
+            catch (Exception e)
             {
-                throw new Exception("Ошибка при ExecSQL ("+sqlString+"): " + e.Message);
-            }
-        }
-
-        public static int ExecSql(List<string> listSql)
-        {
-            try
-            {
-                using (SQLiteConnection c = new SQLiteConnection(ConnectionString))
-                {
-                    c.OpenAsync();
-                    using (var cmd = new SQLiteCommand(c))
-                    {
-                        cmd.CommandText = string.Join("; ", listSql);
-                        cmd.ExecuteNonQuery();
-                    }
-                    c.Close();
-                }
-
-                return 1;
-            }
-            catch (SQLiteException e)
-            {
-                throw new Exception("Ошибка при ExecSQL(List): " + e.Message);
+                new FileLogger("Log.txt").LogMessage(e.Message);
             }
         }
     }
