@@ -145,19 +145,28 @@ namespace _1CIntegrationParserXML
                 //SQLiteProvider.ExecSql("delete from offers");
                 var listSql = new List<string>();
                 //OffersTable 
+
+                var inBaseTable = SQLiteProvider.OpenSql("select offer_key, feature from offers")
+                    .AsEnumerable()
+                    .Select(x => new
+                    {
+                        offer_key = x["offer_key"],
+                        feature = x["feature"]
+                    })
+                    .ToList();
+
                 foreach (DataRow rowGroup in dataSource.Tables["OffersTable"].Rows)
                 {
-                    var cntTable = SQLiteProvider.OpenSql("select 1 cnt from offers where offer_key = '" + rowGroup["offer_key"] + "' and feature = '" + rowGroup["feature"] + "'");
-                    int cnt = cntTable.Rows.Count != 0 ? Convert.ToInt32(cntTable.Rows[0]["cnt"]) : 0;
+                    var cnt = inBaseTable.Count(x => (string) x.offer_key == rowGroup["offer_key"].ToString() && (string) x.feature == rowGroup["feature"].ToString());
                     if (cnt == 0 || rowGroup["offer_key"].ToString().Trim() == "")
                     {
                         var amount = rowGroup["amount"].ToString().Trim().Length == 0
                             ? "0"
                             : rowGroup["amount"].ToString().Trim();
                         sql = "insert into offers (good_key, offer_key, feature, price, currency, amount, size) values " +
-                              "('" + rowGroup["good_key"] + "','" + rowGroup["offer_key"] + "','" + rowGroup["feature"] +
+                              "(N'" + rowGroup["good_key"] + "',N'" + rowGroup["offer_key"] + "',N'" + rowGroup["feature"] +
                               "'" +
-                              "," + rowGroup["price"] + ",'" + rowGroup["currency"] + "'," + amount + ",'" + rowGroup["size"] + "')";
+                              "," + rowGroup["price"] + ",N'" + rowGroup["currency"] + "'," + amount + ",N'" + rowGroup["size"] + "')";
                         //SQLiteProvider.ExecSql(sql);
                     }
                     else
@@ -166,10 +175,10 @@ namespace _1CIntegrationParserXML
                             ? "0"
                             : rowGroup["amount"].ToString().Trim();
                         sql = "update offers set (price, currency, amount) = " +
-                              "(" + rowGroup["price"] + ",'" + rowGroup["currency"] + "'," + amount + ") " +
-                              " where offer_key = '" + rowGroup["offer_key"] + "' " +
-                              " and good_key = '" + rowGroup["good_key"] + "' "+
-                              " and feature = '" + rowGroup["feature"]  + "' ";
+                              "(" + rowGroup["price"] + ",N'" + rowGroup["currency"] + "'," + amount + ") " +
+                              " where offer_key = N'" + rowGroup["offer_key"] + "' " +
+                              " and good_key = N'" + rowGroup["good_key"] + "' " +
+                              " and feature = N'" + rowGroup["feature"] + "' ";
                         //SQLiteProvider.ExecSql(sql);
                     }
 

@@ -14,42 +14,42 @@ namespace _1CIntegrationDB
         {
             const string sql_brands = "CREATE TABLE d_brands (" +
                                       "brand_id INT IDENTITY(1,1) NOT NULL, " +
-                                      "brand TEXT, " +
-                                      "is_actual INTEGER) ";
+                                      "brand nvarchar(255), " +
+                                      "is_actual INT) ";
 
             const string sql_groups = "CREATE TABLE groups (" +
                                 "group_id INT IDENTITY(1,1) NOT NULL, " +
-                                "group_key TEXT, " +
-                                "group_name TEXT, " +
-                                "is_actual INTEGER) ";
+                                "group_key nvarchar(255), " +
+                                "group_name nvarchar(255), " +
+                                "is_actual INT) ";
 
             const string sql_goods = "CREATE TABLE goods (" +
                                "good_id INT IDENTITY(1,1) NOT NULL, " +
-                               "good_key TEXT, " +
-                               "good TEXT, " +
-                               "group_id INTEGER, " +
-                               "brand_id INTEGER, " +
-                               "created_on TEXT, " +
-                               "changed_on TEXT, " +
-                               "img_path TEXT, " +
-                               "is_actual INTEGER) ";
+                               "good_key nvarchar(255), " +
+                               "good nvarchar(255), " +
+                               "group_id INT, " +
+                               "brand_id INT, " +
+                               "created_on date, " +
+                               "changed_on date, " +
+                               "img_path nvarchar(500), " +
+                               "is_actual INT) ";
 
             const string sql_offers = "CREATE TABLE offers (" +
                                 "offer_id INT IDENTITY(1,1) NOT NULL, " +
-                                "offer_key TEXT, " +
-                                "good_key TEXT, " +
-                                "feature TEXT, " +
-                                "size TEXT, " +
-                                "price INTEGER, " +
-                                "currency TEXT, " +
-                                "amount INTEGER) ";
+                                "offer_key nvarchar(255), " +
+                                "good_key nvarchar(255), " +
+                                "feature nvarchar(255), " +
+                                "size nvarchar(20), " +
+                                "price INT, " +
+                                "currency nvarchar(255), " +
+                                "amount INT) ";
 
             const string sql_d_features = "CREATE TABLE features (" +
                                     "feature_id INT IDENTITY(1,1) NOT NULL, " +
-                                    "good_id INTEGER, " +
-                                    "feature TEXT " +
-                                    "value INTEGER " +
-                                    "feature_key TEXT ) ";
+                                    "good_id INT, " +
+                                    "feature nvarchar(255) " +
+                                    "value INT " +
+                                    "feature_key nvarchar(255) ) ";
 
             SQLiteProvider.DoSql(sql_brands);
             SQLiteProvider.DoSql(sql_groups);
@@ -69,17 +69,17 @@ namespace _1CIntegrationDB
             {
                 if (dt.Rows.Count == 0)
                 {
-                    var fillBrands = "INSERT INTO d_brands VALUES('Adidas',1);" +
-                                         "INSERT INTO d_brands VALUES('Nike',1);" +
-                                         "INSERT INTO d_brands VALUES('NB',1); " +
-                                         "INSERT INTO d_brands VALUES('Saucony',1);" +
-                                         "INSERT INTO d_brands VALUES('Asics',1);" +
-                                         "INSERT INTO d_brands VALUES('Reebok',1);" +
-                                         "INSERT INTO d_brands VALUES('Puma',1);" +
-                                         "INSERT INTO d_brands VALUES('Vans',1);" +
-                                         "INSERT INTO d_brands VALUES('Convers',1);" +
-                                         "INSERT INTO d_brands VALUES('Jordan',1);" +
-                                         "INSERT INTO d_brands VALUES('Другое',1);";
+                    var fillBrands = "INSERT INTO d_brands VALUES(N'Adidas',1);" +
+                                         "INSERT INTO d_brands VALUES(N'Nike',2);" +
+                                         "INSERT INTO d_brands VALUES(N'NB',3); " +
+                                         "INSERT INTO d_brands VALUES(N'Saucony',4);" +
+                                         "INSERT INTO d_brands VALUES(N'Asics',5);" +
+                                         "INSERT INTO d_brands VALUES(N'Reebok',6);" +
+                                         "INSERT INTO d_brands VALUES(N'Puma',7);" +
+                                         "INSERT INTO d_brands VALUES(N'Vans',8);" +
+                                         "INSERT INTO d_brands VALUES(N'Convers',9);" +
+                                         "INSERT INTO d_brands VALUES(N'Jordan',10);" +
+                                         "INSERT INTO d_brands VALUES(N'Другое',255);";
 
                     SQLiteProvider.ExecSql(fillBrands);
                 }

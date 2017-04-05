@@ -27,29 +27,19 @@ namespace _1CIntegrationDB
                     using (SqlCommand cmd = new SqlCommand(sqlString, connect))
                     {
                         cmd.CommandTimeout = 300;
-                        using (var transaction = connect.BeginTransaction(IsolationLevel.ReadUncommitted))
+                        try
                         {
-                            try
-                            {
-                                lock (thisLock)
-                                {
-                                    cmd.Transaction = transaction;
-                                    SqlDataReader dr = cmd.ExecuteReader();
-                                    inv.Load(dr);
-                                    dr.Close();
-                                    transaction.Commit();
-                                }
-                            }
-                            catch (SqlException e)
-                            {
-                                transaction.Rollback();
-                                throw e;
-                            }
-                            catch (Exception e1)
-                            {
-                                transaction.Rollback();
-                                throw e1;
-                            }
+                            SqlDataReader dr = cmd.ExecuteReader();
+                            inv.Load(dr);
+                            dr.Close();
+                        }
+                        catch (SqlException e)
+                        {
+                            throw e;
+                        }
+                        catch (Exception e1)
+                        {
+                            throw e1;
                         }
                         connect.Close();
                     }

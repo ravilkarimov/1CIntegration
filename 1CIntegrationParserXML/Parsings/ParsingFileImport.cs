@@ -157,10 +157,10 @@ namespace _1CIntegrationParserXML
                 //GroupsTable 
                 foreach (DataRow rowGroup in dataSource.Tables["GroupsTable"].Rows)
                 {
-                    int cnt = Convert.ToInt32(SQLiteProvider.OpenSql("select count(*) cnt from groups where group_key = '" + rowGroup["group_key"] + "'").Rows[0]["cnt"]);
+                    int cnt = Convert.ToInt32(SQLiteProvider.OpenSql("select count(*) cnt from groups where group_key = N'" + rowGroup["group_key"] + "'").Rows[0]["cnt"]);
                     if (cnt == 0)
                     {
-                        sql = "insert into groups (group_key, group_name) values ('" + rowGroup["group_key"] + "','" + rowGroup["group_name"] + "')";
+                        sql = "insert into groups (group_key, group_name) values (N'" + rowGroup["group_key"] + "',N'" + rowGroup["group_name"] + "')";
                         SQLiteProvider.ExecSql(sql);
                     }
                 }
@@ -179,14 +179,14 @@ namespace _1CIntegrationParserXML
                 //ElementsTable 
                 foreach (DataRow rowGood in dataSource.Tables["ElementsTable"].Rows)
                 {
-                    int cnt = Convert.ToInt32(SQLiteProvider.OpenSql("select count(*) cnt from goods where good_key = '" + rowGood["good_key"] + "'").Rows[0]["cnt"]);
-                    if (cnt == 0)
+                    var goodIs = SQLiteProvider.OpenSql("select good_id cnt from goods where good_key = N'" + rowGood["good_key"] + "'");
+                    if (goodIs.Rows.Count == 0)
                     {
-                        string groupId = SQLiteProvider.OpenSql("select group_id from groups where group_key = '" + rowGood["group_key"] + "'").Rows[0]["group_id"].ToString();
+                        string groupId = SQLiteProvider.OpenSql("select group_id from groups where group_key = N'" + rowGood["group_key"] + "'").Rows[0]["group_id"].ToString();
 
                         sql = "insert into goods (good_key, good, group_id, img_path, brand_id) " +
                               "values " +
-                              "('" + rowGood["good_key"] + "','" + rowGood["good"] + "', " + groupId + ", '" + rowGood["img_path"] + "'," +
+                              "(N'" + rowGood["good_key"] + "',N'" + rowGood["good"] + "', " + groupId + ", N'" + rowGood["img_path"] + "'," +
                               dBrands.Where(x => rowGood["good"].ToString().IndexOf(x.Value) > -1).Select(x => x.Key).DefaultIfEmpty("11").First()  + ")";
                         SQLiteProvider.ExecSql(sql);
                     }

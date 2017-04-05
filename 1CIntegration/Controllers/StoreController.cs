@@ -106,7 +106,7 @@ namespace _1CIntegration.Controllers
                           "FROM d_brands b, goods g " +
                           "WHERE b.brand_id = g.brand_id " +
                           "AND g.group_id in (1,2,3)  " +
-                          "GROUP BY 1,2 " +
+                          "GROUP BY b.brand_id, b.brand " +
                           "ORDER BY brand";
 
                 return Json(SQLiteProvider.OpenSql(sql).ToList(), JsonRequestBehavior.AllowGet);
@@ -125,7 +125,7 @@ namespace _1CIntegration.Controllers
         {
             try
             {
-                var sql = "SELECT DISTINCT size FROM offers where good_key = '" + id + "' ORDER BY size DESC ";
+                var sql = "SELECT DISTINCT size FROM offers where good_key = N'" + id + "' ORDER BY size DESC ";
 
                 return Json(SQLiteProvider.OpenSql(sql).ToList(), JsonRequestBehavior.AllowGet);
             }
@@ -218,9 +218,9 @@ namespace _1CIntegration.Controllers
                 }
 
                 string sql =
-                    " SELECT gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, " +
-                    " MAX(o.price) as price, o.currency, o.feature, " +
-                    " (CASE WHEN o.amount > 0 THEN 'Есть в наличии' ELSE 'Нет в наличии' END) as amount " +
+                    " SELECT DISTINCT gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, " +
+                    " MAX(o.price) as price, o.currency, " +
+                    " (CASE WHEN o.amount > 0 THEN N'Есть в наличии' ELSE N'Нет в наличии' END) as amount " +
                     " FROM goods g, groups gr, offers o " +
                     " WHERE 1 = 1 " +
                     " AND g.group_id = gr.group_id " +
@@ -231,8 +231,8 @@ namespace _1CIntegration.Controllers
                     filter +
                     (Sizes.Count > 0 && Sizes.Any(x => !x.IsNullOrEmpty()) ? " AND o.size in (" + string.Join(",", Sizes.Where(x => !x.IsNullOrEmpty())) + ") " : "") +
                     (Brands.Count > 0 && Brands.Any(x => x > 0) ? " AND g.brand_id in (" + string.Join(",", Brands) + ") " : "") +
-                    " GROUP BY 1,2,3,4,5 " +
-                    " ORDER BY price ASC, feature ";
+                    " GROUP BY gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, o.currency, o.amount " +
+                    " ORDER BY price ASC, g.good ";
                 var dt = SQLiteProvider.OpenSql(sql);
 
                 return Json(dt.ToList(), JsonRequestBehavior.AllowGet);
