@@ -201,7 +201,7 @@ namespace _1CIntegration.Controllers
         // GET: /Store/getshoes
         [HttpGet]
         [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
-        public JsonResult GetShoes(int groups, string sizes, string brands, string search)
+        public JsonResult GetShoes(int groups, string sizes, string brands, string search, string price_1, string price_2)
         {
             try
             {
@@ -228,6 +228,7 @@ namespace _1CIntegration.Controllers
                     " AND g.group_id = " + (groups > 0 ? groups : 1) + " " +
                     " AND g.img_path != '' " +
                     " AND o.amount > 0 " +
+                    " AND o.price BETWEEN " + price_1 +" AND " + price_2 + " " +
                     filter +
                     (Sizes.Count > 0 && Sizes.Any(x => !x.IsNullOrEmpty()) ? " AND o.size in (" + string.Join(",", Sizes.Where(x => !x.IsNullOrEmpty())) + ") " : "") +
                     (Brands.Count > 0 && Brands.Any(x => x > 0) ? " AND g.brand_id in (" + string.Join(",", Brands) + ") " : "") +
