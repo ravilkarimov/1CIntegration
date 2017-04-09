@@ -129,7 +129,17 @@ Djinaro.WriteResponseBrands = function (data) {
         duration: 200,                         //Toggle Height duration
         onOpen: function () { },
         onClose: function () { },
-        onItemSelect: function () { Djinaro.filterByGoods(); }
+        onItemSelect: function(e) {
+            var activeItems = jQuery('#selectcontrolbrand .active');
+            var items = jQuery('#selectcontrolbrand .mcs-item');
+
+            if (activeItems.length > 0) {
+                jQuery('#selectcontrolbrand .mcs-open')[0].innerHTML = 'БРЕНД: ' + activeItems.length + ' из ' + items.length + ' выбрано';
+            } else {
+                jQuery('#selectcontrolbrand .mcs-open')[0].innerHTML = 'БРЕНД';
+            }
+            Djinaro.filterByGoods();
+        }
     });
 }
 
@@ -162,7 +172,17 @@ Djinaro.WriteResponseSizes = function (data) {
         duration: 200,                         //Toggle Height duration
         onOpen: function () { },
         onClose: function () { },
-        onItemSelect: function () { Djinaro.filterByGoods(); }
+        onItemSelect: function () {
+            var activeItems = jQuery('#selectcontrolsize .active');
+            var items = jQuery('#selectcontrolsize .mcs-item');
+
+            if (activeItems.length > 0) {
+                jQuery('#selectcontrolsize .mcs-open')[0].innerHTML = 'РАЗМЕР: ' + activeItems.length + ' из ' + items.length + ' выбрано';
+            } else {
+                jQuery('#selectcontrolsize .mcs-open')[0].innerHTML = 'РАЗМЕР';
+            }
+            Djinaro.filterByGoods();
+        }
     });
 }
 
@@ -193,7 +213,7 @@ Djinaro.WriteResponseGoods = function (data) {
                             '<div class="col-xs-2">' +
                                 '   <div class="shop-product animation fadeInUp delay4 animation-active" id="shop-product-' + goodKey + '">' +
                                 '       <div class="overlay-wrapper">' +
-                                '           <img src="' + src + '" realsrc="' + realsrc + '" class="img-zoom owl-item" width="1200" height="900" alt="' + data[itemIndex].feature + '">' +
+                                '           <img src="' + src + '" realsrc="' + realsrc + '" class="img-zoom owl-item" width="1200" height="900" alt="' + data[itemIndex].good + '">' +
                                 '           <div class="overlay-wrapper-content"> ' +
                                 '				<div class="overlay-details"> ' +
                                 '        			<a href="../store/GetImgProduct?good_id=' + data[itemIndex].good_id + '" class="color-white" data-lightbox="image""> ' +
@@ -214,6 +234,14 @@ Djinaro.WriteResponseGoods = function (data) {
                         categories.appendChild(row);
 
                         if (addItem < 6) addItem++;
+
+                        // Get the <span> element that closes the modal
+                        var span = document.getElementsByClassName("close")[0];
+
+                        // When the user clicks on <span> (x), close the modal
+                        span.onclick = function () {
+                            modal.style.display = "none";
+                        }
                     }
 
                     itemIndex += 1;
@@ -243,6 +271,11 @@ Djinaro.WriteResponseGoods = function (data) {
             img.src = realsrc;
             img.async = true;
             img.setAttribute('realsrc', '');
+            img.onclick = function () {
+                document.getElementById('myModal').style.display = "block";
+                document.getElementById("img01").src = this.src;
+                document.getElementById("caption").innerHTML = this.alt;
+            }
         }
     }
 }
