@@ -133,16 +133,16 @@ Djinaro.WriteResponseBrands = function (data) {
             var activeItems = jQuery('#selectcontrolbrand .active');
             var items = jQuery('#selectcontrolbrand .mcs-item');
 
-            if (activeItems.length > 0 && activeItems.length <= 3) {
+            if (activeItems.length > 0 && activeItems.length <= 4) {
                 var brandString = '';
                 for (var j = 0; j < activeItems.length; j++) {
                     if (j > 0) brandString += ', ';
                     brandString += jQuery(activeItems[j])[0].innerHTML;
                 }
-                jQuery('#selectcontrolbrand .mcs-open')[0].innerHTML = 'БРЕНД: ' + brandString;
+                jQuery('#selectcontrolbrand .mcs-open')[0].innerHTML = brandString;
             }
-            else if (activeItems.length > 3) {
-                jQuery('#selectcontrolbrand .mcs-open')[0].innerHTML = 'БРЕНД: ' + activeItems.length + ' из ' + items.length + ' выбрано';
+            else if (activeItems.length > 4) {
+                jQuery('#selectcontrolbrand .mcs-open')[0].innerHTML = activeItems.length + ' из ' + items.length + ' выбрано';
             } else {
                 jQuery('#selectcontrolbrand .mcs-open')[0].innerHTML = 'БРЕНД';
             }
@@ -184,16 +184,16 @@ Djinaro.WriteResponseSizes = function (data) {
             var activeItems = jQuery('#selectcontrolsize .active');
             var items = jQuery('#selectcontrolsize .mcs-item');
 
-            if (activeItems.length > 0 && activeItems.length <= 3) {
+            if (activeItems.length > 0 && activeItems.length <= 5) {
                 var sizesString = '';
                 for (var j = 0; j < activeItems.length; j++) {
                     if (j > 0) sizesString += ', ';
                     sizesString += jQuery(activeItems[j]).attr("data");
                 }
-                jQuery('#selectcontrolsize .mcs-open')[0].innerHTML = 'РАЗМЕР: ' + sizesString;
+                jQuery('#selectcontrolsize .mcs-open')[0].innerHTML = sizesString;
             }
-            else if (activeItems.length > 3) {
-                jQuery('#selectcontrolsize .mcs-open')[0].innerHTML = 'РАЗМЕР: ' + activeItems.length + ' из ' + items.length + ' выбрано';
+            else if (activeItems.length > 5) {
+                jQuery('#selectcontrolsize .mcs-open')[0].innerHTML = activeItems.length + ' из ' + items.length + ' выбрано';
             } else {
                 jQuery('#selectcontrolsize .mcs-open')[0].innerHTML = 'РАЗМЕР';
             }
