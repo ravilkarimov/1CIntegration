@@ -174,7 +174,7 @@ namespace _1CIntegration.Controllers
                     .GroupBy(x => x.size)
                     .ToDictionary(x => x.Key, y => y.Select(z => z.group_id).FirstOrDefault());
 
-                var dt = SQLiteProvider.OpenSql("select distinct size from offers where size <> ''");
+                var dt = SQLiteProvider.OpenSql("select distinct o.size  from offers o, goods g where o.good_key = g.good_key and g.group_id = 1 and o.size <> ''");
                 var listSizes = dt.AsEnumerable()
                     .Select(x => new
                     {
