@@ -219,21 +219,6 @@ namespace _1CIntegration.Controllers
                     }
                 }
 
-                try
-                {
-                    SQLiteProvider.ExecSql("DROP TABLE t_offer_price");
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-
-                SQLiteProvider.ExecSql("CREATE TABLE t_offer_price (offer_id INT)");
-                sql = "insert into t_offer_price select offer_id from offers where price >= " + price_1 + " AND price <= " + price_2;
-                SQLiteProvider.ExecSql(sql);
-                SQLiteProvider.ExecSql("create index ix_t_offer_price_offer_id on t_offer_price(offer_id)");
-                SQLiteProvider.ExecSql("update statistics t_offer_price(ix_t_offer_price_offer_id)");
-
                 sql =
                     " SELECT DISTINCT gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, " +
                     " MAX(o.price) as price, o.currency, " +
@@ -245,7 +230,7 @@ namespace _1CIntegration.Controllers
                     " AND g.group_id = " + (groups > 0 ? groups : 1) + " " +
                     " AND g.img_path != '' " +
                     " AND o.amount > 0 " +
-                    " AND exists (select 1 from t_offer_price op where o.offer_id = op.offer_id) " +
+                    " AND o.price >= " + price_1 + " AND price <= " + price_2 + " " +
                     filter +
                     (Sizes.Count > 0 && Sizes.Any(x => !x.IsNullOrEmpty()) ? " AND o.size in (" + string.Join(",", Sizes.Where(x => !x.IsNullOrEmpty())) + ") " : "") +
                     (Brands.Count > 0 && Brands.Any(x => x > 0) ? " AND g.brand_id in (" + string.Join(",", Brands) + ") " : "") +

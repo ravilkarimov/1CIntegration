@@ -385,36 +385,6 @@
     </script>
 <script>
     jQuery(function() {
-        var cache = {},
-            lastXhr,
-            list_search = [];
-        var search = jQuery("#searchinput").autocomplete({
-            minLength: 1,
-            maxHeight: 400, // Максимальная высота списка подсказок, в пикселях
-            width: 300, // Ширина списка
-            zIndex: 9999, // z-index списка
-            deferRequestBy: 0,
-            source: function(request, response) {
-                var term = request.term;
-                if (term in cache) {
-                    response(cache[term]);
-                    return;
-                }
-                lastXhr = jQuery.getJSON("store/search", request, function(data, status, xhr) {
-                    cache[term] = data;
-                    if (xhr === lastXhr) {
-                        response(data);
-                    }
-                });
-            },
-            select: function(event, ui) {
-                var label = ui.item.label;
-                var value = ui.item.value;
-                //store in session
-                document.valueSelectedForAutocomplete = list_search.toString() + value;
-            }
-        });
-
         jQuery("#selectcontrolbrand, #selectcontrolsize, #selectcontrolseason, #selectcontrolprice, .panel-group")
             .on('mouseover mouseout', function(e) {
                 Djinaro.ClassOpen(e);
@@ -424,6 +394,12 @@
             Djinaro.getAllBrands();
             Djinaro.getAllSizes();
         });
+
+        jQuery("#searchinput")
+            .keyup(function() {
+                Djinaro.filterByGoods();
+            })
+            .keyup();
     });
 
 </script>
@@ -468,17 +444,5 @@
     <script>
         Djinaro.filterByGoods();
     </script>
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-
-        <!-- The Close Button -->
-        <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
-
-        <!-- Modal Content (The Image) -->
-        <img class="modal-content" id="img01">
-
-        <!-- Modal Caption (Image Text) -->
-        <div id="caption"></div>
-    </div>
 </body>
 </html>

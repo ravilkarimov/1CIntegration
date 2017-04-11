@@ -250,14 +250,6 @@ Djinaro.WriteResponseGoods = function (data) {
                         categories.appendChild(row);
 
                         if (addItem < 6) addItem++;
-
-                        // Get the <span> element that closes the modal
-                        var span = document.getElementsByClassName("close")[0];
-
-                        // When the user clicks on <span> (x), close the modal
-                        span.onclick = function () {
-                            modal.style.display = "none";
-                        }
                     }
 
                     itemIndex += 1;
@@ -287,11 +279,6 @@ Djinaro.WriteResponseGoods = function (data) {
             img.src = realsrc;
             img.async = true;
             img.setAttribute('realsrc', '');
-            img.onclick = function () {
-                document.getElementById('myModal').style.display = "block";
-                document.getElementById("img01").src = this.src;
-                document.getElementById("caption").innerHTML = this.alt;
-            }
         }
     }
 }
