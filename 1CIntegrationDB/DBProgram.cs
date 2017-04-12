@@ -29,7 +29,7 @@ namespace _1CIntegrationDB
                                "good nvarchar(255), " +
                                "group_id INT, " +
                                "brand_id INT, " +
-                               "created_on date, " +
+                               "inserted_on date, " +
                                "changed_on date, " +
                                "img_path nvarchar(500), " +
                                "is_actual INT) ";
@@ -42,7 +42,9 @@ namespace _1CIntegrationDB
                                 "size nvarchar(20), " +
                                 "price INT, " +
                                 "currency nvarchar(255), " +
-                                "amount INT) ";
+                                "amount INT, " +
+                                "inserted_on date, " +
+                                "changed_on date ) ";
 
             const string sql_d_features = "CREATE TABLE features (" +
                                     "feature_id INT IDENTITY(1,1) NOT NULL, " +
@@ -57,6 +59,62 @@ namespace _1CIntegrationDB
             SQLiteProvider.DoSql("CREATE UNIQUE INDEX ix_goods_good_id ON goods (good_id)");
             SQLiteProvider.DoSql(sql_offers);
             SQLiteProvider.DoSql(sql_d_features);
+
+            SQLiteProvider.DoSql("create index ix_offers_price On  offers(price)");
+            SQLiteProvider.DoSql("create index ix_offers_amount On  offers(amount)"); 
+            SQLiteProvider.DoSql("create index ix_offers_size On  offers(size)");
+            SQLiteProvider.DoSql("create index ix_goods_group_id On  goods(group_id)");
+            SQLiteProvider.DoSql("create index ix_goods_brand_id On  goods(brand_id)");
+            SQLiteProvider.DoSql("create index ix_goods_good On  goods(good)");
+
+            const string sqlTriggerGoodsInsert = "create trigger trigger_goods_insert " +
+                                                    "on goods " +
+                                                    "for insert " +
+                                                    "AS " +
+                                                    "if @@ROWCOUNT > 0 " +
+                                                    "begin " +
+                                                    "   update goods " +
+                                                    "   set inserted_on = GETDATE() " +
+                                                    "   where good_id in (select good_id from INSERTED) " +
+                                                    "end";
+
+            const string sqlTriggerGoodsUpdate = "create trigger trigger_goods_update " +
+                                                    "on goods " +
+                                                    "for update " +
+                                                    "AS " +
+                                                    "if @@ROWCOUNT > 0 " +
+                                                    "begin " +
+                                                    "   update goods " +
+                                                    "   set changed_on = GETDATE() " +
+                                                    "   where good_id in (select good_id from INSERTED) " +
+                                                    "end";
+
+            const string sqlTriggerOffersInsert = "create trigger trigger_offers_insert " +
+                                                       "on offers " +
+                                                       "for insert " +
+                                                       "AS " +
+                                                       "if @@ROWCOUNT > 0 " +
+                                                       "begin " +
+                                                       "    update offers " +
+                                                       "    set inserted_on = GETDATE() " +
+                                                       "    where offer_id in (select offer_id from INSERTED) " +
+                                                       "end";
+
+            const string sqlTriggerOffersInserted = "create trigger trigger_offers_update " +
+                                                       "on offers " +
+                                                       "for update " +
+                                                       "AS " +
+                                                       "if @@ROWCOUNT > 0 " +
+                                                       "begin " +
+                                                       "    update offers " +
+                                                       "    set changed_on = GETDATE() " +
+                                                       "    where offer_id in (select offer_id from INSERTED) " +
+                                                       "end";
+
+            SQLiteProvider.DoSql(sqlTriggerGoodsInsert);
+            SQLiteProvider.DoSql(sqlTriggerGoodsUpdate);
+            SQLiteProvider.DoSql(sqlTriggerOffersInsert);
+            SQLiteProvider.DoSql(sqlTriggerOffersInserted);
         }
 
         void fillTables()

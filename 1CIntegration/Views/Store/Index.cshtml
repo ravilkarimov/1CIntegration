@@ -397,7 +397,7 @@
 
         jQuery("#searchinput")
             .keyup(function() {
-                Djinaro.filterByGoods();
+                if (jQuery("#searchinput").val().trim() != '') Djinaro.filterByGoods();
             })
             .keyup();
     });
