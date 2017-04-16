@@ -55,7 +55,7 @@
         if (idprefix !== null) {
             idtemplate = "' id='" + idprefix + $optioncount;
         }
-        itemtemplate = "<a class='" + itemClass + "' data='" + $(selector).attr('value') + idtemplate + "'>" + settext + "</a>";
+        itemtemplate = "<a class='" + itemClass + "' data='" + $(selector).attr('value') + idtemplate + "'>"+ settext + "</a>";
         $menucontainer.siblings('.' + containerClass).append(itemtemplate);
     };
 
