@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security.Permissions;
 using System.Threading;
@@ -60,43 +61,65 @@ namespace _1CIntegration
             }
         }
 
+        private List<string> listFleName = new List<string>(); 
 
         // Define the event handlers.
         private void OnChanged(object source, FileSystemEventArgs e)
         {
             try
             {
-                if (e.ChangeType == WatcherChangeTypes.Changed && Regex.IsMatch(e.FullPath, @"\.xml", RegexOptions.IgnoreCase))
+                if (e.ChangeType == WatcherChangeTypes.Changed &&
+                    Regex.IsMatch(e.FullPath, @"\.xml", RegexOptions.IgnoreCase) &&
+                    !listFleName.Contains(e.Name))
                 {
-                    Thread.Sleep(2000);
-
-                    while (new FileInfo(e.FullPath).Attributes == 0)
-                    {
-                    }
-
-                    new FileLogger("Log.txt").LogMessage("Файл '" + e.Name + "' изменился");
-
-                    if (Kernel != null)
-                    {
-                        ParserXmlFactory factory = Kernel.Get<ParserXmlFactory>();
-                        factory.FindTemplate(e.FullPath, e.Name);
-                    }
-                }
-                else if (e.ChangeType == WatcherChangeTypes.Created && Regex.IsMatch(e.FullPath, @"\.jpg", RegexOptions.IgnoreCase) && e.FullPath.IndexOf("_min.jpg") < 0)
-                {
-                    while (new FileInfo(e.FullPath).Attributes == 0)
-                    {
-                    }
-
                     Task.Factory.StartNew(() =>
                     {
+                        listFleName.Add(e.Name);
+
+                        Thread.Sleep(2000);
+
+                        while (new FileInfo(e.FullPath).Attributes == 0)
+                        {
+                        }
+
+                        new FileLogger("Log.txt").LogMessage("Файл '" + e.Name + "' изменился");
+
+                        if (Kernel != null)
+                        {
+                            ParserXmlFactory factory = Kernel.Get<ParserXmlFactory>();
+                            factory.FindTemplate(e.FullPath, e.Name);
+                        }
+
+                        listFleName.Remove(e.Name);
+
+                    });
+                }
+                else if (e.ChangeType == WatcherChangeTypes.Created &&
+                         Regex.IsMatch(e.FullPath, @"\.jpg", RegexOptions.IgnoreCase) &&
+                         e.FullPath.IndexOf("_min.jpg", StringComparison.Ordinal) < 0 &&
+                    !listFleName.Contains(e.Name))
+                {
+                    Task.Factory.StartNew(() =>
+                    {
+                        listFleName.Add(e.Name);
+
+                        Thread.Sleep(1000);
+
+                        while (new FileInfo(e.FullPath).Attributes == 0)
+                        {
+                        }
+
                         using (var fs = System.IO.File.OpenRead(e.FullPath))
                         {
                             using (var image = Image.FromStream(fs, true, true))
                             {
-                                image.ResizeBitmapUpto(350, 350, InterpolationMode.HighQualityBicubic).ToFileSave(e.FullPath, e.Name);
+                                image.ResizeBitmapUpto(350, 350, InterpolationMode.HighQualityBicubic)
+                                    .ToFileSave(e.FullPath, e.Name);
                             }
                         }
+
+                        listFleName.Remove(e.Name);
+
                     });
                 }
             }

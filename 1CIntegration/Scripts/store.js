@@ -208,7 +208,7 @@ Djinaro.WriteResponseGoods = function (data) {
     if (data.length > 0) {
         var countRow = data.length / 6;
         var itemIndex = 0;
-
+        var realsrc;
         for (var i = 0; i < countRow; i++) {
 
             var row = document.createElement('div');
@@ -219,7 +219,7 @@ Djinaro.WriteResponseGoods = function (data) {
                 if (data[itemIndex]) {
                     var goodKey = data[itemIndex].good_key;
                     var src = "../img/theme/hole-2038430_640.png";
-                    var realsrc = "../store/GetImgProductMin?good_id=" + data[itemIndex].good_id;
+                    realsrc = data[itemIndex].img_path;
                     if (i <= 3) {
                         src = realsrc;
                         realsrc = "";
@@ -272,8 +272,7 @@ Djinaro.WriteResponseGoods = function (data) {
         for (var i = 0; i < imgs.length; i++) {
 
             var img = imgs[i];
-
-            var realsrc = img.getAttribute('realsrc');
+            realsrc = img.getAttribute('realsrc');
             if (!realsrc) continue;
 
             img.src = realsrc;

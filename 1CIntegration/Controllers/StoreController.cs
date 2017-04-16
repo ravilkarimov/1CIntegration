@@ -210,19 +210,15 @@ namespace _1CIntegration.Controllers
                 var Sizes = sizes.Split(',').ToList();
                 var Brands = brands.Split(',').Select(x => Regex.Match(x, @"\d+").AsInteger()).ToList();
 
-                var filter = "";
-                foreach (string filter_word in search.Split(new Char[] { ',', ' ' }).ToList())
-                {
-                    if (!filter_word.IsNullOrEmpty())
-                    {
-                        filter += string.Format(" and (upper(good) LIKE '{0}%' OR upper(good) LIKE '%{0}%' OR upper(good) LIKE '%{0}') ", filter_word.ToUpper());
-                    }
-                }
+                var filter = search.Split(new Char[] {',', ' '}).ToList()
+                    .Where(filter_word => !filter_word.IsNullOrEmpty())
+                    .Aggregate("", (current, filter_word) => current + string.Format(" and (upper(good) LIKE '{0}%' OR upper(good) LIKE '%{0}%' OR upper(good) LIKE '%{0}') ", filter_word.ToUpper()));
 
                 sql =
                     " SELECT DISTINCT gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, " +
                     " MAX(o.price) as price, o.currency, " +
-                    " (CASE WHEN o.amount > 0 THEN N'Есть в наличии' ELSE N'Нет в наличии' END) as amount " +
+                    " (CASE WHEN o.amount > 0 THEN N'Есть в наличии' ELSE N'Нет в наличии' END) as amount, " +
+                    " g.img_path " +
                     " FROM goods g, groups gr, offers o " +
                     " WHERE 1 = 1 " +
                     " AND g.group_id = gr.group_id " +
@@ -234,9 +230,15 @@ namespace _1CIntegration.Controllers
                     filter +
                     (Sizes.Count > 0 && Sizes.Any(x => !x.IsNullOrEmpty()) ? " AND o.size in (" + string.Join(",", Sizes.Where(x => !x.IsNullOrEmpty())) + ") " : "") +
                     (Brands.Count > 0 && Brands.Any(x => x > 0) ? " AND g.brand_id in (" + string.Join(",", Brands) + ") " : "") +
-                    " GROUP BY gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, o.currency, o.amount " +
+                    " GROUP BY gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, o.currency, o.amount, g.img_path " +
                     " ORDER BY price ASC, g.good ";
                 var dt = SQLiteProvider.OpenSql(sql);
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    var imgPath = "../webdata/" + row["img_path"].ToString().Replace(".jpg", "_min.jpg");
+                    row["img_path"] = imgPath;
+                }
 
                 return Json(dt.ToList(), JsonRequestBehavior.AllowGet);
             }
