@@ -10,10 +10,24 @@ namespace _1CIntegrationDB
     public class SQLiteProvider
     {
         private static Object thisLock = new Object();
+        private static SqlConnection connect;
 
         private static string GetConnectionString(string name)
         {
             return WebConfigurationManager.ConnectionStrings[name].ConnectionString;
+        }
+
+        private static void Connection()
+        {
+            if (connect == null)
+            {
+                connect = new SqlConnection(GetConnectionString("DefaultConnection"));
+                connect.Open();
+            }
+            else if (connect != null && connect.State == ConnectionState.Closed)
+            {
+                connect.Open();
+            }
         }
 
         public static DataTable OpenSql(string sqlString)
@@ -21,35 +35,26 @@ namespace _1CIntegrationDB
             try
             {
                 var inv = new DataTable();
-                using (SqlConnection connect = new SqlConnection(GetConnectionString("DefaultConnection")))
+                Connection();
+                using (SqlCommand cmd = new SqlCommand(sqlString, connect))
                 {
-                    connect.Open();
-                    using (SqlCommand cmd = new SqlCommand(sqlString, connect))
+                    cmd.CommandTimeout = 300;
+                    try
                     {
-                        cmd.CommandTimeout = 300;
-                        try
-                        {
-                            SqlDataReader dr = cmd.ExecuteReader();
-                            inv.Load(dr);
-                            dr.Close();
-                        }
-                        catch (SqlException e)
-                        {
-                            throw e;
-                        }
-                        catch (Exception e1)
-                        {
-                            throw e1;
-                        }
-                        connect.Close();
+                        SqlDataReader dr = cmd.ExecuteReader();
+                        inv.Load(dr);
+                        dr.Close();
                     }
-                    return inv;
+                    catch (SqlException e)
+                    {
+                        throw e;
+                    }
+                    catch (Exception e1)
+                    {
+                        throw e1;
+                    }
                 }
-            }
-            catch (SqlException e)
-            {
-                Thread.Sleep(500);
-                return OpenSql(sqlString);
+                return inv;
             }
             catch (Exception et2)
             {
@@ -62,23 +67,21 @@ namespace _1CIntegrationDB
         {
             try
             {
-                decimal identity = 0;
-                using (SqlConnection connect = new SqlConnection(GetConnectionString("DefaultConnection")))
+                lock (thisLock)
                 {
-                    connect.Open();
+                    Connection();
                     sqlString += " SELECT SCOPE_IDENTITY()";
                     using (var cmd = new SqlCommand(sqlString, connect))
                     {
+                        decimal identity = 0;
                         using (var transaction = connect.BeginTransaction(IsolationLevel.RepeatableRead))
                         {
                             try
                             {
-                                lock (thisLock)
-                                {
-                                    cmd.Transaction = transaction;
-                                    identity = (decimal)cmd.ExecuteScalar();
-                                    transaction.Commit();
-                                }
+
+                                cmd.Transaction = transaction;
+                                identity = (decimal) cmd.ExecuteScalar();
+                                transaction.Commit();
                             }
                             catch (SqlException eT)
                             {
@@ -91,9 +94,9 @@ namespace _1CIntegrationDB
                                 throw;
                             }
                         }
-                        connect.Close();
+                        return identity;
                     }
-                    return identity;
+
                 }
             }
             catch (SqlException e)
@@ -122,17 +125,13 @@ namespace _1CIntegrationDB
         {
             try
             {
-                using (SqlConnection connect = new SqlConnection(GetConnectionString("DefaultConnection")))
+                Connection();
+                using (var cmd = new SqlCommand(sqlString, connect))
                 {
-                    connect.Open();
-                    using (var cmd = new SqlCommand(sqlString, connect))
+                    lock (thisLock)
                     {
-                        lock (thisLock)
-                        {
-                            cmd.ExecuteNonQuery();
-                        }
+                        cmd.ExecuteNonQuery();
                     }
-                    connect.Close();
                 }
             }
             catch (SqlException e)
@@ -158,14 +157,10 @@ namespace _1CIntegrationDB
         {
             try
             {
-                using (SqlConnection connect = new SqlConnection(GetConnectionString("DefaultConnection")))
+                Connection();
+                using (var cmd = new SqlCommand(string.Join("; ", listSql), connect))
                 {
-                    connect.Open();
-                    using (var cmd = new SqlCommand(string.Join("; ", listSql), connect))
-                    {
-                        cmd.ExecuteNonQuery();
-                    }
-                    connect.Close();
+                    cmd.ExecuteNonQuery();
                 }
             }
             catch (Exception e)
@@ -178,17 +173,13 @@ namespace _1CIntegrationDB
         {
             try
             {
-                using (SqlConnection connect = new SqlConnection(GetConnectionString("DefaultConnection")))
+                Connection();
+                using (var cmd = new SqlCommand(sqlString, connect))
                 {
-                    connect.Open();
-                    using (var cmd = new SqlCommand(sqlString, connect))
+                    lock (thisLock)
                     {
-                        lock (thisLock)
-                        {
-                            cmd.ExecuteNonQuery();
-                        }
+                        cmd.ExecuteNonQuery();
                     }
-                    connect.Close();
                 }
             }
             catch (Exception e)
