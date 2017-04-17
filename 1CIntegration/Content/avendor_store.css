@@ -624,7 +624,7 @@ ul.gallery.columns-3 li{width:33.3%;}
 .btn-sm .iconleft, .btn-xs .iconleft{margin-right:6px;}
 .btn-sm .iconright, .btn-xs .iconright{margin-left:6px;}
 [class^="gfx-"]:before, [class*=" gfx-"]:before{vertical-align:middle;position:relative;top:-0.14em;}
-.livicon{display:inline-block;line-height:inherit;vertical-align:middle;}
+.livicon{/*display:inline-block;*/line-height:inherit;vertical-align:middle;}
 .iconbox{padding:10px;}
 .iconbox .iconbox-wrapper{float:left;margin-right:20px;font-size:20px;line-height:1;text-align:center;}
 .iconbox-wrapper.pull-right{margin-left:20px;margin-right:0;}
