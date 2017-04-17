@@ -237,7 +237,9 @@ namespace _1CIntegration.Controllers
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    var imgPath = "../webdata/" + row["img_path"].ToString().Replace(".jpg", "_min.jpg");
+                    var pathMinImg = row["img_path"].ToString().Replace(".jpg", "_min.jpg");
+                    var isFile = System.IO.File.Exists(path_web_data + "/" + pathMinImg);
+                    var imgPath = "../webdata/" + (isFile ? pathMinImg : row["img_path"].ToString());
                     row["img_path"] = imgPath;
                 }
 
