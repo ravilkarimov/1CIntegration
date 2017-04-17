@@ -983,6 +983,7 @@ a.comment-link:hover{}
     background: url(../img/theme/AjaxLoader.gif) 50% no-repeat;
 }
 
+.product-label{background: #000;color: #fff;font: 13px 'Oswald';left: 5px;top: 5px;font: 13px 'Oswald';width: 40px;height: 40px;text-align: center; border-radius: 50%;display: inline-block; vertical-align: middle;line-height: 40px;z-index: 9;user-select: none; -webkit-font-smoothing: subpixel-antialiased;cursor: default;}
 .shop-product:hover .rating{bottom:0;display: block;}
 .rating span.star{display:inline-block;font-family:FontAwesome;font-style:normal;font-weight:normal;}
 .rating span.star:hover{cursor:pointer;}
