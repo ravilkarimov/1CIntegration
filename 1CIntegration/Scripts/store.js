@@ -224,12 +224,14 @@ Djinaro.WriteResponseGoods = function (data) {
                         src = realsrc;
                         realsrc = "";
                     }
+                    var spanNew = (data[itemIndex].new_good === 1 ? "<span class = 'product-label label-new'>NEW</span>" : "");
                     if (data[itemIndex]) {
                         var stringElement =
                             '<div class="col-xs-2">' +
                                 '   <div class="shop-product animation fadeInUp delay4 animation-active" id="shop-product-' + goodKey + '">' +
                                 '       <div class="overlay-wrapper">' +
                                 '           <img src="' + src + '" realsrc="' + realsrc + '" class="img-zoom owl-item" width="1200" height="900" alt="' + data[itemIndex].good + '">' +
+                                 spanNew +
                                 '           <div class="overlay-wrapper-content"> ' +
                                 '				<div class="overlay-details"> ' +
                                 '        			<a href="../store/GetImgProduct?good_id=' + data[itemIndex].good_id + '" class="color-white" data-lightbox="image""> ' +

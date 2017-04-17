@@ -218,7 +218,8 @@ namespace _1CIntegration.Controllers
                     " SELECT DISTINCT gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, " +
                     " MAX(o.price) as price, o.currency, " +
                     " (CASE WHEN o.amount > 0 THEN N'Есть в наличии' ELSE N'Нет в наличии' END) as amount, " +
-                    " g.img_path " +
+                    " g.img_path, " +
+                    " (CASE WHEN g.inserted_on = (select max(inserted_on) from goods) THEN 1 ELSE 0 END) as new_good " +
                     " FROM goods g, groups gr, offers o " +
                     " WHERE 1 = 1 " +
                     " AND g.group_id = gr.group_id " +
@@ -230,8 +231,8 @@ namespace _1CIntegration.Controllers
                     filter +
                     (Sizes.Count > 0 && Sizes.Any(x => !x.IsNullOrEmpty()) ? " AND o.size in (" + string.Join(",", Sizes.Where(x => !x.IsNullOrEmpty())) + ") " : "") +
                     (Brands.Count > 0 && Brands.Any(x => x > 0) ? " AND g.brand_id in (" + string.Join(",", Brands) + ") " : "") +
-                    " GROUP BY gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, o.currency, o.amount, g.img_path " +
-                    " ORDER BY price ASC, g.good ";
+                    " GROUP BY gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, o.currency, o.amount, g.img_path, g.inserted_on " +
+                    " ORDER BY new_good DESC, price ASC, g.good ";
                 var dt = SQLiteProvider.OpenSql(sql);
 
                 foreach (DataRow row in dt.Rows)
