@@ -6,31 +6,40 @@
 
     <!-- Meta -->
     <meta name="description" content="" />
-    <meta name="keywords" content="shop, nike, adidas" />
+    <meta name="keywords" content="shop, nike, adidas, shoes, reebok" />
     <meta name="author" content="Ravil Karimov and Dmitry Karasev">
     <meta name="robots" content="index, follow" />
     <meta name="revisit-after" content="3 days" />
-    <title>_____D_J_I_N_A_R_O____</title>
+    <title>DJINARO SHOP</title>
 
     <!-- Styles -->
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="~/Content/avendor-font-styles.css" rel="stylesheet">
-    <link href="~/Content/themecss/animate.css" rel="stylesheet">
-    <link href="~/Content/owl-carousel/owl.carousel.css" rel="stylesheet">
-    <link href="~/Content/owl-carousel/owl.transitions.css" rel="stylesheet">
-    <link href="~/Content/default-skin/default-skin.css" rel="stylesheet">
-    <link href="~/Content/avendor.css" rel="stylesheet">
-    <link href="~/Content/colors/color-default.css" rel="stylesheet" title="style1">
-    <link href="~/Content/themecss/lightbox.css" rel="stylesheet" />
+    <link href="~/Content/themecss/animate_store.css" rel="stylesheet">
+    <link href="~/Content/owl-carousel/owl.carousel_store.css" rel="stylesheet">
+    <link href="~/Content/owl-carousel/owl.transitions_store.css" rel="stylesheet">
+    <link href="~/Content/default-skin/default-skin_store.css" rel="stylesheet">
+    <link href="~/Content/avendor_store.css" rel="stylesheet">
+    <link href="~/Content/colors/color-default_store.css" rel="stylesheet" title="style1">
+    <link href="~/Content/themecss/lightbox_store.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Play:400,200,300,100,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
-    <link href="~/favicon.jpg" rel="shortcut icon">
+    <link href="~/favicon_new.png" rel="shortcut icon">
+    <link href="~/Scripts/nouislider/nouislider.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/Content/multi-column-select.css" rel="stylesheet" />
 
-    <!--<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>-->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="~/Scripts/themejs/jquery.magnific-popup.min.js"></script>
+    <script src="~/Scripts/nouislider/nouislider.min.js"></script>
+    <!--script src="https://code.jquery.com/jquery-3.1.1.min.js"></script-->
+    <!--script async src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.24.js"></script>
+    <!--script async src="~/Scripts/themejs/jquery.magnific-popup.min.js"></script-->
+    <script async src="~/Scripts/nouislider/nouislider.min.js"></script>
     <script src="~/Scripts/store.js"></script>
+    <script src="~/Scripts/bootstrap-select.js"></script>
+    <script src="~/Scripts/multi-column-select.js"></script>
 
 </head>
 <body class="bg-pattern1" data-spy="scroll" data-target=".navbar">
@@ -83,25 +92,23 @@
                             <div class="col-md-12 columns">
 
                                 <nav class="navbar navbar-default gfx-mega nav-left" role="navigation">
-                                    <!-- Brand and toggle get grouped for better mobile display -->
                                     <div class="navbar-header">
                                         <a class="navbar-toggle" data-toggle="collapse" data-target="#gfx-collapse"></a>
-                                        <h3 style="margin-top:25px;margin-bottom:0px;">
-                                            <span>DJINARO SHOP</span>
-                                        </h3>
+                                        <div class="logo">
+                                            <a href="/store"><img src="~/img/theme/logo_n.png" alt="Logo" /></a>
+                                        </div>
                                     </div>
 
-                                    <!-- Collect the nav links, forms, and other content for toggling -->
                                     <div class="collapse navbar-collapse" id="gfx-collapse">
-                                        <ul class="nav navbar-nav gfx-nav">
-                                            <li class="dropdown"><a href="/">Главная</a></li>
-                                            <li class="dropdown"><a href="/store">Обувь</a></li>
-                                            <li class="dropdown"><a href="">Одежда</a></li>
-                                            <li class="dropdown"><a href="">Аксессуары</a></li>
-                                            <li class="dropdown"><a href="">Акции</a></li>
-                                            <li class="dropdown gfx-mega-fw active"><a href="/contact">Контакты</a></li>
+                                        <ul id="menu_nav" class="nav navbar-nav gfx-nav">
+                                            <!--li class="dropdown"><a href="">Главная</a></li-->
+                                            <li class="dropdown gfx-mega-fw" id="1"><a href="/store">Обувь</a></li>
+                                            <!--li class="dropdown"><a href="">Одежда</a></li-->
+                                            <!--li class="dropdown"><a href="">Аксессуары</a></li-->
+                                            <!--li class="dropdown"><a href="">Акции</a></li-->
+                                            <li class="dropdown active"><a href="/contact">Контакты</a></li>
                                         </ul>
-                                    </div><!-- /.navbar-collapse -->
+                                    </div>
 
                                 </nav>
 
@@ -147,7 +154,7 @@
                             <div class="col-sm-8">
                                 <ul class="list-default fa-ul">
                                     <li><span class="fa-li fa fa-map-marker color-default"></span>Казань, Метро Яшьлек, ул. Восстания, д. 49</li>
-                                    <li><span class="fa-li fa fa-clock-o color-default"></span><strong>Понедельник - Пятница:</strong> 14:00 - 19:00</li>
+                                    <li><span class="fa-li fa fa-clock-o color-default"></span>Понедельник - Пятница: 14:00 - 19:00</li>
                                 </ul>
                             </div>
                         </div>
@@ -178,17 +185,17 @@
                 <!-- Container -->
                 <div class="container">
 
-                    <div class="white-space space-medium"></div>
+                    <div class="white-space space-xsmall"></div>
                     <div class="row">
                         <!-- Footer Menu -->
                         <div class="col-md-12 col-sm-12 columns">
                             <div class="menu-footer">
                                 <ul class="list-inline">
-                                    <li><a href="/">Главная</a></li>
+                                    <!--li><a href="/">Главная</a></li-->
                                     <li><a href="/store">Обувь</a></li>
-                                    <li><a href="">Одежда</a></li>
-                                    <li><a href="">Аксессуары</a></li>
-                                    <li><a href="">Акции</a></li>
+                                    <!--li><a href="">Одежда</a></li-->
+                                    <!--li><a href="">Аксессуары</a></li-->
+                                    <!--li><a href="">Акции</a></li-->
                                     <li><a href="/contact">Контакты</a></li>
                                 </ul>
                             </div>
