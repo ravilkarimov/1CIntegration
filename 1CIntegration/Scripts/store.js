@@ -224,7 +224,7 @@ Djinaro.WriteResponseGoods = function (data) {
                         src = realsrc;
                         realsrc = "";
                     }
-                    var spanNew = (data[itemIndex].new_good === 1 ? "<span class = 'product-label label-new'>NEW</span>" : "");
+                    var spanNew = (data[itemIndex].new_good === 1 ? "<span class = 'product-label'>NEW</span>" : "");
                     if (data[itemIndex]) {
                         var stringElement =
                             '<div class="col-xs-2">' +

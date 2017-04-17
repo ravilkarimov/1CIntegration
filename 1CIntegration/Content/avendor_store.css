@@ -803,7 +803,7 @@ hr.hr-double{padding:4px;border:none;border-top:1px solid #ececec;border-bottom:
 .accordion.panel-group{/*margin:20px 0;*/}
 .accordion .panel .panel-heading{/*border:1px solid #ececec;padding:0;*/background:none;}
 .accordion .panel-title{font-weight:500;font-size:inherit;}
-.accordion .panel-title a{display:block;padding:15px 15px 15px 35px;}
+.accordion .panel-title a{display:block;padding:15px 15px 15px 35px; border-radius:3px;}
 .accordion .panel-title a .fa{margin-right:10px;}
 .accordion .panel-body{border:none !important;}
 .accordion .accordion-toggle.collapsed-icon:after{content:"\f147";font-family:FontAwesome;font-style:normal;font-weight:normal;text-decoration:inherit;float:right;}
@@ -983,7 +983,7 @@ a.comment-link:hover{}
     background: url(../img/theme/AjaxLoader.gif) 50% no-repeat;
 }
 
-.product-label{position:absolute;background: #000;color: #fff;font: 13px 'Oswald';left: 5px;top: 5px;font: 13px 'Oswald';width: 40px;height: 40px;text-align: center; border-radius: 50%;display: inline-block; vertical-align: middle;line-height: 40px;z-index: 9;user-select: none; -webkit-font-smoothing: subpixel-antialiased;cursor: default;}
+.product-label{position:absolute;background: #000;color: #fff;font: 13px 'Oswald';left: 5px;top: 5px;font: 10px 'Oswald';width: 25px;height: 25px;text-align: center; border-radius: 50%;display: inline-block; vertical-align: middle;line-height: 25px;z-index: 9;user-select: none; -webkit-font-smoothing: subpixel-antialiased;cursor: default;}
 .shop-product:hover .rating{bottom:0;display: block;}
 .rating span.star{display:inline-block;font-family:FontAwesome;font-style:normal;font-weight:normal;}
 .rating span.star:hover{cursor:pointer;}

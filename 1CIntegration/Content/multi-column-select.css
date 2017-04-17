@@ -32,8 +32,8 @@ html,body{
 	height: 50px;
 	line-height: 50px;
 	text-align: center;
-        border:1px solid #111;
-        
+    border:1px solid #111;
+    border-radius: 3px;
 }
 
 .mcs-open{
