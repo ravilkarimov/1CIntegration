@@ -125,7 +125,7 @@ namespace _1CIntegration.Controllers
         {
             try
             {
-                var sql = "SELECT DISTINCT size FROM offers where good_key = N'" + id + "' ORDER BY size DESC ";
+                var sql = "SELECT DISTINCT size FROM offers where good_key = N'" + id + "' AND amount > 0 ORDER BY size DESC ";
 
                 return Json(SQLiteProvider.OpenSql(sql).ToList(), JsonRequestBehavior.AllowGet);
             }
