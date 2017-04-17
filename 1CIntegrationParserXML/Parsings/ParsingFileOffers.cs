@@ -78,6 +78,11 @@ namespace _1CIntegrationParserXML
                         var feature = firstOrDefault.LastChild.InnerText;
                         newElementRow["feature"] = feature;
 
+                        if (feature.IndexOf("Green Line", StringComparison.Ordinal) > -1)
+                        {
+                            feature += "";
+                        }
+
                         var size = Regex.Match(feature, @"\(([^()]*)\)").Groups[1].Value;
                         newElementRow["size"] = size;
                     }
@@ -150,8 +155,8 @@ namespace _1CIntegrationParserXML
                     .AsEnumerable()
                     .Select(x => new
                     {
-                        offer_key = x["offer_key"],
-                        feature = x["feature"]
+                        offer_key = x["offer_key"].ToString().Trim(),
+                        feature = x["feature"].ToString().Trim()
                     })
                     .ToList();
 
@@ -164,8 +169,7 @@ namespace _1CIntegrationParserXML
                             ? "0"
                             : rowGroup["amount"].ToString().Trim();
                         sql = "insert into offers (good_key, offer_key, feature, price, currency, amount, size) values " +
-                              "(N'" + rowGroup["good_key"] + "',N'" + rowGroup["offer_key"] + "',N'" + rowGroup["feature"] +
-                              "'" +
+                              "(N'" + rowGroup["good_key"] + "',N'" + rowGroup["offer_key"] + "',N'" + rowGroup["feature"] + "'" +
                               "," + rowGroup["price"] + ",N'" + rowGroup["currency"] + "'," + amount + ",N'" + rowGroup["size"] + "')";
                         //SQLiteProvider.ExecSql(sql);
                     }
@@ -174,8 +178,9 @@ namespace _1CIntegrationParserXML
                         var amount = rowGroup["amount"].ToString().Trim().Length == 0
                             ? "0"
                             : rowGroup["amount"].ToString().Trim();
-                        sql = "update offers set (price, currency, amount) = " +
-                              "(" + rowGroup["price"] + ",N'" + rowGroup["currency"] + "'," + amount + ") " +
+                        sql = "update offers set price = " + rowGroup["price"] + 
+                            ", currency = N'" + rowGroup["currency"] + "'" +
+                            ", amount = " + amount +
                               " where offer_key = N'" + rowGroup["offer_key"] + "' " +
                               " and good_key = N'" + rowGroup["good_key"] + "' " +
                               " and feature = N'" + rowGroup["feature"] + "' ";

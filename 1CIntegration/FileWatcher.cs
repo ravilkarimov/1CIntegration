@@ -94,15 +94,15 @@ namespace _1CIntegration
 
                     });
                 }
-                else if (e.ChangeType == WatcherChangeTypes.Created &&
+                else if (e.ChangeType == WatcherChangeTypes.Changed &&
                          Regex.IsMatch(e.FullPath, @"\.jpg", RegexOptions.IgnoreCase) &&
                          e.FullPath.IndexOf("_min.jpg", StringComparison.Ordinal) < 0 &&
                     !listFleName.Contains(e.Name))
                 {
+                    listFleName.Add(e.Name);
+
                     Task.Factory.StartNew(() =>
                     {
-                        listFleName.Add(e.Name);
-
                         Thread.Sleep(1000);
 
                         while (new FileInfo(e.FullPath).Attributes == 0)

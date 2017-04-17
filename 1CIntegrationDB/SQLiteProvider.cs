@@ -163,9 +163,9 @@ namespace _1CIntegrationDB
                     cmd.ExecuteNonQuery();
                 }
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
-                new FileLogger("Log.txt").LogMessage(e.Message);
+                new FileLogger("Log.txt").LogMessage(e.Message + " , " + e.Number);
             }
         }
 
