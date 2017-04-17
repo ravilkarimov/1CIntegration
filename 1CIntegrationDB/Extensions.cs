@@ -235,7 +235,8 @@ namespace _1CIntegrationDB
             }
             catch (Exception e)
             {
-                throw;
+                var error = e.Message;
+                new FileLogger("Log.txt").LogMessage(error);
             }
         }
     }
