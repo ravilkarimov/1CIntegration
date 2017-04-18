@@ -149,7 +149,7 @@ Djinaro.WriteResponseBrands = function (data) {
             Djinaro.filterByGoods();
         }
     });
-}
+} 
 
 Djinaro.WriteResponseSizes = function (data) {
     var sizes = document.getElementById('selectcontrolsize');
@@ -520,7 +520,8 @@ Djinaro.showVisible = function () {
 }
 
 var elementTarget;
-
+var lock;
+ 
 Djinaro.ClassOpen = function(e) {
     var selector = jQuery(e.currentTarget);
     var aMscOpen = jQuery('.mcs-open', selector);

@@ -120,7 +120,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getsizesgood
         [HttpGet]
-        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.Client)]
+        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.Server)]
         public JsonResult GetSizesGood(string id)
         {
             try
