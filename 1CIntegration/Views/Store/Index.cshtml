@@ -449,8 +449,11 @@
             clearInterval(timeNoUi);
             timeNoUi = setTimeout(function () { Djinaro.filterByGoods(); }, 500);
         });
-        var noUiOrigin = document.querySelector('.noUi-origin');
-        observer.observe(noUiOrigin, {
+        var noUiOrigin = document.getElementsByClassName('noUi-origin');
+        observer.observe(noUiOrigin[0], { 
+            attributes: true
+        });
+        observer.observe(noUiOrigin[1], {
             attributes: true
         });
     </script>
