@@ -447,7 +447,7 @@
         var timeNoUi = setTimeout(function () { }, 500);
         var observer = new MutationObserver(function (mutations) {
             clearInterval(timeNoUi);
-            timeNoUi = setTimeout(function () { Djinaro.filterByGoods(); }, 500);
+            timeNoUi = setTimeout(function () { Djinaro.filterByGoods(); }, 300);
         });
         var noUiOrigin = document.getElementsByClassName('noUi-origin');
         observer.observe(noUiOrigin[0], { 

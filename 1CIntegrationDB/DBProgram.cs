@@ -15,37 +15,37 @@ namespace _1CIntegrationDB
             const string sql_brands = "IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='d_brands' AND xtype='U') " +
                                       "CREATE TABLE d_brands (" +
                                       "brand_id INT IDENTITY(1,1) NOT NULL, " +
-                                      "brand nvarchar(255), " +
+                                      "brand nchar(20), " +
                                       "is_actual INT) ";
 
             const string sql_groups = "IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='groups' AND xtype='U') " +
                                       "CREATE TABLE groups (" +
                                       "group_id INT IDENTITY(1,1) NOT NULL, " +
-                                      "group_key nvarchar(255), " +
-                                      "group_name nvarchar(255), " +
+                                      "group_key nvarchar(50), " +
+                                      "group_name nvarchar(50), " +
                                       "is_actual INT) ";
 
             const string sql_goods = "IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='goods' AND xtype='U') " +
                                      "CREATE TABLE goods (" +
                                      "good_id INT IDENTITY(1,1) NOT NULL, " +
-                                     "good_key nvarchar(255), " +
-                                     "good nvarchar(255), " +
+                                     "good_key nvarchar(50), " +
+                                     "good nvarchar(100), " +
                                      "group_id INT, " +
                                      "brand_id INT, " +
                                      "inserted_on DATE, " +
                                      "changed_on DATE, " +
-                                     "img_path nvarchar(500), " +
+                                     "img_path nvarchar(150), " +
                                      "is_actual INT) ";
 
             const string sql_offers = "IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='offers' AND xtype='U') " +
                                       "CREATE TABLE offers (" +
                                       "offer_id INT IDENTITY(1,1) NOT NULL, " +
-                                      "offer_key nvarchar(255), " +
-                                      "good_key nvarchar(255), " +
-                                      "feature nvarchar(255), " +
+                                      "offer_key nvarchar(50), " +
+                                      "good_key nvarchar(50), " +
+                                      "feature nvarchar(150), " +
                                       "size nvarchar(20), " +
                                       "price INT, " +
-                                      "currency nvarchar(255), " +
+                                      "currency nchar(10), " +
                                       "amount INT, " +
                                       "inserted_on DATE, " +
                                       "changed_on DATE) ";
@@ -68,9 +68,13 @@ namespace _1CIntegrationDB
             SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_offers_price') create index ix_offers_price On  offers(price)");
             SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_offers_amount') create index ix_offers_amount On  offers(amount)");
             SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_offers_size') create index ix_offers_size On  offers(size)");
+            SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_offers_inserted_on') create index ix_offers_inserted_on on offers(inserted_on)");
+            SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_offers_changed_on') create index ix_offers_changed_on on offers(changed_on)");
             SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_goods_group_id') create index ix_goods_group_id On  goods(group_id)");
             SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_goods_brand_id') create index ix_goods_brand_id On  goods(brand_id)");
             SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_goods_good') create index ix_goods_good On  goods(good)");
+            SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_goods_inserted_on') create index ix_goods_inserted_on on goods(inserted_on)");
+            SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_goods_changed_on') create index ix_goods_changed_on on goods(changed_on)");
 
             const string sqlTriggerGoodsInsert = "create trigger trigger_goods_insert " +
                                                  "on goods " +

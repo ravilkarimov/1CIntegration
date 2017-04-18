@@ -208,50 +208,28 @@ Djinaro.WriteResponseGoods = function (data) {
     if (data.length > 0) {
         var countRow = data.length / 6;
         var itemIndex = 0;
-        var realsrc;
         for (var i = 0; i < countRow; i++) {
 
             var row = document.createElement('div');
             row.className = 'row';
-            var addItem = 1;
 
-            for (var j = 0; j < addItem; j++) {
+            for (var j = 0; j < 6; j++) {
                 if (data[itemIndex]) {
                     var goodKey = data[itemIndex].good_key;
-                    var src = "../img/theme/hole-2038430_640.png";
-                    realsrc = data[itemIndex].img_path;
-                    if (i <= 3) {
-                        src = realsrc;
-                        realsrc = "";
-                    }
+                    var src = data[itemIndex].img_path;
                     var spanNew = (data[itemIndex].new_good === 1 ? "<span class = 'product-label'>NEW</span>" : "");
                     if (data[itemIndex]) {
                         var stringElement =
-                            '<div class="col-xs-2">' +
-                                '   <div class="shop-product animation fadeInUp delay4 animation-active" id="shop-product-' + goodKey + '">' +
-                                '       <div class="overlay-wrapper">' +
-                                '           <img src="' + src + '" realsrc="' + realsrc + '" class="img-zoom owl-item" width="1200" height="900" alt="' + data[itemIndex].good + '">' +
+                            '<div class="col-xs-2"><div class="shop-product animation fadeInUp delay4 animation-active" id="shop-product-' + goodKey + '"><div class="overlay-wrapper">' +
+                                '<img src="' + src + '" class="img-zoom owl-item" width="1200" height="900" alt="' + data[itemIndex].good + '" async="true">' +
                                  spanNew +
-                                '           <div class="overlay-wrapper-content"> ' +
-                                '				<div class="overlay-details"> ' +
-                                '        			<a href="../store/GetImgProduct?good_id=' + data[itemIndex].good_id + '" class="color-white" data-lightbox="image""> ' +
-                                '                       <span class="icon gfx-zoom-in-1" ></span>' +
-                                '                   </a> ' +
-                                '    			</div> ' +
-                                '    		</div> ' +
-                                '       </div>' +
-                                '       <div class="shop-product-info">' +
-                                '           <a><h5 class="product-name">' + data[itemIndex].good + ' </h5></a>' +
-                                '           <p class="product-price margin-top-10">' + data[itemIndex].price + ' ₽ </p>' +
-                                '           <div class="rating" id="rating_' + goodKey + '"></div>' +
-                                '       </div>' +
-                                '    </div>' +
-                                '    <div class="white-space space-small"></div>' +
-                                '</div> ';
+                                '<div class="overlay-wrapper-content"><div class="overlay-details"> ' +
+                                '<a href="../store/GetImgProduct?good_id=' + data[itemIndex].good_id + '" class="color-white" data-lightbox="image""> ' +
+                                '<span class="icon gfx-zoom-in-1"></span></a></div></div></div><div class="shop-product-info">' +
+                                '<a><h5 class="product-name">' + data[itemIndex].good + '</h5></a><p class="product-price margin-top-10">' + data[itemIndex].price + ' ₽ </p>' +
+                                '<div class="rating" id="rating_' + goodKey + '"></div></div></div><div class="white-space space-small"></div></div> ';
                         row.innerHTML += stringElement;
                         categories.appendChild(row);
-
-                        if (addItem < 6) addItem++;
                     }
 
                     itemIndex += 1;
@@ -268,18 +246,6 @@ Djinaro.WriteResponseGoods = function (data) {
         }
         for (var s = 0; s < shopProducts.length; s++) {
             jQuery('#' + shopProducts[s].id).on('mouseover', listener);
-        }
-
-        var imgs = document.getElementsByTagName('img');
-        for (var i = 0; i < imgs.length; i++) {
-
-            var img = imgs[i];
-            realsrc = img.getAttribute('realsrc');
-            if (!realsrc) continue;
-
-            img.src = realsrc;
-            img.async = true;
-            img.setAttribute('realsrc', '');
         }
     }
 }

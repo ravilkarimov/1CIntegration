@@ -215,14 +215,12 @@ namespace _1CIntegration.Controllers
                     .Aggregate("", (current, filter_word) => current + string.Format(" and (upper(good) LIKE '{0}%' OR upper(good) LIKE '%{0}%' OR upper(good) LIKE '%{0}') ", filter_word.ToUpper()));
 
                 sql =
-                    " SELECT DISTINCT gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, " +
+                    " SELECT DISTINCT g.group_id, g.good_id, g.good, g.good_key, " +
                     " MAX(o.price) as price, o.currency, " +
-                    " (CASE WHEN o.amount > 0 THEN N'Есть в наличии' ELSE N'Нет в наличии' END) as amount, " +
                     " g.img_path, " +
                     " (CASE WHEN g.inserted_on = (select max(inserted_on) from goods) THEN 1 ELSE 0 END) as new_good " +
-                    " FROM goods g, groups gr, offers o " +
+                    " FROM goods g, offers o " +
                     " WHERE 1 = 1 " +
-                    " AND g.group_id = gr.group_id " +
                     " AND g.good_key = o.good_key " +
                     " AND g.group_id = " + (groups > 0 ? groups : 1) + " " +
                     " AND g.img_path != '' " +
@@ -231,7 +229,7 @@ namespace _1CIntegration.Controllers
                     filter +
                     (Sizes.Count > 0 && Sizes.Any(x => !x.IsNullOrEmpty()) ? " AND o.size in (" + string.Join(",", Sizes.Where(x => !x.IsNullOrEmpty())) + ") " : "") +
                     (Brands.Count > 0 && Brands.Any(x => x > 0) ? " AND g.brand_id in (" + string.Join(",", Brands) + ") " : "") +
-                    " GROUP BY gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, o.currency, o.amount, g.img_path, g.inserted_on " +
+                    " GROUP BY g.group_id, g.good_id, g.good, g.good_key, o.currency, g.img_path, g.inserted_on " +
                     " ORDER BY new_good DESC, price ASC, g.good ";
                 var dt = SQLiteProvider.OpenSql(sql);
 
@@ -239,8 +237,7 @@ namespace _1CIntegration.Controllers
                 {
                     var pathMinImg = row["img_path"].ToString().Replace(".jpg", "_min.jpg");
                     var isFile = System.IO.File.Exists(path_web_data + "/" + pathMinImg);
-                    var imgPath = "../webdata/" + (isFile ? pathMinImg : row["img_path"].ToString());
-                    row["img_path"] = imgPath;
+                    row["img_path"] = string.Format("../webdata/{0}", (isFile ? pathMinImg : row["img_path"].ToString()));
                 }
 
                 return Json(dt.ToList(), JsonRequestBehavior.AllowGet);
