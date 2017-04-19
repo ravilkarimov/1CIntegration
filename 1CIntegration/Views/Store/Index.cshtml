@@ -143,9 +143,10 @@
 
             <!-- Container -->
             <div class="container content-with-sidebar">
-                <div class="col-sm-12">
-                    <div class="row">
-                        <!-- Поиск -->
+                
+                <!-- Поиск -->
+                <div class="row">
+                    <div class="col-sm-12">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="input-group">
@@ -155,83 +156,79 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <!-- Поиск -->   
 
-                        <!-- Поиск -->
-                    </div>
-                    <div class="row">
-                        <!-- Content -->
-                        <div class="col-sm-12">
+                <!-- Контент -->
+                <div class="row">
 
-                            <!--Горизонтальный бар -->
-                            <div class="container">
-
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <div id="selectcontrolbrand">
-                                            <select name="brand">
-                                            </select>
+                    <!--Горизонтальный бар -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-3">
+                                <div id="selectcontrolbrand">
+                                    <select name="brand"></select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <div id="selectcontrolsize">
+                                    <select name="size"></select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <div id="selectcontrolseason">
+                                    <select name="season">
+                                        <option>Лето</option>
+                                        <option>Зима</option>
+                                        <option>Демисезон</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-3">
+                                <div class="accordion accordion-alt panel-group">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h5 class="panel-title">
+                                                <a class="accordion-toggle collapsed" data-toggle="collapse" href="#collapse"><span class="livicon iconleft" data-n="settings" data-s="16" data-c="#fff" data-hc="#000" data-a="1" data-l="0" data-i="3" data-d="0" data-et="hover" data-op="0"></span>ЦЕНА</a>
+                                            </h5>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <div id="selectcontrolsize">
-                                            <select name="size">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <div id="selectcontrolseason">
-                                            <select name="season">
-                                                <option>Лето</option>
-                                                <option>Зима</option>
-                                                <option>Демисезон</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <div class="accordion accordion-alt panel-group">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h5 class="panel-title">
-                                                        <a class="accordion-toggle collapsed" data-toggle="collapse" href="#collapse"><span class="livicon iconleft" data-n="settings" data-s="16" data-c="#fff" data-hc="#000" data-a="1" data-l="0" data-i="3" data-d="0" data-et="hover" data-op="0"></span>ЦЕНА</a>
-                                                    </h5>
-                                                </div>
-                                                <div id="collapse" class="panel-collapse collapsed collapse">
-                                                    <div class="panel-body">
-                                                        <div id="html5" class="noUi-target noUi-ltr noUi-horizontal noUi-background" onchange=" Djinaro.filterByGoods()"></div>
-                                                        <div class="white-space space-xsmall"></div>
-                                                        <div class="row">
-                                                            <input class="form-control" type="number" min="0" max="10000" step="500" id="input-number1">
-                                                            <span style="line-height: 35px; font-weight: bold; color: #000; width: 10%">—</span>
-                                                            <input class="form-control" type="number" min="0" max="10000" step="500" id="input-number2">
-                                                        </div>
-                                                    </div>
+                                        <div id="collapse" class="panel-collapse collapsed collapse">
+                                            <div class="panel-body">
+                                                <div id="html5" class="noUi-target noUi-ltr noUi-horizontal noUi-background" onchange=" Djinaro.filterByGoods()"></div>
+                                                <div class="white-space space-xsmall"></div>
+                                                <div class="row">
+                                                    <input class="form-control" type="number" min="0" max="10000" step="500" id="input-number1">
+                                                    <span style="line-height: 35px; font-weight: bold; color: #000; width: 10%">—</span>
+                                                    <input class="form-control" type="number" min="0" max="10000" step="500" id="input-number2">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Горизантальный бар -->
-                            <div class="white-space space-xsmall"></div>
-
-                            <!-- Товары -->
-                            <div class="container" id="goods">
-                            </div>
-                            <!-- Товары -->
-                            <!-- Pagination -->
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="text-center" id="paging">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /Pagination -->
-
-                            <div class="white-space space-medium"></div>
                         </div>
-                        <!-- /Content -->
-
                     </div>
+                    <!-- Горизантальный бар -->
+                    <div class="white-space space-xsmall"></div>
+
+                    <!-- Товары -->
+                    <div class="container" id="goods">
+                    </div>
+                    <!-- Товары -->
+
+                    <!-- Pagination -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="text-center" id="paging">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Pagination -->
+
+                    <div class="white-space space-medium"></div>
+                    <!-- /Контент -->
+
+                </div>
 
                 </div>
             <!-- /Container -->
@@ -341,6 +338,8 @@
     <!-- Portfolio -->
     <script src="~/Scripts/themejs/jquery.isotope.min.js" type="text/javascript"></script>
     <script src="~/Scripts/themejs/jquery.colio.min.js" type="text/javascript"></script>
+    <!-- Lightbox -->
+    <script src="~/Scripts/themejs/jquery.magnific-popup.min.js" type="text/javascript"></script>
     <!-- Parallax -->
     <script src="~/Scripts/themejs/jquery.stellar.min.js" type="text/javascript"></script>
     <!-- Carousel -->

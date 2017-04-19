@@ -282,11 +282,11 @@ namespace _1CIntegration.Controllers
                                 : "");
                             stringElements +=
                                 String.Format(
-                                    "<div class='col-xs-2'><div class='shop-product animation fadeInUp delay4 animation-active' id='shop-product-{0}'>"+
+                                    "<div class='col-xs-12 col-md-2'><div class='shop-product animation fadeInUp delay4 animation-active' id='shop-product-{0}'>"+
                                     "<div class='overlay-wrapper'>"+
                                     "<img src='{1}' class='img-zoom owl-item' width='1200' height='900' alt='{2}' async='true'>{5}"+
-                                    "<div class='overlay-wrapper-content'><div class='overlay-details'>"+ 
-                                    "<a href='../store/GetImgProduct?good_id='{4}' class='color-white' data-lightbox='image'>"+ 
+                                    "<div class='overlay-wrapper-content'><div class='overlay-details'>"+
+                                    "<a href='../store/GetImgProduct?good_id={4}' class='color-white {4}' data-lightbox='image'>" + 
                                     "<span class='icon gfx-zoom-in-1'></span></a></div></div></div><div class='shop-product-info'>"+
                                     "<a><h5 class='product-name'>{2}</h5></a><p class='product-price margin-top-10'>{3} ₽</p>" +
                                     "<div class='rating' id='rating_{0}'></div></div></div><div class='white-space space-small'></div></div>",
