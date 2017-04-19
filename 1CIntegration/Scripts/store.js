@@ -206,35 +206,11 @@ Djinaro.WriteResponseGoods = function (data) {
     var categories = document.getElementById('goods');
     jQuery('#goods').children().remove();
     if (data.length > 0) {
-        var countRow = data.length / 6;
-        var itemIndex = 0;
-        for (var i = 0; i < countRow; i++) {
-
+        for (var i = 0; i < data.length; i++) {
             var row = document.createElement('div');
             row.className = 'row';
-
-            for (var j = 0; j < 6; j++) {
-                if (data[itemIndex]) {
-                    var goodKey = data[itemIndex].good_key;
-                    var src = data[itemIndex].img_path;
-                    var spanNew = (data[itemIndex].new_good === 1 ? "<span class = 'product-label'>NEW</span>" : "");
-                    if (data[itemIndex]) {
-                        var stringElement =
-                            '<div class="col-xs-2"><div class="shop-product animation fadeInUp delay4 animation-active" id="shop-product-' + goodKey + '"><div class="overlay-wrapper">' +
-                                '<img src="' + src + '" class="img-zoom owl-item" width="1200" height="900" alt="' + data[itemIndex].good + '" async="true">' +
-                                 spanNew +
-                                '<div class="overlay-wrapper-content"><div class="overlay-details"> ' +
-                                '<a href="../store/GetImgProduct?good_id=' + data[itemIndex].good_id + '" class="color-white" data-lightbox="image""> ' +
-                                '<span class="icon gfx-zoom-in-1"></span></a></div></div></div><div class="shop-product-info">' +
-                                '<a><h5 class="product-name">' + data[itemIndex].good + '</h5></a><p class="product-price margin-top-10">' + data[itemIndex].price + ' ₽ </p>' +
-                                '<div class="rating" id="rating_' + goodKey + '"></div></div></div><div class="white-space space-small"></div></div> ';
-                        row.innerHTML += stringElement;
-                        categories.appendChild(row);
-                    }
-
-                    itemIndex += 1;
-                }
-            }
+            row.innerHTML = data[i];
+            categories.appendChild(row);
         }
 
         var shopProducts = jQuery('.shop-product');

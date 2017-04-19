@@ -1,21 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO.Compression;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.UI;
 using _1CIntegrationDB;
-using System.Configuration;
-using System.Text.RegularExpressions;
 
 namespace _1CIntegration.Controllers
 {
+    public class CompressAttribute : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            var encodingsAccepted = filterContext.HttpContext.Request.Headers["Accept-Encoding"];
+            if (string.IsNullOrEmpty(encodingsAccepted)) return;
+
+            encodingsAccepted = encodingsAccepted.ToLowerInvariant();
+            var response = filterContext.HttpContext.Response;
+
+            if (encodingsAccepted.Contains("deflate"))
+            {
+                response.AppendHeader("Content-encoding", "deflate");
+                response.Filter = new DeflateStream(response.Filter, CompressionMode.Compress);
+            }
+            else if (encodingsAccepted.Contains("gzip"))
+            {
+                response.AppendHeader("Content-encoding", "gzip");
+                response.Filter = new GZipStream(response.Filter, CompressionMode.Compress);
+            }
+        }
+    }
+
+    [Compress]
     public class StoreController : AsyncController
     {
         // GET: /Store/
-        [OutputCache(Duration = 600, Location = System.Web.UI.OutputCacheLocation.Client)]
+        [OutputCache(Duration = 600, Location = OutputCacheLocation.Client)]
         public ActionResult Index()
         {
             return View();
@@ -23,7 +49,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/GetImgProductMin?good_id
         [HttpGet]
-        [OutputCache(Duration = 600, Location = System.Web.UI.OutputCacheLocation.Client)]
+        [OutputCache(Duration = 600, Location = OutputCacheLocation.Client)]
         public async Task<ActionResult> GetImgProductMin(Int64 good_id)
         {
             return await Task<FileStreamResult>.Factory.StartNew(() =>
@@ -50,7 +76,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/GetImgProduct?good_id=
         [HttpGet]
-        [OutputCache(Duration = 600, Location = System.Web.UI.OutputCacheLocation.Client)]
+        [OutputCache(Duration = 600, Location = OutputCacheLocation.Client)]
         public async Task<ActionResult> GetImgProduct(Int64 good_id)
         {
             return await Task<FileStreamResult>.Factory.StartNew(() =>
@@ -74,7 +100,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getgroups
         [HttpGet]
-        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.Server)]
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Server)]
         public JsonResult GetGroups()
         {
             try
@@ -97,7 +123,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getbrands
         [HttpGet]
-        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.Server)]
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Server)]
         public JsonResult GetBrands()
         {
             try
@@ -120,7 +146,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getsizesgood
         [HttpGet]
-        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.Server)]
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Server)]
         public JsonResult GetSizesGood(string id)
         {
             try
@@ -137,7 +163,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getsizes
         [HttpGet]
-        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.Server)]
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.Server)]
         public JsonResult GetSizes()
         {
             try
@@ -200,7 +226,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getshoes
         [HttpGet]
-        [OutputCache(Duration = 300, Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient)]
         public JsonResult GetShoes(int groups, string sizes, string brands, string search, string price_1, string price_2)
         {
             try
@@ -232,15 +258,48 @@ namespace _1CIntegration.Controllers
                     " GROUP BY g.group_id, g.good_id, g.good, g.good_key, o.currency, g.img_path, g.inserted_on " +
                     " ORDER BY new_good DESC, price ASC, g.good ";
                 var dt = SQLiteProvider.OpenSql(sql);
-
-                foreach (DataRow row in dt.Rows)
+                
+                var countElementInRow = 6; //Количество товаров в строке
+                var itemElement = 0;
+                var totalCountRows = dt.Rows.Count;
+                var countRow = Math.Floor((double)(totalCountRows / countElementInRow));
+                var listRow = new List<string>();
+                for (var i = 0; i <= countRow; i++)
                 {
-                    var pathMinImg = row["img_path"].ToString().Replace(".jpg", "_min.jpg");
-                    var isFile = System.IO.File.Exists(path_web_data + "/" + pathMinImg);
-                    row["img_path"] = string.Format("../webdata/{0}", (isFile ? pathMinImg : row["img_path"].ToString()));
+                    var stringElements = "";
+                    for (var j = 0; j < countElementInRow; j++)
+                    {
+                        if (totalCountRows > itemElement)
+                        {
+                            var data = dt.Rows[itemElement];
+                            if (data == null) continue;
+                            var pathMinImg = data["img_path"].ToString().Replace(".jpg", "_min.jpg");
+                            var isFile = System.IO.File.Exists(path_web_data + "/" + pathMinImg);
+                            data["img_path"] = string.Format("../webdata/{0}", (isFile ? pathMinImg : data["img_path"].ToString()));
+
+                            var spanNew = (data["new_good"].AsInteger() == 1
+                                ? "<span class='product-label'>NEW</span>"
+                                : "");
+                            stringElements +=
+                                String.Format(
+                                    "<div class='col-xs-2'><div class='shop-product animation fadeInUp delay4 animation-active' id='shop-product-{0}'>"+
+                                    "<div class='overlay-wrapper'>"+
+                                    "<img src='{1}' class='img-zoom owl-item' width='1200' height='900' alt='{2}' async='true'>{5}"+
+                                    "<div class='overlay-wrapper-content'><div class='overlay-details'>"+ 
+                                    "<a href='../store/GetImgProduct?good_id='{4}' class='color-white' data-lightbox='image'>"+ 
+                                    "<span class='icon gfx-zoom-in-1'></span></a></div></div></div><div class='shop-product-info'>"+
+                                    "<a><h5 class='product-name'>{2}</h5></a><p class='product-price margin-top-10'>{3} ₽</p>" +
+                                    "<div class='rating' id='rating_{0}'></div></div></div><div class='white-space space-small'></div></div>",
+                                    data["good_key"].ToString().Trim(), data["img_path"].ToString().Trim(),
+                                    data["good"].ToString().Trim(), data["price"].ToString().Trim(),
+                                    data["good_id"].ToString().Trim(), spanNew);
+                            itemElement++;
+                        }
+                    }
+                    listRow.Add(stringElements);
                 }
 
-                return Json(dt.ToList(), JsonRequestBehavior.AllowGet);
+                return Json(listRow, JsonRequestBehavior.AllowGet);
             }
             catch (Exception error)
             {

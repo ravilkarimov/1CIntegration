@@ -394,12 +394,6 @@
             Djinaro.getAllBrands();
             Djinaro.getAllSizes();
         });
-
-        jQuery("#searchinput")
-            .keyup(function() {
-                if (jQuery("#searchinput").val().trim() != '') Djinaro.filterByGoods();
-            })
-            .keyup();
     });
 
 </script>
@@ -456,6 +450,12 @@
         observer.observe(noUiOrigin[1], {
             attributes: true
         });
+        jQuery("#searchinput")
+            .keyup(function () {
+                clearInterval(timeNoUi);
+                timeNoUi = setTimeout(function () { Djinaro.filterByGoods();                 }, 300);
+            })
+            .keyup();
     </script>
 </body>
 </html>
