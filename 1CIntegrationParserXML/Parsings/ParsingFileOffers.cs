@@ -151,10 +151,11 @@ namespace _1CIntegrationParserXML
                 var listSql = new List<string>();
                 //OffersTable 
 
-                var inBaseTable = SQLiteProvider.OpenSql("select offer_key, feature, amount from offers")
+                var inBaseTable = SQLiteProvider.OpenSql("select good_key, offer_key, feature, amount from offers")
                     .AsEnumerable()
                     .Select(x => new
                     {
+                        good_key = x["good_key"].ToString().Trim(),
                         offer_key = x["offer_key"].ToString().Trim(),
                         feature = x["feature"].ToString().Trim(),
                         amount = x["amount"].AsInteger()
@@ -166,7 +167,10 @@ namespace _1CIntegrationParserXML
                 var countElem = 0;
                 foreach (DataRow rowGroup in dataSource.Tables["OffersTable"].Rows)
                 {
-                    var cnt = inBaseTable.Count(x => (string) x.offer_key == rowGroup["offer_key"].ToString().Trim() && (string) x.feature == rowGroup["feature"].ToString().Trim());
+                    var cnt = inBaseTable.Count(x =>
+                        x.good_key == rowGroup["good_key"].ToString().Trim() && 
+                        x.offer_key == rowGroup["offer_key"].ToString().Trim() && 
+                        x.feature == rowGroup["feature"].ToString().Trim());
                     if (cnt == 0 || rowGroup["offer_key"].ToString().Trim() == "")
                     {
                         var amount = rowGroup["amount"].ToString().Trim().Length == 0
@@ -185,10 +189,10 @@ namespace _1CIntegrationParserXML
                         sql = "update offers set price = " + rowGroup["price"] + 
                                 ", currency = N'" + rowGroup["currency"] + "'" +
                                 ", amount = " + amount +
-                                ", amount_old = " + inBaseTable.Where(x => x.offer_key == rowGroup["offer_key"].ToString().Trim()).Select(x => x.amount).FirstOrDefault() +
-                                " where offer_key = N'" + rowGroup["offer_key"] + "' " +
-                                " and good_key = N'" + rowGroup["good_key"] + "' " +
-                                " and feature = N'" + rowGroup["feature"] + "' ";
+                                ", amount_old = amount " + 
+                                " where offer_key = N'" + rowGroup["offer_key"].ToString().Trim() + "' " +
+                                " and good_key = N'" + rowGroup["good_key"].ToString().Trim() + "' " +
+                                " and feature = N'" + rowGroup["feature"].ToString().Trim() + "' ";
                         //SQLiteProvider.ExecSql(sql);
                     }
 
