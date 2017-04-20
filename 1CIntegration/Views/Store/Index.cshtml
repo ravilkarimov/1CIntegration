@@ -442,27 +442,47 @@
             });
         });
     </script>
-    <script>
-        Djinaro.filterByGoods();
+<script>
+    Djinaro.filterByGoods();
 
-        var timeNoUi = setTimeout(function () { }, 500);
-        var observer = new MutationObserver(function (mutations) {
+    var timeNoUi = setTimeout(function() {}, 500);
+    var observer = new MutationObserver(function(mutations) {
+        clearInterval(timeNoUi);
+        timeNoUi = setTimeout(function() { Djinaro.filterByGoods(); }, 300);
+    });
+    var noUiOrigin = document.getElementsByClassName('noUi-origin');
+    observer.observe(noUiOrigin[0], {
+        attributes: true
+    });
+    observer.observe(noUiOrigin[1], {
+        attributes: true
+    });
+    jQuery("#searchinput")
+        .keyup(function() {
             clearInterval(timeNoUi);
-            timeNoUi = setTimeout(function () { Djinaro.filterByGoods(); }, 300);
-        });
-        var noUiOrigin = document.getElementsByClassName('noUi-origin');
-        observer.observe(noUiOrigin[0], { 
-            attributes: true
-        });
-        observer.observe(noUiOrigin[1], {
-            attributes: true
-        });
-        jQuery("#searchinput")
-            .keyup(function () {
-                clearInterval(timeNoUi);
-                timeNoUi = setTimeout(function () { Djinaro.filterByGoods();                 }, 300);
-            })
-            .keyup();
-    </script>
+            timeNoUi = setTimeout(function() { Djinaro.filterByGoods(); }, 300);
+        })
+        .keyup();
+
+    window.onload = function() {
+        if (jQuery().magnificPopup) {
+            jQuery('[data-lightbox=image], .lightbox').each(function(index, element) { jQuery(this).magnificPopup({ type: 'image', mainClass: 'mfp-fade', removalDelay: 300, fixedContentPos: false, fixedBgPos: true, overflowY: 'auto', closeOnContentClick: true }); });
+            jQuery('[data-lightbox=video], [data-lightbox=map], [data-lightbox=iframe], .lightbox-video, .lightbox-map, .lightbox-iframe').each(function(index, element) { jQuery(this).magnificPopup({ mainClass: 'mfp-fade', removalDelay: 300, fixedContentPos: false, fixedBgPos: true, overflowY: 'auto', type: 'iframe', fixedContentPos: false }); });
+            jQuery('[data-lightbox=gallery], .lightbox-gallery').each(function(index, element) {
+                jQuery(this).magnificPopup({
+                    mainClass: 'mfp-fade',
+                    removalDelay: 300,
+                    fixedContentPos: false,
+                    fixedBgPos: true,
+                    overflowY: 'auto',
+                    type: 'image',
+                    delegate: 'a',
+                    gallery: { enabled: true }
+                });
+            });
+        };
+    };
+</script>
+
 </body>
 </html>

@@ -67,6 +67,7 @@ namespace _1CIntegrationDB
 
             SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_offers_price') create index ix_offers_price On  offers(price)");
             SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_offers_amount') create index ix_offers_amount On  offers(amount)");
+            SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_offers_amount_old') create index ix_offers_amount_old On  offers(amount_old)");
             SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_offers_size') create index ix_offers_size On  offers(size)");
             SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_offers_inserted_on') create index ix_offers_inserted_on on offers(inserted_on)");
             SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_offers_changed_on') create index ix_offers_changed_on on offers(changed_on)");

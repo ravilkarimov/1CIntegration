@@ -161,6 +161,9 @@ namespace _1CIntegrationParserXML
                     })
                     .ToList();
 
+
+                var countAll = 0;
+                var countElem = 0;
                 foreach (DataRow rowGroup in dataSource.Tables["OffersTable"].Rows)
                 {
                     var cnt = inBaseTable.Count(x => (string) x.offer_key == rowGroup["offer_key"].ToString().Trim() && (string) x.feature == rowGroup["feature"].ToString().Trim());
@@ -190,10 +193,18 @@ namespace _1CIntegrationParserXML
                     }
 
                     listSql.Add(sql);
+                    countElem++;
+                    countAll++;
+
+                    if (countElem == 100 || countAll == dataSource.Tables["OffersTable"].Rows.Count)
+                    {
+                        SQLiteProvider.ExecSql(listSql);
+                        listSql = new List<string>();
+                        countElem = 0;
+                    }
                 }
 
-                new FileLogger("Log.txt").LogMessage("Количество скриптов: " + listSql.Count);
-                SQLiteProvider.ExecSql(listSql);
+                new FileLogger("Log.txt").LogMessage("Количество скриптов: " + countAll);
             }
             catch (Exception e)
             {
