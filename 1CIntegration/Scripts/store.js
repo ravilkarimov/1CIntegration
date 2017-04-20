@@ -223,6 +223,12 @@ Djinaro.WriteResponseGoods = function (data) {
         for (var s = 0; s < shopProducts.length; s++) {
             jQuery('#' + shopProducts[s].id).on('mouseover', listener);
         }
+
+        if (jQuery().magnificPopup) {
+            jQuery('[data-lightbox=image], .lightbox').each(function(index, element) {
+                 jQuery(this).magnificPopup({ type: 'image', mainClass: 'mfp-fade', removalDelay: 300, fixedContentPos: false, fixedBgPos: true, overflowY: 'auto', closeOnContentClick: true });
+            });
+        };
     }
 }
 
