@@ -46,7 +46,7 @@ namespace _1CIntegrationDB
                                       "size nvarchar(20), " +
                                       "price INT, " +
                                       "currency nchar(10), " +
-                                      "amount INT, " +
+                                      "amount INT, amount_old INT, " +
                                       "inserted_on DATE, " +
                                       "changed_on DATE) ";
 
