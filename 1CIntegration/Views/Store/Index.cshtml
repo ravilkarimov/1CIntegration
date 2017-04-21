@@ -387,11 +387,11 @@
     </script>
 <script>
     jQuery(function() {
-        jQuery("#selectcontrolbrand, #selectcontrolsize, #selectcontrolseason, #selectcontrolprice, .panel-group")
-            .on('mouseover mouseout', function(e) {
+        jQuery(".panel-group")
+           .on('mouseover mouseout', function(e) {
                 Djinaro.ClassOpen(e);
             });
-
+        
         jQuery(function() {
             Djinaro.getAllBrands();
             Djinaro.getAllSizes();
@@ -476,6 +476,22 @@
                 });
             });
         };
+
+        jQuery('.mcs-open').hover(function () {
+            jQuery(this).addClass('open').find('.mcs-open').first().stop(true, true).slideDown(300);
+            jQuery(this).parent().find('.mcs-container').css("display", "block");
+        }, function () {
+            jQuery(this).removeClass('open').find('.mcs-open').first().stop(true, true).hide(300);
+            jQuery(this).parent().find('.mcs-container').css("display", "none");
+        });
+
+        jQuery('.mcs-container').hover(function () {
+            jQuery(this).parent().find('.mcs-open').addClass('open').find('.mcs-open').first().stop(true, true).slideDown(300);
+            jQuery(this).css("display", "block");
+        }, function () {
+            jQuery(this).parent().find('.mcs-open').removeClass('open').find('.mcs-open').first().stop(true, true).hide(300);
+            jQuery(this).css("display", "none");
+        });
     };
 </script>
 
