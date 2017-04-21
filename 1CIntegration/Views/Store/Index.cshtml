@@ -30,6 +30,9 @@
     <link href="~/Content/bootstrap-select.min.css" rel="stylesheet" />
     <link href="~/Content/multi-column-select.css" rel="stylesheet" />
 
+    <!--Search bar-->
+    <link href="~/Scripts/search/css/style.css" rel="stylesheet" />
+
     <script src="~/Scripts/nouislider/nouislider.min.js"></script>
     <!--script src="https://code.jquery.com/jquery-3.1.1.min.js"></script-->
     <!--script async src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script-->
@@ -74,7 +77,7 @@
                         <!-- /Left -->
                         <div class="col-md-6 col-sm-6 columns">
                             <div class="header-top-right">
-                                <p style="text-align:right;">Сайт находится в тестовом режиме. Информация на сайте может отличаться от реальной.</p>
+                                <p style="text-align:right;">Сайт находится в разработке, информация может быть неактуальной</p>
                             </div>
                         </div>
                         <!-- /Middle -->
@@ -107,7 +110,10 @@
                                             <a href="/store"><img src="~/img/theme/logo_n.png" alt="Logo" /></a>
                                         </div>
                                     </div>
-
+                                    <form id="search" action="#" method="post">
+                                        <div id="label"><label for="search-terms" id="search-label">Поиск</label></div>
+                                        <div id="input"><input class="form-control" type="text" name="search-terms" id="search-terms" placeholder="Поиск.."></div>
+                                    </form>    
                                     <div class="collapse navbar-collapse" id="gfx-collapse">
                                         <ul id="menu_nav" class="nav navbar-nav gfx-nav">
                                             <!--li class="dropdown"><a href="">Главная</a></li-->
@@ -144,26 +150,15 @@
             <!-- Container -->
             <div class="container content-with-sidebar">
                 
-                <!-- Поиск -->
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div class="input-group">
-                                    <span class="input-group-btn"><button class="btn-sm btn-primary" type="button" onclick="Djinaro.filterByGoods();" style="border:0px;"><i class="fa fa-search"></i></button></span>
-                                    <input id="searchinput" class="form-control" type="text" placeholder="Введите название..">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Поиск -->   
+                <div class="white-space space-xsmall"></div>  
 
                 <!-- Контент -->
                 <div class="row">
 
                     <!--Горизонтальный бар -->
                     <div class="container">
+                        <div class="row"></div>
+                            
                         <div class="row">
                             <div class="col-xs-12 col-md-3">
                                 <div id="selectcontrolbrand">
@@ -316,9 +311,9 @@
 
     </div>
 
-    <!-- Javascripts
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    <!--Search bar-->
+    <script src="~/Scripts/search/js/classie.js"></script>
+    <script src="~/Scripts/search/js/search.js"></script>
     <script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>
     <script src="~/Scripts/themejs/jquery.countdown_store.js" type="text/javascript"></script>
     <!-- Preloader -->
@@ -457,7 +452,7 @@
     observer.observe(noUiOrigin[1], {
         attributes: true
     });
-    jQuery("#searchinput")
+    jQuery("#search-terms")
         .keyup(function() {
             clearInterval(timeNoUi);
             timeNoUi = setTimeout(function() { Djinaro.filterByGoods(); }, 300);

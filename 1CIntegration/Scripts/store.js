@@ -27,7 +27,7 @@ Djinaro.filterByGoods = function () {
     var groupActive = jQuery('#menu_nav .active');
     var brandsActive = jQuery('#selectcontrolbrand .active');
     var sizesActive = jQuery('#selectcontrolsize .active');
-    var inputSearch = jQuery('#searchinput');
+    var inputSearch = jQuery('#search-terms');
     var inputPriceLeft = jQuery('#input-number1');
     var inputPriceRigth = jQuery('#input-number2');
     
