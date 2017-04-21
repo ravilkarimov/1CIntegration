@@ -454,6 +454,15 @@
     <Content Include="Scripts\revolutionslider\jquery.themepunch.plugins.min.js" />
     <Content Include="Scripts\revolutionslider\jquery.themepunch.revolution.js" />
     <Content Include="Scripts\revolutionslider\jquery.themepunch.revolution.min.js" />
+    <Content Include="Scripts\search\css\base.css" />
+    <Content Include="Scripts\search\css\style.css" />
+    <Content Include="Scripts\search\img\search.png" />
+    <Content Include="Scripts\search\img\search4.svg" />
+    <Content Include="Scripts\search\img\search_1.png" />
+    <Content Include="Scripts\search\img\search_1_sm.png" />
+    <Content Include="Scripts\search\index.html" />
+    <Content Include="Scripts\search\js\classie.js" />
+    <Content Include="Scripts\search\js\search.js" />
     <Content Include="Scripts\store.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -492,7 +501,9 @@
     <Content Include="Scripts\videojs\video-js.swf" />
     <Content Include="Scripts\videojs\video.dev.js" />
     <Content Include="Scripts\videojs\video.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
