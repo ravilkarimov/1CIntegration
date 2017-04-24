@@ -58,12 +58,19 @@ namespace _1CIntegrationDB
                                           "value INT, " +
                                           "feature_key nvarchar(255) ) ";
 
+            const string sql_receipts = "IF NOT EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='receipts' AND xtype='U') " +
+                                        "CREATE TABLE receipts ( " +
+                                        "receipt_id INT IDENTITY(1,1) NOT NULL, " +
+                                        "good_key nvarchar(50), " +
+                                        "receipt_date datetime) ";
+
             SQLiteProvider.DoSql(sql_brands);
             SQLiteProvider.DoSql(sql_groups);
             SQLiteProvider.DoSql(sql_goods);
             SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_goods_good_id') CREATE UNIQUE INDEX ix_goods_good_id ON goods (good_id)");
             SQLiteProvider.DoSql(sql_offers);
             SQLiteProvider.DoSql(sql_d_features);
+            SQLiteProvider.DoSql(sql_receipts);
 
             SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_offers_price') create index ix_offers_price On  offers(price)");
             SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_offers_amount') create index ix_offers_amount On  offers(amount)");
@@ -76,6 +83,8 @@ namespace _1CIntegrationDB
             SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_goods_good') create index ix_goods_good On  goods(good)");
             SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_goods_inserted_on') create index ix_goods_inserted_on on goods(inserted_on)");
             SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_goods_changed_on') create index ix_goods_changed_on on goods(changed_on)");
+            SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_receipts_good_key') create index ix_receipts_good_key on receipts(good_key)");
+            SQLiteProvider.DoSql("IF NOT EXISTS (SELECT * FROM sysindexes WHERE name='ix_receipts_receipt_date') create index ix_receipts_receipt_date on receipts(receipt_date)");
 
             const string sqlTriggerGoodsInsert = "create trigger trigger_goods_insert " +
                                                  "on goods " +

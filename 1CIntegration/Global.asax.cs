@@ -45,8 +45,9 @@ namespace _1CIntegration
                 Bind<FileWatcher>().To<FileWatcher>().WithConstructorArgument("Kernel", Kernel);
                 Bind<ParserXmlFactory>().To<ParserXmlFactory>().InSingletonScope().WithConstructorArgument("Kernel", Kernel);
             }
-            Bind<IBaseParserXml>().To<ParserXmlNameImport>().InTransientScope().Named("import");
-            Bind<IBaseParserXml>().To<ParserXmlNameOffers>().InTransientScope().Named("offers");
+            Bind<IBaseParserXml>().To<ParserXmlNameImport>().InTransientScope().Named("import0_1");
+            Bind<IBaseParserXml>().To<ParserXmlNameOffers>().InTransientScope().Named("offers0_1");
+            Bind<IBaseParserXml>().To<ParserXmlNameMessages>().InTransientScope().Named("Message_РТ_СТ");
         }
     }
 

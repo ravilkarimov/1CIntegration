@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using Ninject;
 
 namespace _1CIntegrationParserXML
@@ -18,7 +20,7 @@ namespace _1CIntegrationParserXML
             {
                 if (Kernel != null)
                 {
-                    var parsingImpl = Kernel.Get<IBaseParserXml>(nameFile.Replace("0_1.xml", ""));
+                    var parsingImpl = Kernel.Get<IBaseParserXml>(Path.GetFileNameWithoutExtension(fullPathFile));
 
                     parsingImpl.ParsingFileXml(fullPathFile);
                     parsingImpl.LoadingInBD();

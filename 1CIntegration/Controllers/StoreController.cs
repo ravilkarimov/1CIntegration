@@ -247,11 +247,12 @@ namespace _1CIntegration.Controllers
                     " (CASE WHEN " +
                     "   g.inserted_on = (select max(inserted_on) from goods) " +
                     " OR " +
-                    "   (o.changed_on = (select max(changed_on) from offers) AND o.amount > o.amount_old) " +
+                    "   max(r.receipt_date) = (select max(receipt_date) from receipts) " +
                     " THEN 1 ELSE 0 END) as new_good " +
-                    " FROM goods g, offers o " +
+                    " FROM goods g " +
+                    " INNER JOIN offers o ON g.good_key = o.good_key " +
+                    " FULL OUTER JOIN receipts r ON r.good_key = g.good_key " +
                     " WHERE 1 = 1 " +
-                    " AND g.good_key = o.good_key " +
                     " AND g.group_id = " + (groups > 0 ? groups : 1) + " " +
                     " AND g.img_path != '' " +
                     " AND o.amount > 0 " +
@@ -259,7 +260,7 @@ namespace _1CIntegration.Controllers
                     filter +
                     (Sizes.Count > 0 && Sizes.Any(x => !x.IsNullOrEmpty()) ? " AND o.size in (" + string.Join(",", Sizes.Where(x => !x.IsNullOrEmpty())) + ") " : "") +
                     (Brands.Count > 0 && Brands.Any(x => x > 0) ? " AND g.brand_id in (" + string.Join(",", Brands) + ") " : "") +
-                    " GROUP BY g.group_id, g.good_id, g.good, g.good_key, o.currency, g.img_path, g.inserted_on, o.changed_on, o.amount, o.amount_old " +
+                    " GROUP BY g.group_id, g.good_id, g.good, g.good_key, o.currency, g.img_path, g.inserted_on, r.receipt_date, o.amount, o.amount_old " +
                     " ORDER BY new_good DESC, changed_on DESC, price ASC, g.good ";
                 var dt = SQLiteProvider.OpenSql(sql);
                 
