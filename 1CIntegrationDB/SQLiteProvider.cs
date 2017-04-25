@@ -157,10 +157,13 @@ namespace _1CIntegrationDB
         {
             try
             {
-                Connection();
-                using (var cmd = new SqlCommand(string.Join("; ", listSql), connect))
+                if (listSql.Count > 0)
                 {
-                    cmd.ExecuteNonQuery();
+                    Connection();
+                    using (var cmd = new SqlCommand(string.Join("; ", listSql), connect))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
             catch (SqlException e)

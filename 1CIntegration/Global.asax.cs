@@ -48,6 +48,7 @@ namespace _1CIntegration
             Bind<IBaseParserXml>().To<ParserXmlNameImport>().InTransientScope().Named("import0_1");
             Bind<IBaseParserXml>().To<ParserXmlNameOffers>().InTransientScope().Named("offers0_1");
             Bind<IBaseParserXml>().To<ParserXmlNameMessages>().InTransientScope().Named("Message_РТ_СТ");
+            Bind<IBaseParserXml>().To<ParserXmlNameMessages>().InTransientScope().Named("Message_РТ_01");
         }
     }
 

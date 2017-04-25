@@ -106,13 +106,16 @@ namespace _1CIntegrationParserXML
                     })
                     .ToList();
 
-                var countAll = 0;
-                var countElem = 0;
-                foreach (var rowGroup in dataSource.Tables["MessagesTable"].AsEnumerable().Select(x => new
+                var distinctReceipts = dataSource.Tables["MessagesTable"].AsEnumerable().Select(x => new
                 {
                     good_key = x["good_key"].ToString().Trim(),
                     receipt_date = Convert.ToDateTime(x["receipt_date"])
-                }).Distinct())
+                }).Distinct().ToList();
+
+                var countAllReceipts = distinctReceipts.Count;
+                var countAll = 0;
+                var countElem = 0;
+                foreach (var rowGroup in distinctReceipts)
                 {
                     var cnt = inBaseTable.Count(x => x.good_key == rowGroup.good_key && x.receipt_date == rowGroup.receipt_date);
                     if (cnt == 0)
@@ -120,13 +123,13 @@ namespace _1CIntegrationParserXML
                         sql = "insert into receipts (good_key, receipt_date) values " +
                               "(N'" + rowGroup.good_key + "','" + Convert.ToDateTime(rowGroup.receipt_date).ToString("yyyy-MM-dd HH:mm:ss") + "')";
                         //SQLiteProvider.ExecSql(sql);
+                        listSql.Add(sql);
                     }
 
-                    listSql.Add(sql);
                     countElem++;
                     countAll++;
 
-                    if (countElem == 100 || countAll == dataSource.Tables["MessagesTable"].Rows.Count)
+                    if (countElem == 100 || countAll == countAllReceipts)
                     {
                         SQLiteProvider.ExecSql(listSql);
                         listSql = new List<string>();
