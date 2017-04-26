@@ -242,13 +242,10 @@ namespace _1CIntegration.Controllers
 
                 sql =
                     " SELECT DISTINCT g.group_id, g.good_id, g.good, g.good_key, " +
-                    " (SELECT MAX(price) FROM offers WHERE g.good_key = good_key) as price, o.currency, " +
-                    " g.img_path, " +
-                    " (CASE WHEN " +
-                    "   g.inserted_on = (select max(inserted_on) from goods) " +
-                    " OR " +
-                    "   max(CAST(r.receipt_date as DATE)) = (select max(CAST(receipt_date as DATE)) from receipts) " +
-                    " THEN 1 ELSE 0 END) as new_good " +
+                    " (SELECT MAX(price) FROM offers WHERE g.good_key = good_key) as price, " +
+                    " o.currency, g.img_path, " +
+                    " (CASE WHEN max(CAST(r.receipt_date as DATE)) = (select max(CAST(receipt_date as DATE)) from receipts) THEN 1 ELSE 0 END) as new_good, " +
+                    " CAST(r.receipt_date as DATE) as receipt_date " +
                     " FROM goods g " +
                     " INNER JOIN offers o ON g.good_key = o.good_key " +
                     " FULL OUTER JOIN receipts r ON r.good_key = g.good_key " +
@@ -260,8 +257,8 @@ namespace _1CIntegration.Controllers
                     filter +
                     (Sizes.Count > 0 && Sizes.Any(x => !x.IsNullOrEmpty()) ? " AND o.size in (" + string.Join(",", Sizes.Where(x => !x.IsNullOrEmpty())) + ") " : "") +
                     (Brands.Count > 0 && Brands.Any(x => x > 0) ? " AND g.brand_id in (" + string.Join(",", Brands) + ") " : "") +
-                    " GROUP BY g.group_id, g.good_id, g.good, g.good_key, o.currency, g.img_path, g.inserted_on, r.receipt_date, o.amount, o.amount_old " +
-                    " ORDER BY new_good DESC, price ASC, g.good ";
+                    " GROUP BY g.group_id, g.good_id, g.good, g.good_key, o.currency, g.img_path, r.receipt_date, o.amount " +
+                    " ORDER BY receipt_date DESC, price ASC, g.good ";
                 var dt = SQLiteProvider.OpenSql(sql);
                 
                 var countElementInRow = 6; //Количество товаров в строке
