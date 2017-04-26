@@ -179,15 +179,25 @@ namespace _1CIntegrationParserXML
                 //ElementsTable 
                 foreach (DataRow rowGood in dataSource.Tables["ElementsTable"].Rows)
                 {
-                    var goodIs = SQLiteProvider.OpenSql("select good_id cnt from goods where good_key = N'" + rowGood["good_key"] + "'");
+                    var goodIs = SQLiteProvider.OpenSql("select good_id, img_path from goods where good_key = N'" + rowGood["good_key"] + "'");
+                    
                     if (goodIs.Rows.Count == 0)
                     {
-                        string groupId = SQLiteProvider.OpenSql("select group_id from groups where group_key = N'" + rowGood["group_key"] + "'").Rows[0]["group_id"].ToString();
+                        var groupId = SQLiteProvider.OpenSql("select group_id from groups where group_key = N'" + rowGood["group_key"] + "'").Rows[0]["group_id"];
 
                         sql = "insert into goods (good_key, good, group_id, img_path, brand_id) " +
                               "values " +
-                              "(N'" + rowGood["good_key"] + "',N'" + rowGood["good"] + "', " + groupId + ", N'" + rowGood["img_path"] + "'," +
-                              dBrands.Where(x => rowGood["good"].ToString().IndexOf(x.Value) > -1).Select(x => x.Key).DefaultIfEmpty("11").First()  + ")";
+                              "(N'" + rowGood["good_key"] + "',N'" + rowGood["good"] + "', " + groupId + ", N'" +
+                              rowGood["img_path"] + "'," +
+                              dBrands.Where(x => rowGood["good"].ToString().IndexOf(x.Value, StringComparison.Ordinal) > -1)
+                                  .Select(x => x.Key)
+                                  .DefaultIfEmpty("11")
+                                  .First() + ")";
+                        SQLiteProvider.ExecSql(sql);
+                    }
+                    else if (goodIs.Rows.Count > 0 && rowGood["img_path"].ToString().Trim() != goodIs.Rows[0]["img_path"].ToString().Trim())
+                    {
+                        sql = "update goods set img_path = N'" + rowGood["img_path"] + "' where good_id = " + goodIs.Rows[0]["good_id"];
                         SQLiteProvider.ExecSql(sql);
                     }
                 }
