@@ -473,18 +473,18 @@ var lock;
 Djinaro.ClassOpen = function(e) {
     var selector = jQuery(e.currentTarget);
     var aMscOpen = jQuery('.mcs-open', selector);
-    var aAccordionOpen = jQuery('.accordion-toggle', selector);
+    var aAccordionOpen = jQuery('.panel-collapse.collapsed.collapse', selector);
     if (!elementTarget || elementTarget[0] !== selector[0] || selector.find(e.relatedTarget).length == 0) {
         if (aMscOpen && e.type == "mouseover") {
             if (aMscOpen[0] && aMscOpen[0].className == 'mcs-open mcs') {
                 aMscOpen.click();
-            } else if (aAccordionOpen[0] && aAccordionOpen[0].className == 'accordion-toggle collapsed') {
+            } else if (aAccordionOpen[0] && aAccordionOpen[0].className == 'panel-collapse collapsed in') {
                 aAccordionOpen.click();
             }
         } else if (aMscOpen && e.type == "mouseout") {
             if (aMscOpen[0] && aMscOpen[0].className == 'mcs-open mcs open') {
                 aMscOpen.click();
-            } else if (aAccordionOpen[0] && aAccordionOpen[0].className == 'accordion-toggle') {
+            } else if (aAccordionOpen[0] && aAccordionOpen[0].className == 'panel-collapse collapsed collapse') {
                 aAccordionOpen.click();
             }
         }

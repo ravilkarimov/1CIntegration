@@ -811,6 +811,8 @@ hr.hr-double{padding:4px;border:none;border-top:1px solid #ececec;border-bottom:
 .accordion .accordion-toggle.collapsed-icon-left.collapsed-icon:after{float:left;margin-right:10px;}
 .accordion .accordion-toggle.collapsed-icon-left.collapsed.collapsed-icon:after{float:left;margin-right:10px;}
 .accordion .accordion-toggle{}
+.panel-collapse.collapsed.in {top:50px!important; position: absolute!important; z-index:2!important;}
+.panel-collapse.collapsing {display:none !important;}
 .accordion-toggle {background-color:#fff;}
 .accordion .accordion-toggle.collapsed{color:#848494;}
 .accordion .accordion-toggle.collapsed:hover{}

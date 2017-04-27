@@ -7,7 +7,7 @@
 @media (min-width:768px){.nav-tabs.nav-justified > li > a{border-bottom-color:#B1B1B1;}
 .nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:focus{border-bottom-color:#B1B1B1;}
 }
-a:hover, a:focus, .social-top a:hover, .social-top a:focus, .top-menu a:hover, .top-menu a:focus, .footer-bottom a:hover, .post-meta-info a:hover, .post-meta-info a:focus{color:#1E1E1E;}
+.social-top a:hover, .social-top a:focus, .top-menu a:hover, .top-menu a:focus, .footer-bottom a:hover, .post-meta-info a:hover, .post-meta-info a:focus{color:#1E1E1E;}
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary, .label-primary[href]:hover, .label-primary[href]:focus{background-color:#1E1E1E;}
 .nav-tabs > li > a, .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{border-bottom-color:#B1B1B1;}
 .carousel .owl-controls .owl-page.active span, .carousel .owl-controls.clickable .owl-page:hover span{background-color:#B1B1B1 !important;}

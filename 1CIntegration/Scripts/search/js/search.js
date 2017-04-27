@@ -21,7 +21,7 @@
 	});
 
 	// register clicks outisde search box, and toggle correct classes
-	document.addEventListener("click",function(e){
+	/*document.addEventListener("click",function(e){
 		var clickedID = e.target.id;
 		if (clickedID != "search-terms" && clickedID != "search-label") {
 			if (classie.has(searchEl,"focus")) {
@@ -29,5 +29,5 @@
 				classie.remove(labelEl,"active");
 			}
 		}
-	});
+	});*/
 }(window));
