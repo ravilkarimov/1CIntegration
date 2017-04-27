@@ -242,7 +242,7 @@ namespace _1CIntegration.Controllers
 
                 sql =
                     " SELECT DISTINCT g.group_id, g.good_id, g.good, g.good_key, " +
-                    " (SELECT MAX(price) FROM offers WHERE g.good_key = good_key) as price, " +
+                    " MAX(o.price) as price, " +
                     " o.currency, g.img_path, " +
                     " (CASE WHEN max(CAST(r.receipt_date as DATE)) = (select max(CAST(receipt_date as DATE)) from receipts) THEN 1 ELSE 0 END) as new_good, " +
                     " MAX(CAST(r.receipt_date as DATE)) as receipt_date " +
@@ -257,7 +257,7 @@ namespace _1CIntegration.Controllers
                     filter +
                     (Sizes.Count > 0 && Sizes.Any(x => !x.IsNullOrEmpty()) ? " AND o.size in (" + string.Join(",", Sizes.Where(x => !x.IsNullOrEmpty())) + ") " : "") +
                     (Brands.Count > 0 && Brands.Any(x => x > 0) ? " AND g.brand_id in (" + string.Join(",", Brands) + ") " : "") +
-                    " GROUP BY g.group_id, g.good_id, g.good, g.good_key, o.currency, g.img_path, o.amount " +
+                    " GROUP BY g.group_id, g.good_id, g.good, g.good_key, o.currency, g.img_path " +
                     " ORDER BY receipt_date DESC, price ASC, g.good ";
                 var dt = SQLiteProvider.OpenSql(sql);
                 
