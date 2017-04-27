@@ -3,6 +3,11 @@
 	// get vars
 	var searchEl = document.querySelector("#input");
 	var labelEl = document.querySelector("#label");
+	
+	document.addEventListener("DOMContentLoaded", function () {
+	    classie.add(searchEl, "focus");
+	    classie.add(labelEl, "active");
+	});
 
 	// register clicks and toggle classes
 	labelEl.addEventListener("click",function(){
