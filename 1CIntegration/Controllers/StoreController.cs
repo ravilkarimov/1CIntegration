@@ -226,7 +226,7 @@ namespace _1CIntegration.Controllers
 
         // GET: /Store/getshoes
         [HttpGet]
-        [OutputCache(Duration = 300, Location = OutputCacheLocation.ServerAndClient)]
+        [OutputCache(Duration = 300, Location = OutputCacheLocation.None)]
         public JsonResult GetShoes(int groups, string sizes, string brands, string search, string price_1, string price_2)
         {
             try
@@ -245,7 +245,7 @@ namespace _1CIntegration.Controllers
                     " (SELECT MAX(price) FROM offers WHERE g.good_key = good_key) as price, " +
                     " o.currency, g.img_path, " +
                     " (CASE WHEN max(CAST(r.receipt_date as DATE)) = (select max(CAST(receipt_date as DATE)) from receipts) THEN 1 ELSE 0 END) as new_good, " +
-                    " CAST(r.receipt_date as DATE) as receipt_date " +
+                    " MAX(CAST(r.receipt_date as DATE)) as receipt_date " +
                     " FROM goods g " +
                     " INNER JOIN offers o ON g.good_key = o.good_key " +
                     " FULL OUTER JOIN receipts r ON r.good_key = g.good_key " +
@@ -257,7 +257,7 @@ namespace _1CIntegration.Controllers
                     filter +
                     (Sizes.Count > 0 && Sizes.Any(x => !x.IsNullOrEmpty()) ? " AND o.size in (" + string.Join(",", Sizes.Where(x => !x.IsNullOrEmpty())) + ") " : "") +
                     (Brands.Count > 0 && Brands.Any(x => x > 0) ? " AND g.brand_id in (" + string.Join(",", Brands) + ") " : "") +
-                    " GROUP BY g.group_id, g.good_id, g.good, g.good_key, o.currency, g.img_path, r.receipt_date, o.amount " +
+                    " GROUP BY g.group_id, g.good_id, g.good, g.good_key, o.currency, g.img_path, o.amount " +
                     " ORDER BY receipt_date DESC, price ASC, g.good ";
                 var dt = SQLiteProvider.OpenSql(sql);
                 
@@ -335,6 +335,7 @@ namespace _1CIntegration.Controllers
                 throw;
             }
         }
+
 
     }
 }

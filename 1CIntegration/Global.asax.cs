@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -30,8 +32,17 @@ namespace _1CIntegration
 
             new DBProgram();
 
-            var fileWatcher = kernel.Get<FileWatcher>();
-            fileWatcher.Run();
+            Task.Factory.StartNew(() =>
+            {
+                while (true)
+                {
+                    Thread.Sleep(60000);
+
+                    var fileWatcher = kernel.Get<FileWatcher>();
+                    fileWatcher.Run();
+                }
+            }, TaskCreationOptions.LongRunning);
+            
 
         }
     }
