@@ -184,7 +184,7 @@
                                     <div class="panel-heading">
                                         <a class="mcs-open collapsed" data-toggle="collapse" href="#collapse"><span class="livicon iconleft" data-n="settings" data-s="16" data-c="#fff" data-hc="#000" data-a="1" data-l="0" data-i="3" data-d="0" data-et="hover" data-op="0"></span>ЦЕНА</a>
                                     </div>
-                                    <div id="collapse" class="panel-collapse collapsed collapse">
+                                    <div id="collapse" class="panel-collapse collapsed in" style="display: none;">
                                         <div class="panel-body">
                                             <div id="html5" class="noUi-target noUi-ltr noUi-horizontal noUi-background" onchange=" Djinaro.filterByGoods()"></div>
                                             <div class="white-space space-xsmall"></div>
@@ -383,11 +383,6 @@
     </script>
 <script>
     jQuery(function() {
-        jQuery(".tocollapse")
-           .on('mouseover mouseout', function(e) {
-                Djinaro.ClassOpen(e);
-            });
-        
         jQuery(function() {
             Djinaro.getAllBrands();
             Djinaro.getAllSizes();
@@ -487,6 +482,14 @@
         }, function () {
             jQuery(this).parent().find('.mcs-open').removeClass('open').find('.mcs-open').first().stop(true, true).hide(300);
             jQuery(this).css("display", "none");
+        });
+
+        jQuery('.tocollapse').hover(function () {
+            jQuery(this).addClass('open').find('.mcs-open collapsed').first().stop(true, true).slideDown(300);
+            jQuery(this).parent().find('.panel-collapse').css("display", "block");
+        }, function () {
+            jQuery(this).removeClass('open').find('.mcs-open collapsed').first().stop(true, true).hide(300);
+            jQuery(this).parent().find('.panel-collapse').css("display", "none"); 
         });
     };
 </script>
