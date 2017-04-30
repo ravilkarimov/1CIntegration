@@ -29,22 +29,15 @@
     <link href="~/Scripts/nouislider/nouislider.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-select.min.css" rel="stylesheet" />
     <link href="~/Content/multi-column-select.css" rel="stylesheet" />
-
-    <!--Search bar-->
     <link href="~/Scripts/search/css/style.css" rel="stylesheet" />
-
-    <script src="~/Scripts/nouislider/nouislider.min.js"></script>
-    <!--script src="https://code.jquery.com/jquery-3.1.1.min.js"></script-->
-    <!--script async src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
     <script src="~/Scripts/jquery-ui-1.8.24.js"></script>
-    <!--script async src="~/Scripts/themejs/jquery.magnific-popup.min.js"></script-->
-    <script async src="~/Scripts/nouislider/nouislider.min.js"></script>
     <script src="~/Scripts/store.js"></script>
     <script src="~/Scripts/bootstrap-select.js"></script>
-    <script src="~/Scripts/multi-column-select.js"></script>
-
-    <script>var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;</script>
+    <script charset="windows-1251" src="~/Scripts/multi-column-select.js"></script>
+    <script charset="windows-1251" src="~/Scripts/create_filters.js"></script>
+    <script charset="windows-1251" src="~/Scripts/nouislider/nouislider.js"></script>
+    <script> var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;</script>
 </head>
 <body class ="bg-pattern1" data-spy="scroll" data-target=".navbar">
 
@@ -180,22 +173,7 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-3">
-                                <div class="tocollapse">
-                                    <div class="panel-heading">
-                                        <a class="mcs-open collapsed" data-toggle="collapse" href="#collapse"><span class="livicon iconleft" data-n="settings" data-s="16" data-c="#fff" data-hc="#000" data-a="1" data-l="0" data-i="3" data-d="0" data-et="hover" data-op="0"></span>ЦЕНА</a>
-                                    </div>
-                                    <div id="collapse" class="panel-collapse collapsed in" style="display: none;">
-                                        <div class="panel-body">
-                                            <div id="html5" class="noUi-target noUi-ltr noUi-horizontal noUi-background" onchange=" Djinaro.filterByGoods()"></div>
-                                            <div class="white-space space-xsmall"></div>
-                                            <div class="row">
-                                                <input class="form-control" type="number" min="0" max="10000" step="500" id="input-number1">
-                                                <span style="line-height: 35px; font-weight: bold; color: #000; width: 10%">—</span>
-                                                <input class="form-control" type="number" min="0" max="10000" step="500" id="input-number2">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div id="selectcontrolprice"></div>
                             </div>
                         </div>
                     </div>
@@ -234,7 +212,7 @@
         <div class="footer-top">
 
             <!-- Google Map -->
-            <a class="gmap-button">НАЙТИ НАС НА КАРТЕ</a>
+            <a class="gmap-button">НАЙТИ НАС НА КАРТЕ</a>       
             <div class="gmap-wrapper">
                 <div id="google-map-footer" style="position: relative; overflow: hidden;">
                     <div style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgb(229, 227, 223);">
@@ -347,152 +325,16 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBny2ZQDRtvp935j3dwD5BZM9NGEpzFp0A&amp"></script>
         
     <script src="~/Scripts/themejs/application_store.js"></script>
+
     <script>
-        var html5Slider = document.getElementById('html5');
-
-        noUiSlider.create(html5Slider, {
-            start: [1500, 5000],
-            connect: true,
-            range: {
-                'min': 0,
-                'max': 10000
-            }
-        });
-    </script>
-    <script>
-        var inputNumber2 = document.getElementById('input-number2');
-        var inputNumber1 = document.getElementById('input-number1');
-
-        html5Slider.noUiSlider.on('update', function (values, handle) {
-
-            var value = values[handle];
-
-            if (handle) {
-                inputNumber2.value = Math.round(value);
-            } else {
-                inputNumber1.value = Math.round(value);
-            }
-        });
-
-        inputNumber2.addEventListener('change', function () {
-            html5Slider.noUiSlider.set([null, this.value]);
-        });
-        inputNumber1.addEventListener('change', function () {
-            html5Slider.noUiSlider.set([this.value, null]);
-        });
-    </script>
-<script>
-    jQuery(function() {
         jQuery(function() {
-            Djinaro.getAllBrands();
-            Djinaro.getAllSizes();
-        });
-    });
-
-</script>
-    <script>
-        jQuery(function ($) {
-            $('#selectcontrolseason').MultiColumnSelect({
-                multiple: true,              // Single or Multiple Select- Default Single
-                useOptionText: true,               // Use text from option. Use false if you plan to use images
-                hideselect: true,               // Hide Original Select Control
-                openmenuClass: 'mcs-open',         // Toggle Open Button Class
-                openmenuText: 'СЕЗОН', // Text for button
-                openclass: 'open',             // Class added to Toggle button on open
-                containerClass: 'mcs-container',    // Class of parent container
-                itemClass: 'mcs-item',         // Class of menu items
-                idprefix: null,                        // Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
-                duration: 200,                         //Toggle Height duration
-                onOpen: function () { },
-                onClose: function () { },
-                onItemSelect: function () { Djinaro.filterByGoods(); }
+            jQuery(function() {
+                Djinaro.getAllBrands();
+                Djinaro.getAllSizes();
             });
         });
+
     </script>
-    <script>
-        jQuery(function($) {
-            $('#selectcontrolprice').MultiColumnSelect({
-                multiple: true, // Single or Multiple Select- Default Single
-                useOptionText: true, // Use text from option. Use false if you plan to use images
-                hideselect: true, // Hide Original Select Control
-                openmenuClass: 'mcs-open', // Toggle Open Button Class
-                openmenuText: 'ЦЕНА', // Text for button
-                openclass: 'open', // Class added to Toggle button on open
-                containerClass: 'mcs-container', // Class of parent container
-                itemClass: 'mcs-item', // Class of menu items
-                idprefix: null, // Assign as ID to items eg 'item-' = #item-1, #item-2, #item-3...
-                duration: 200, //Toggle Height duration
-                onOpen: function() {},
-                onClose: function() {},
-                onItemSelect: function() { }
-            });
-        });
-    </script>
-<script>
-    Djinaro.filterByGoods();
-
-    var timeNoUi = setTimeout(function() {}, 500);
-    var observer = new MutationObserver(function(mutations) {
-        clearInterval(timeNoUi);
-        timeNoUi = setTimeout(function() { Djinaro.filterByGoods(); }, 300);
-    });
-    var noUiOrigin = document.getElementsByClassName('noUi-origin');
-    observer.observe(noUiOrigin[0], {
-        attributes: true
-    });
-    observer.observe(noUiOrigin[1], {
-        attributes: true
-    });
-    jQuery("#search-terms")
-        .keyup(function() {
-            clearInterval(timeNoUi);
-            timeNoUi = setTimeout(function() { Djinaro.filterByGoods(); }, 300);
-        })
-        .keyup();
-
-    window.onload = function() {
-        if (jQuery().magnificPopup) {
-            jQuery('[data-lightbox=image], .lightbox').each(function(index, element) { jQuery(this).magnificPopup({ type: 'image', mainClass: 'mfp-fade', removalDelay: 300, fixedContentPos: false, fixedBgPos: true, overflowY: 'auto', closeOnContentClick: true }); });
-            jQuery('[data-lightbox=video], [data-lightbox=map], [data-lightbox=iframe], .lightbox-video, .lightbox-map, .lightbox-iframe').each(function(index, element) { jQuery(this).magnificPopup({ mainClass: 'mfp-fade', removalDelay: 300, fixedContentPos: false, fixedBgPos: true, overflowY: 'auto', type: 'iframe', fixedContentPos: false }); });
-            jQuery('[data-lightbox=gallery], .lightbox-gallery').each(function(index, element) {
-                jQuery(this).magnificPopup({
-                    mainClass: 'mfp-fade',
-                    removalDelay: 300,
-                    fixedContentPos: false,
-                    fixedBgPos: true,
-                    overflowY: 'auto',
-                    type: 'image',
-                    delegate: 'a',
-                    gallery: { enabled: true }
-                });
-            });
-        };
-
-        jQuery('.mcs-open').hover(function () {
-            jQuery(this).addClass('open').find('.mcs-open').first().stop(true, true).slideDown(300);
-            jQuery(this).parent().find('.mcs-container').css("display", "block");
-        }, function () {
-            jQuery(this).removeClass('open').find('.mcs-open').first().stop(true, true).hide(300);
-            jQuery(this).parent().find('.mcs-container').css("display", "none");
-        });
-
-        jQuery('.mcs-container').hover(function () {
-            jQuery(this).parent().find('.mcs-open').addClass('open').find('.mcs-open').first().stop(true, true).slideDown(300);
-            jQuery(this).css("display", "block");
-        }, function () {
-            jQuery(this).parent().find('.mcs-open').removeClass('open').find('.mcs-open').first().stop(true, true).hide(300);
-            jQuery(this).css("display", "none");
-        });
-
-        jQuery('.tocollapse').hover(function () {
-            jQuery(this).addClass('open').find('.mcs-open collapsed').first().stop(true, true).slideDown(300);
-            jQuery(this).parent().find('.panel-collapse').css("display", "block");
-        }, function () {
-            jQuery(this).removeClass('open').find('.mcs-open collapsed').first().stop(true, true).hide(300);
-            jQuery(this).parent().find('.panel-collapse').css("display", "none"); 
-        });
-    };
-</script>
 
 </body>
 </html>
