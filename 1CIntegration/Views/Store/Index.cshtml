@@ -34,6 +34,7 @@
     <script src="~/Scripts/jquery-ui-1.8.24.js"></script>
     <script src="~/Scripts/store.js"></script>
     <script src="~/Scripts/bootstrap-select.js"></script>
+    <script src="~/Scripts/device.min.js"></script>
     <script charset="windows-1251" src="~/Scripts/multi-column-select.js"></script>
     <script charset="windows-1251" src="~/Scripts/create_filters.js"></script>
     <script charset="windows-1251" src="~/Scripts/nouislider/nouislider.js"></script>
@@ -328,12 +329,18 @@
 
     <script>
         jQuery(function() {
-            jQuery(function() {
-                Djinaro.getAllBrands();
-                Djinaro.getAllSizes();
-            });
-        });
+            Djinaro.getAllBrands();
+            Djinaro.getAllSizes();
 
+            if (device) {
+                if (device.windows()) {
+                    //Полная версия
+                }
+                else if (device.mobile() || device.iphone()) {
+                    //Мобильная
+                }
+            }
+        });
     </script>
 
 </body>

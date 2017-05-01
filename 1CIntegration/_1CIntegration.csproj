@@ -329,6 +329,7 @@
     <Content Include="less\variables.less" />
     <Content Include="Content\owl-carousel\owl.carousel_store.css" />
     <Content Include="Scripts\create_filters.js" />
+    <Content Include="Scripts\device.min.js" />
     <Content Include="Scripts\noui_init.js" />
     <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings %283%29.pubxml" />
