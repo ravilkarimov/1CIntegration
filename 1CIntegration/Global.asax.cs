@@ -36,7 +36,7 @@ namespace _1CIntegration
             {
                 while (true)
                 {
-                    Thread.Sleep(60000);
+                    Thread.Sleep(600000);
 
                     var fileWatcher = kernel.Get<FileWatcher>();
                     fileWatcher.Run();
