@@ -218,6 +218,7 @@
     <Content Include="Content\default-skin\download.svg" />
     <Content Include="Content\default-skin\preloader.gif" />
     <Content Include="Content\font\revicons.svg" />
+    <Content Include="Content\jquery.touchSwipe.min.js" />
     <Content Include="Content\multi-column-select.css" />
     <Content Include="Content\owl-carousel\owl.carousel.css" />
     <Content Include="Content\owl-carousel\owl.theme.css" />
@@ -227,6 +228,7 @@
     <Content Include="Content\popupinfo.css" />
     <Content Include="Content\revolutionslider\settings-ie8.css" />
     <Content Include="Content\revolutionslider\settings.css" />
+    <Content Include="Content\swipemenu.css" />
     <Content Include="Content\themecss\animate.css" />
     <Content Include="Content\themecss\animate_store.css" />
     <Content Include="Content\themecss\lightbox.css" />
@@ -469,6 +471,7 @@
     <Content Include="Scripts\store.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\swipemenu.js" />
     <Content Include="Scripts\themejs\application_store.js" />
     <Content Include="Scripts\themejs\application.js" />
     <Content Include="Scripts\themejs\jquery.colio.js" />
