@@ -241,7 +241,9 @@ namespace _1CIntegration.Controllers
                     .Aggregate("", (current, filter_word) => current + string.Format(" and (upper(good) LIKE '{0}%' OR upper(good) LIKE '%{0}%' OR upper(good) LIKE '%{0}') ", filter_word.ToUpper()));
 
                 sql =
-                    " SELECT DISTINCT g.group_id, g.good_id, g.good, g.good_key, " +
+                    " SELECT DISTINCT g.group_id, " +
+                    " max(g.good_id) as good_id, " +
+                    " g.good, g.good_key, " +
                     " MAX(o.price) as price, " +
                     " o.currency, g.img_path, " +
                     " (CASE WHEN max(CAST(r.receipt_date as DATE)) = (select max(CAST(receipt_date as DATE)) from receipts) THEN 1 ELSE 0 END) as new_good, " +
@@ -257,7 +259,7 @@ namespace _1CIntegration.Controllers
                     filter +
                     (Sizes.Count > 0 && Sizes.Any(x => !x.IsNullOrEmpty()) ? " AND o.size in (" + string.Join(",", Sizes.Where(x => !x.IsNullOrEmpty())) + ") " : "") +
                     (Brands.Count > 0 && Brands.Any(x => x > 0) ? " AND g.brand_id in (" + string.Join(",", Brands) + ") " : "") +
-                    " GROUP BY g.group_id, g.good_id, g.good, g.good_key, o.currency, g.img_path " +
+                    " GROUP BY g.group_id, g.good, g.good_key, o.currency, g.img_path " + //g.good_id,
                     " ORDER BY receipt_date DESC, price ASC, g.good ";
                 var dt = SQLiteProvider.OpenSql(sql);
                 
