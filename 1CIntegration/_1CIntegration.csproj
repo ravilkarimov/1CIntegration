@@ -157,6 +157,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\mobileController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="FileWatcher.cs" />
@@ -219,6 +220,15 @@
     <Content Include="Content\default-skin\preloader.gif" />
     <Content Include="Content\font\revicons.svg" />
     <Content Include="Content\jquery.touchSwipe.min.js" />
+    <Content Include="Content\mobile\slideout\dist\slideout.js" />
+    <Content Include="Content\mobile\slideout\dist\slideout.min.js" />
+    <Content Include="Content\mobile\slideout\index.css" />
+    <Content Include="Content\mobile\slideout\index.js" />
+    <Content Include="Content\mobile\slideout\test\assets\menu.png" />
+    <Content Include="Content\mobile\slideout\test\index.html" />
+    <Content Include="Content\mobile\slideout\test\index.right.html" />
+    <Content Include="Content\mobile\slideout\test\test.css" />
+    <Content Include="Content\mobile\slideout\test\test.js" />
     <Content Include="Content\multi-column-select.css" />
     <Content Include="Content\owl-carousel\owl.carousel.css" />
     <Content Include="Content\owl-carousel\owl.theme.css" />
@@ -332,6 +342,7 @@
     <Content Include="Content\owl-carousel\owl.carousel_store.css" />
     <Content Include="Scripts\create_filters.js" />
     <Content Include="Scripts\device.min.js" />
+    <Content Include="Scripts\jquery.touchSwipe.min.js" />
     <Content Include="Scripts\noui_init.js" />
     <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings %283%29.pubxml" />
@@ -541,6 +552,7 @@
     <Content Include="scss\_variables.scss" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\mobile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

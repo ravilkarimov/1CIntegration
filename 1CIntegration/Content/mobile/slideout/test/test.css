@@ -1,0 +1,308 @@
+/*! normalize.css v3.0.2 | MIT License | git.io/normalize */html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:baseline}audio:not([controls]){display:none;height:0}[hidden],template{display:none}a{background-color:transparent}a:active,a:hover{outline:0}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:700}dfn{font-style:italic}h1{font-size:2em;margin:.67em 0}mark{background:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-.5em}sub{bottom:-.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:1em 40px}hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}pre{overflow:auto}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}button{overflow:visible}button,select{text-transform:none}button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}button[disabled],html input[disabled]{cursor:default}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}textarea{overflow:auto}optgroup{font-weight:700}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}
+html,
+body {
+  font: 100%/1.4em 'Oswald Regular', Helvetica, Arial, sans-serif;
+  margin: 0 auto;
+  color: #222;
+  -webkit-text-size-adjust: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+body,
+.panel {
+  background-color: #fff;
+}
+
+.menu {
+  background-color: #1D1F20;
+  background-image: linear-gradient(145deg, #1D1F20, #404348);
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+.menu a {
+  color: #fff;
+}
+
+.menu a:hover {
+  text-decoration: underline;
+}
+
+.menu-header {
+    border-bottom: 1px solid #2a2d2f;
+    padding: 20px;
+    background-size: 32px;
+    text-align: center;
+    color: #85888d;
+}
+
+.menu-header-title {
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin: 0;
+    text-align: center;
+}
+
+.menu-section {
+    margin: 25px 0;
+    text-align: center;
+}
+
+.menu-section-title {
+    text-transform: uppercase;
+    color: #85888d;
+    font-weight: 200;
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding: 0 20px;
+    margin: 0;
+    text-align: center;
+}
+
+.menu-section-list {
+    padding: 0;
+    margin: 10px 0;
+    list-style: none;
+    text-align: center;
+}
+
+    .menu-section-list a {
+        display: block;
+        padding: 10px 20px;
+        text-align: center;
+    }
+
+.panel {
+  text-align: center;
+  padding-top: 5px;
+  min-height: 100%;
+}
+
+#mocha {
+  text-align: left;
+  margin:0 !important;
+}
+
+#mocha-stats {
+  top: 70px;
+}
+
+/**
+ * Header
+ */
+.panel-header {
+    display: block;
+    border-bottom: 1px solid #ececec;
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+.srch-left-btn {
+    float: left; 
+    margin: 15px 0px 0px 20px;
+}
+
+.srch-right-btn {
+    margin: 15px 0px 0px 15px;
+}
+
+.search-header {
+    box-shadow: 0px 2px 0px rgba(0,0,0,0.075);
+    padding-bottom: 20px;
+}
+
+.searchbar {
+    float: left;
+    width: 170px;
+    margin: 5px 0px 0px 25px;
+    border-radius: 0px;
+    border: none;
+    box-shadow: 0px 2px 0px rgba(0,0,0,0.075);
+    padding-left: 10px;
+}
+
+.title {
+  font-size: 2.2em;
+  line-height: 1em;
+  margin: 9px 0 0px 35px;
+  color: #000;
+  font-weight: 400;
+}
+
+/**
+ * hamburger
+ */
+.btn-hamburger {
+  border: none;
+  position: absolute;
+  top: 6px;
+  left: 12px;
+  outline:none;
+  background: url('assets/menu.png') no-repeat center;
+  width: 50px;
+  height: 50px;
+}
+
+/**
+ * Boxes
+ */
+.box {
+  border: 1px solid #000;
+  border-radius: 4px;
+  text-align: left;
+  margin: 50px 10px;
+  position: relative;
+}
+
+.box:before,
+.box:after {
+  content: ' ';
+  display: inline-block;
+  width: 1px;
+  height: 50px;
+  border-left: 1px solid #000;
+  position: absolute;
+  left: 50%;
+}
+
+.box:before {
+  top: -50px;
+}
+
+.box:after {
+  bottom: -50px;
+}
+
+.box-title {
+  margin: 0;
+  padding:10px 20px;
+  border-bottom: 1px solid #000;
+  color: #000;
+  font-size: 1.2em;
+  font-weight: 400;
+}
+
+.box-content {
+  padding:20px;
+  background-color: #f8f8f8;
+}
+
+/**
+ * Medium Screens
+ */
+@media all and (min-width:40em) {
+
+  .btn-hamburger {
+    top: 20px;
+    left: 30px;
+  }
+
+  .panel-header {
+    margin-top: 40px;
+    width: 455px;
+  }
+
+  .title {
+    font-size: 4.2em;
+  }
+}
+
+/**
+ * Large Screens
+ */
+@media all and (min-width: 54em) {
+  .box {
+    width: 70%;
+    max-width: 1200px;
+    margin: 50px auto;
+  }
+}
+
+/**
+ * Footer
+ */
+.panel-footer {
+  margin: 10px auto 20px;
+}
+
+.panel-footer p {
+  padding-bottom: 20px;
+}
+
+.heart {
+  font-style: normal;
+  font-weight: 500;
+  color: #c0392b;
+  text-decoration: none;
+}
+
+.product-list {
+    margin: 20px 0px 0px 0px;
+    padding: 0 5px;
+    content: "";
+    display: table;
+    font-size: 16px;
+}
+
+.result {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: block;
+}
+
+.product-container {
+    display: block;
+    min-height: 120px;
+    width: 50%;
+    max-width: 295px;
+    list-style-type: none;
+}
+
+.product-link {
+    text-decoration: none;
+    background: transparent;
+    cursor: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.img-wrap {
+    position: relative;
+    cursor: auto;
+    text-decoration: underline;
+}
+
+.product-img {
+    width: 100%;
+    display: block;
+    min-height: 185px;
+}
+
+.pricelist {
+    font-size: 12px;
+}
+
+.product-name-mobile {
+    margin-bottom: 20px;
+    margin-top: 0px;
+    font-size: 12px;
+}
+.product-sizes {
+    margin-bottom: 0px !important;
+}
+
+.boot-mobile {
+    padding: 5px;
+    margin: 0px;
+}
+
+.shop-mobile:hover {
+    background: initial !important;
+    box-shadow: initial !important;
+    z-index: initial !important;
+    position: initial !important;
+}
