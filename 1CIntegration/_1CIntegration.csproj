@@ -157,7 +157,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\mobileController.cs" />
+    <Compile Include="Controllers\MobileController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="FileWatcher.cs" />

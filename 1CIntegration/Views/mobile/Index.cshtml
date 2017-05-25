@@ -34,6 +34,9 @@
     <!-- Scripts -->
     <!-- JQuery -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.8.24.js"></script>
+    <script src="~/Scripts/store.js"></script>
+    <script src="~/Scripts/device.min.js"></script>
     <!-- Bootstrap -->
     <script src="../Scripts/bootstrap-select.js"></script>
     <!-- MutationObserver-->
@@ -88,7 +91,7 @@
             <div class="item m-title">
                 <h1>DJINARO SHOP</h1>
             </div>
-            <div class="right menu">
+            <div class="right menu" style="z-index: 1">
                 <div class="item toggle-button" id="toggle-right">
                     <i class="filter icon"></i>
                 </div>
@@ -106,59 +109,8 @@
         <div class="space-xsmall"></div>
         <div class="container" style="padding-top:10px; background: url(../img/theme/bg/bg-pattern1.png) repeat fixed center 0;">
             <div class="row">
-                <div class="col-xs-12">
-                    <div class="row">
-                        <div class="col-xs-6 boot-mobile">
-                            <div class="shop-product shop-mobile">
-                                <div class="overlay-wrapper ">
-                                    <img src="../img/demo/shop/product1.jpg" alt="Product 1">
-                                </div>
-                                <div class="shop-product-info">
-                                    <h5 class="product-name-mobile">Nike Air Max/New Blue Lite</h5>
-                                    <p class="product-price pricelist">1 500 Р</p>
-                                    <p class="product-sizes">Размеры в наличии: <br />42 | 43 | 45 | 46 | 47</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 boot-mobile">
-                            <div class="shop-product shop-mobile">
-                                <div class="overlay-wrapper">
-                                    <img src="../img/demo/shop/product1.jpg" alt="Product 1" />
-                                </div>
-                                <div class="shop-product-info">
-                                    <h5 class="product-name-mobile">Nike Air Max/New Blue Lite</h5>
-                                    <p class="product-price pricelist">1 500 Р</p>
-                                    <p class="product-sizes">Размеры в наличии: <br />42 | 43 | 45 | 46 | 47</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-6 boot-mobile">
-                            <div class="shop-product shop-mobile">
-                                <div class="overlay-wrapper">
-                                    <img src="../img/demo/shop/product1.jpg" alt="Product 1">
-                                </div>
-                                <div class="shop-product-info">
-                                    <h5 class="product-name-mobile">Nike Air Max/New Blue Lite</h5>
-                                    <p class="product-price pricelist">1 500 Р</p>
-                                    <p class="product-sizes">Размеры в наличии: <br />42 | 43 | 45 | 46 | 47</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6 boot-mobile">
-                            <div class="shop-product shop-mobile">
-                                <div class="overlay-wrapper">
-                                    <img src="../img/demo/shop/product1.jpg" alt="Product 1">
-                                </div>
-                                <div class="shop-product-info">
-                                    <h5 class="product-name-mobile">Nike Air Max/New Blue Lite</h5>
-                                    <p class="product-price pricelist">1 500 Р</p>
-                                    <p class="product-sizes">Размеры в наличии: <br />42 | 43 | 45 | 46 | 47</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-xs-12" id="goods">
+                    
                 </div>
             </div>
         </div>
@@ -253,7 +205,32 @@
 
     <!-- Slideout -->
     <script src="../Content/mobile/double/js/slideout.min.js"></script>
-    <script src="../Content/mobile/double/js/slideouts.js"></script> 
+    <script src="../Content/mobile/double/js/slideouts.js"></script>
+
+    <script>
+        jQuery(function() {
+            jQuery.ajax({
+                url: '/mobile/getshoes',
+                type: 'GET',
+                async: true,
+                data: {
+                    'groups': 1,
+                    'sizes': '',
+                    'brands': '',
+                    'search': '',
+                    'price_1': '1500',
+                    'price_2': '5000'
+                },
+                dataType: 'json',
+                success: function(data) {
+                    Djinaro.MobileWriteResponseGoods(data);
+                },
+                error: function(x, y, z) {
+                    console.log(x + '\n' + y + '\n' + z);
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>

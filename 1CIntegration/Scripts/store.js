@@ -232,6 +232,19 @@ Djinaro.WriteResponseGoods = function (data) {
     }
 }
 
+Djinaro.MobileWriteResponseGoods = function (data) {
+    var categories = document.getElementById('goods');
+    jQuery('#goods').children().remove();
+    if (data.length > 0) {
+        for (var i = 0; i < data.length; i++) {
+            var row = document.createElement('div');
+            row.className = 'row';
+            row.innerHTML = data[i];
+            categories.appendChild(row);
+        }
+    }
+}
+
 Djinaro.openModalProduct = function() {
     if (jQuery.magnificPopup) {
         var popupInfo = jQuery('.pswp');
