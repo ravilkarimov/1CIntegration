@@ -38,8 +38,17 @@
     <script charset="windows-1251" src="~/Scripts/multi-column-select.js"></script>
     <script charset="windows-1251" src="~/Scripts/create_filters.js"></script>
     <script charset="windows-1251" src="~/Scripts/nouislider/nouislider.js"></script>
-    <link href="~/Content/swipemenu.css" rel="stylesheet" />
     <script> var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;</script>
+    <script>
+        if (device) {
+            if (device.windows()) {
+                //Полная версия
+            } else if (device.mobile() || device.iphone()) {
+                //Мобильная
+                window.location.href = "http://djinaro.com/mobile";
+            }
+        }
+    </script>
 </head>
 <body class ="bg-pattern1" data-spy="scroll" data-target=".navbar">
 
@@ -145,27 +154,6 @@
             <!-- Container -->
             <div class="container content-with-sidebar">
                 
-                <div class="white-space space-xsmall"></div>  
-
-                <div class="row">
-                    <div class="swcontainer">
-                        <div id="sidebar">
-                            <ul>
-                                <li><a href="#">БРЕНД</a></li>
-                                <li><a href="#">РАЗМЕР</a></li>
-                                <li><a href="#">СЕЗОН</a></li>
-                                <li><a href="#">ЦЕНА</a></li>
-                            </ul>
-                        </div>
-                        <div class="main-content">
-                            <a href="#" class="btn-primary swipebtn" data-toggle=".swcontainer" id="sidebar-toggle">
-                                ФИЛЬТР
-                            </a>
-                            <div class="content"></div>
-                        </div>
-                    </div>
-
-                </div>
                 <div class="white-space space-xsmall"></div>
                 <!-- Контент -->
                 <div class="row">
@@ -341,7 +329,6 @@
     <!-- Pie Chart -->
     <script src="~/Content/jquery.touchSwipe.min.js"></script>
     <script src="~/Scripts/themejs/jquery.easypiechart.min_store.js" type="text/javascript"></script>
-    <script src="~/Scripts/swipemenu.js"></script>
     <!-- Google Maps -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBny2ZQDRtvp935j3dwD5BZM9NGEpzFp0A&amp"></script>
         
@@ -351,15 +338,6 @@
         jQuery(function() {
             Djinaro.getAllBrands();
             Djinaro.getAllSizes();
-
-            if (device) {
-                if (device.windows()) {
-                    //Полная версия
-                }
-                else if (device.mobile() || device.iphone()) {
-                    //Мобильная
-                }
-            }
         });
     </script>
 
