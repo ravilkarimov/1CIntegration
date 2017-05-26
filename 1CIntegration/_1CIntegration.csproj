@@ -494,6 +494,7 @@
     <Content Include="Scripts\create_filters.js" />
     <Content Include="Scripts\device.min.js" />
     <Content Include="Scripts\jquery.touchSwipe.min.js" />
+    <Content Include="Scripts\init.js" />
     <Content Include="Scripts\noui_init.js" />
     <Content Include="Content\mobile\double\css\semantic\.versions" />
     <Content Include="Content\mobile\double\css\semantic\LICENSE" />

@@ -23,6 +23,12 @@ Djinaro.sortingProduct = function() {
     }
 }
 
+
+Djinaro.filterMobileByGoods = function() {
+    var inputSearch = jQuery('#search-terms');
+    Djinaro.getShoes(1, '', '', inputSearch[0].value, 1500, 5000);
+}
+
 Djinaro.filterByGoods = function () {
     var groupActive = jQuery('#menu_nav .active');
     var brandsActive = jQuery('#selectcontrolbrand .active');
@@ -310,26 +316,55 @@ Djinaro.WriteResponseGoodsPaging = function (data) {
 }
 
 Djinaro.getShoes = function (groups, sizes, brands, search, price_1, price_2) {
-    jQuery.ajax({
-        url: '/Store/getshoes',
-        type: 'GET',
-        async: true,
-        data: {
-            'groups': groups,
-            'sizes': sizes,
-            'brands': brands,
-            'search': search,
-            'price_1': price_1,
-            'price_2': price_2
-        },
-        dataType: 'json',
-        success: function (data) {
-            Djinaro.WriteResponseGoods(data);
-        },
-        error: function (x, y, z) {
-            console.log(x + '\n' + y + '\n' + z);
+    if (device) {
+        if (device.windows()) {
+            //Полная версия
+            jQuery.ajax({
+                url: '/Store/getshoes',
+                type: 'GET',
+                async: true,
+                data: {
+                    'groups': groups,
+                    'sizes': sizes,
+                    'brands': brands,
+                    'search': search,
+                    'price_1': price_1,
+                    'price_2': price_2
+                },
+                dataType: 'json',
+                success: function (data) {
+                    Djinaro.WriteResponseGoods(data);
+                },
+                error: function (x, y, z) {
+                    console.log(x + '\n' + y + '\n' + z);
+                }
+            });
+        } else if (device.mobile() || device.iphone()) {
+            //Мобильная
+            jQuery(function() {
+                jQuery.ajax({
+                    url: '/mobile/getshoes',
+                    type: 'GET',
+                    async: true,
+                    data: {
+                        'groups': groups,
+                        'sizes': sizes,
+                        'brands': brands,
+                        'search': search,
+                        'price_1': price_1,
+                        'price_2': price_2
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        Djinaro.MobileWriteResponseGoods(data);
+                    },
+                    error: function(x, y, z) {
+                        console.log(x + '\n' + y + '\n' + z);
+                    }
+                });
+            });
         }
-    });
+    }
 }
 
 Djinaro.getShoesCount = function (groups, sizes, count, brands) {

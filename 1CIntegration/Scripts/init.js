@@ -1,35 +1,4 @@
-﻿var html5Slider = document.getElementById('html5');
-
-noUiSlider.create(html5Slider, {
-    start: [1500, 5000],
-    connect: true,
-    range: {
-        'min': 0,
-        'max': 10000
-    }
-});
-
-var inputNumber2 = document.getElementById('input-number2');
-var inputNumber1 = document.getElementById('input-number1');
-
-html5Slider.noUiSlider.on('update', function (values, handle) {
-
-    var value = values[handle];
-
-    if (handle) {
-        inputNumber2.value = Math.round(value);
-    } else {
-        inputNumber1.value = Math.round(value);
-    }
-});
-
-inputNumber2.addEventListener('change', function () {
-    html5Slider.noUiSlider.set([null, this.value]);
-});
-inputNumber1.addEventListener('change', function () {
-    html5Slider.noUiSlider.set([this.value, null]);
-});
-
+﻿
 if (device) {
     if (device.windows()) {
         //Полная версия
