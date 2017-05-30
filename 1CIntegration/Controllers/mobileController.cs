@@ -9,11 +9,12 @@ using _1CIntegrationDB;
 
 namespace _1CIntegration.Controllers
 {
+    [Compress]
     public class MobileController : Controller
     {
         //
         // GET: /mobile/
-
+        [OutputCache(Duration = 600, Location = OutputCacheLocation.Client)]
         public ActionResult Index()
         {
             return View();
