@@ -19,7 +19,6 @@
   var leftMenu = document.getElementById('left-menu');
   var rightMenu = document.getElementById('right-menu');
 
-
   document
     .querySelector('#toggle-left')
     .addEventListener('click', function() {
@@ -29,10 +28,15 @@
 
   leftSlideout.on('close', function () {
       leftMenu.style.zIndex = '-1';
-      rightMenu.style.zIndex = '0';
+      rightMenu.style.zIndex = '-1';
   });
 
   leftSlideout.on('open', function () {
+      leftMenu.style.zIndex = '0';
+      rightMenu.style.zIndex = '-1';
+  });
+
+  leftSlideout.on('translate', function (translated) {
       leftMenu.style.zIndex = '0';
       rightMenu.style.zIndex = '-1';
   });
@@ -46,10 +50,15 @@
 
   rightSlideout.on('close', function () {
       rightMenu.style.zIndex = '-1';
-      leftMenu.style.zIndex = '0';
+      leftMenu.style.zIndex = '-1';
   });
 
   rightSlideout.on('open', function () {
+      rightMenu.style.zIndex = '0';
+      leftMenu.style.zIndex = '-1';
+  });
+
+  rightSlideout.on('translate', function (translated) {
       rightMenu.style.zIndex = '0';
       leftMenu.style.zIndex = '-1';
   });
