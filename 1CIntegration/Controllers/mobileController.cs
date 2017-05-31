@@ -14,6 +14,7 @@ namespace _1CIntegration.Controllers
     {
         //
         // GET: /mobile/
+        [Compress]
         [OutputCache(Duration = 600, Location = OutputCacheLocation.Client)]
         public ActionResult Index()
         {
@@ -23,6 +24,7 @@ namespace _1CIntegration.Controllers
          private string path_web_data = ConfigurationManager.AppSettings["FileWatcher"];
 
         // GET: /Mobile/getshoes
+        [Compress]
         [HttpGet]
         [OutputCache(Duration = 300, Location = OutputCacheLocation.None)]
         public JsonResult GetShoes(int groups, string sizes, string brands, string search, string price_1, string price_2)

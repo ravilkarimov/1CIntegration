@@ -205,7 +205,18 @@
         </div>
     </nav>
     <!-- visible content -->
-    <main class="main-content" id="panel">
+<main class="main-content" id="panel">
+    <style>
+        .fixed-header {
+            position: fixed;
+            width: 100%;
+            height: auto;
+            backface-visibility: hidden;
+            z-index: 1000;
+            background-color: red;
+        }
+    </style>
+    <div class="fixed-header">
         <header class="ui menu">
             <div class="item toggle-button" id="toggle-left">
                 <i class="sidebar icon"></i>
@@ -222,20 +233,21 @@
         <header class="ui menu">
             <div class="item" style="width: 100% !important;">
                 <form id="search" class="search-header" action="#" method="post" style="width: 100% !important;">
-                    <div id="label"><label for="search-terms" id="search-label" style="display: none;"></label></div>
+                    <div id="label">
+                        <label for="search-terms" id="search-label" style="display: none;"></label>
+                    </div>
                     <div id="input" style="width: 100% !important;">
                         <input class="form-control" style="width: 100% !important;" type="text" name="search-terms" id="search-terms" placeholder="Поиск..">
                     </div>
                 </form>
             </div>
         </header>
+    </div>
+    <div class="space-xsmall"></div>
+    <div class="container" style="padding-top: 10px; background: url(../img/theme/bg/bg-pattern1.png) repeat fixed center 0; background-attachment: inherit;">
+        <div class="row">
+            <div class="col-xs-12" id="goods">
 
-        <div class="space-xsmall"></div>
-        <div class="container" style="padding-top:10px; background: url(../img/theme/bg/bg-pattern1.png) repeat fixed center 0; background-attachment: inherit;">
-            <div class="row">
-                <div class="col-xs-12" id="goods">
-                    
-                </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
@@ -243,6 +255,7 @@
                 </div>
             </div>
         </div>
+    </div>
         <div class="white-space space-xsmall"></div>
         <!-- Footer Container -->
         <div class="footer-wrapper">
@@ -355,6 +368,18 @@
                     }, 300);
                 })
                 .keyup();
+
+            var height = document.getElementsByClassName("fixed-header")[0].offsetHeight;
+            document.getElementById("goods").style.marginTop = height + 'px';
+
+            jQuery(document).ready(function () {
+                jQuery(window).keydown(function (event) {
+                    if (event.keyCode == 13) {
+                        event.preventDefault();
+                        return false;
+                    }
+                });
+            });
         });
     </script>
     <script>
