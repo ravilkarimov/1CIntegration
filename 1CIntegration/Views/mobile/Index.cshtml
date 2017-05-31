@@ -28,6 +28,8 @@
     <link href="../Content/colors/color-default_store.css" rel="stylesheet" title="style1">
     <link href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700&amp;subset=cyrillic,latin-ext" rel="stylesheet">
     <link href="../favicon_new.png" rel="shortcut icon">
+    <link href="~/Scripts/nouislider/nouislider.css" rel="stylesheet" />
+    <script charset="windows-1251" src="~/Scripts/nouislider/nouislider.js"></script>
     <!-- Slideout -->
     <link href="../Content/mobile/double/css/semantic/semantic.css" rel="stylesheet" />
     <link href="../Content/mobile/double/css/main.css" rel="stylesheet" />
@@ -39,6 +41,7 @@
     <script src="~/Scripts/device.min.js"></script>
     <!-- Bootstrap -->
     <script src="../Scripts/bootstrap-select.js"></script>
+    <script src="~/Content/mobile/double/css/semantic/semantic.min.js"></script>
     <!-- MutationObserver-->
     <script> var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;</script>
 
@@ -53,32 +56,151 @@
     <nav id="left-menu">
         <div class="ui vertical menu left-vertical-menu">
             <div class="item">
-                <h3>МЕНЮ</h3>
+                <h2>МЕНЮ</h2>
             </div>
             <div class="item">
-                <h2><a href="/store">ОБУВЬ</a></h2>
+                <h3><a href="/store">Обувь</a></h3>
             </div>
             <div class="item">
-                <h2><a href="/contact">КОНТАКТЫ</a></h2>
+                <h3><a href="/contact">Контакты</a></h3>
             </div>
         </div>
     </nav>
     <nav id="right-menu">
-        <div class="ui vertical menu right-vertical-menu">
+        <div class="ui vertical menu right-vertical-menu" style="display:block;">
             <div class="item">
-                <h3>ФИЛЬТР</h3>
+                <h2>ФИЛЬТР</h2>
             </div>
+            <div class="item">
+                <h3>Бренд</h3>
+            </div>
+            <div class="item">
+                <h3>Размер</h3>
+            </div>
+            <div class="item disabled">
+                <h3>Сезон</h3>
+            </div>
+            <div class="item">
+                <h3>Цена</h3>
+            </div>
+            <div class="item">
+                <button class="ui left labeled icon button">
+                    <i class="left arrow icon"></i>
+                    Закрыть
+                </button>
+            </div>
+        </div>
+        <div id="brands" class="ui vertical menu right-vertical-menu" style="display:none;">
             <div class="item">
                 <h2>БРЕНД</h2>
             </div>
+            <div class="item left">
+                <div class="ui slider checkbox full-width">
+                    <input type="checkbox" name="newsletter" class="full-width">
+                    <label>Adidas</label>
+                </div>
+            </div>
+            <div class="item left">
+                <div class="ui slider checkbox full-width">
+                    <input type="checkbox" name="newsletter" class="full-width">
+                    <label>Nike</label>
+                </div>
+            </div>
+            <div class="item left">
+                <div class="ui slider checkbox full-width">
+                    <input type="checkbox" name="newsletter" class="full-width">
+                    <label>Asics</label>
+                </div>
+            </div>
+            <div class="item left">
+                <div class="ui slider checkbox full-width">
+                    <input type="checkbox" name="newsletter" class="full-width">
+                    <label>NB</label>
+                </div>
+            </div>
+            <div class="item left">
+                <div class="ui slider checkbox full-width">
+                    <input type="checkbox" name="newsletter" class="full-width">
+                    <label>Rebook</label>
+                </div>
+            </div>
+            <div class="item">
+                <button class="ui left labeled icon button">
+                    <i class="left arrow icon"></i>
+                    Применить
+                </button>
+            </div>
+        </div>
+        <div id="sizes" class="ui vertical menu right-vertical-menu" style="display:none;">
             <div class="item">
                 <h2>РАЗМЕР</h2>
             </div>
-            <div class="item">
-                <h2>СЕЗОН</h2>
+            <div class="item left">
+                <div class="ui slider checkbox full-width">
+                    <input type="checkbox" name="newsletter" class="full-width">
+                    <label>35</label>
+                </div>
+            </div>
+            <div class="item left">
+                <div class="ui slider checkbox full-width">
+                    <input type="checkbox" name="newsletter" class="full-width">
+                    <label>36</label>
+                </div>
+            </div>
+            <div class="item left">
+                <div class="ui slider checkbox full-width">
+                    <input type="checkbox" name="newsletter" class="full-width">
+                    <label>37</label>
+                </div>
+            </div>
+            <div class="item left">
+                <div class="ui slider checkbox full-width">
+                    <input type="checkbox" name="newsletter" class="full-width">
+                    <label>38</label>
+                </div>
+            </div>
+            <div class="item left">
+                <div class="ui slider checkbox full-width">
+                    <input type="checkbox" name="newsletter" class="full-width">
+                    <label>39</label>
+                </div>
+            </div>
+            <div class="item left">
+                <div class="ui slider checkbox full-width">
+                    <input type="checkbox" name="newsletter" class="full-width">
+                    <label>40</label>
+                </div>
+            </div>
+            <div class="item left">
+                <div class="ui slider checkbox full-width">
+                    <input type="checkbox" name="newsletter" class="full-width">
+                    <label>41</label>
+                </div>
             </div>
             <div class="item">
+                <button class="ui left labeled icon button">
+                    <i class="left arrow icon"></i>
+                    Применить
+                </button>
+            </div>
+        </div>
+        <div id="pricerange" class="ui vertical menu right-vertical-menu" style="display:none;">
+            <div class="item">
                 <h2>ЦЕНА</h2>
+            </div>
+            <div class="item left">
+                <div id="html5" class="noUi-target noUi-ltr noUi-horizontal noUi-background" onchange=" Djinaro.filterByGoods()"></div>
+                <div class="row" style="padding:20px;">
+                    <input class="form-control" type="number" min="0" max="10000" step="500" id="input-number1" style="padding: 12.5px;">
+                    <span style="line-height: 35px; font-weight: bold; color: #000; width: 10%; margin: 0px 10px 0px 10px;">—</span>
+                    <input class="form-control" type="number" min="0" max="10000" step="500" id="input-number2" style="padding: 12.5px;">
+                </div>
+            </div>
+            <div class="item">
+                <button class="ui left labeled icon button">
+                    <i class="left arrow icon"></i>
+                    Применить
+                </button>
             </div>
         </div>
     </nav>
@@ -115,8 +237,60 @@
                     
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button class="fluid ui secondary basic button">Показать еще</button>
+                </div>
+            </div>
         </div>
+        <div class="white-space space-xsmall"></div>
+        <!-- Footer Container -->
+        <div class="footer-wrapper">
 
+            <!-- Footer Bottom Container -->
+            <div class="footer-bottom">
+
+                <!-- Container -->
+                <div class="container">
+
+                    <div class="row">
+                        <!-- Footer Menu -->
+                        <div class="col-md-12 col-sm-12 columns">
+                            <div class="menu-footer">
+                                <ul class="list-inline">
+                                    <li><a href="/store">Обувь</a></li>
+                                    <li><a href="/contact">Контакты</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /Footer Menu -->
+                        <!-- Copyright -->
+                        <div class="col-md-12 col-sm-12 columns">
+                            <div class="copyright">
+                                <p>© 2017 - DJINARO | Все права защищены</p>
+                            </div>
+                        </div>
+                        <!-- /Copyright -->
+                        <!-- Footer Social -->
+                        <div class="col-md-12 col-sm-12 columns">
+                            <div class="social-footer">
+                                <ul class="list-inline social-list">
+                                    <li><a href="https://vk.com/djinaro" class="ToolTip" title="Вконтакте"><span class="fa fa-vk"></span></a></li>
+                                    <li><a href="https://www.instagram.com/djinaro_shop_kazan/" class="ToolTip" title="Instagram"><span class="fa fa-instagram"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /Footer Social -->
+                    </div>
+
+                </div>
+                <!-- /Container -->
+
+            </div>
+            <!-- /Footer Bottom Container -->
+
+        </div>
+        <!-- /Footer Container -->
     </main>
 
     <div class="page-wrapper" id="page-top">
@@ -182,6 +356,58 @@
                 })
                 .keyup();
         });
+    </script>
+    <script>
+        var html5Slider = document.getElementById('html5');
+        noUiSlider.create(html5Slider, {
+            start: [1500, 5000],
+            connect: true,
+            range: {
+                'min': 0,
+                'max': 10000
+            }
+        });
+
+        var inputNumber2 = document.getElementById('input-number2');
+        var inputNumber1 = document.getElementById('input-number1');
+
+        html5Slider.noUiSlider.on('update', function (values, handle) {
+
+            var value = values[handle];
+            if (handle) {
+                inputNumber2.value = Math.round(value);
+            } else {
+                inputNumber1.value = Math.round(value);
+            }
+        });
+
+        inputNumber2.addEventListener('change', function () {
+            html5Slider.noUiSlider.set([null, this.value]);
+        });
+        inputNumber1.addEventListener('change', function () {
+            html5Slider.noUiSlider.set([this.value, null]);
+        });
+
+        Djinaro.filterByGoods();
+
+        var timeNoUi = setTimeout(function () { }, 500);
+        var observer = new MutationObserver(function (mutations) {
+            clearInterval(timeNoUi);
+            timeNoUi = setTimeout(function () { Djinaro.filterByGoods(); }, 300);
+        });
+        var noUiOrigin = document.getElementsByClassName('noUi-origin');
+        observer.observe(noUiOrigin[0], {
+            attributes: true
+        });
+        observer.observe(noUiOrigin[1], {
+            attributes: true
+        });
+        jQuery("#search-terms")
+            .keyup(function () {
+                clearInterval(timeNoUi);
+                timeNoUi = setTimeout(function () { Djinaro.filterByGoods(); }, 300);
+            })
+            .keyup();
     </script>
 
 

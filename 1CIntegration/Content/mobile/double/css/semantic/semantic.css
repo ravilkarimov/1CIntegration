@@ -21368,7 +21368,10 @@ Floated Menu / Item
   border-right: none;
 }
 
-.ui.vertical.menu > .item:first-child {
+.ui.vertical.menu .item.left{
+    text-align: left;
+}
+        .ui.vertical.menu > .item:first-child {
   border-radius: 0.28571429rem 0.28571429rem 0px 0px;
 }
 
@@ -36970,3 +36973,7 @@ html.ios {
 /*******************************
          Site Overrides
 *******************************/
+
+.full-width {
+    width: 100% !important;
+}
