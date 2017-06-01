@@ -20,6 +20,7 @@
   var fixed = document.querySelector('.fixed-header');
   var leftMenu = document.getElementById('left-menu');
   var rightMenu = document.getElementById('right-menu');
+  var panel = document.getElementById('panel');
 
   document
     .querySelector('#toggle-left')

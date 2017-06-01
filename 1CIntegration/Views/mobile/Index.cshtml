@@ -59,32 +59,49 @@
                 <h2>МЕНЮ</h2>
             </div>
             <div class="item">
-                <h3><a href="/store">Обувь</a></h3>
+                <h3><a href="/store">Обувь</a>
+                </h3>
             </div>
             <div class="item">
-                <h3><a href="/contact">Контакты</a></h3>
+                <h3><a href="/contact">Контакты</a>
+                </h3>
             </div>
         </div>
     </nav>
+    <script>
+    filterApply = function () {
+        document.getElementById('right-menu-main').style.display = 'block';
+        document.getElementById('toggle-right').click();
+        Djinaro.filterMobileByGoods();
+    };
+    hideRightMenu = function() { document.getElementById('right-menu-main').style.display = 'none'; };
+    </script>
+
     <nav id="right-menu">
-        <div class="ui vertical menu right-vertical-menu" style="display:block;">
+        <div class="ui vertical menu right-vertical-menu" style="display:block;" id="right-menu-main">
             <div class="item">
                 <h2>ФИЛЬТР</h2>
             </div>
             <div class="item">
-                <h3>Бренд</h3>
+                <h3 onclick="hideRightMenu(); document.getElementById('brands').style.display = 'block';">
+                    Бренд
+                </h3>
             </div>
             <div class="item">
-                <h3>Размер</h3>
+                <h3 onclick="hideRightMenu(); document.getElementById('sizes').style.display = 'block';">
+                    Размер
+                </h3>
             </div>
             <div class="item disabled">
                 <h3>Сезон</h3>
             </div>
             <div class="item">
-                <h3>Цена</h3>
+                <h3 onclick="hideRightMenu(); document.getElementById('pricerange').style.display = 'block';">
+                    Цена
+                </h3>
             </div>
             <div class="item">
-                <button class="ui left labeled icon button">
+                <button class="ui left labeled icon button" onclick="document.getElementById('toggle-right').click();">
                     <i class="left arrow icon"></i>
                     Закрыть
                 </button>
@@ -124,14 +141,14 @@
                     <label>Rebook</label>
                 </div>
             </div>
-            <div class="item">
-                <button class="ui left labeled icon button">
+            <div class="item" style="position: fixed;bottom: 0;padding-left: 50px;padding-right: 50px;z-index: 200; background: white;">
+                <button class="ui left labeled icon button" onclick="document.getElementById('brands').style.display = 'none'; filterApply();">
                     <i class="left arrow icon"></i>
                     Применить
                 </button>
             </div>
         </div>
-        <div id="sizes" class="ui vertical menu right-vertical-menu" style="display:none;">
+        <div id="sizes" class="ui vertical menu right-vertical-menu" style="display:none;margin-bottom: 60px;">
             <div class="item">
                 <h2>РАЗМЕР</h2>
             </div>
@@ -177,8 +194,8 @@
                     <label>41</label>
                 </div>
             </div>
-            <div class="item">
-                <button class="ui left labeled icon button">
+            <div class="item" style="position: fixed;bottom: 0;padding-left: 50px;padding-right: 50px;z-index: 200; background: white;">
+                <button class="ui left labeled icon button" onclick="document.getElementById('sizes').style.display = 'none'; filterApply();">
                     <i class="left arrow icon"></i>
                     Применить
                 </button>
@@ -196,8 +213,8 @@
                     <input class="form-control" type="number" min="0" max="10000" step="500" id="input-number2" style="padding: 12.5px;">
                 </div>
             </div>
-            <div class="item">
-                <button class="ui left labeled icon button">
+            <div class="item" style="position: fixed;bottom: 0;padding-left: 50px;padding-right: 50px;z-index: 200; background: white;">
+                <button class="ui left labeled icon button" onclick="document.getElementById('pricerange').style.display = 'none'; filterApply();">
                     <i class="left arrow icon"></i>
                     Применить
                 </button>
