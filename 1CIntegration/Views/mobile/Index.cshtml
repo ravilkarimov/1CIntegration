@@ -83,12 +83,12 @@
                 <h2>ФИЛЬТР</h2>
             </div>
             <div class="item">
-                <h3 onclick="hideRightMenu(); document.getElementById('brands').style.display = 'block';">
+                <h3 onclick="hideRightMenu();Djinaro.setDisplayElement('brands', 'block');">
                     Бренд
                 </h3>
             </div>
             <div class="item">
-                <h3 onclick="hideRightMenu(); document.getElementById('sizes').style.display = 'block';">
+                <h3 onclick="hideRightMenu();Djinaro.setDisplayElement('sizes', 'block');">
                     Размер
                 </h3>
             </div>
@@ -96,7 +96,7 @@
                 <h3>Сезон</h3>
             </div>
             <div class="item">
-                <h3 onclick="hideRightMenu(); document.getElementById('pricerange').style.display = 'block';">
+                <h3 onclick="hideRightMenu();Djinaro.setDisplayElement('pricerange', 'block');">
                     Цена
                 </h3>
             </div>
@@ -107,100 +107,8 @@
                 </button>
             </div>
         </div>
-        <div id="brands" class="ui vertical menu right-vertical-menu" style="display:none;">
-            <div class="item">
-                <h2>БРЕНД</h2>
-            </div>
-            <div class="item left">
-                <div class="ui slider checkbox full-width">
-                    <input type="checkbox" name="newsletter" class="full-width">
-                    <label>Adidas</label>
-                </div>
-            </div>
-            <div class="item left">
-                <div class="ui slider checkbox full-width">
-                    <input type="checkbox" name="newsletter" class="full-width">
-                    <label>Nike</label>
-                </div>
-            </div>
-            <div class="item left">
-                <div class="ui slider checkbox full-width">
-                    <input type="checkbox" name="newsletter" class="full-width">
-                    <label>Asics</label>
-                </div>
-            </div>
-            <div class="item left">
-                <div class="ui slider checkbox full-width">
-                    <input type="checkbox" name="newsletter" class="full-width">
-                    <label>NB</label>
-                </div>
-            </div>
-            <div class="item left">
-                <div class="ui slider checkbox full-width">
-                    <input type="checkbox" name="newsletter" class="full-width">
-                    <label>Rebook</label>
-                </div>
-            </div>
-            <div class="item" style="position: fixed;bottom: 0;padding-left: 50px;padding-right: 50px;z-index: 200; background: white;">
-                <button class="ui left labeled icon button" onclick="document.getElementById('brands').style.display = 'none'; filterApply();">
-                    <i class="left arrow icon"></i>
-                    Применить
-                </button>
-            </div>
-        </div>
-        <div id="sizes" class="ui vertical menu right-vertical-menu" style="display:none;margin-bottom: 60px;">
-            <div class="item">
-                <h2>РАЗМЕР</h2>
-            </div>
-            <div class="item left">
-                <div class="ui slider checkbox full-width">
-                    <input type="checkbox" name="newsletter" class="full-width">
-                    <label>35</label>
-                </div>
-            </div>
-            <div class="item left">
-                <div class="ui slider checkbox full-width">
-                    <input type="checkbox" name="newsletter" class="full-width">
-                    <label>36</label>
-                </div>
-            </div>
-            <div class="item left">
-                <div class="ui slider checkbox full-width">
-                    <input type="checkbox" name="newsletter" class="full-width">
-                    <label>37</label>
-                </div>
-            </div>
-            <div class="item left">
-                <div class="ui slider checkbox full-width">
-                    <input type="checkbox" name="newsletter" class="full-width">
-                    <label>38</label>
-                </div>
-            </div>
-            <div class="item left">
-                <div class="ui slider checkbox full-width">
-                    <input type="checkbox" name="newsletter" class="full-width">
-                    <label>39</label>
-                </div>
-            </div>
-            <div class="item left">
-                <div class="ui slider checkbox full-width">
-                    <input type="checkbox" name="newsletter" class="full-width">
-                    <label>40</label>
-                </div>
-            </div>
-            <div class="item left">
-                <div class="ui slider checkbox full-width">
-                    <input type="checkbox" name="newsletter" class="full-width">
-                    <label>41</label>
-                </div>
-            </div>
-            <div class="item" style="position: fixed;bottom: 0;padding-left: 50px;padding-right: 50px;z-index: 200; background: white;">
-                <button class="ui left labeled icon button" onclick="document.getElementById('sizes').style.display = 'none'; filterApply();">
-                    <i class="left arrow icon"></i>
-                    Применить
-                </button>
-            </div>
-        </div>
+        <div id="brands" class="ui vertical menu right-vertical-menu" style="display:none;"></div>
+        <div id="sizes" class="ui vertical menu right-vertical-menu" style="display:none;"></div>
         <div id="pricerange" class="ui vertical menu right-vertical-menu" style="display:none;">
             <div class="item">
                 <h2>ЦЕНА</h2>
@@ -213,8 +121,8 @@
                     <input class="form-control" type="number" min="0" max="10000" step="500" id="input-number2" style="padding: 12.5px;">
                 </div>
             </div>
-            <div class="item" style="position: fixed;bottom: 0;padding-left: 50px;padding-right: 50px;z-index: 200; background: white;">
-                <button class="ui left labeled icon button" onclick="document.getElementById('pricerange').style.display = 'none'; filterApply();">
+            <div class="item">
+                <button class="ui left labeled icon button" onclick="Djinaro.setDisplayElement('pricerange', 'none');filterApply();">
                     <i class="left arrow icon"></i>
                     Применить
                 </button>
@@ -365,7 +273,22 @@
 
 
     <script>
-        jQuery(function() {
+        jQuery(function () {
+            var timeNoUi = setTimeout(function () { }, 500);
+            var observer = new MutationObserver(function (mutations) {
+                clearInterval(timeNoUi);
+                timeNoUi = setTimeout(function () { Djinaro.filterMobileByGoods(); }, 300);
+            });
+            var noUiOrigin = document.getElementsByClassName('noUi-origin');
+            observer.observe(noUiOrigin[0], {
+                attributes: true
+            });
+            observer.observe(noUiOrigin[1], {
+                attributes: true
+            });
+
+            Djinaro.getAllBrands();
+            Djinaro.getAllSizes();
             Djinaro.filterMobileByGoods();
 
             var timeNoUi = setTimeout(function () { }, 500);
@@ -429,27 +352,6 @@
         inputNumber1.addEventListener('change', function () {
             html5Slider.noUiSlider.set([this.value, null]);
         });
-
-        Djinaro.filterByGoods();
-
-        var timeNoUi = setTimeout(function () { }, 500);
-        var observer = new MutationObserver(function (mutations) {
-            clearInterval(timeNoUi);
-            timeNoUi = setTimeout(function () { Djinaro.filterByGoods(); }, 300);
-        });
-        var noUiOrigin = document.getElementsByClassName('noUi-origin');
-        observer.observe(noUiOrigin[0], {
-            attributes: true
-        });
-        observer.observe(noUiOrigin[1], {
-            attributes: true
-        });
-        jQuery("#search-terms")
-            .keyup(function () {
-                clearInterval(timeNoUi);
-                timeNoUi = setTimeout(function () { Djinaro.filterByGoods(); }, 300);
-            })
-            .keyup();
     </script>
 
 

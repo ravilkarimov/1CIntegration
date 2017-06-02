@@ -1,6 +1,11 @@
 ﻿
 var Djinaro = {};
 
+Djinaro.setDisplayElement = function (id, value) {
+    document.getElementById(id).style.display = value;
+}
+
+
 Djinaro.sortingProduct = function() {
     var groupBtnSort = jQuery('#group_btn_sort');
     if (groupBtnSort) {
@@ -106,6 +111,51 @@ Djinaro.WriteResponseGroups = function (data) {
     groups.appendChild(list);
 }
 
+Djinaro.WriteMobileResponseBrands = function (data) {
+    var brands = document.getElementById('brands');
+    var itemHead = document.createElement('div');
+    itemHead.className = 'item';
+    var h2 = document.createElement('h2');
+    h2.innerHTML = 'БРЕНД';
+    itemHead.appendChild(h2);
+    brands.appendChild(itemHead);
+
+    for (var i = 0; i < data.length; i++) {
+        var divItemBrand = document.createElement('div');
+        divItemBrand.className = 'item left';
+
+        var div = document.createElement('div');
+        div.className = 'ui slider checkbox full-width';
+
+        var inputBrand = document.createElement('input');
+        inputBrand.type = 'checkbox';
+        inputBrand.setAttribute('name', 'newsletter');
+        inputBrand.className = 'full-width';
+        
+        var label = document.createElement('label');
+        label.innerHTML = data[i].brand;
+
+        div.appendChild(inputBrand);
+        div.appendChild(label);
+        divItemBrand.appendChild(div);
+        brands.appendChild(divItemBrand);
+    }
+
+    var itemFoot = document.createElement('div');
+    itemFoot.className = 'item';
+    var button = document.createElement('button');
+    button.className = 'ui left labeled icon button';
+    button.addEventListener("click", function () {
+        Djinaro.setDisplayElement('brands', 'none'); filterApply();
+    });
+    button.innerHTML = 'Применить';
+    var iElement = document.createElement('i');
+    iElement.className = 'left arrow icon';
+    button.appendChild(iElement);
+    itemFoot.appendChild(button);
+    brands.appendChild(itemFoot); 
+}
+
 Djinaro.WriteResponseBrands = function (data) {
     var brands = document.getElementById('selectcontrolbrand');
     var select = null;
@@ -122,6 +172,7 @@ Djinaro.WriteResponseBrands = function (data) {
         option.setAttribute("value", data[i].brand_id);
         select.appendChild(option);
     }
+    
     jQuery('#selectcontrolbrand').MultiColumnSelect({
         multiple: true,              // Single or Multiple Select- Default Single
         useOptionText: true,               // Use text from option. Use false if you plan to use images
@@ -156,6 +207,51 @@ Djinaro.WriteResponseBrands = function (data) {
         }
     });
 } 
+
+Djinaro.WriteMobileResponseSizes = function (data) {
+    var brands = document.getElementById('sizes');
+    var itemHead = document.createElement('div');
+    itemHead.className = 'item';
+    var h2 = document.createElement('h2');
+    h2.innerHTML = 'РАЗМЕР';
+    itemHead.appendChild(h2);
+    brands.appendChild(itemHead);
+
+    for (var i = 0; i < data.length; i++) {
+        var divItemBrand = document.createElement('div');
+        divItemBrand.className = 'item left';
+
+        var div = document.createElement('div');
+        div.className = 'ui slider checkbox full-width';
+
+        var inputBrand = document.createElement('input');
+        inputBrand.type = 'checkbox';
+        inputBrand.setAttribute('name', 'newsletter');
+        inputBrand.className = 'full-width';
+
+        var label = document.createElement('label');
+        label.innerHTML = data[i].size;
+
+        div.appendChild(inputBrand);
+        div.appendChild(label);
+        divItemBrand.appendChild(div);
+        brands.appendChild(divItemBrand);
+    }
+
+    var itemFoot = document.createElement('div');
+    itemFoot.className = 'item';
+    var button = document.createElement('button');
+    button.className = 'ui left labeled icon button';
+    button.addEventListener("click", function () {
+        Djinaro.setDisplayElement('sizes', 'none'); filterApply();
+    });
+    button.innerHTML = 'Применить';
+    var iElement = document.createElement('i');
+    iElement.className = 'left arrow icon';
+    button.appendChild(iElement);
+    itemFoot.appendChild(button);
+    brands.appendChild(itemFoot);
+}
 
 Djinaro.WriteResponseSizes = function (data) {
     var sizes = document.getElementById('selectcontrolsize');
@@ -409,7 +505,15 @@ Djinaro.getAllBrands = function () {
         async: true,
         dataType: 'json',
         success: function (data) {
-            Djinaro.WriteResponseBrands(data);
+            if (device) {
+                if (device.windows()) {
+                    //Полная версия
+                    Djinaro.WriteResponseBrands(data);
+                } else if (device.mobile() || device.iphone()) {
+                    //Мобильная
+                    Djinaro.WriteMobileResponseBrands(data);
+                }
+            }
         },
         error: function (x, y, z) {
             console.log(x + '\n' + y + '\n' + z);
@@ -478,8 +582,14 @@ Djinaro.getAllSizes = function() {
         type: 'GET',
         async: true,
         dataType: 'json',
-        success: function(data) {
-            Djinaro.WriteResponseSizes(data);
+        success: function (data) {
+            if (device.windows()) {
+                //Полная версия
+                Djinaro.WriteResponseSizes(data);
+            } else if (device.mobile() || device.iphone()) {
+                //Мобильная
+                Djinaro.WriteMobileResponseSizes(data);
+            }
         },
         error: function(x, y, z) {
             console.log(x + '\n' + y + '\n' + z);

@@ -1,26 +1,24 @@
 (function () {
-  
-  // declare slideouts as new variables
+    var panel = document.getElementById('panel');
+    var fixed = document.querySelector('.fixed-header');
+    var leftMenu = document.getElementById('left-menu');
+    var rightMenu = document.getElementById('right-menu');
+
   var leftSlideout = new  Slideout({
-    'panel': document.getElementById('panel'),
-    'menu': document.getElementById('left-menu'),
+      'panel': panel,
+    'menu': leftMenu,
     'padding': 256,
     'tolerance': 70,
     'touch': false
   });
   var rightSlideout = new  Slideout({
-    'panel': document.getElementById('panel'),
-    'menu': document.getElementById('right-menu'),
+      'panel': panel,
+    'menu': rightMenu,
     'padding': 256,
     'tolerance': 70,
     'side': 'right',
     'touch': false
   });
-
-  var fixed = document.querySelector('.fixed-header');
-  var leftMenu = document.getElementById('left-menu');
-  var rightMenu = document.getElementById('right-menu');
-  var panel = document.getElementById('panel');
 
   document
     .querySelector('#toggle-left')
@@ -52,6 +50,10 @@
     .addEventListener('click', function() {
       rightSlideout.toggle();
       rightMenu.style.zIndex = '0';
+      Djinaro.setDisplayElement('right-menu-main', 'block');
+      Djinaro.setDisplayElement('brands', 'none');
+      Djinaro.setDisplayElement('sizes', 'none');
+      Djinaro.setDisplayElement('pricerange', 'none');
     });
 
   rightSlideout.on('close', function () {
@@ -71,5 +73,7 @@
       leftMenu.style.zIndex = '-1';
       fixed.style.transform = 'translateX(' + translated + 'px)';
   });
+
+    
 
 })();
