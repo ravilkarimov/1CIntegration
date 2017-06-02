@@ -40,11 +40,12 @@ Djinaro.filterMobileByGoods = function () {
                 brands += ", '" + inputElementsBrans[i].getAttribute('brand_id') + "'";
             }
         }
-    }var sizes = '';
+    }
+    var sizes = '';
     var inputElementsSizes = document.getElementById('sizes').getElementsByTagName('input');
     for (var i = 0; inputElementsSizes[i]; ++i) {
         if (inputElementsSizes[i].checked) {
-            if (brands.length == 0) {
+            if (sizes.length == 0) {
                 sizes += "'" + inputElementsSizes[i].getAttribute('size') + "'";
             } else {
                 sizes += ", '" + inputElementsSizes[i].getAttribute('size') + "'";
