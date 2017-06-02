@@ -72,6 +72,7 @@
     filterApply = function () {
         document.getElementById('right-menu-main').style.display = 'block';
         document.getElementById('toggle-right').click();
+        document.getElementById('fetch-button').value = '1';
         Djinaro.filterMobileByGoods();
     };
     hideRightMenu = function() { document.getElementById('right-menu-main').style.display = 'none'; };
@@ -114,7 +115,7 @@
                 <h2>ЦЕНА</h2>
             </div>
             <div class="item left">
-                <div id="html5" class="noUi-target noUi-ltr noUi-horizontal noUi-background" onchange=" Djinaro.filterByGoods()"></div>
+                <div id="html5" class="noUi-target noUi-ltr noUi-horizontal noUi-background" onchange="Djinaro.filterMobileByGoods()"></div>
                 <div class="row" style="padding:20px;">
                     <input class="form-control" type="number" min="0" max="10000" step="500" id="input-number1" style="padding: 12.5px;">
                     <span style="line-height: 35px; font-weight: bold; color: #000; width: 10%; margin: 0px 10px 0px 10px;">—</span>
@@ -174,23 +175,16 @@
             <div class="col-xs-12" id="goods"></div>
             <div class="row">
                 <div class="col-xs-12">
-                    <button class="fluid ui secondary basic button">Показать еще</button>
+                    <button class="fluid ui secondary basic button" value="1" onclick="var butonFetch = document.getElementById('fetch-button'); butonFetch.value = parseInt(butonFetch.value) + 1; Djinaro.filterMobileByGoods();" id="fetch-button">Показать еще</button>
                 </div>
             </div>
         </div>
     </div>
         <div class="white-space space-xsmall"></div>
-        <!-- Footer Container -->
         <div class="footer-wrapper">
-
-            <!-- Footer Bottom Container -->
             <div class="footer-bottom">
-
-                <!-- Container -->
                 <div class="container">
-
                     <div class="row">
-                        <!-- Footer Menu -->
                         <div class="col-md-12 col-sm-12 columns">
                             <div class="menu-footer">
                                 <ul class="list-inline">
@@ -199,15 +193,11 @@
                                 </ul>
                             </div>
                         </div>
-                        <!-- /Footer Menu -->
-                        <!-- Copyright -->
                         <div class="col-md-12 col-sm-12 columns">
                             <div class="copyright">
                                 <p>© 2017 - DJINARO | Все права защищены</p>
                             </div>
                         </div>
-                        <!-- /Copyright -->
-                        <!-- Footer Social -->
                         <div class="col-md-12 col-sm-12 columns">
                             <div class="social-footer">
                                 <ul class="list-inline social-list">
@@ -216,17 +206,10 @@
                                 </ul>
                             </div>
                         </div>
-                        <!-- /Footer Social -->
                     </div>
-
                 </div>
-                <!-- /Container -->
-
             </div>
-            <!-- /Footer Bottom Container -->
-
         </div>
-        <!-- /Footer Container -->
     </main>
 
     <div class="page-wrapper" id="page-top">
@@ -308,8 +291,7 @@
                 });
             });
         });
-    </script>
-    <script>
+
         var html5Slider = document.getElementById('html5');
         noUiSlider.create(html5Slider, {
             start: [1500, 5000],

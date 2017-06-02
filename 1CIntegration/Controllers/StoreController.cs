@@ -236,9 +236,9 @@ namespace _1CIntegration.Controllers
                 var Sizes = sizes.Split(',').ToList();
                 var Brands = brands.Split(',').Select(x => Regex.Match(x, @"\d+").AsInteger()).ToList();
 
-                var filter = search.Split(new Char[] {',', ' '}).ToList()
+                var filter = search.Split(',', ' ').ToList()
                     .Where(filter_word => !filter_word.IsNullOrEmpty())
-                    .Aggregate("", (current, filter_word) => current + string.Format(" and (upper(good) LIKE '{0}%' OR upper(good) LIKE '%{0}%' OR upper(good) LIKE '%{0}') ", filter_word.ToUpper()));
+                    .Aggregate("", (current, filter_word) => current + string.Format(" and upper(good) LIKE '%{0}%' ", filter_word.ToUpper()));
 
                 sql =
                     " SELECT DISTINCT g.group_id, " +

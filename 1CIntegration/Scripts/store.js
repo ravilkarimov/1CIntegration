@@ -54,7 +54,8 @@ Djinaro.filterMobileByGoods = function () {
     var inputSearch = jQuery('#search-terms');
     var inputPriceLeft = jQuery('#input-number1');
     var inputPriceRigth = jQuery('#input-number2');
-    Djinaro.getShoes(1, sizes, brands, inputSearch[0].value, inputPriceLeft.val(), inputPriceRigth.val());
+    var butonFetch = document.getElementById('fetch-button');
+    Djinaro.getShoes(1, sizes, brands, inputSearch[0].value, inputPriceLeft.val(), inputPriceRigth.val(), parseInt(butonFetch.value));
 }
 
 Djinaro.filterByGoods = function () {
@@ -86,7 +87,7 @@ Djinaro.filterByGoods = function () {
             }
         }
 
-        Djinaro.getShoes(parseInt(groupActive[0].id), sizes, brands, inputSearch[0].value, inputPriceLeft.val(), inputPriceRigth.val());
+        Djinaro.getShoes(parseInt(groupActive[0].id), sizes, brands, inputSearch[0].value, inputPriceLeft.val(), inputPriceRigth.val(), 0);
     }
 }
 
@@ -361,7 +362,10 @@ Djinaro.WriteResponseGoods = function (data) {
 
 Djinaro.MobileWriteResponseGoods = function (data) {
     var categories = document.getElementById('goods');
-    jQuery('#goods').children().remove();
+    var butonFetch = document.getElementById('fetch-button');
+    if (parseInt(butonFetch.value) < 2) {
+        jQuery('#goods').children().remove();
+    }
     if (data.length > 0) {
         for (var i = 0; i < data.length; i++) {
             var row = document.createElement('div');
@@ -436,7 +440,7 @@ Djinaro.WriteResponseGoodsPaging = function (data) {
     paging.appendChild(ul);
 }
 
-Djinaro.getShoes = function (groups, sizes, brands, search, price_1, price_2) {
+Djinaro.getShoes = function (groups, sizes, brands, search, price_1, price_2, fetch) {
     if (device) {
         if (device.windows()) {
             //Полная версия
@@ -473,7 +477,8 @@ Djinaro.getShoes = function (groups, sizes, brands, search, price_1, price_2) {
                         'brands': brands,
                         'search': search,
                         'price_1': price_1,
-                        'price_2': price_2
+                        'price_2': price_2,
+                        'fetch': fetch
                     },
                     dataType: 'json',
                     success: function(data) {
