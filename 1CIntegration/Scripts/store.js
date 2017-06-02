@@ -29,9 +29,32 @@ Djinaro.sortingProduct = function() {
 }
 
 
-Djinaro.filterMobileByGoods = function() {
+Djinaro.filterMobileByGoods = function () {
+    var brands = '';
+    var inputElementsBrans = document.getElementById('brands').getElementsByTagName('input');
+    for (var i = 0; inputElementsBrans[i]; ++i) {
+        if (inputElementsBrans[i].checked) {
+            if (brands.length == 0) {
+                brands += "'" + inputElementsBrans[i].getAttribute('brand_id') + "'";
+            } else {
+                brands += ", '" + inputElementsBrans[i].getAttribute('brand_id') + "'";
+            }
+        }
+    }var sizes = '';
+    var inputElementsSizes = document.getElementById('sizes').getElementsByTagName('input');
+    for (var i = 0; inputElementsSizes[i]; ++i) {
+        if (inputElementsSizes[i].checked) {
+            if (brands.length == 0) {
+                sizes += "'" + inputElementsSizes[i].getAttribute('size') + "'";
+            } else {
+                sizes += ", '" + inputElementsSizes[i].getAttribute('size') + "'";
+            }
+        }
+    }
     var inputSearch = jQuery('#search-terms');
-    Djinaro.getShoes(1, '', '', inputSearch[0].value, 1500, 5000);
+    var inputPriceLeft = jQuery('#input-number1');
+    var inputPriceRigth = jQuery('#input-number2');
+    Djinaro.getShoes(1, sizes, brands, inputSearch[0].value, inputPriceLeft.val(), inputPriceRigth.val());
 }
 
 Djinaro.filterByGoods = function () {
@@ -130,6 +153,7 @@ Djinaro.WriteMobileResponseBrands = function (data) {
         var inputBrand = document.createElement('input');
         inputBrand.type = 'checkbox';
         inputBrand.setAttribute('name', 'newsletter');
+        inputBrand.setAttribute('brand_id', data[i].brand_id);
         inputBrand.className = 'full-width';
         
         var label = document.createElement('label');
@@ -227,6 +251,7 @@ Djinaro.WriteMobileResponseSizes = function (data) {
         var inputBrand = document.createElement('input');
         inputBrand.type = 'checkbox';
         inputBrand.setAttribute('name', 'newsletter');
+        inputBrand.setAttribute('size', data[i].size);
         inputBrand.className = 'full-width';
 
         var label = document.createElement('label');

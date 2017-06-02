@@ -171,9 +171,7 @@
     <div class="space-xsmall"></div>
     <div class="container" style="padding-top: 10px; background: url(../img/theme/bg/bg-pattern1.png) repeat fixed center 0; background-attachment: inherit;">
         <div class="row">
-            <div class="col-xs-12" id="goods">
-
-            </div>
+            <div class="col-xs-12" id="goods"></div>
             <div class="row">
                 <div class="col-xs-12">
                     <button class="fluid ui secondary basic button">Показать еще</button>
@@ -290,22 +288,11 @@
             Djinaro.getAllBrands();
             Djinaro.getAllSizes();
             Djinaro.filterMobileByGoods();
-
-            var timeNoUi = setTimeout(function () { }, 500);
+            timeNoUi = setTimeout(function () { }, 500);
             jQuery("#search-terms")
                 .keyup(function() {
                     clearInterval(timeNoUi);
-                    timeNoUi = setTimeout(function() {
-                        if (device) {
-                            if (device.windows()) {
-                                //Полная версия
-                                Djinaro.filterByGoods();
-                            } else if (device.mobile() || device.iphone()) {
-                                //Мобильная
-                                Djinaro.filterMobileByGoods();
-                            }
-                        }
-                    }, 300);
+                    timeNoUi = setTimeout(Djinaro.filterMobileByGoods(), 300);
                 })
                 .keyup();
 
