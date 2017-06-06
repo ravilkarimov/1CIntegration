@@ -96,7 +96,7 @@
                 <h3>Сезон</h3>
             </div>
             <div class="item">
-                <h3 onclick="hideRightMenu();Djinaro.setDisplayElement('pricerange', 'block');">
+                <h3 id="header-h3-price" onclick="hideRightMenu();Djinaro.setDisplayElement('pricerange', 'block');">
                     Цена
                 </h3>
             </div>
@@ -122,7 +122,7 @@
                 </div>
             </div>
             <div class="item">
-                <button class="ui left labeled icon button" onclick="Djinaro.setDisplayElement('pricerange', 'none');filterApply();">
+                <button class="ui left labeled icon button" onclick="Djinaro.setHeadPrice(); Djinaro.setDisplayElement('pricerange', 'none'); filterApply();">
                     <i class="left arrow icon"></i>
                     Применить
                 </button>
@@ -249,23 +249,10 @@
 
     <script>
         jQuery(function () {
-            var timeNoUi = setTimeout(function () { }, 500);
-            var observer = new MutationObserver(function (mutations) {
-                clearInterval(timeNoUi);
-                timeNoUi = setTimeout(function () { Djinaro.filterMobileByGoods(); }, 300);
-            });
-            var noUiOrigin = document.getElementsByClassName('noUi-origin');
-            observer.observe(noUiOrigin[0], {
-                attributes: true
-            });
-            observer.observe(noUiOrigin[1], {
-                attributes: true
-            });
-
             Djinaro.getAllBrands();
             Djinaro.getAllSizes();
             Djinaro.filterMobileByGoods();
-            timeNoUi = setTimeout(function () { }, 500);
+            var timeNoUi = setTimeout(function () { }, 500);
             jQuery("#search-terms")
                 .keyup(function() {
                     clearInterval(timeNoUi);

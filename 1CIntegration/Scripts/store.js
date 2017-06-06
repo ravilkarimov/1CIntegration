@@ -4,6 +4,8 @@ var Djinaro = {};
 
 var activeSizes = [];
 var activeBrands = [];
+var priceLeft = 1500;
+var priceRight = 5000;
 
 Djinaro.setDisplayElement = function (id, value) {
     document.getElementById(id).style.display = value;
@@ -67,7 +69,25 @@ Djinaro.setDisplayElement = function (id, value) {
         } else {
             h2Header.innerHTML = 'Размер';
         }
+    } else if (id === 'pricerange') {
+        var inputPriceLeft = jQuery('#input-number1');
+        var inputPriceRigth = jQuery('#input-number2');
+        if (inputPriceLeft !== priceLeft) {
+            inputPriceLeft.val(priceLeft);
+        }
+        if (inputPriceRigth !== priceRight) {
+            inputPriceRigth.val(priceRight);
+        }
     }
+}
+
+Djinaro.setHeadPrice = function() {
+    var h3Header = document.getElementById('header-h3-price');
+    var inputPriceLeft = jQuery('#input-number1');
+    var inputPriceRigth = jQuery('#input-number2');
+    h3Header.innerHTML = inputPriceLeft.val() + '-' + inputPriceRigth.val();
+    priceLeft = inputPriceLeft.val();
+    priceRight = inputPriceRigth.val();
 }
 
 
