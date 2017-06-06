@@ -160,8 +160,35 @@ Djinaro.WriteMobileResponseBrands = function (data) {
         inputBrand.type = 'checkbox';
         inputBrand.setAttribute('name', 'newsletter');
         inputBrand.setAttribute('brand_id', data[i].brand_id);
+        inputBrand.setAttribute('brand', data[i].brand);
         inputBrand.className = 'full-width';
-        
+        inputBrand.addEventListener("click", function () {
+            var h2Header = document.getElementById('header-h3-brand');
+
+            var itemsBrand = document.getElementById('brands').getElementsByTagName('input');
+            var activeItems = [];
+
+            for (var i = 0; itemsBrand[i]; ++i) {
+                if (itemsBrand[i].checked) {
+                    activeItems.push(itemsBrand[i]);
+                }
+            }
+
+            var brandString = '';
+            for (var j = 0; j < activeItems.length; j++) {
+                if (j > 0 && j <= 2) brandString += ', ';
+                if (j <= 2) brandString += activeItems[j].getAttribute('brand');
+            }
+
+            if (activeItems.length > 0 && activeItems.length <= 2) {
+                h2Header.innerHTML = brandString;
+            } else if (activeItems.length > 2) {
+                h2Header.innerHTML = brandString + '...';
+            } else {
+                h2Header.innerHTML = 'Бренд';
+            }
+        });
+
         var label = document.createElement('label');
         label.innerHTML = data[i].brand;
 
@@ -258,16 +285,42 @@ Djinaro.WriteMobileResponseSizes = function (data) {
         var div = document.createElement('div');
         div.className = 'ui slider checkbox full-width';
 
-        var inputBrand = document.createElement('input');
-        inputBrand.type = 'checkbox';
-        inputBrand.setAttribute('name', 'newsletter');
-        inputBrand.setAttribute('size', data[i].size);
-        inputBrand.className = 'full-width';
+        var inputSize = document.createElement('input');
+        inputSize.type = 'checkbox';
+        inputSize.setAttribute('name', 'newsletter');
+        inputSize.setAttribute('size', data[i].size);
+        inputSize.className = 'full-width';
+        inputSize.addEventListener("click", function () {
+            var h2Header = document.getElementById('header-h3-size');
+
+            var itemsSize = document.getElementById('sizes').getElementsByTagName('input');
+            var activeItems = [];
+
+            for (var i = 0; itemsSize[i]; ++i) {
+                if (itemsSize[i].checked) {
+                    activeItems.push(itemsSize[i]);
+                }
+            }
+
+            var sizesString = '';
+            for (var j = 0; j < activeItems.length; j++) {
+                if (j > 0 && j <= 3) sizesString += ', ';
+                if (j <= 3) sizesString += activeItems[j].getAttribute('size');
+            }
+
+            if (activeItems.length > 0 && activeItems.length <= 3) {
+                h2Header.innerHTML = sizesString;
+            } else if (activeItems.length > 3) {
+                h2Header.innerHTML = sizesString + '...';
+            } else {
+                h2Header.innerHTML = 'Размер';
+            }
+        });
 
         var label = document.createElement('label');
         label.innerHTML = data[i].size;
 
-        div.appendChild(inputBrand);
+        div.appendChild(inputSize);
         div.appendChild(label);
         divItemBrand.appendChild(div);
         brands.appendChild(divItemBrand);
