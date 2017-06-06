@@ -1,8 +1,73 @@
 ﻿
 var Djinaro = {};
 
+
+var activeSizes = [];
+var activeBrands = [];
+
 Djinaro.setDisplayElement = function (id, value) {
     document.getElementById(id).style.display = value;
+    var activeItems;
+    var h2Header;
+    if (id === 'brands') {
+        var itemsBrand = document.getElementById('brands').getElementsByTagName('input');
+        for (var i = 0; itemsBrand[i]; ++i) {
+            itemsBrand[i].checked = false;
+            for (var k = 0; activeBrands[k]; k++) {
+                if (itemsBrand[i] === activeBrands[k])
+                    itemsBrand[i].checked = true;
+            }
+        }
+        h2Header = document.getElementById('header-h3-brand');
+        itemsBrand = document.getElementById('brands').getElementsByTagName('input');
+        activeItems = [];
+        for (var i = 0; itemsBrand[i]; ++i) {
+            if (itemsBrand[i].checked) {
+                activeItems.push(itemsBrand[i]);
+            }
+        }
+        var brandString = '';
+        for (var j = 0; j < activeItems.length; j++) {
+            if (j > 0 && j <= 2) brandString += ', ';
+            if (j <= 2) brandString += activeItems[j].getAttribute('brand');
+        }
+        if (activeItems.length > 0 && activeItems.length <= 2) {
+            h2Header.innerHTML = brandString;
+        } else if (activeItems.length > 2) {
+            h2Header.innerHTML = brandString + '...';
+        } else {
+            h2Header.innerHTML = 'Бренд';
+        }
+    } else if (id === 'sizes') {
+        var itemsSize = document.getElementById('sizes').getElementsByTagName('input');
+        for (var i = 0; itemsSize[i]; ++i) {
+            itemsSize[i].checked = false;
+            for (var k = 0; activeSizes[k]; k++) {
+                if (itemsSize[i] === activeSizes[k])
+                    itemsSize[i].checked = true;
+            }
+        }
+        h2Header = document.getElementById('header-h3-size');
+        itemsSize = document.getElementById('sizes').getElementsByTagName('input');
+        activeItems = [];
+        for (var i = 0; itemsSize[i]; ++i) {
+            if (itemsSize[i].checked) {
+                activeItems.push(itemsSize[i]);
+            }
+        }
+        var sizesString = '';
+        for (var j = 0; j < activeItems.length; j++) {
+            if (j > 0 && j <= 3) sizesString += ', ';
+            if (j <= 3) sizesString += activeItems[j].getAttribute('size');
+        }
+        if (activeItems.length > 0 && activeItems.length <= 3) {
+            h2Header.innerHTML = sizesString;
+        } else if (activeItems.length > 3) {
+            h2Header.innerHTML = sizesString + '...';
+        } else {
+            h2Header.innerHTML = 'Размер';
+        }
+    }
 }
 
 
@@ -27,17 +92,15 @@ Djinaro.sortingProduct = function() {
         });
     }
 }
-
-
 Djinaro.filterMobileByGoods = function () {
     var brands = '';
-    var inputElementsBrans = document.getElementById('brands').getElementsByTagName('input');
-    for (var i = 0; inputElementsBrans[i]; ++i) {
-        if (inputElementsBrans[i].checked) {
-            if (brands.length == 0) {
-                brands += "'" + inputElementsBrans[i].getAttribute('brand_id') + "'";
+    var inputElementsBrand = document.getElementById('brands').getElementsByTagName('input');
+    for (var i = 0; inputElementsBrand[i]; ++i) {
+        if (inputElementsBrand[i].checked) {
+            if (brands.length === 0) {
+                brands += "'" + inputElementsBrand[i].getAttribute('brand_id') + "'";
             } else {
-                brands += ", '" + inputElementsBrans[i].getAttribute('brand_id') + "'";
+                brands += ", '" + inputElementsBrand[i].getAttribute('brand_id') + "'";
             }
         }
     }
@@ -45,7 +108,7 @@ Djinaro.filterMobileByGoods = function () {
     var inputElementsSizes = document.getElementById('sizes').getElementsByTagName('input');
     for (var i = 0; inputElementsSizes[i]; ++i) {
         if (inputElementsSizes[i].checked) {
-            if (sizes.length == 0) {
+            if (sizes.length === 0) {
                 sizes += "'" + inputElementsSizes[i].getAttribute('size') + "'";
             } else {
                 sizes += ", '" + inputElementsSizes[i].getAttribute('size') + "'";
@@ -162,32 +225,6 @@ Djinaro.WriteMobileResponseBrands = function (data) {
         inputBrand.setAttribute('brand_id', data[i].brand_id);
         inputBrand.setAttribute('brand', data[i].brand);
         inputBrand.className = 'full-width';
-        inputBrand.addEventListener("click", function () {
-            var h2Header = document.getElementById('header-h3-brand');
-
-            var itemsBrand = document.getElementById('brands').getElementsByTagName('input');
-            var activeItems = [];
-
-            for (var i = 0; itemsBrand[i]; ++i) {
-                if (itemsBrand[i].checked) {
-                    activeItems.push(itemsBrand[i]);
-                }
-            }
-
-            var brandString = '';
-            for (var j = 0; j < activeItems.length; j++) {
-                if (j > 0 && j <= 2) brandString += ', ';
-                if (j <= 2) brandString += activeItems[j].getAttribute('brand');
-            }
-
-            if (activeItems.length > 0 && activeItems.length <= 2) {
-                h2Header.innerHTML = brandString;
-            } else if (activeItems.length > 2) {
-                h2Header.innerHTML = brandString + '...';
-            } else {
-                h2Header.innerHTML = 'Бренд';
-            }
-        });
 
         var label = document.createElement('label');
         label.innerHTML = data[i].brand;
@@ -203,6 +240,13 @@ Djinaro.WriteMobileResponseBrands = function (data) {
     var button = document.createElement('button');
     button.className = 'ui left labeled icon button';
     button.addEventListener("click", function () {
+        var itemsBrand = document.getElementById('brands').getElementsByTagName('input');
+        activeBrands = [];
+        for (var i = 0; itemsBrand[i]; ++i) {
+            if (itemsBrand[i].checked) {
+                activeBrands.push(itemsBrand[i]);
+            }
+        }
         Djinaro.setDisplayElement('brands', 'none'); filterApply();
     });
     button.innerHTML = 'Применить';
@@ -266,7 +310,7 @@ Djinaro.WriteResponseBrands = function (data) {
 } 
 
 Djinaro.WriteMobileResponseSizes = function (data) {
-    var brands = document.getElementById('sizes');
+    var sizes = document.getElementById('sizes');
     var itemHead = document.createElement('div');
     itemHead.className = 'item';
     itemHead.addEventListener("click", function () {
@@ -276,7 +320,7 @@ Djinaro.WriteMobileResponseSizes = function (data) {
     var h2 = document.createElement('h2');
     h2.innerHTML = 'РАЗМЕР';
     itemHead.appendChild(h2);
-    brands.appendChild(itemHead);
+    sizes.appendChild(itemHead);
 
     for (var i = 0; i < data.length; i++) {
         var divItemBrand = document.createElement('div');
@@ -290,32 +334,6 @@ Djinaro.WriteMobileResponseSizes = function (data) {
         inputSize.setAttribute('name', 'newsletter');
         inputSize.setAttribute('size', data[i].size);
         inputSize.className = 'full-width';
-        inputSize.addEventListener("click", function () {
-            var h2Header = document.getElementById('header-h3-size');
-
-            var itemsSize = document.getElementById('sizes').getElementsByTagName('input');
-            var activeItems = [];
-
-            for (var i = 0; itemsSize[i]; ++i) {
-                if (itemsSize[i].checked) {
-                    activeItems.push(itemsSize[i]);
-                }
-            }
-
-            var sizesString = '';
-            for (var j = 0; j < activeItems.length; j++) {
-                if (j > 0 && j <= 3) sizesString += ', ';
-                if (j <= 3) sizesString += activeItems[j].getAttribute('size');
-            }
-
-            if (activeItems.length > 0 && activeItems.length <= 3) {
-                h2Header.innerHTML = sizesString;
-            } else if (activeItems.length > 3) {
-                h2Header.innerHTML = sizesString + '...';
-            } else {
-                h2Header.innerHTML = 'Размер';
-            }
-        });
 
         var label = document.createElement('label');
         label.innerHTML = data[i].size;
@@ -323,7 +341,7 @@ Djinaro.WriteMobileResponseSizes = function (data) {
         div.appendChild(inputSize);
         div.appendChild(label);
         divItemBrand.appendChild(div);
-        brands.appendChild(divItemBrand);
+        sizes.appendChild(divItemBrand);
     }
 
     var itemFoot = document.createElement('div');
@@ -331,6 +349,13 @@ Djinaro.WriteMobileResponseSizes = function (data) {
     var button = document.createElement('button');
     button.className = 'ui left labeled icon button';
     button.addEventListener("click", function () {
+        var itemsSize = document.getElementById('sizes').getElementsByTagName('input');
+        activeSizes = [];
+        for (var i = 0; itemsSize[i]; ++i) {
+            if (itemsSize[i].checked) {
+                activeSizes.push(itemsSize[i]);
+            }
+        }
         Djinaro.setDisplayElement('sizes', 'none'); filterApply();
     });
     button.innerHTML = 'Применить';
@@ -338,7 +363,7 @@ Djinaro.WriteMobileResponseSizes = function (data) {
     iElement.className = 'left arrow icon';
     button.appendChild(iElement);
     itemFoot.appendChild(button);
-    brands.appendChild(itemFoot);
+    sizes.appendChild(itemFoot);
 }
 
 Djinaro.WriteResponseSizes = function (data) {
