@@ -102,6 +102,7 @@ namespace _1CIntegration.Controllers
                         var spanNew = (data["new_good"].AsInteger() == 1
                             ? "<span class='product-label'>NEW</span>"
                             : "");
+                        var sizesString = data["sizes"].ToString().Trim();
                         stringElements +=
                             String.Format(
                                 "<div class='col-xs-6 boot-mobile' id='shop-product-{0}'> " +
@@ -118,7 +119,7 @@ namespace _1CIntegration.Controllers
                                 "</div>",
                                 data["good_key"].ToString().Trim(), data["img_path"].ToString().Trim(),
                                 data["good"].ToString().Trim(), data["price"].ToString().Trim(),
-                                data["sizes"].ToString().Trim(), spanNew);
+                                sizesString.Substring(0, sizesString.LastIndexOf('|') - 1), spanNew);
                         itemElement++;
                     }
                     listRow.Add(stringElements);
