@@ -140,6 +140,10 @@ Djinaro.WriteMobileResponseBrands = function (data) {
     var brands = document.getElementById('brands');
     var itemHead = document.createElement('div');
     itemHead.className = 'item';
+    itemHead.addEventListener("click", function () {
+        Djinaro.setDisplayElement('brands', 'none');
+        Djinaro.setDisplayElement('right-menu-main', 'block');
+    });
     var h2 = document.createElement('h2');
     h2.innerHTML = 'БРЕНД';
     itemHead.appendChild(h2);
@@ -238,6 +242,10 @@ Djinaro.WriteMobileResponseSizes = function (data) {
     var brands = document.getElementById('sizes');
     var itemHead = document.createElement('div');
     itemHead.className = 'item';
+    itemHead.addEventListener("click", function () {
+        Djinaro.setDisplayElement('sizes', 'none');
+        Djinaro.setDisplayElement('right-menu-main', 'block');
+    });
     var h2 = document.createElement('h2');
     h2.innerHTML = 'РАЗМЕР';
     itemHead.appendChild(h2);

@@ -71,7 +71,6 @@
     <script>
     filterApply = function () {
         document.getElementById('right-menu-main').style.display = 'block';
-        document.getElementById('toggle-right').click();
         document.getElementById('fetch-button').value = '1';
         Djinaro.filterMobileByGoods();
     };
@@ -111,7 +110,7 @@
         <div id="brands" class="ui vertical menu right-vertical-menu" style="display:none;"></div>
         <div id="sizes" class="ui vertical menu right-vertical-menu" style="display:none;"></div>
         <div id="pricerange" class="ui vertical menu right-vertical-menu" style="display:none;">
-            <div class="item">
+            <div class="item" onclick="Djinaro.setDisplayElement('pricerange', 'none'); Djinaro.setDisplayElement('right-menu-main', 'block');">
                 <h2>ЦЕНА</h2>
             </div>
             <div class="item left">
@@ -143,7 +142,7 @@
         }
     </style>
     <div class="fixed-header">
-        <header class="ui menu">
+        <header class="ui menu" style="max-height: 50px">
             <div class="item toggle-button" id="toggle-left">
                 <i class="sidebar icon"></i>
             </div>
@@ -156,14 +155,14 @@
                 </div>
             </div>
         </header>
-        <header class="ui menu">
+        <header class="ui menu" style="max-height: 50px">
             <div class="item" style="width: 100% !important;">
                 <form id="search" class="search-header" action="#" method="post" style="width: 100% !important;">
                     <div id="label">
                         <label for="search-terms" id="search-label" style="display: none;"></label>
                     </div>
                     <div id="input" style="width: 100% !important;">
-                        <input class="form-control" style="width: 100% !important;" type="text" name="search-terms" id="search-terms" placeholder="Поиск..">
+                        <input class="form-control" style="width: 100% !important; height: auto;" type="text" name="search-terms" id="search-terms" placeholder="Поиск..">
                     </div>
                 </form>
             </div>
