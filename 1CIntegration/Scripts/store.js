@@ -7,12 +7,20 @@ var activeBrands = [];
 var priceLeft = 1500;
 var priceRight = 5000;
 
-Djinaro.setDisplayElement = function (id, value) {
-    document.getElementById(id).style.display = value;
+Djinaro.ById = function(id) {
+    return document.getElementById(id);
+}
+
+Djinaro.ByClassName = function(className) {
+    return document.getElementsByClassName(className);
+}
+
+Djinaro.setDispEl = function (id, value) {
+    Djinaro.ById(id).style.display = value;
     var activeItems;
     var h2Header;
     if (id === 'brands') {
-        var itemsBrand = document.getElementById('brands').getElementsByTagName('input');
+        var itemsBrand = Djinaro.ById('brands').getElementsByTagName('input');
         for (var i = 0; itemsBrand[i]; ++i) {
             itemsBrand[i].checked = false;
             for (var k = 0; activeBrands[k]; k++) {
@@ -20,8 +28,8 @@ Djinaro.setDisplayElement = function (id, value) {
                     itemsBrand[i].checked = true;
             }
         }
-        h2Header = document.getElementById('header-h3-brand');
-        itemsBrand = document.getElementById('brands').getElementsByTagName('input');
+        h2Header = Djinaro.ById('header-h3-brand');
+        itemsBrand = Djinaro.ById('brands').getElementsByTagName('input');
         activeItems = [];
         for (var i = 0; itemsBrand[i]; ++i) {
             if (itemsBrand[i].checked) {
@@ -41,7 +49,7 @@ Djinaro.setDisplayElement = function (id, value) {
             h2Header.innerHTML = 'Бренд<i class="angle right icon" style="float:right;"></i>';
         }
     } else if (id === 'sizes') {
-        var itemsSize = document.getElementById('sizes').getElementsByTagName('input');
+        var itemsSize = Djinaro.ById('sizes').getElementsByTagName('input');
         for (var i = 0; itemsSize[i]; ++i) {
             itemsSize[i].checked = false;
             for (var k = 0; activeSizes[k]; k++) {
@@ -49,8 +57,8 @@ Djinaro.setDisplayElement = function (id, value) {
                     itemsSize[i].checked = true;
             }
         }
-        h2Header = document.getElementById('header-h3-size');
-        itemsSize = document.getElementById('sizes').getElementsByTagName('input');
+        h2Header = Djinaro.ById('header-h3-size');
+        itemsSize = Djinaro.ById('sizes').getElementsByTagName('input');
         activeItems = [];
         for (var i = 0; itemsSize[i]; ++i) {
             if (itemsSize[i].checked) {
@@ -82,7 +90,7 @@ Djinaro.setDisplayElement = function (id, value) {
 }
 
 Djinaro.setHeadPrice = function() {
-    var h3Header = document.getElementById('header-h3-price');
+    var h3Header = Djinaro.ById('header-h3-price');
     var inputPriceLeft = jQuery('#input-number1');
     var inputPriceRigth = jQuery('#input-number2');
     h3Header.innerHTML = inputPriceLeft.val() + '-' + inputPriceRigth.val();
@@ -114,7 +122,7 @@ Djinaro.sortingProduct = function() {
 }
 Djinaro.filterMobileByGoods = function () {
     var brands = '';
-    var inputElementsBrand = document.getElementById('brands').getElementsByTagName('input');
+    var inputElementsBrand = Djinaro.ById('brands').getElementsByTagName('input');
     for (var i = 0; inputElementsBrand[i]; ++i) {
         if (inputElementsBrand[i].checked) {
             if (brands.length === 0) {
@@ -125,7 +133,7 @@ Djinaro.filterMobileByGoods = function () {
         }
     }
     var sizes = '';
-    var inputElementsSizes = document.getElementById('sizes').getElementsByTagName('input');
+    var inputElementsSizes = Djinaro.ById('sizes').getElementsByTagName('input');
     for (var i = 0; inputElementsSizes[i]; ++i) {
         if (inputElementsSizes[i].checked) {
             if (sizes.length === 0) {
@@ -138,7 +146,7 @@ Djinaro.filterMobileByGoods = function () {
     var inputSearch = jQuery('#search-terms');
     var inputPriceLeft = jQuery('#input-number1');
     var inputPriceRigth = jQuery('#input-number2');
-    var butonFetch = document.getElementById('fetch-button');
+    var butonFetch = Djinaro.ById('fetch-button');
     Djinaro.getShoes(1, sizes, brands, inputSearch[0].value, inputPriceLeft.val(), inputPriceRigth.val(), parseInt(butonFetch.value));
 }
 
@@ -176,7 +184,7 @@ Djinaro.filterByGoods = function () {
 }
 
 Djinaro.WriteResponseGroups = function (data) {
-    var groups = document.getElementById('groups');
+    var groups = Djinaro.ById('groups');
 
     var title = document.createElement('h3');
     title.className = 'title-widget fancy-title';
@@ -220,12 +228,12 @@ Djinaro.WriteResponseGroups = function (data) {
 }
 
 Djinaro.WriteMobileResponseBrands = function (data) {
-    var brands = document.getElementById('brands');
+    var brands = Djinaro.ById('brands');
     var itemHead = document.createElement('div');
     itemHead.className = 'item';
     itemHead.addEventListener("click", function () {
-        Djinaro.setDisplayElement('brands', 'none');
-        Djinaro.setDisplayElement('right-menu-main', 'block');
+        Djinaro.setDispEl('brands', 'none');
+        Djinaro.setDispEl('right-menu-main', 'block');
     });
     var h2 = document.createElement('h2');
     h2.innerHTML = '<i class="angle left icon" style="float:left;"></i>БРЕНД';
@@ -261,14 +269,14 @@ Djinaro.WriteMobileResponseBrands = function (data) {
     var button = document.createElement('button');
     button.className = 'ui left labeled icon button';
     button.addEventListener("click", function () {
-        var itemsBrand = document.getElementById('brands').getElementsByTagName('input');
+        var itemsBrand = Djinaro.ById('brands').getElementsByTagName('input');
         activeBrands = [];
         for (var i = 0; itemsBrand[i]; ++i) {
             if (itemsBrand[i].checked) {
                 activeBrands.push(itemsBrand[i]);
             }
         }
-        Djinaro.setDisplayElement('brands', 'none'); filterApply();
+        Djinaro.setDispEl('brands', 'none'); filterApply();
     });
     button.innerHTML = 'Применить';
     var iElement = document.createElement('i');
@@ -279,7 +287,7 @@ Djinaro.WriteMobileResponseBrands = function (data) {
 }
 
 Djinaro.WriteResponseBrands = function (data) {
-    var brands = document.getElementById('selectcontrolbrand');
+    var brands = Djinaro.ById('selectcontrolbrand');
     var select = null;
     if (jQuery('select', brands).length !== 0) {
         select = jQuery('select', brands)[0];
@@ -331,12 +339,12 @@ Djinaro.WriteResponseBrands = function (data) {
 } 
 
 Djinaro.WriteMobileResponseSizes = function (data) {
-    var sizes = document.getElementById('sizes');
+    var sizes = Djinaro.ById('sizes');
     var itemHead = document.createElement('div');
     itemHead.className = 'item';
     itemHead.addEventListener("click", function () {
-        Djinaro.setDisplayElement('sizes', 'none');
-        Djinaro.setDisplayElement('right-menu-main', 'block');
+        Djinaro.setDispEl('sizes', 'none');
+        Djinaro.setDispEl('right-menu-main', 'block');
     });
     var h2 = document.createElement('h2');
     h2.innerHTML = '<i class="angle left icon" style="float:left;"></i>РАЗМЕР';
@@ -371,14 +379,14 @@ Djinaro.WriteMobileResponseSizes = function (data) {
     var button = document.createElement('button');
     button.className = 'ui left labeled icon button';
     button.addEventListener("click", function () {
-        var itemsSize = document.getElementById('sizes').getElementsByTagName('input');
+        var itemsSize = Djinaro.ById('sizes').getElementsByTagName('input');
         activeSizes = [];
         for (var i = 0; itemsSize[i]; ++i) {
             if (itemsSize[i].checked) {
                 activeSizes.push(itemsSize[i]);
             }
         }
-        Djinaro.setDisplayElement('sizes', 'none'); filterApply();
+        Djinaro.setDispEl('sizes', 'none'); filterApply();
     });
     button.innerHTML = 'Применить';
     var iElement = document.createElement('i');
@@ -389,7 +397,7 @@ Djinaro.WriteMobileResponseSizes = function (data) {
 }
 
 Djinaro.WriteResponseSizes = function (data) {
-    var sizes = document.getElementById('selectcontrolsize');
+    var sizes = Djinaro.ById('selectcontrolsize');
     var select = null;
     if (jQuery('select', sizes).length !== 0) {
         select = jQuery('select', sizes)[0];
@@ -440,7 +448,7 @@ Djinaro.WriteResponseSizes = function (data) {
 }
 
 Djinaro.WriteResponseGoods = function (data) {
-    var categories = document.getElementById('goods');
+    var categories = Djinaro.ById('goods');
     jQuery('#goods').children().remove();
     if (data.length > 0) {
         for (var i = 0; i < data.length; i++) {
@@ -470,8 +478,8 @@ Djinaro.WriteResponseGoods = function (data) {
 }
 
 Djinaro.MobileWriteResponseGoods = function (data) {
-    var categories = document.getElementById('goods');
-    var butonFetch = document.getElementById('fetch-button');
+    var categories = Djinaro.ById('goods');
+    var butonFetch = Djinaro.ById('fetch-button');
     if (parseInt(butonFetch.value) < 2) {
         jQuery('#goods').children().remove();
     }
@@ -503,7 +511,7 @@ Djinaro.WriteResponseGoodsPaging = function (data) {
     var pagingActive = jQuery('#paging .active');
     var numberPagingActive = 1;
     if (pagingActive.length == 1) numberPagingActive = parseInt(pagingActive[0].innerText);
-    var paging = document.getElementById('paging');
+    var paging = Djinaro.ById('paging');
     jQuery('#paging').children().remove();
 
     var ul = document.createElement('ul');
@@ -663,7 +671,7 @@ Djinaro.getAllBrands = function () {
 var isQverySize = 0;
 
 Djinaro.getSizesByGood = function (good_key) {
-    var divRating = document.getElementById('rating_' + good_key);
+    var divRating = Djinaro.ById('rating_' + good_key);
     if (divRating && divRating.innerHTML == '' && isQverySize == 0) {
         isQverySize = 1;
         divRating.innerHTML = '';
@@ -678,7 +686,7 @@ Djinaro.getSizesByGood = function (good_key) {
             dataType: 'json',
             data: { id: good_key },
             success: function (data) {
-                var divRating = document.getElementById('rating_' + good_key);
+                var divRating = Djinaro.ById('rating_' + good_key);
                 if (divRating) {
                     if (data && data.length > 0) {
                         data.sort().reverse();
