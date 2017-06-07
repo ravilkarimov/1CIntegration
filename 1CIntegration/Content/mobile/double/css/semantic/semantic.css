@@ -20891,7 +20891,7 @@ ol.ui.horizontal.list li:before,
 }
 
 .ui.menu .item {
-    text-align:center;
+    text-align:left;
   position: relative;
   vertical-align: middle;
   line-height: 1;
@@ -21372,6 +21372,7 @@ Floated Menu / Item
     text-align: left;
 }
         .ui.vertical.menu > .item:first-child {
+            text-align:right;
   border-radius: 0.28571429rem 0.28571429rem 0px 0px;
 }
 

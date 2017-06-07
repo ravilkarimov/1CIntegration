@@ -4,7 +4,7 @@
             useOptionText: true, // Use text from option. Use false if you plan to use images
             hideselect: true, // Hide Original Select Control
             openmenuClass: 'mcs-open', // Toggle Open Button Class
-            openmenuText: 'ЦЕНА', // Text for button
+            openmenuText: '<i class="angle left icon" style="float:left;"></i>ЦЕНА', // Text for button
             openclass: 'open', // Class added to Toggle button on open
             containerClass: 'mcs-container', // Class of parent container
             itemClass: 'mcs-item', // Class of menu items
@@ -22,7 +22,7 @@ jQuery(function ($) {
             useOptionText: true,               // Use text from option. Use false if you plan to use images
             hideselect: true,               // Hide Original Select Control
             openmenuClass: 'mcs-open',         // Toggle Open Button Class
-            openmenuText: 'СЕЗОН', // Text for button
+            openmenuText: '<i class="angle left icon" style="float:left;"></i>СЕЗОН', // Text for button
             openclass: 'open',             // Class added to Toggle button on open
             containerClass: 'mcs-container',    // Class of parent container
             itemClass: 'mcs-item',         // Class of menu items

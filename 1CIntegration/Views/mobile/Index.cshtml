@@ -56,14 +56,14 @@
     <nav id="left-menu">
         <div class="ui vertical menu left-vertical-menu">
             <div class="item">
-                <h2>МЕНЮ</h2>
+                <h2 style="text-align:left;">МЕНЮ<i class="angle right icon" style="float:right;"></i></h2>
             </div>
             <div class="item">
-                <h3><a href="/store">Обувь</a>
+                <h3><a href="/store">Обувь<i class="angle right icon" style="float:right;"></i></a>
                 </h3>
             </div>
             <div class="item">
-                <h3><a href="/contact">Контакты</a>
+                <h3><a href="/contact">Контакты<i class="angle right icon" style="float:right;"></i></a>
                 </h3>
             </div>
         </div>
@@ -80,30 +80,30 @@
     <nav id="right-menu">
         <div class="ui vertical menu right-vertical-menu" style="display:block;" id="right-menu-main">
             <div class="item">
-                <h2>ФИЛЬТР</h2>
+                <h2><i class="angle left icon" style="float:left;"></i>Фильтр</h2>
             </div>
             <div class="item">
                 <h3 id="header-h3-brand" onclick="hideRightMenu();Djinaro.setDisplayElement('brands', 'block');">
-                    Бренд
+                    Бренд<i class="angle right icon" style="float:right;"></i>
                 </h3>
             </div>
             <div class="item">
                 <h3 id="header-h3-size" onclick="hideRightMenu();Djinaro.setDisplayElement('sizes', 'block');">
-                    Размер
+                    Размер<i class="angle right icon" style="float:right;"></i>
                 </h3>
             </div>
             <div class="item disabled">
-                <h3>Сезон</h3>
+                <h3 style="color: gray;">Сезон<i class="angle right icon" style="float:right;"></i></h3>
             </div>
             <div class="item">
                 <h3 id="header-h3-price" onclick="hideRightMenu();Djinaro.setDisplayElement('pricerange', 'block');">
-                    Цена
+                    Цена<i class="angle right icon" style="float:right;"></i>
                 </h3>
             </div>
-            <div class="item">
+            <div class="item" style="text-align: center;">
                 <button class="ui left labeled icon button" onclick="document.getElementById('toggle-right').click();">
                     <i class="left arrow icon"></i>
-                    Закрыть
+                    Закрыть<i class="angle right icon" style="float:right;"></i>
                 </button>
             </div>
         </div>
@@ -111,7 +111,7 @@
         <div id="sizes" class="ui vertical menu right-vertical-menu" style="display:none;"></div>
         <div id="pricerange" class="ui vertical menu right-vertical-menu" style="display:none;">
             <div class="item" onclick="Djinaro.setDisplayElement('pricerange', 'none'); Djinaro.setDisplayElement('right-menu-main', 'block');">
-                <h2>ЦЕНА</h2>
+                <h2><i class="angle left icon" style="float:left;"></i>ЦЕНА</h2>
             </div>
             <div class="item left">
                 <div id="html5" class="noUi-target noUi-ltr noUi-horizontal noUi-background" onchange="Djinaro.filterMobileByGoods()"></div>
@@ -121,7 +121,7 @@
                     <input class="form-control" type="number" min="0" max="10000" step="500" id="input-number2" style="padding: 12.5px;">
                 </div>
             </div>
-            <div class="item">
+            <div class="item" style="text-align: center;">
                 <button class="ui left labeled icon button" onclick="Djinaro.setHeadPrice(); Djinaro.setDisplayElement('pricerange', 'none'); filterApply();">
                     <i class="left arrow icon"></i>
                     Применить
@@ -147,12 +147,19 @@
                 <i class="sidebar icon"></i>
             </div>
             <div class="item m-title">
-                <form id="search" class="search-header" action="#" method="post" style="width: 100% !important;">
+                <div class="ui search">
+                    <div class="ui icon input">
+                        <input class="prompt" type="text" placeholder="Поиск...">
+                        <i class="search icon"></i>
+                    </div>
+                    <div class="results"></div>
+                </div>
+                <form id="search" class="search-header" action="#" method="post" style="width: 100% !important; display:none;">
                     <div id="label">
-                        <label for="search-terms" id="search-label" style="display: none;"></label>
+                        <label for="search-terms" id="search-label" style="display: block;"></label>
                     </div>
                     <div id="input" style="width: 100% !important;">
-                        <input class="form-control" style="width: 100% !important; height: auto;" type="text" name="search-terms" id="search-terms" placeholder="DJINARO SHOP">
+                        <input class="form-control" style="width: 100% !important; height: auto; border: none;" type="text" name="search-terms" id="search-terms" placeholder="DJINARO SHOP">
                     </div>
                 </form>
             </div>

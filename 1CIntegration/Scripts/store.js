@@ -38,7 +38,7 @@ Djinaro.setDisplayElement = function (id, value) {
         } else if (activeItems.length > 2) {
             h2Header.innerHTML = brandString + '...';
         } else {
-            h2Header.innerHTML = 'Бренд';
+            h2Header.innerHTML = 'Бренд<i class="angle right icon" style="float:right;"></i>';
         }
     } else if (id === 'sizes') {
         var itemsSize = document.getElementById('sizes').getElementsByTagName('input');
@@ -67,7 +67,7 @@ Djinaro.setDisplayElement = function (id, value) {
         } else if (activeItems.length > 3) {
             h2Header.innerHTML = sizesString + '...';
         } else {
-            h2Header.innerHTML = 'Размер';
+            h2Header.innerHTML = 'Размер<i class="angle right icon" style="float:right;"></i>';
         }
     } else if (id === 'pricerange') {
         var inputPriceLeft = jQuery('#input-number1');
@@ -181,7 +181,7 @@ Djinaro.WriteResponseGroups = function (data) {
     var title = document.createElement('h3');
     title.className = 'title-widget fancy-title';
     var title_div = document.createElement('span');
-    title_div.innerHTML = 'Категории';
+    title_div.innerHTML = 'Категории<i class="angle right icon" style="float:right;"></i>';
     title.appendChild(title_div);
 
     var list = document.createElement('ul');
@@ -228,7 +228,7 @@ Djinaro.WriteMobileResponseBrands = function (data) {
         Djinaro.setDisplayElement('right-menu-main', 'block');
     });
     var h2 = document.createElement('h2');
-    h2.innerHTML = 'БРЕНД';
+    h2.innerHTML = '<i class="angle left icon" style="float:left;"></i>БРЕНД';
     itemHead.appendChild(h2);
     brands.appendChild(itemHead);
 
@@ -257,6 +257,7 @@ Djinaro.WriteMobileResponseBrands = function (data) {
 
     var itemFoot = document.createElement('div');
     itemFoot.className = 'item';
+    itemFoot.style = 'text-align: center;'
     var button = document.createElement('button');
     button.className = 'ui left labeled icon button';
     button.addEventListener("click", function () {
@@ -299,7 +300,7 @@ Djinaro.WriteResponseBrands = function (data) {
         useOptionText: true,               // Use text from option. Use false if you plan to use images
         hideselect: true,               // Hide Original Select Control
         openmenuClass: 'mcs-open',         // Toggle Open Button Class
-        openmenuText: 'БРЕНД', // Text for button
+        openmenuText: '<i class="angle left icon" style="float:left;"></i>БРЕНД', // Text for button
         openclass: 'open',             // Class added to Toggle button on open
         containerClass: 'mcs-container',    // Class of parent container
         itemClass: 'mcs-item',         // Class of menu items
@@ -322,7 +323,7 @@ Djinaro.WriteResponseBrands = function (data) {
             else if (activeItems.length > 4) {
                 jQuery('#selectcontrolbrand .mcs-open')[0].innerHTML = activeItems.length + ' из ' + items.length + ' выбрано';
             } else {
-                jQuery('#selectcontrolbrand .mcs-open')[0].innerHTML = 'БРЕНД';
+                jQuery('#selectcontrolbrand .mcs-open')[0].innerHTML = '<i class="angle left icon" style="float:left;"></i>БРЕНД';
             }
             Djinaro.filterByGoods();
         }
@@ -338,7 +339,7 @@ Djinaro.WriteMobileResponseSizes = function (data) {
         Djinaro.setDisplayElement('right-menu-main', 'block');
     });
     var h2 = document.createElement('h2');
-    h2.innerHTML = 'РАЗМЕР';
+    h2.innerHTML = '<i class="angle left icon" style="float:left;"></i>РАЗМЕР';
     itemHead.appendChild(h2);
     sizes.appendChild(itemHead);
 
@@ -366,6 +367,7 @@ Djinaro.WriteMobileResponseSizes = function (data) {
 
     var itemFoot = document.createElement('div');
     itemFoot.className = 'item';
+    itemFoot.style = "text-align: center;"
     var button = document.createElement('button');
     button.className = 'ui left labeled icon button';
     button.addEventListener("click", function () {
@@ -407,7 +409,7 @@ Djinaro.WriteResponseSizes = function (data) {
         useOptionText: true,               // Use text from option. Use false if you plan to use images
         hideselect: true,               // Hide Original Select Control
         openmenuClass: 'mcs-open',         // Toggle Open Button Class
-        openmenuText: 'РАЗМЕР', // Text for button
+        openmenuText: 'РАЗМЕР<i class="angle right icon" style="float:right;"></i>', // Text for button
         openclass: 'open',             // Class added to Toggle button on open
         containerClass: 'mcs-container',    // Class of parent container
         itemClass: 'mcs-item',         // Class of menu items
@@ -430,7 +432,7 @@ Djinaro.WriteResponseSizes = function (data) {
             else if (activeItems.length > 5) {
                 jQuery('#selectcontrolsize .mcs-open')[0].innerHTML = activeItems.length + ' из ' + items.length + ' выбрано';
             } else {
-                jQuery('#selectcontrolsize .mcs-open')[0].innerHTML = 'РАЗМЕР';
+                jQuery('#selectcontrolsize .mcs-open')[0].innerHTML = '<i class="angle left icon" style="float:left;"></i>РАЗМЕР';
             }
             Djinaro.filterByGoods();
         }
