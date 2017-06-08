@@ -466,6 +466,7 @@
     <Content Include="img\demo\slider\air_1920x800.jpg" />
     <Content Include="img\theme\hole-2038430_640.png" />
     <Content Include="img\theme\close.png" />
+    <Content Include="img\theme\logo_big.jpg" />
     <Content Include="img\theme\logo_n.png" />
     <Content Include="img\theme\logo_old.png" />
     <Content Include="img\theme\reload.gif" />

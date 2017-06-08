@@ -144,14 +144,15 @@
             <div class="item toggle-button" id="toggle-left">
                 <i class="sidebar icon"></i>
             </div>
-            <div class="item m-title">
-                <div class="ui search">
-                    <div class="ui icon input">
-                        <input class="prompt" type="text" placeholder="Поиск...">
-                        <i class="search icon"></i>
-                    </div>
-                    <div class="results"></div>
+            <div class="item m-title" id="m-title" style="background: url(../../img/theme/logo_big.jpg) no-repeat;background-size: cover;background-position: center;">
+                <div class=" ui search" style="width: 100%;">
+                <div class="ui icon input" style="width: 100%;">
+                    <input class="prompt" type="text" name="search-terms" id="search-terms" placeholder="Поиск..."
+                           style="width: 100%; font-weight: 700; border: none; background-color: rgba(255, 255, 255, 0.7);">
+                    <i class="search icon"></i>
                 </div>
+                <div class="results"></div>
+            </div>
                 <form id="search" class="search-header" action="#" method="post" style="width: 100% !important; display:none;">
                     <div id="label">
                         <label for="search-terms" id="search-label" style="display: none;"></label>
@@ -267,6 +268,11 @@
 
             var height = Djinaro.ByClassName("fixed-header")[0].offsetHeight;
             Djinaro.ById("goods").style.marginTop = height + 'px';
+
+            var widthToggleLeft = Djinaro.ById("toggle-left").offsetWidth;
+            var widthToggleRight = Djinaro.ById("toggle-right").offsetWidth;
+            var widthHeader = Djinaro.ByClassName("fixed-header")[0].offsetWidth;
+            Djinaro.ById("m-title").style.width = (widthHeader - widthToggleLeft - widthToggleRight) + 'px';
 
             jQuery(document).ready(function () {
                 jQuery(window).keydown(function (event) {
