@@ -483,13 +483,26 @@ Djinaro.MobileWriteResponseGoods = function (data) {
     if (parseInt(butonFetch.value) < 2) {
         jQuery('#goods').children().remove();
     }
-    if (data.length > 0) {
+    var row;
+    if (data.length > 0 && data[0] !== "") {
         for (var i = 0; i < data.length; i++) {
-            var row = document.createElement('div');
+            row = document.createElement('div');
             row.className = 'row';
             row.innerHTML = data[i];
             categories.appendChild(row);
         }
+    } else {
+        jQuery('#goods').children().remove();
+        row = document.createElement('div');
+        row.className = 'row';
+        var col1 = document.createElement('div');
+        row.className = 'col-xs-12';
+        var p = document.createElement('p');
+        p.innerHTML = "По заданному фильтру товаров не найдено";
+        p.style = "text-align:center;";
+        col1.appendChild(p);
+        row.appendChild(col1);
+        categories.appendChild(row);
     }
 }
 

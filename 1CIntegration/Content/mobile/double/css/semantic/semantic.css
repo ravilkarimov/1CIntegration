@@ -19,20 +19,26 @@ input[type="password"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   /* mobile firefox too! */
-  ::-webkit-input-placeholder {color:gray;}
-  ::-moz-placeholder          {color:gray;}/* Firefox 19+ */
-  :-moz-placeholder           {color:gray;}/* Firefox 18- */
-  :-ms-input-placeholder      {color:gray;}
 }
-
-.input[type="text"]::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}
-.input[type="text"]::-moz-placeholder                {opacity: 1; transition: opacity 0.3s ease;}
-.input[type="text"]:-moz-placeholder                 {opacity: 1; transition: opacity 0.3s ease;}
-.input[type="text"]:-ms-input-placeholder            {opacity: 1; transition: opacity 0.3s ease;}
-.input[type="text"]:focus::-webkit-input-placeholder {opacity: 0; transition: opacity 0.3s ease;}
-.input[type="text"]:focus::-moz-placeholder          {opacity: 0; transition: opacity 0.3s ease;}
-.input[type="text"]:focus:-moz-placeholder           {opacity: 0; transition: opacity 0.3s ease;}
-.input[type="text"]:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s ease;}
+input::placeholder {
+    color: gray;
+}
+input::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: gray;
+}
+input:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: gray;
+}
+input::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: gray;
+}
+input:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: gray;
+}
 
 /*******************************
          Theme Overrides
