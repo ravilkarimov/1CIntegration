@@ -108,7 +108,10 @@ namespace _1CIntegration.Controllers
                                 "<div class='col-xs-6 boot-mobile' id='shop-product-{0}'> " +
                                 "<div class='shop-product shop-mobile'> " +
                                 "<div class='overlay-wrapper'> " +
-                                "<img src='{1}' alt='{2}'> {5}" +
+                                "<img src='{1}' alt='{2}' async='true'> {5}" +
+                                "<div class='overlay-wrapper-content'><div class='overlay-details'>"+
+                                "<a href='../store/GetImgProduct?good_id={6}' class='color-white {6}' data-lightbox='image'>" + 
+                                "<span class='icon gfx-zoom-in-1'></span></a></div></div> " +
                                 "</div> " +
                                 "<div class='shop-product-info'> " +
                                 "<h5 class='product-name-mobile'>{2}</h5> " +
@@ -119,7 +122,8 @@ namespace _1CIntegration.Controllers
                                 "</div>",
                                 data["good_key"].ToString().Trim(), data["img_path"].ToString().Trim(),
                                 data["good"].ToString().Trim(), data["price"].ToString().Trim(),
-                                sizesString.Substring(0, sizesString.LastIndexOf('|') - 1), spanNew);
+                                sizesString.Substring(0, sizesString.LastIndexOf('|') - 1), spanNew,
+                                data["good_id"].ToString().Trim());
                         itemElement++;
                     }
                     listRow.Add(stringElements);

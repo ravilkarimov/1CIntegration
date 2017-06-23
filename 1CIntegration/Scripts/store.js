@@ -504,6 +504,12 @@ Djinaro.MobileWriteResponseGoods = function (data) {
         row.appendChild(col1);
         categories.appendChild(row);
     }
+
+    if (jQuery().magnificPopup) {
+        jQuery('[data-lightbox=image], .lightbox').each(function (index, element) {
+            jQuery(this).magnificPopup({ type: 'image', mainClass: 'mfp-fade', removalDelay: 300, fixedContentPos: false, fixedBgPos: true, overflowY: 'auto', closeOnContentClick: true });
+        });
+    };
 }
 
 Djinaro.openModalProduct = function() {
