@@ -471,7 +471,7 @@ Djinaro.WriteResponseGoods = function (data) {
 
         if (jQuery().magnificPopup) {
             jQuery('[data-lightbox=image], .lightbox').each(function(index, element) {
-                 jQuery(this).magnificPopup({ type: 'image', mainClass: 'mfp-fade', removalDelay: 300, fixedContentPos: false, fixedBgPos: true, overflowY: 'auto', closeOnContentClick: true });
+                jQuery(this).magnificPopup({ type: 'image', mainClass: 'mfp-fade', removalDelay: 300, fixedContentPos: false, fixedBgPos: true, overflowY: 'auto', closeOnContentClick: true });
             });
         };
     }
@@ -506,10 +506,32 @@ Djinaro.MobileWriteResponseGoods = function (data) {
     }
 
     if (jQuery().magnificPopup) {
-        jQuery('[data-lightbox=image], .lightbox').each(function (index, element) {
-            jQuery(this).magnificPopup({ type: 'image', mainClass: 'mfp-fade', removalDelay: 300, fixedContentPos: false, fixedBgPos: true, overflowY: 'auto', closeOnContentClick: true });
+        jQuery('[data-lightbox=image], .lightbox').each(function(index, element) {
+            jQuery(this).magnificPopup({
+                type: 'image',
+                mainClass: 'mfp-fade',
+                removalDelay: 300,
+                fixedContentPos: false,
+                fixedBgPos: true,
+                overflowY: 'auto',
+                closeOnContentClick: true,
+                callbacks: {
+                    open: function() {
+                        var b1 = document.getElementsByClassName("mfp-close")[0];
+                        var b2 = document.getElementsByTagName("figure")[0];
+                        var b3 = document.getElementsByClassName("mfp-content")[0];
+                        if (b1 && b2) {
+                            b1.parentNode.insertBefore(b2, b1);
+                            b1.style.marginTop = "0px";
+                            if (b3) {
+                                b3.style.padding = "0px";
+                            }
+                        }
+                    }
+                }
+            });
         });
-    };
+    }
 }
 
 Djinaro.openModalProduct = function() {
