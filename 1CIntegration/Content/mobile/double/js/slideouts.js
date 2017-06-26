@@ -50,10 +50,10 @@
     .addEventListener('click', function() {
       rightSlideout.toggle();
       rightMenu.style.zIndex = '0';
-      Djinaro.setDisplayElement('right-menu-main', 'block');
-      Djinaro.setDisplayElement('brands', 'none');
-      Djinaro.setDisplayElement('sizes', 'none');
-      Djinaro.setDisplayElement('pricerange', 'none');
+      Djinaro.setDispEl('right-menu-main', 'block');
+      Djinaro.setDispEl('brands', 'none');
+      Djinaro.setDispEl('sizes', 'none');
+      Djinaro.setDispEl('pricerange', 'none');
     });
 
   rightSlideout.on('close', function () {

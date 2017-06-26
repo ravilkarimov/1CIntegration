@@ -135,19 +135,19 @@
             height: auto;
             backface-visibility: hidden;
             z-index: 1000;
-            background-color: red;
         }
     </style>
     <div class="fixed-header">
-        <header class="ui menu" style="max-height: 50px">
+        <header class="ui menu" style="max-height: 50px;">
             <div class="item toggle-button" id="toggle-left">
                 <i class="sidebar icon"></i>
             </div>
             <div class="item m-title" id="m-title" style="background: url(../../img/theme/logo_big.jpg) no-repeat;background-size: cover;background-position: center;">
                 <div class=" ui search" style="width: 100%;">
                 <div class="ui icon input" style="width: 100%;">
-                    <input class="prompt" type="text" name="search-terms" id="search-terms" placeholder="Поиск..."
+                    <input class="prompt" type="text" name="search-terms" id="search-terms" placeholder=""
                            style="width: 100%; font-weight: 700; border: none; background-color: rgba(255, 255, 255, 0.7);">
+                        <div class="placeholder_text">Поиск...</div>
                     <i class="search icon"></i>
                 </div>
                 <div class="results"></div>
@@ -169,9 +169,9 @@
         </header>
     </div>
     <div class="space-xsmall"></div>
-    <div class="container" style="z-index: 20 !important; padding-top: 10px; background: url(../img/theme/bg/bg-pattern1.png) repeat fixed center 0; background-attachment: inherit;">
+    <div class="container" style="padding-top: 10px; background: url(../img/theme/bg/bg-pattern1.png) repeat fixed center 0; background-attachment: inherit;">
         <div class="row">
-            <div class="col-xs-12" id="goods"></div>
+            <div class="col-xs-12" id="goods" style="z-index: 20 !important; display: block !important; min-height: 200px;"></div>
             <div class="row">
                 <div class="col-xs-12">
                     <button class="fluid ui secondary basic button" value="1" onclick="var butonFetch = Djinaro.ById('fetch-button'); butonFetch.value = parseInt(butonFetch.value) + 1; Djinaro.filterMobileByGoods();" id="fetch-button">Показать еще</button>
@@ -263,6 +263,16 @@
                     if (event.keyCode == 13) {
                         event.preventDefault();
                         return false;
+                    }
+                });
+
+                jQuery('#search-terms').click(function () {
+                    jQuery('.placeholder_text').css({ "display": 'none' });
+                });
+
+                jQuery('input').blur(function() {
+                    if (jQuery('#search-terms').val() === "") {
+                        jQuery('.placeholder_text').css('display', 'block');
                     }
                 });
             });

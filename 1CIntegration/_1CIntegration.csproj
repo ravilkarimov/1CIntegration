@@ -661,6 +661,7 @@
     <Content Include="Scripts\themejs\jquery.magnific-popup.min.js" />
     <Content Include="Scripts\themejs\jQuery.Opie.Tooltip.js" />
     <Content Include="Scripts\themejs\jQuery.Opie.Tooltip.min.js" />
+    <Content Include="Scripts\themejs\jquery.powerful-placeholder.min.js" />
     <Content Include="Scripts\themejs\jquery.queryloader2.js" />
     <Content Include="Scripts\themejs\jquery.queryloader2.min.js" />
     <Content Include="Scripts\themejs\jquery.stellar.js" />

@@ -70,3 +70,13 @@ body {
 width1x {
     width: 100% !important;
 }
+
+
+.placeholder_text{
+    position: absolute;
+    left: 5%;
+    top: 30%;
+    color: gray;
+    font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-weight: 700;
+}
