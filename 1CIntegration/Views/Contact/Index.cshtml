@@ -36,11 +36,18 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
     <script src="~/Scripts/jquery-ui-1.8.24.js"></script>
     <!--script async src="~/Scripts/themejs/jquery.magnific-popup.min.js"></script-->
+    <script src="~/Scripts/device.min.js"></script>
     <script async src="~/Scripts/nouislider/nouislider.min.js"></script>
     <script src="~/Scripts/store.js"></script>
     <script src="~/Scripts/bootstrap-select.js"></script>
     <script src="~/Scripts/multi-column-select.js"></script>
-
+    <script>
+        if (device) {
+            if (device.mobile() || device.iphone()) {
+                window.location.href = "/mcontact";
+            }
+        }
+    </script>
 </head>
 <body class="bg-pattern1" data-spy="scroll" data-target=".navbar">
 
