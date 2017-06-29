@@ -495,7 +495,6 @@ if (gfx('#google-map').length>0) {
 		google.maps.event.addDomListener(window,"resize",function(){var e=n.getCenter();
 		google.maps.event.trigger(n,"resize"),n.setCenter(e)});
 		
-		debugger;
         var g = '<div class="map-marker"><h4 class="color-dark">DJINARO</h4><p>Republic of Tatarstan</p><p>Kazan, Vosstaniya 49</p></div>',
             a = new google.maps.InfoWindow({ content: g }),
             t = new google.maps.MarkerImage("../img/theme/google-marker.png", new google.maps.Size(157, 70),
