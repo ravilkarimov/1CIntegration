@@ -484,6 +484,7 @@ Djinaro.MobileWriteResponseGoods = function (data) {
         jQuery('#goods').children().remove();
     }
     var row;
+
     if (data.length > 0 && data[0] !== "") {
         for (var i = 0; i < data.length; i++) {
             row = document.createElement('div');
@@ -503,6 +504,12 @@ Djinaro.MobileWriteResponseGoods = function (data) {
         col1.appendChild(p);
         row.appendChild(col1);
         categories.appendChild(row);
+    }
+
+    var countProduct = document.getElementsByClassName('shop-product shop-mobile').length;
+    jQuery('#fetch-button').hide();
+    if (countProduct % 50 === 0) {
+        jQuery('#fetch-button').show();
     }
 
     if (jQuery().magnificPopup) {
