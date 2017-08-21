@@ -452,8 +452,8 @@ triggerOnce: true });
 gfx(document).ready(function () {
 
 if (gfx('#google-map-footer').length>0) {
-	var e=new google.maps.LatLng(55.82632, 49.1082678),
-		o={zoom:17,center:new google.maps.LatLng(55.82632, 49.1082678),
+	var e=new google.maps.LatLng(55.8263005, 49.1083132),
+		o={zoom:17,center:new google.maps.LatLng(55.8263005, 49.1083132),
 		mapTypeId:google.maps.MapTypeId.ROADMAP,
 		mapTypeControl:false,
 		scrollwheel:false,
@@ -470,7 +470,7 @@ if (gfx('#google-map-footer').length>0) {
 		var g = '<div class="map-marker"><h4 class="color-dark">DJINARO</h4><p>Republic of Tatarstan</p><p>Kazan, Yamasheva 33B</p></div>', a = new google.maps.InfoWindow({ content: g })
 		,t=new google.maps.MarkerImage("../img/theme/google-marker.png",new google.maps.Size(157,70),
 		new google.maps.Point(0,0),new google.maps.Point(75,50)),
-		i=new google.maps.LatLng(55.82632, 49.1082678),
+		i=new google.maps.LatLng(55.8263005, 49.1083132),
 		p=new google.maps.Marker({position:i,map:n,zIndex:3});
 		google.maps.event.addListener(p,"click",function(){a.open(n,p)}),
 		gfx(".gmap-button").click(function(){gfx("#google-map-footer").slideToggle(300,function(){google.maps.event.trigger(n,"resize"),n.setCenter(e)}),
@@ -480,8 +480,8 @@ if (gfx('#google-map-footer').length>0) {
 
 if (gfx('#google-map').length>0) {
 
-	var e=new google.maps.LatLng(55.82632, 49.1082678),
-		o={zoom:17,center:new google.maps.LatLng(55.82632, 49.1082678),
+	var e=new google.maps.LatLng(55.8263005, 49.1083132),
+		o={zoom:17,center:new google.maps.LatLng(55.8263005, 49.1083132),
 		mapTypeId:google.maps.MapTypeId.ROADMAP,
 		mapTypeControl:false,
 		scrollwheel:false,
@@ -499,7 +499,7 @@ if (gfx('#google-map').length>0) {
             a = new google.maps.InfoWindow({ content: g }),
             t = new google.maps.MarkerImage("../img/theme/google-marker.png", new google.maps.Size(157, 70),
 		new google.maps.Point(0,0),new google.maps.Point(75,50)),
-		i=new google.maps.LatLng(55.82632, 49.1082678),
+		i=new google.maps.LatLng(55.8263005, 49.1083132),
 		p=new google.maps.Marker({position:i,map:n,zIndex:3});
 		google.maps.event.addListener(p,"click",function(){a.open(n,p)}),
 		gfx(".gmap-button").click(function(){gfx("#google-map").slideToggle(300,function(){google.maps.event.trigger(n,"resize"),n.setCenter(e)}),
