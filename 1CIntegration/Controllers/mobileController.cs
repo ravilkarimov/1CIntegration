@@ -56,7 +56,7 @@ namespace _1CIntegration.Controllers
                     " stuff " +
                     "   ( " +
                     "       ( " +
-                    "           SELECT DISTINCT os.size  + ' | ' FROM offers os where os.good_key = g.good_key AND os.amount > 0 FOR XML PATH (''),type  " +
+                    "           SELECT DISTINCT os.size  + ' | ' FROM offers os where os.good_key = g.good_key AND os.amount > 0 AND g.brand_id != 3 FOR XML PATH (''),type  " +
                     "       ).value('.','nvarchar(250)')," +
                     "       1,0,'' " +
                     "   ) as sizes " +
@@ -64,6 +64,7 @@ namespace _1CIntegration.Controllers
                     " INNER JOIN offers o ON g.good_key = o.good_key " +
                     " FULL OUTER JOIN receipts r ON r.good_key = g.good_key " +
                     " WHERE 1 = 1 " +
+                    " AND g.brand_id != 3 " +
                     " AND g.group_id = " + (groups > 0 ? groups : 1) + " " +
                     " AND g.img_path != '' " +
                     " AND o.amount > 0 " +
