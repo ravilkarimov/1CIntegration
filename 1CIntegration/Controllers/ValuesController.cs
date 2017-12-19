@@ -17,7 +17,7 @@ namespace _1CIntegration.Controllers
                     " SELECT gr.group_id, gr.group_name, g.good_id, g.good, g.good_key, g.img_path, MAX(o.price) as price, (CASE WHEN o.amount > 0 THEN 'Есть в наличии' ELSE 'Нет в наличии' END) as amount " +
                     " FROM goods g, groups gr, offers o " +
                     " WHERE 1 = 1 " +
-                    " AND g.brand_id != 3" +
+                    " AND g.brand_id != 3 AND g.good not like '%NB%'" +
                     " AND g.group_id = gr.group_id " +
                     " AND g.good_key = o.good_key " +
                     " AND g.group_id = 1 " +
@@ -44,7 +44,7 @@ namespace _1CIntegration.Controllers
                     " SELECT gr.group_id, gr.group_name, g.good_id, g.good, g.img_path, MAX(o.price) as price, (CASE WHEN o.amount > 0 THEN 'Есть в наличии' ELSE 'Нет в наличии' END) as amount " +
                     " FROM goods g, groups gr, offers o " +
                     " WHERE 1 = 1 " +
-                    " AND g.brand_id != 3" +
+                    " AND g.brand_id != 3 AND g.good not like '%NB%'" +
                     " AND g.group_id = gr.group_id " +
                     " AND g.good_key = o.good_key " +
                     " AND g.group_id = 1 " +

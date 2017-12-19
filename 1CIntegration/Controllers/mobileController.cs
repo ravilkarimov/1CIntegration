@@ -64,7 +64,7 @@ namespace _1CIntegration.Controllers
                     " INNER JOIN offers o ON g.good_key = o.good_key " +
                     " FULL OUTER JOIN receipts r ON r.good_key = g.good_key " +
                     " WHERE 1 = 1 " +
-                    " AND g.brand_id != 3 " +
+                    " AND g.brand_id != 3 AND g.good not like 'NB%'" +
                     " AND g.group_id = " + (groups > 0 ? groups : 1) + " " +
                     " AND g.img_path != '' " +
                     " AND o.amount > 0 " +
