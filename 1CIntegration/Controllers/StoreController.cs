@@ -108,7 +108,7 @@ namespace _1CIntegration.Controllers
                 var sql = "SELECT gr.group_id, gr.group_name, COUNT(*) as count " +
                           "FROM groups gr, goods g " +
                           "WHERE gr.group_id = g.group_id " +
-                          "AND g.brand_id != 3 AND g.good not like 'NB%'" +
+                          "AND g.brand_id != 3 AND g.good not like '%NB%'" +
                           "AND gr.group_id in (1,2,3)  " +
                           "GROUP BY 1,2 " +
                           "ORDER BY group_name";
@@ -132,7 +132,7 @@ namespace _1CIntegration.Controllers
                 var sql = "SELECT b.brand_id, b.brand, COUNT(*) as count " +
                           "FROM d_brands b, goods g " +
                           "WHERE b.brand_id = g.brand_id " +
-                          "AND g.brand_id != 3 AND g.good not like 'NB%'" +
+                          "AND g.brand_id != 3 AND g.good not like '%NB%'" +
                           "AND g.group_id in (1,2,3)  " +
                           "GROUP BY b.brand_id, b.brand " +
                           "ORDER BY brand";
@@ -256,7 +256,7 @@ namespace _1CIntegration.Controllers
                     " WHERE 1 = 1 " +
                     " AND g.group_id = " + (groups > 0 ? groups : 1) + " " +
                     " AND g.img_path != '' " +
-                    " AND g.brand_id != 3 AND g.good not like 'NB%'" +
+                    " AND g.brand_id != 3 AND g.good not like '%NB%'" +
                     " AND o.amount > 0 " +
                     " AND o.price >= " + price_1 + " AND price <= " + price_2 + " " +
                     filter +
@@ -322,7 +322,7 @@ namespace _1CIntegration.Controllers
             {
                 string filter = term.Split(new Char[] {',', ' '}).Aggregate(" 1 = 1 ", (current, filter_word) => current + string.Format(" OR upper(good) LIKE '{0}%' OR upper(good) LIKE '%{0}%' OR upper(good) LIKE '%{0}' ", filter_word.ToUpper()));
 
-                var sql = "SELECT DISTINCT good FROM goods WHERE " + filter + " AND g.brand_id != 3 AND g.good not like 'NB%' ORDER BY good ASC ";
+                var sql = "SELECT DISTINCT good FROM goods WHERE " + filter + " AND g.brand_id != 3 AND g.good not like '%NB%' ORDER BY good ASC ";
 
                 var resultQuery = SQLiteProvider.OpenSql(sql);
 
