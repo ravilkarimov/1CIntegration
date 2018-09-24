@@ -282,7 +282,7 @@ namespace _1CIntegration.Controllers
                             if (data == null) continue;
                             var pathMinImg = data["img_path"].ToString().Replace(".jpg", "_min.jpg");
                             var isFile = System.IO.File.Exists(path_web_data + "/" + pathMinImg);
-                            data["img_path"] = string.Format("../webdata/{0}", (isFile ? pathMinImg : data["img_path"].ToString()));
+                            data["img_path"] = string.Format("./webdata/{0}", (isFile ? pathMinImg : data["img_path"].ToString()));
 
                             var spanNew = (data["new_good"].AsInteger() == 1
                                 ? "<span class='product-label'>NEW</span>"

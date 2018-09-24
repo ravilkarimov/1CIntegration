@@ -610,7 +610,7 @@ Djinaro.getShoes = function (groups, sizes, brands, search, price_1, price_2, fe
         if (device.windows()) {
             //Полная версия
             jQuery.ajax({
-                url: '/Store/getshoes',
+                url: './Store/getshoes',
                 type: 'GET',
                 async: true,
                 data: {
@@ -660,7 +660,7 @@ Djinaro.getShoes = function (groups, sizes, brands, search, price_1, price_2, fe
 
 Djinaro.getShoesCount = function (groups, sizes, count, brands) {
     jQuery.ajax({
-        url: '/Store/getshoescount',
+		url: './Store/getshoescount',
         type: 'GET',
         async: true,
         dataType: 'json',
@@ -680,7 +680,7 @@ Djinaro.getShoesCount = function (groups, sizes, count, brands) {
 
 Djinaro.getAllGroups = function () {
     jQuery.ajax({
-        url: '/Store/getgroups',
+		url: './Store/getgroups',
         type: 'GET',
         async: true,
         dataType: 'json',
@@ -695,7 +695,7 @@ Djinaro.getAllGroups = function () {
 
 Djinaro.getAllBrands = function () {
     jQuery.ajax({
-        url: '/Store/getbrands',
+		url: './Store/getbrands',
         type: 'GET',
         async: true,
         dataType: 'json',
@@ -728,7 +728,7 @@ Djinaro.getSizesByGood = function (good_key) {
         title.innerHTML = 'Размеры в наличии:  ';
         divRating.appendChild(title);
         jQuery.ajax({
-            url: '/Store/getsizesgood',
+			url: './Store/getsizesgood',
             type: 'GET',
             async: true,
             dataType: 'json',
@@ -773,7 +773,7 @@ Djinaro.getSizesByGood = function (good_key) {
 
 Djinaro.getAllSizes = function() {
     jQuery.ajax({
-        url: '/Store/getsizes',
+		url: './Store/getsizes',
         type: 'GET',
         async: true,
         dataType: 'json',
